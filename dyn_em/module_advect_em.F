@@ -337,7 +337,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
@@ -403,7 +403,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_6_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -467,7 +467,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -622,7 +622,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
@@ -688,7 +688,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
         ! (j > j_start) will miss the u(,,jds) tendency
    ENDDO j_loop_y_flux_5_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -752,7 +752,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -883,7 +883,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector collapse(2) private(vel)
@@ -977,7 +977,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
 
      IF ( (j < j_start_f) .and. degrade_ys) THEN
@@ -1017,7 +1017,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -1109,7 +1109,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector collapse(2) private(vel)
@@ -1202,7 +1202,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
 
      IF ( (j < j_start_f) .and. degrade_ys) THEN
@@ -1242,7 +1242,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
      ! (j > j_start) will miss the u(,,jds) tendency
   ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
      IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -1306,7 +1306,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       ENDDO
 
       IF ( specified .AND. its .LE. ids+1 .AND. .NOT. config_flags%periodic_x ) THEN
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector private(i,mrdx,ub)
         DO k=kts,ktf
@@ -1321,7 +1321,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
         ENDDO
       ENDIF
       IF ( specified .AND. ite .GE. ide-1 .AND. .NOT. config_flags%periodic_x ) THEN
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector private(i,mrdx,ub)
         DO k=kts,ktf
@@ -1379,7 +1379,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
         j_start = jts
         j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector private(ub)
         DO k = kts, ktf
@@ -1396,7 +1396,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
         j_start = jts
         j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = j_start, j_end
 !$acc loop vector private(ub)
         DO k = kts, ktf
@@ -1496,7 +1496,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
    vert_order_test : IF (vert_order == 6) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -1546,7 +1546,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
     ELSE IF (vert_order == 5) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -1596,7 +1596,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
     ELSE IF (vert_order == 4) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -1636,7 +1636,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
     ELSE IF (vert_order == 3) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -1676,7 +1676,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
     ELSE IF (vert_order == 2) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -1923,7 +1923,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
@@ -1997,7 +1997,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_6_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
@@ -2065,7 +2065,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -2218,7 +2218,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
@@ -2292,7 +2292,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
         ! to jde [N pole], i.e., on v grid) must be zero at poles
         ! [tendency(jds) and tendency(jde)=0]
    ENDDO j_loop_y_flux_5_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
@@ -2360,7 +2360,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -2513,7 +2513,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
@@ -2553,7 +2553,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
@@ -2620,7 +2620,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  3rd or 4th order flux
@@ -2734,7 +2734,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
 
       IF ((j == j_start) .and. degrade_ys) THEN
@@ -2774,7 +2774,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       ! to jde [N pole], i.e., on v grid) must be zero at poles
       ! [tendency(jds) and tendency(jde)=0]
    ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
       IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2)
@@ -2841,7 +2841,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  3rd or 4th order flux
@@ -3078,7 +3078,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    IF( (config_flags%open_xs) .and. (its == ids)) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
          mrdx=msfvy(its,j)*rdx       ! ADT eqn 45, 1st term on RHS
@@ -3101,7 +3101,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    ENDIF
 
    IF( (config_flags%open_xe) .and. (ite == ide) ) THEN
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
          mrdx=msfvy(ite-1,j)*rdx     ! ADT eqn 45, 1st term on RHS
@@ -3155,7 +3155,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     vert_order_test : IF (vert_order == 6) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -3210,7 +3210,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
    ELSE IF (vert_order == 5) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -3265,7 +3265,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     ELSE IF (vert_order == 4) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -3310,7 +3310,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     ELSE IF (vert_order == 3) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -3356,7 +3356,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
     ELSE IF (vert_order == 2) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -3606,7 +3606,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -3675,7 +3675,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_6_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -3738,7 +3738,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -3889,7 +3889,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -3958,7 +3958,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_5_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -4021,7 +4021,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -4154,7 +4154,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  3rd or 4th order flux
@@ -4237,7 +4237,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
 
     IF ((j < j_start_f) .and. degrade_ys) THEN
@@ -4278,7 +4278,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -4363,7 +4363,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  3rd or 4th order flux
@@ -4446,7 +4446,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
 
     IF ((j < j_start_f) .and. degrade_ys) THEN
@@ -4487,7 +4487,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
     ! (latitudes are as for u grid, longitudes are displaced)
     ! Therefore: flow is only from one side for points next to poles
   ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
     IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -4613,7 +4613,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    IF( (config_flags%open_xs) .and. (its == ids) ) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub)
        DO k = kts, ktf
@@ -4631,7 +4631,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    IF( (config_flags%open_xe) .and. (ite == ide) ) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub)
        DO k = kts, ktf
@@ -4697,7 +4697,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
     vert_order_test : IF (vert_order == 6) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -4748,7 +4748,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 5) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -4799,7 +4799,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 4) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -4838,7 +4838,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 3) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -4877,7 +4877,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 2) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -5121,7 +5121,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
@@ -5228,7 +5228,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_6_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -5291,7 +5291,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -5467,7 +5467,7 @@ ELSE IF (horz_order == 5 ) THEN
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
@@ -5574,7 +5574,7 @@ ELSE IF (horz_order == 5 ) THEN
         ! (latitudes are as for u grid, longitudes are displaced)
         ! Therefore: flow is only from one side for points next to poles
       ENDDO j_loop_y_flux_5_flux
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5 : DO j = j_start, j_end+1
         IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -5637,7 +5637,7 @@ ELSE IF (horz_order == 5 ) THEN
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th or 6th order flux
@@ -5797,7 +5797,7 @@ ELSE IF ( horz_order == 4 ) THEN
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector collapse(2) private(vel)
@@ -5896,7 +5896,7 @@ ELSE IF ( horz_order == 4 ) THEN
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
 
        IF ((j < j_start_f) .and. degrade_ys)  THEN
@@ -5967,7 +5967,7 @@ ELSE IF ( horz_order == 4 ) THEN
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
     ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -6053,7 +6053,7 @@ ELSE IF ( horz_order == 3 ) THEN
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(fqx) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector collapse(2) private(vel)
@@ -6152,7 +6152,7 @@ ELSE IF ( horz_order == 3 ) THEN
       fqy3 = 0.
 !$acc end kernels
 #endif
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
 
        IF ((j < j_start_f) .and. degrade_ys)  THEN
@@ -6223,7 +6223,7 @@ ELSE IF ( horz_order == 3 ) THEN
        ! (latitudes are as for u grid, longitudes are displaced)
        ! Therefore: flow is only from one side for points next to poles
     ENDDO
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
        IF ( config_flags%polar .AND. (j == jds+1) ) THEN
 !$acc loop vector collapse(2) private(mrdy)
@@ -6271,7 +6271,7 @@ ELSE IF (horz_order == 2 ) THEN
         IF ( config_flags%open_xe .or. specified ) i_end   = MIN(ide-2,ite)
       ENDIF
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 !$acc loop vector collapse(2) private(mrdx)
       DO k=kts+1,ktf
@@ -6310,7 +6310,7 @@ ELSE IF (horz_order == 2 ) THEN
       IF ( config_flags%open_ys .or. specified .or. config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified .or. config_flags%polar ) j_end   = MIN(jde-2,jte)
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 !$acc loop vector collapse(2) private(mrdy)
       DO k=kts+1,ktf
@@ -6405,7 +6405,7 @@ ELSE IF (horz_order == 2 ) THEN
 
    IF( (config_flags%open_xs) .and. (its == ids)) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub,uw)
        DO k = kts+1, ktf
@@ -6425,7 +6425,7 @@ ELSE IF (horz_order == 2 ) THEN
        ENDDO
 
        k = ktf+1
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 
          uw = 0.5*( (2.-fzm(k-1))*(ru(its,k-1,j)+ru(its+1,k-1,j))   &
@@ -6445,7 +6445,7 @@ ELSE IF (horz_order == 2 ) THEN
 
    IF( (config_flags%open_xe) .and. (ite == ide)) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub,uw)
        DO k = kts+1, ktf
@@ -6465,7 +6465,7 @@ ELSE IF (horz_order == 2 ) THEN
        ENDDO
 
        k = ktf+1
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 
          uw = 0.5*( (2.-fzm(k-1))*(ru(ite-1,k-1,j)+ru(ite,k-1,j))    &
@@ -6574,7 +6574,7 @@ ELSE IF (horz_order == 2 ) THEN
 
     vert_order_test : IF (vert_order == 6) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -6634,7 +6634,7 @@ ELSE IF (horz_order == 2 ) THEN
 
  ELSE IF (vert_order == 5) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -6693,7 +6693,7 @@ ELSE IF (horz_order == 2 ) THEN
 
  ELSE IF (vert_order == 4) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -6740,7 +6740,7 @@ ELSE IF (horz_order == 2 ) THEN
 
  ELSE IF (vert_order == 3) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -6788,7 +6788,7 @@ ELSE IF (horz_order == 2 ) THEN
 
  ELSE IF (vert_order == 2) THEN    
 
-!$acc parallel loop gang vector_length(256) private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(vflux) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
     ! GPU: per-gang copy of pre-loop initialisation of private scratch
 !$acc loop vector
@@ -7232,7 +7232,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 6th order
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_6 : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -7369,7 +7369,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th order flux
@@ -7522,7 +7522,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 5th order
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_5 : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -7659,7 +7659,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  5th order flux
@@ -7810,7 +7810,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 4th order
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_4 : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -7905,7 +7905,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  4th order flux
@@ -8016,7 +8016,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 3rd order
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_3 : DO j = j_start, j_end+1
 
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
@@ -8111,7 +8111,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !  4th order flux
@@ -8271,7 +8271,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    IF( (config_flags%open_xs) .and. (its == ids) ) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub)
        DO k = kts, ktf
@@ -8289,7 +8289,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    IF( (config_flags%open_xe) .and. (ite == ide) ) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, j_end
 !$acc loop vector private(ub)
        DO k = kts, ktf
@@ -8389,7 +8389,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     vert_order_test : IF (vert_order == 6) THEN    
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector
@@ -8478,7 +8478,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     ELSE IF (vert_order == 5) THEN    
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector
@@ -8567,7 +8567,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     ELSE IF (vert_order == 4) THEN    
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector
@@ -8622,7 +8622,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     ELSE IF (vert_order == 3) THEN    
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector
@@ -8678,7 +8678,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
    ELSE IF (vert_order == 2) THEN    
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
 !$acc loop vector

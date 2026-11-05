@@ -129,7 +129,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     IF ((rk_step == 1) ) THEN
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -140,7 +140,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !$acc loop vector collapse(2)
       DO k=k_start, k_end
@@ -150,7 +150,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_endv
 !$acc loop vector collapse(2)
       DO k=k_start, k_end
@@ -160,7 +160,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !$acc loop vector collapse(2)
       DO k=k_start, k_end
@@ -170,7 +170,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !$acc loop vector collapse(2)
       DO k=k_start, min(kde,kte)
@@ -181,7 +181,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -193,7 +193,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_endv
 !$acc loop vector
     DO i=i_start, i_end
@@ -201,7 +201,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -212,7 +212,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     ELSE
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -224,7 +224,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_endv
 !$acc loop vector
     DO i=i_start, i_end
@@ -232,7 +232,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -246,7 +246,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
 
     ! set up the small timestep variables
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !$acc loop vector
       DO i=i_start, i_end
@@ -255,7 +255,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector collapse(2)
     DO k=k_start, k_end
@@ -265,7 +265,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector collapse(2)
     DO k=k_start, k_end
@@ -277,7 +277,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_endv
 !$acc loop vector collapse(2)
     DO k=k_start, k_end
@@ -290,7 +290,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !$acc loop vector collapse(2)
     DO k=k_start, k_end
@@ -301,7 +301,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j=j_start, j_end
 !    DO k=k_start, min(kde,kte)
 !$acc loop vector collapse(2)
@@ -316,7 +316,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     ENDDO
     ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start, j_end
 !      DO k=k_start, min(kde,kte)
 !$acc loop vector collapse(2)
@@ -419,7 +419,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
 
 !    addition of time level t back into variables
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_endv
 !$acc loop vector collapse(2)
   DO k = kds, kde-1
@@ -430,7 +430,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
 !$acc loop vector collapse(2)
   DO k = kds, kde-1
@@ -441,7 +441,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
 !$acc loop vector collapse(2)
   DO k = kds, kde
@@ -455,7 +455,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
 
   IF ( rk_step < rk_order ) THEN
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector collapse(2)
     DO k = kds, kde-1
@@ -466,7 +466,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
     ENDDO
   ELSE
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
 !$acc loop vector collapse(2)
     DO k = kds, kde-1
@@ -478,7 +478,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
     ENDDO
   ENDIF
 
-!$acc parallel loop gang vector_length(256) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
 !$acc loop vector
   DO i = i_start, i_end
@@ -682,7 +682,7 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
       k_end   = kte-1
       lid_flag=1
       IF(top_lid)lid_flag=0
-!$acc parallel loop gang vector_length(256) private(cof) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(cof) async(wrf_gpu_q) if(wrf_gpu_on)
      outer_j_loop:  DO j = j_start, j_end
         k = kde-1
 !$acc loop vector
@@ -965,7 +965,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ELSE
 #endif
-!$acc parallel loop gang vector_length(256) private(dpxy,dpn,mudf_xy) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(dpxy,dpn,mudf_xy) async(wrf_gpu_q) if(wrf_gpu_on)
   u_outer_j_loop: DO j = j_start, j_end
 !$acc loop vector collapse(2)
    DO k = k_start, k_end
@@ -1045,7 +1045,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
    ENDDO
    ENDDO u_outer_j_loop
 ! now v
-!$acc parallel loop gang vector_length(256) private(dpxy,dpn,mudf_xy) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(dpxy,dpn,mudf_xy) async(wrf_gpu_q) if(wrf_gpu_on)
   v_outer_j_loop: DO j = j_start_v_tend, j_end_v_tend
 !$acc loop vector collapse(2)
    DO k = k_start, k_end
@@ -1293,7 +1293,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
    ENDDO
   ELSE
 #endif
-!$acc parallel loop gang vector_length(256) private(dmdt,dvdxi) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(dmdt,dvdxi) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end
 !$acc loop vector
      DO i=i_start, i_end
@@ -1414,7 +1414,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
    ENDDO
   ELSE
 #endif
-!$acc parallel loop gang vector_length(256) private(wdtn) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(wdtn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
 !$acc loop vector
      DO i=i_start, i_end
@@ -1749,7 +1749,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ENDDO
   ELSE
 #endif
-!$acc parallel loop gang vector_length(256) private(rhs,wdwn,msft_inv) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang private(rhs,wdwn,msft_inv) async(wrf_gpu_q) if(wrf_gpu_on)
   j_loop_w:  DO j = j_start, j_end
 !$acc loop vector
     DO i=i_start, i_end
