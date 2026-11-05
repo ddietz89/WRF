@@ -442,6 +442,12 @@ CONTAINS
 !      sf_ocean_physics = 2
 !------------------------------------------------------------------
    IMPLICIT NONE
+#ifdef WRF_SEG_TIMERS
+   INTEGER(8) :: sft_c0, sft_c1, sft_cr
+   REAL(8), SAVE :: sft_acc(3) = 0.d0
+   INTEGER, SAVE :: sft_n = 0
+   CHARACTER(LEN=128) :: sft_msg
+#endif
 !======================================================================
 ! Grid structure in physics part of WRF
 !----------------------------------------------------------------------
@@ -2059,6 +2065,9 @@ CONTAINS
      ENDDO
      !$OMP END PARALLEL DO
 
+#ifdef WRF_SEG_TIMERS
+     CALL SYSTEM_CLOCK( sft_c0, sft_cr )
+#endif
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij, i, j, k )
      DO ij = 1 , num_tiles
@@ -2618,6 +2627,9 @@ CONTAINS
 
      ENDDO
      !$OMP END PARALLEL DO
+#ifdef WRF_SEG_TIMERS
+     CALL SYSTEM_CLOCK( sft_c1 ) ; sft_acc(1) = sft_acc(1) + DBLE(sft_c1-sft_c0)/DBLE(sft_cr) ; sft_c0 = sft_c1
+#endif
 
      IF (ISFFLX.EQ.0 ) GOTO 430
      !$OMP PARALLEL DO   &
@@ -4479,6 +4491,9 @@ CONTAINS
 
      ENDDO
      !$OMP END PARALLEL DO
+#ifdef WRF_SEG_TIMERS
+     CALL SYSTEM_CLOCK( sft_c1 ) ; sft_acc(2) = sft_acc(2) + DBLE(sft_c1-sft_c0)/DBLE(sft_cr) ; sft_c0 = sft_c1
+#endif
 
  430 CONTINUE
 
@@ -4615,6 +4630,16 @@ CONTAINS
      END IF
 
    ENDIF run_param_if
+#ifdef WRF_SEG_TIMERS
+   IF ( sft_acc(1) + sft_acc(2) > 0.d0 ) THEN
+     CALL SYSTEM_CLOCK( sft_c1 ) ; sft_acc(3) = sft_acc(3) + DBLE(sft_c1-sft_c0)/DBLE(sft_cr)
+     sft_n = sft_n + 1
+     IF ( MOD(sft_n,20) == 0 ) THEN
+       WRITE(sft_msg,'(A,I6,3F9.3)') 'SFCTIME sfclay/lsm/rest ', sft_n, sft_acc
+       CALL wrf_message( sft_msg )
+     ENDIF
+   ENDIF
+#endif
 
    END SUBROUTINE surface_driver
 
