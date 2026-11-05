@@ -168,6 +168,7 @@
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
@@ -220,6 +221,7 @@
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
@@ -271,6 +273,7 @@
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
@@ -322,6 +325,7 @@
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
           DO j = js, je
           DO k = ks, ke
@@ -480,12 +484,34 @@
 !ijk
       SUBROUTINE f_pack_int_ijk ( inbuf, outbuf, js, je, ks, ke,              &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+        USE rsl_gpu_ctl
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER inbuf(ims:ime,jms:jme,kms:kme), outbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nj_, nn_
+        ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
+          ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          DO k = ks, ke
+          DO j = js, je
+          DO i = is, ie
+            outbuf((k-ks)*nj_*ni_ + (j-js)*ni_ + (i-is) + 1) = inbuf(i,j,k)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -510,12 +536,34 @@
      
       SUBROUTINE f_pack_lint_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+        USE rsl_gpu_ctl
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER*8 inbuf(ims:ime,jms:jme,kms:kme), outbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nj_, nn_
+        ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
+          ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          DO k = ks, ke
+          DO j = js, je
+          DO i = is, ie
+            outbuf((k-ks)*nj_*ni_ + (j-js)*ni_ + (i-is) + 1) = inbuf(i,j,k)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -540,12 +588,34 @@
      
       SUBROUTINE f_unpack_int_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+        USE rsl_gpu_ctl
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER outbuf(ims:ime,jms:jme,kms:kme), inbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nj_, nn_
+        ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
+          ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          DO k = ks, ke
+          DO j = js, je
+          DO i = is, ie
+            outbuf(i,j,k) = inbuf((k-ks)*nj_*ni_ + (j-js)*ni_ + (i-is) + 1)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
@@ -570,12 +640,34 @@
      
       SUBROUTINE f_unpack_lint_ijk ( inbuf, outbuf, js, je, ks, ke,            &
      &                is, ie, jms, jme, kms, kme, ims, ime, curs ) 
+#ifdef _OPENACC
+        USE openacc
+        USE rsl_gpu_ctl
+#endif
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER*8 outbuf(ims:ime,jms:jme,kms:kme), inbuf(*)
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
+#ifdef _OPENACC
+        INTEGER ni_, nj_, nn_
+        ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
+        IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
+          ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          DO k = ks, ke
+          DO j = js, je
+          DO i = is, ie
+            outbuf(i,j,k) = inbuf((k-ks)*nj_*ni_ + (j-js)*ni_ + (i-is) + 1)
+          ENDDO
+          ENDDO
+          ENDDO
+          curs = nn_
+          RETURN
+        ENDIF
+#endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
         p = 1
