@@ -261,6 +261,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, EXTERNAL :: wrf_gpu_h1chk
    LOGICAL, EXTERNAL :: wrf_gpu_async_mode
    LOGICAL, EXTERNAL :: gpu_p8wchk
+   LOGICAL, EXTERNAL :: gpu_resident_flag
    DOUBLE PRECISION :: h1ck(2,10)
    INTEGER :: ick
    CHARACTER(LEN=8), PARAMETER :: h1ck_name(10) = (/ 'alt     ','p       ','ph_2    ','rho     ','t_2     ', &
@@ -512,7 +513,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! Host blocks (physics, microphysics, after_all_rk_steps) run with wrf_gpu_on=.false. and are bracketed by
    ! update self / update device of the fields the GPU writes / the block writes (lists from the field trace).
    IF ( .NOT. gpu_resident_in ) THEN
-#     include "gpu_enter_data.inc"
+      ! (module_integrate may already have done this concurrently with the t=0 history write)
+      IF ( .NOT. gpu_resident_flag(0) ) CALL gpu_residency_enter( grid )
       gpu_resident_in = .TRUE.
       CALL wrf_message( 'GPU residency: grid fields entered on the device' )
       wrf_gpu_q = -1 ; IF ( wrf_gpu_async_mode() ) wrf_gpu_q = 1
@@ -6199,6 +6201,41 @@ SUBROUTINE gpu_sfc_catchup( grid )
 !$acc update self(grid%qsfc) if(associated(grid%qsfc))
 END SUBROUTINE gpu_sfc_catchup
 
+! Device residency: enter the grid fields on the device once (solve_em's first call, or module_integrate concurrently
+! with the t=0 history write - env WRF_GPU_RESPREFETCH, default 1). gpu_resident_flag(0) queries, (1) sets.
+SUBROUTINE gpu_residency_enter( grid )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   LOGICAL, EXTERNAL :: gpu_resident_flag
+   LOGICAL :: dummy
+#  include "gpu_enter_data.inc"
+   dummy = gpu_resident_flag(1)
+END SUBROUTINE gpu_residency_enter
+
+LOGICAL FUNCTION gpu_resident_flag( mode )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: mode
+   LOGICAL, SAVE :: done = .FALSE.
+!$OMP CRITICAL (gpu_resident_flag_cs)
+   IF ( mode == 1 ) done = .TRUE.
+   gpu_resident_flag = done
+!$OMP END CRITICAL (gpu_resident_flag_cs)
+END FUNCTION gpu_resident_flag
+
+LOGICAL FUNCTION gpu_resprefetch()
+   IMPLICIT NONE
+   INTEGER, SAVE :: mode = -1
+   CHARACTER(LEN=8) :: v
+   INTEGER :: st
+   IF ( mode < 0 ) THEN
+      mode = 1
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_RESPREFETCH', v, STATUS=st )
+      IF ( st == 0 ) READ( v, *, IOSTAT=st ) mode
+   ENDIF
+   gpu_resprefetch = mode > 0
+END FUNCTION gpu_resprefetch
+
 SUBROUTINE gpu_pull_for_output( grid )
    USE module_domain, ONLY : domain
    USE module_surface_driver, ONLY : wrf_gpu_sfc_hoststale
@@ -6206,12 +6243,14 @@ SUBROUTINE gpu_pull_for_output( grid )
    USE module_streams, ONLY : MAX_WRF_ALARMS
    USE openacc, ONLY : acc_is_present
    IMPLICIT NONE
+   LOGICAL, EXTERNAL :: gpu_resident_flag
    TYPE(domain), INTENT(INOUT) :: grid
    INTEGER :: ia, rc
    LOGICAL :: any_ring
    INTEGER, EXTERNAL :: wrf_gpu_xfer
    IF ( .NOT. ASSOCIATED(grid%u_2) ) RETURN
-   IF ( .NOT. acc_is_present(grid%u_2) ) RETURN      ! before the first solve_em: host copies are the only copies
+   ! before (or while) the grid is entered on the device the host copies are the only copies
+   IF ( .NOT. gpu_resident_flag(0) ) RETURN
    any_ring = .FALSE.
    DO ia = 1, MAX_WRF_ALARMS
       IF ( grid%alarms_created(ia) ) THEN

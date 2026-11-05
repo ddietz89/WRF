@@ -29,6 +29,9 @@ RECURSIVE SUBROUTINE integrate ( grid )
 #endif
 
    IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL, EXTERNAL :: gpu_resident_flag, gpu_resprefetch
+#endif
 
    !  Input data.
 
@@ -372,7 +375,21 @@ ENDIF ! active_this_task
 #endif
 
 IF ( grid%active_this_task ) THEN
+#ifdef WRF_GPU_RESIDENT
+              ! first step: enter the grid on the device (thread 2) while the t=0 history is written (thread 1)
+              IF ( .NOT. gpu_resident_flag(0) .AND. gpu_resprefetch() ) THEN
+!$OMP PARALLEL SECTIONS NUM_THREADS(2)
+!$OMP SECTION
+                CALL med_before_solve_io ( grid , config_flags )
+!$OMP SECTION
+                CALL gpu_residency_enter ( grid )
+!$OMP END PARALLEL SECTIONS
+              ELSE
+                CALL med_before_solve_io ( grid , config_flags )
+              ENDIF
+#else
               CALL med_before_solve_io ( grid , config_flags )
+#endif
 ENDIF ! active_this_task
 
 #if ( WRFPLUS == 1 )
