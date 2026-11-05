@@ -289,7 +289,12 @@ BENCH_START(rad_driver_tim)
      &        ,JULYR=grid%julyr        ,LW_PHYSICS=config_flags%ra_lw_physics        &
      &        ,NCFRCV=grid%ncfrcv      ,NCFRST=grid%ncfrst      ,NPHS=1              &
      &        ,o3input=config_flags%o3input     ,O3rad=grid%o3rad                    &
+#ifdef WRF_GPU
+! first element (sequence association): the (contiguous) section was copied in/out on every call (~10 ms)
+     &        ,aer_opt=config_flags%aer_opt ,aerod=aerod(ims,kms,jms,P_ocarbon) &
+#else
      &        ,aer_opt=config_flags%aer_opt ,aerod=aerod(:,:,:,P_ocarbon:P_upperaer) &
+#endif
      &        ,swint_opt=config_flags%swint_opt                                      &
      &        ,solar_opt=config_flags%solar_diagnostics                              &
      &        ,P8W=grid%p_hyd_w        ,P=grid%p_hyd            ,PI=pi_phy           &
@@ -1735,7 +1740,11 @@ BENCH_START(cu_driver_tim)
                    ,no_src_types_cu=grid%no_src_types_cu                                &
                    ,aercu_opt=config_flags%aercu_opt                                    &
                    ,aercu_fct=config_flags%aercu_fct                                    &
+#ifdef WRF_GPU
+                   ,aeromcu=grid%aeromcu,aerocu=aerocu(ims,kms,jms,P_cu_sulfate) &
+#else
                    ,aeromcu=grid%aeromcu,aerocu=aerocu(:,:,:,P_cu_sulfate:P_cu_phibcar) &
+#endif
                    ,aeropcu=grid%aeropcu,ID=grid%id                                     &
                    ,JULDAY=grid%julday, JULIAN=grid%julian                              &
                    ,aerovar=grid%aerovar,EFCS=grid%EFCS,EFIS=grid%EFIS,EFSS=grid%EFSS)
