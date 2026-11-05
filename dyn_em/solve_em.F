@@ -7041,9 +7041,10 @@ SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w,
                                                           dz8w, rho, z, z_at_w, p_hyd, p_hyd_w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
    INTEGER :: i, j, k, n
-!$acc parallel loop collapse(3) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,p_hyd,p_hyd_w,moist)
+!$acc parallel loop gang collapse(2) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,p_hyd,p_hyd_w,moist)
    DO j = jms, jme
    DO k = 1, 2
+!$acc loop vector
    DO i = ims, ime
       buf(i,k,j,1) = t_phy(i,kms+k-1,j)
       buf(i,k,j,2) = th_phy(i,kms+k-1,j)

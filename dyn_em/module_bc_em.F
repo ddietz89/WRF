@@ -1804,9 +1804,10 @@ CONTAINS
 
       INTEGER :: i , j , k
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = jts , jte
          DO k = kts , kte
+!$acc loop vector
             DO i = its , ite
                rfield(i,k,j) = field(i,k,j) * (c1(k)*mut(i,j)+c2(k))
             END DO

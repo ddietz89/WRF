@@ -571,9 +571,10 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    k_end = min(kte,kde-1)
 
    IF (non_hydrostatic) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j=j_start, j_end
      DO k=k_start, k_end
+!$acc loop vector
      DO i=i_start, i_end
 
 !  al computation is all dry, so ok with moisture
@@ -606,18 +607,20 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    END IF
 !  divergence damping setup
      IF (step == 0) then   ! we're initializing small timesteps
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j=j_start, j_end
        DO k=k_start, k_end
+!$acc loop vector
        DO i=i_start, i_end
          pm1(i,k,j)=p(i,k,j)
        ENDDO
        ENDDO
        ENDDO
      ELSE                     ! we're in the small timesteps 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j=j_start, j_end    ! and adding div damping component
        DO k=k_start, k_end
+!$acc loop vector
        DO i=i_start, i_end
          ptmp = p(i,k,j)
          p(i,k,j) = p(i,k,j) + smdiv*(p(i,k,j)-pm1(i,k,j))
@@ -886,9 +889,10 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ! arithmetic and order: tendency update, then pressure-gradient/divergence-damping update).
   IF ( wrf_gpu_on .AND. k_start == 1 .AND. k_end+1 == kde .AND. kde >= 4 ) THEN
   ! one thread per (i,k,j): dpnc at k and k+1 computed in place from p (no per-column scratch)
-!$acc parallel loop gang vector collapse(3) private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm) async(wrf_gpu_q)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
   DO j = j_start, j_end
   DO k = k_start, k_end
+!$acc loop vector private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm)
   DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
    ut = u(i,k,j)
    IF ( i >= i_start_u_tend .AND. i <= i_end_u_tend ) ut = ut + dts*ru_tend(i,k,j)
@@ -931,9 +935,10 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ENDDO
   ENDDO
-!$acc parallel loop gang vector collapse(3) private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm) async(wrf_gpu_q)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
   DO j = j_start_v_tend, j_end_v_tend
   DO k = k_start, k_end
+!$acc loop vector private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm)
   DO i = i_start, i_end
      ut = v(i,k,j) + dts*rv_tend(i,k,j)
      IF ( ( j >= j_start_vp) .and. ( j <= j_end_vp ) ) THEN
@@ -1473,9 +1478,10 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 ! adding previous tendency contribution which was map scale factor coupled
 ! (had been divided by msfty)
 ! need to uncouple before updating uncoupled Theta (by adding)
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
      DO k=1,k_end
+!$acc loop vector
      DO i=i_start, i_end
        t_ave(i,k,j) = t(i,k,j)
        t   (i,k,j) = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)
@@ -2102,9 +2108,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 !</DESCRIPTION>
 
     IF (iteration == 1 )THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, jte
       DO  k = kts, kte
+!$acc loop vector
       DO  i = its, ite
         ru_m(i,k,j)  = 0.
         rv_m(i,k,j)  = 0.
@@ -2119,9 +2126,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
   mink = min(kde-1,kte)
 
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO  j = jts, minj
     DO  k = kts, mink
+!$acc loop vector
     DO  i = its, mini
       ru_m(i,k,j)  = ru_m(i,k,j) + ru(i,k,j)
       rv_m(i,k,j)  = rv_m(i,k,j) + rv(i,k,j)
@@ -2131,9 +2139,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
     ENDDO
 
     IF (ite .GT. mini) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, minj
       DO  k = kts, mink
+!$acc loop vector
       DO  i = mini+1, ite
         ru_m(i,k,j)  = ru_m(i,k,j) + ru(i,k,j)
       ENDDO
@@ -2141,9 +2150,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF (jte .GT. minj) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = minj+1, jte
       DO  k = kts, mink
+!$acc loop vector
       DO  i = its, mini
  rv_m(i,k,j)  = rv_m(i,k,j) + rv(i,k,j)
       ENDDO
@@ -2151,9 +2161,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF ( kte .GT. mink) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, minj
       DO  k = mink+1, kte
+!$acc loop vector
       DO  i = its, mini
         ww_m(i,k,j)  = ww_m(i,k,j) + ww(i,k,j)
       ENDDO
@@ -2163,9 +2174,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
   IF (iteration == number_of_small_timesteps) THEN
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO  j = jts, minj
     DO  k = kts, mink
+!$acc loop vector
     DO  i = its, mini
       ru_m(i,k,j)  = ru_m(i,k,j) / number_of_small_timesteps   &
                      + (c1h(k)*muu(i,j)+c2h(k))*u_lin(i,k,j)/msfuy(i,j)
@@ -2179,9 +2191,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
 
     IF (ite .GT. mini) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, minj
       DO  k = kts, mink
+!$acc loop vector
       DO  i = mini+1, ite
         ru_m(i,k,j)  = ru_m(i,k,j) / number_of_small_timesteps   &
                      + (c1h(k)*muu(i,j)+c2h(k))*u_lin(i,k,j)/msfuy(i,j)
@@ -2190,9 +2203,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF (jte .GT. minj) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = minj+1, jte
       DO  k = kts, mink
+!$acc loop vector
       DO  i = its, mini
  rv_m(i,k,j)  = rv_m(i,k,j) / number_of_small_timesteps   &
                      + (c1h(k)*muv(i,j)+c2h(k))*v_lin(i,k,j)*msfvx_inv(i,j)
@@ -2201,9 +2215,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
       ENDDO
     END IF
     IF ( kte .GT. mink) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, minj
       DO  k = mink+1, kte
+!$acc loop vector
       DO  i = its, mini
         ww_m(i,k,j)  = ww_m(i,k,j) / number_of_small_timesteps   &
                      + ww_lin(i,k,j)

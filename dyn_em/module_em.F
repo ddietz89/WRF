@@ -1036,9 +1036,10 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
 ! For scalars we need the final tendency to include an inverse msf (msfty)
 ! advection tendency is OK, physics/bc tendency needs to be divided by msf
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
+!$acc loop vector
    DO i = its,ite
      ! multiply by my to uncouple u
      IF(rk_step == 1)ru_tendf(i,k,j) = ru_tendf(i,k,j) +  u_save(i,k,j)*msfuy(i,j)
@@ -1048,9 +1049,10 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,jte
    DO k = kts,kte-1
+!$acc loop vector
    DO i = its,MIN(ite,ide-1)
      ! multiply by mx to uncouple v
      IF(rk_step == 1)rv_tendf(i,k,j) = rv_tendf(i,k,j) +  v_save(i,k,j)*msfvx(i,j)
@@ -1060,9 +1062,10 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte
+!$acc loop vector
    DO i = its,MIN(ite,ide-1)
      ! multiply by my to uncouple w
      IF(rk_step == 1)rw_tendf(i,k,j) = rw_tendf(i,k,j) +  w_save(i,k,j)*msfty(i,j)
@@ -1075,9 +1078,10 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,MIN(jte,jde-1)
    DO k = kts,kte-1
+!$acc loop vector
    DO i = its,MIN(ite,ide-1)
      IF(rk_step == 1)t_tendf(i,k,j) = t_tendf(i,k,j) +  t_save(i,k,j)
      ! divide by my to couple theta
@@ -1500,9 +1504,10 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
+!$acc loop vector
        DO i = its,MIN(ite,ide-1)
          scalar_tends(i,k,j,im) = scalar_tends(i,k,j,im) + qv_diabatic(i,k,j)*(c1(k)*mut(I,J)+c2(k))
        ENDDO
@@ -1511,9 +1516,10 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
+!$acc loop vector
        DO i = its,MIN(ite,ide-1)
          scalar_tends(i,k,j,im) = scalar_tends(i,k,j,im) + qc_diabatic(i,k,j)*(c1(k)*mut(I,J)+c2(k))
        ENDDO
@@ -1573,9 +1579,10 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
 
      IF( im.eq.p_qv )THEN
 !!!       print *,'  qv '
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
+!$acc loop vector
        DO i = its,MIN(ite,ide-1)
          scalar(i,k,j,im) = scalar(i,k,j,im) - dt*qv_diabatic(i,k,j)
        ENDDO
@@ -1584,9 +1591,10 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
      ENDIF
      IF( im.eq.p_qc )THEN
 !!!       print *,'  qc '
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = jts,MIN(jte,jde-1)
        DO k = kts,kte-1
+!$acc loop vector
        DO i = its,MIN(ite,ide-1)
          scalar(i,k,j,im) = scalar(i,k,j,im) - dt*qc_diabatic(i,k,j)
        ENDDO
@@ -1735,18 +1743,20 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs,sce
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
+!$acc loop vector
        DO  i = its, min(ite,ide-1)
            tendency(i,k,j) = 0.
        ENDDO
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
+!$acc loop vector
        DO  i = i_start,i_end
           ! scalar was coupled with my
            tendency(i,k,j) = advect_tend(i,k,j) * msfty(i,j)
@@ -1754,9 +1764,10 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
+!$acc loop vector
        DO  i = i_start_spc,i_end_spc
            tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
        ENDDO
@@ -1764,9 +1775,10 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
    
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
       DO  k = kts, min(kte,kde-1)
+!$acc loop vector private(muo,mun)
       DO  i = its, min(ite,ide-1)
         muo = MU_OLD(i,j) + MU_BASE(i,j)
         mun = MU_NEW(i,j) + MU_BASE(i,j)
@@ -1807,18 +1819,20 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 
       DO  im = scs, sce
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
+!$acc loop vector
        DO  i = its, min(ite,ide-1)
            tendency(i,k,j) = 0.
        ENDDO
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = j_start,j_end
        DO  k = k_start,k_end
+!$acc loop vector
        DO  i = i_start,i_end
            ! scalar was coupled with my
            tendency(i,k,j) = advect_tend(i,k,j) * msfty(i,j)
@@ -1826,9 +1840,10 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
+!$acc loop vector
        DO  i = i_start_spc,i_end_spc
            tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
        ENDDO
@@ -1841,9 +1856,10 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 #ifdef WRF_GPU
       advtd = PRESENT(advh_t) .AND. PRESENT(advz_t)
       IF ( advtd ) advtd = tenddec .and. rk_step.eq.cfg_rk_ord
-!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
       DO  k = kts, min(kte,kde-1)
+!$acc loop vector private(muo,mun)
       DO  i = its, min(ite,ide-1)
         muo = MU_OLD(i,j) + MU_BASE(i,j)
         mun = MU_NEW(i,j) + MU_BASE(i,j)
@@ -2014,18 +2030,20 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
 
       DO  im = scs, sce
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = jts, min(jte,jde-1)
        DO  k = kts, min(kte,kde-1)
+!$acc loop vector
        DO  i = its, min(ite,ide-1)
            tendency(i,k,j) = 0.
        ENDDO
        ENDDO
        ENDDO
    
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO  j = j_start_spc,j_end_spc
        DO  k = k_start_spc,k_end_spc
+!$acc loop vector
        DO  i = i_start_spc,i_end_spc
            tendency(i,k,j) = tendency(i,k,j) + sc_tend(i,k,j,im)
            sc_tend(i,k,j,im) = 0.
@@ -2034,9 +2052,10 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
        ENDDO
 
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(muo,mun) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO  j = jts, min(jte,jde-1)
       DO  k = kts, min(kte,kde-1)
+!$acc loop vector private(muo,mun)
       DO  i = its, min(ite,ide-1)
         muo = MU_OLD(i,j) + MU_BASE(i,j)
         mun = MU_NEW(i,j) + MU_BASE(i,j)

@@ -69,9 +69,10 @@ SUBROUTINE tophat ( field, num_scalars , &
    field = 0
 
    DO n = 1 , num_scalars
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts , jte
    DO k = kts , kte
+!$acc loop vector
    DO i = its , ite
       IF ( i .gt. 35 .and. i.lt. 55 ) THEN
          field (i,k,j,n) = 1.
@@ -339,9 +340,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -656,9 +658,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN  ! use full stencil
           vel = 0.5*(rv(i,k,j)+rv(i-1,k,j))
@@ -1043,9 +1046,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
      IF ( (j < j_start_f) .and. degrade_ys) THEN
          fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
@@ -1294,9 +1298,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
      IF ( (j < j_start_f) .and. degrade_ys) THEN
          fqy3(i, k,j) = 0.25*(rv(i,k,j_start)+rv(i-1,k,j_start))  &
@@ -1410,9 +1415,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = ite
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
+!$acc loop vector
       DO i = i_start, i_end
          mrdx=msfux(i,j)*rdx         ! ADT eqn 44, 1st term on RHS
          tendency(i,k,j)=tendency(i,k,j)-mrdx*0.25 &
@@ -1457,9 +1463,10 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
       IF ( config_flags%open_ye .or. specified ) j_end   = MIN(jde-2,jte)
 
       cfg_polar = config_flags%polar
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
+!$acc loop vector
       DO i = i_start, i_end
          mrdy=msfux(i,j)*rdy         ! ADT eqn 44, 1st term on RHS
          ! Comments for polar boundary condition
@@ -2043,9 +2050,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel,vb)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2373,9 +2381,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel,vb)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN
           vel = 0.5*(rv(i,k,j)+rv(i,k,j-1))
@@ -2703,9 +2712,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vb,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vb,vel)
         DO i = i_start,i_end
       IF ((j == j_start) .and. degrade_ys) THEN
                 vb = v(i,k,j-1)
@@ -2951,9 +2961,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vb,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vb,vel)
         DO i = i_start,i_end
       IF ((j == j_start) .and. degrade_ys) THEN
                 vb = v(i,k,j-1)
@@ -3144,9 +3155,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
+!$acc loop vector
       DO i = i_start, i_end
 
          mrdy=msfvy(i,j)*rdy          ! ADT eqn 45, 2nd term on RHS
@@ -3221,9 +3233,10 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
       IF ( config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%polar ) j_end   = MIN(jde-1,jte)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
+!$acc loop vector
       DO i = i_start, i_end
 
          mrdx=msfvy(i,j)*rdx         ! ADT eqn 45, 1st term on RHS
@@ -3853,9 +3866,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_6_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
           vel = rv(i,k,j)
@@ -4169,9 +4183,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      j_loop_y_flux_5_flux : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
           vel = rv(i,k,j)
@@ -4336,9 +4351,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
 ! GPU: one thread per (i,k,j); both face fluxes computed in place (same expressions and boundary degradation as
 ! the per-row fqx version below), no per-row scratch -> full occupancy
-!$acc parallel loop gang vector collapse(3) private(vel,mrdx,ii,m,ff,fl,fr) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
+!$acc loop vector private(vel,mrdx,ii,m,ff,fl,fr)
       DO i = i_start, i_end
         DO m = 0, 1
           ii = i + m
@@ -4586,9 +4602,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector
         DO i = i_start,i_end
     IF ((j < j_start_f) .and. degrade_ys) THEN
          fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
@@ -4820,9 +4837,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc end kernels
 #endif
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector
         DO i = i_start,i_end
     IF ((j < j_start_f) .and. degrade_ys) THEN
          fqy3(i,k,j) = 0.5*rv(i,k,j_start)             &
@@ -4933,9 +4951,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
         IF ( config_flags%open_xe .or. specified ) i_end   = MIN(ide-2,ite)
       ENDIF
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
+!$acc loop vector
       DO i = i_start, i_end
          mrdx=msftx(i,j)*rdx         ! see ADT eqn 48 [rho->rho*q] dividing by my, 1st term RHS
          tendency(i,k,j)=tendency(i,k,j)-mrdx*0.5 &
@@ -4952,9 +4971,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
       IF ( config_flags%open_ys .or. specified .or. config_flags%polar ) j_start = MAX(jds+1,jts)
       IF ( config_flags%open_ye .or. specified .or. config_flags%polar ) j_end   = MIN(jde-2,jte)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
+!$acc loop vector
       DO i = i_start, i_end
          mrdy=msftx(i,j)*rdy         ! see ADT eqn 48 [rho->rho*q] dividing by my, 2nd term RHS
          tendency(i,k,j)=tendency(i,k,j) -mrdy*0.5 &
@@ -5239,9 +5259,10 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
 ! GPU: one thread per (i,k,j), both vertical face fluxes in place (vflux(kts)=vflux(kte)=0, 2nd order at kts+1
 ! and ktf, 3rd order between - as in the per-row version below)
-!$acc parallel loop gang vector collapse(3) private(vel,kk,m,ff,fl,fr) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k = kts, ktf
+!$acc loop vector private(vel,kk,m,ff,fl,fr)
       DO i = i_start, i_end
         DO m = 0, 1
           kk = k + m
@@ -7666,9 +7687,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 6th order
 
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_6 : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(cr,dy,mu,vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
@@ -8031,9 +8053,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 5th order
 
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_5 : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(cr,dy,mu,vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
@@ -8394,9 +8417,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 4th order
 
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_4 : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(cr,dy,mu,vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
@@ -8649,9 +8673,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 3rd order
 
 #ifdef WRF_GPU
-!$acc parallel loop gang vector collapse(3) private(cr,dy,mu,vel) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_3 : DO j = j_start, j_end+1
         DO k = kts,ktf
+!$acc loop vector private(cr,dy,mu,vel)
         DO i = i_start,i_end
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
@@ -8893,9 +8918,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes, 2nd order, y flux
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end+1
         DO k=kts,ktf
+!$acc loop vector
         DO i = i_start, i_end
            dy = 2./(msftx(i,j)+msftx(i,j-1))/rdy  ! ADT eqn 48 d/dy
            mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j-1)+c2(k)))
@@ -8913,9 +8939,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  next, x flux
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
         DO k=kts,ktf
+!$acc loop vector
         DO i = i_start, i_end+1
             dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx ! ADT eqn 48 d/dx
             mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -9522,9 +9549,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      z_tendency (i,k,j) = 0. -rdzw(k)*( fqz (i,k+1,j)-fqz (i,k,j)  &
@@ -9556,9 +9584,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      h_tendency (i,k,j) = 0.                                      &
@@ -9594,9 +9623,10 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      h_tendency (i,k,j) = h_tendency (i,k,j)                      &
@@ -11359,9 +11389,10 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   j_start = jts
   j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      tendency (i,k,j) = tendency(i,k,j)                           &
@@ -11377,9 +11408,10 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   IF(degrade_xs) i_start = MAX(its,ids+1)
   IF(degrade_xe) i_end   = MIN(ite,ide-2)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -11398,9 +11430,10 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
   IF(degrade_ys) j_start = MAX(jts,jds+1)
   IF(degrade_ye) j_end   = MIN(jte,jde-2)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -11812,9 +11845,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   do j=jts-2,jte+2
   do k=kts,kte
+!$acc loop vector
   do i=its-2,ite+2
     qmin(i,k,j) = field_old(i,k,j)
     qmax(i,k,j) = field_old(i,k,j)
@@ -12553,9 +12587,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
 
 !-- here is the limiter...
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
+!$acc loop vector
    DO i=i_start, i_end
 
 ! ----------------------------------------------------------------------------------------------
@@ -12605,9 +12640,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
+!$acc loop vector
    DO i=i_start, i_end+1
        IF( fqx (i,k,j) .gt. 0.) then
          fqx(i,k,j) = min(scale_in(i,k,j),scale_out(i-1,k,j))*fqx(i,k,j)
@@ -12618,9 +12654,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end+1
    DO k=kts, ktf
+!$acc loop vector
    DO i=i_start, i_end
        IF( fqy (i,k,j) .gt. 0.) then
          fqy(i,k,j) = min(scale_in(i,k,j),scale_out(i,k,j-1))*fqy(i,k,j)
@@ -12631,9 +12668,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts+1, ktf
+!$acc loop vector
    DO i=i_start, i_end
        IF( fqz (i,k,j) .lt. 0.) then
          fqz(i,k,j) = min(scale_in(i,k,j),scale_out(i,k-1,j))*fqz(i,k,j)
@@ -12654,9 +12692,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   j_start = jts
   j_end   = MIN(jte,jde-1)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      tendency (i,k,j) = tendency(i,k,j)                           &
@@ -12668,9 +12707,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      z_tendency (i,k,j) = 0. -rdzw(k)*( fqz (i,k+1,j)-fqz (i,k,j)  &
@@ -12691,9 +12731,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   IF(degrade_xs) i_start = MAX(its,ids+1)
   IF(degrade_xe) i_end   = MIN(ite,ide-2)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -12706,9 +12747,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      h_tendency (i,k,j) = 0.                                      &
@@ -12732,9 +12774,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   IF(degrade_ys) j_start = MAX(jts,jds+1)
   IF(degrade_ye) j_end   = MIN(jte,jde-2)
 
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      ! Un-"canceled" map scale factor, ADT Eq. 48
@@ -12747,9 +12790,10 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
   ENDDO
 
   IF(tenddec) THEN
-!$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
+!$acc loop vector
   DO i = i_start, i_end
 
      h_tendency (i,k,j) = h_tendency (i,k,j)                      &
