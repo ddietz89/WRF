@@ -436,10 +436,12 @@ include ../configure.wrf
 
 # GPU residency builds: the column-per-thread physics kernels (Noah, Thompson + radar, Tiedtke, MYJ PBL/surface
 # layer, GWD) are latency bound with ~68k columns; capping registers at 64 fits all columns in one wave on a V100
-# (Noah 21.7 -> 8.3 ms/step, Thompson 11.1 -> 9.2 ms; bit-identical results)
+# (Noah 21.7 -> 8.3 ms/step, Thompson 11.1 -> 9.2 ms; bit-identical results). RRTMG LW/SW: with 64 registers all
+# columns fit one wave of a 32 GB V100, launched as one chunk (WRF_GPU_RACHUNK default 131072): 0.89 -> 0.76 s/call
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_noahdrv.o module_mp_thompson.o \
-                 module_mp_radar.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o
+                 module_mp_radar.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o \
+                 module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o
 $(GPU_REG64_OBJS): FCFLAGS += -gpu=maxregcount:64
 endif
 

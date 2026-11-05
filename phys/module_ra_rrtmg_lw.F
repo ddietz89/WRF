@@ -15944,10 +15944,10 @@ contains
                   in_hgt(ncolm,nlay), in_emis(ncolm,nbndlw), in_tsfc(ncolm), in_lat(ncolm), in_flag(ncolm,8), &
                   out_uflx(ncolm,nlay+1), out_dflx(ncolm,nlay+1), out_uflxc(ncolm,nlay+1), out_dflxc(ncolm,nlay+1), &
                   out_hr(ncolm,nlay), out_hrc(ncolm,nlay), out_err(ncolm))
-         nch = 16384
+         nch = 131072
          call get_environment_variable('WRF_GPU_RACHUNK', v, status=st)
          if (st == 0) read(v, *, iostat=st) nch
-         if (nch .lt. 1) nch = 16384
+         if (nch .lt. 1) nch = 131072
          nch = min(nch, ncolm)
          gw_ncolm = ncolm
          gw_nlay = nlay
