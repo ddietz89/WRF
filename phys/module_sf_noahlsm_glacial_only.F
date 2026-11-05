@@ -1421,24 +1421,23 @@ CONTAINS
 
     IMPLICIT NONE
 ! ----------------------------------------------------------------------
-    integer, intent(in) ::  iiloc, jjloc
-    INTEGER, INTENT(IN) ::  ISICE
+      integer, intent(in), VALUE :: iiloc, jjloc
+      INTEGER, INTENT(IN), VALUE :: ISICE
 ! ----------------------------------------------------------------------
     LOGICAL             ::  FRZGRA, SNOWNG
 
 ! ----------------------------------------------------------------------
 ! 1. CONFIGURATION INFORMATION (C):
 ! ----------------------------------------------------------------------
-    INTEGER, INTENT(IN) ::  NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
     INTEGER             ::  KZ
 
 ! ----------------------------------------------------------------------
 ! 2. LOGICAL:
 ! ----------------------------------------------------------------------
 
-    REAL, INTENT(IN)   :: DT,DQSDT2,LWDN,PRCP,     &
-         &                Q2,Q2SAT,SFCPRS,SFCTMP, SNOALB,          &
-         &                SOLNET,TBOT,TH2,ZLVL,FFROZP
+      REAL, INTENT(IN), VALUE :: DT, DQSDT2, LWDN, PRCP, Q2, Q2SAT, SFCPRS, SFCTMP
+      REAL, INTENT(IN), VALUE :: SNOALB, SOLNET, TBOT, TH2, ZLVL, FFROZP
     REAL, INTENT(OUT)  :: EMBRD, ALBEDO
     REAL, INTENT(INOUT):: CH,SNEQV,SNCOVR,SNOWH,T1,Z0BRD,EMISSI,ALB
     REAL, INTENT(INOUT):: SNOTIME1
@@ -1688,9 +1687,9 @@ CONTAINS
 ! SNOW ALBEDO FIELDS PROVIDED BY D. ROBINSON AND G. KUKLA
 ! (1985, JCAM, VOL 24, 402-411)
 ! ----------------------------------------------------------------------
-    REAL,    INTENT(IN)    :: ALB, SNOALB, EMBRD, TSNOW
-    REAL,    INTENT(IN)    :: DT
-    LOGICAL, INTENT(IN)    :: SNOWNG
+      REAL,    INTENT(IN), VALUE :: ALB, SNOALB, EMBRD, TSNOW
+      REAL,    INTENT(IN), VALUE :: DT
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG
     REAL,    INTENT(INOUT) :: SNOTIME1
     REAL,    INTENT(OUT)   :: ALBEDO, EMISSI
     REAL                   :: SNOALB2
@@ -1792,7 +1791,7 @@ CONTAINS
 ! CALCULATE SNOW TERMAL CONDUCTIVITY
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
-    REAL, INTENT(IN)  :: DSNOW
+      REAL, INTENT(IN), VALUE :: DSNOW
     REAL, INTENT(OUT) :: SNCOND
     REAL              :: C
     REAL, PARAMETER   :: UNIT = 0.11631
@@ -1841,12 +1840,12 @@ CONTAINS
     IMPLICIT NONE
 
 
-    INTEGER,                  INTENT(IN)  :: NSOIL
-    REAL,                     INTENT(IN)  :: DF1,YY,ZZ1
+      INTEGER,                  INTENT(IN), VALUE :: NSOIL
+      REAL,                     INTENT(IN), VALUE :: DF1, YY, ZZ1
     REAL, DIMENSION(1:NSOIL), INTENT(OUT) :: AI, BI,CI
     REAL, DIMENSION(1:NSOIL), INTENT(IN)  :: STC, ZSOIL
     REAL, DIMENSION(1:NSOIL), INTENT(OUT) :: RHSTS
-    REAL,                     INTENT(IN)  :: TBOT
+      REAL,                     INTENT(IN), VALUE :: TBOT
     INTEGER                :: K
     REAL                   :: DDZ,DDZ2,DENOM,DTSDZ,DTSDZ2,SSOIL,HCPCT
     REAL                   :: DF1K,DF1N
@@ -1980,7 +1979,7 @@ CONTAINS
 ! CALCULATE/UPDATE THE SOIL TEMPERATURE FIELD.
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
-    INTEGER,                  INTENT(IN)    :: NSOIL
+      INTEGER,                  INTENT(IN), VALUE :: NSOIL
     REAL, DIMENSION(1:NSOIL), INTENT(IN)    :: STCIN
     REAL, DIMENSION(1:NSOIL), INTENT(OUT)   :: STCOUT
     REAL, DIMENSION(1:NSOIL), INTENT(INOUT) :: RHSTS
@@ -2034,9 +2033,9 @@ CONTAINS
 ! CALLING ROUTINE FOR LATER USE.
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
-    LOGICAL, INTENT(IN)  :: SNOWNG, FRZGRA
-    REAL,    INTENT(IN)  :: CH, DQSDT2,FDOWN,PRCP,Q2,Q2SAT,SSOIL,SFCPRS, &
-         &                  SFCTMP,TH2,EMISSI,T1,RCH,T24
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG, FRZGRA
+      REAL,    INTENT(IN), VALUE :: CH, DQSDT2, FDOWN, PRCP, Q2, Q2SAT, SSOIL, SFCPRS
+      REAL,    INTENT(IN), VALUE :: SFCTMP, TH2, EMISSI, T1, RCH, T24
     REAL,    INTENT(OUT) :: ETP,FLX2,RR
 
     REAL                 :: A, DELTA, FNET,RAD,ELCP1,LVS,EPSCA
@@ -2100,8 +2099,8 @@ CONTAINS
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
 
-    INTEGER,                  INTENT(IN)    :: NSOIL
-    REAL,                     INTENT(IN)    :: DF1,DT,TBOT,YY, ZZ1
+      INTEGER,                  INTENT(IN), VALUE :: NSOIL
+      REAL,                     INTENT(IN), VALUE :: DF1, DT, TBOT, YY, ZZ1
     REAL, DIMENSION(1:NSOIL), INTENT(IN)    :: ZSOIL
     REAL, DIMENSION(1:NSOIL), INTENT(INOUT) :: STC
 
@@ -2138,10 +2137,10 @@ CONTAINS
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
 
-    INTEGER, INTENT(IN)   :: NSOIL
-    LOGICAL, INTENT(IN)   :: SNOWNG
-    REAL,    INTENT(IN)   :: DF1,DT,FDOWN,PRCP,Q2,RCH,RR,SFCPRS,SFCTMP, &
-         &                   T24,TBOT,TH2,EMISSI
+      INTEGER, INTENT(IN), VALUE :: NSOIL
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG
+      REAL,    INTENT(IN), VALUE :: DF1, DT, FDOWN, PRCP, Q2, RCH, RR, SFCPRS
+      REAL,    INTENT(IN), VALUE :: SFCTMP, T24, TBOT, TH2, EMISSI
     REAL, INTENT(INOUT)   :: SNEQV,FLX2,PRCPF,SNOWH,SNDENS,T1,RIBB,ETP
     REAL, INTENT(OUT)     :: DEW,ESNOW,FLX1,FLX3,SSOIL,SNOMLT
     REAL, DIMENSION(1:NSOIL),INTENT(IN)     :: ZSOIL
@@ -2368,7 +2367,7 @@ CONTAINS
       IMPLICIT NONE
 
       INTEGER                :: IPOL, J
-      REAL, INTENT(IN)       :: SNEQV, DTSEC,TSNOW,TSOIL
+      REAL, INTENT(IN), VALUE :: SNEQV, DTSEC, TSNOW, TSOIL
       REAL, INTENT(INOUT)    :: SNOWH, SNDENS
       REAL                   :: BFAC,DSX,DTHR,DW,SNOWHC,PEXP,           &
                                 TAVGC,TSNOWC,TSOILC,ESDC,ESDCX
@@ -2483,10 +2482,10 @@ CONTAINS
 ! Z0S     SNOW ROUGHNESS LENGTH:=0.001 (m)
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
-    REAL, INTENT(IN)        :: Z0BRD
+      REAL, INTENT(IN), VALUE :: Z0BRD
     REAL, INTENT(OUT)       :: Z0
     REAL, PARAMETER         :: Z0S=0.001
-    REAL, INTENT(IN)        :: SNOWH
+      REAL, INTENT(IN), VALUE :: SNOWH
     REAL                    :: BURIAL
     REAL                    :: Z0EFF
 
@@ -2517,7 +2516,7 @@ CONTAINS
 ! SNDENS  SNOW DENSITY (G/CM3=DIMENSIONLESS FRACTION OF H2O DENSITY)
 ! ----------------------------------------------------------------------
     IMPLICIT NONE
-    REAL, INTENT(IN)        :: NEWSN, TEMP
+      REAL, INTENT(IN), VALUE :: NEWSN, TEMP
     REAL, INTENT(INOUT)     :: SNDENS, SNOWH
     REAL                    :: DSNEW, HNEWC, SNOWHC,NEWSNC,TEMPC
 

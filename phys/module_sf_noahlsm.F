@@ -5018,32 +5018,31 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! DECLARATIONS - LOGICAL AND CHARACTERS
 ! ----------------------------------------------------------------------
 
-      INTEGER, INTENT(IN) :: IILOC, JJLOC
-      LOGICAL, INTENT(IN)::  LOCAL
+      INTEGER, INTENT(IN), VALUE :: IILOC, JJLOC
+      LOGICAL, INTENT(IN), VALUE :: LOCAL
       LOGICAL            ::  FRZGRA, SNOWNG
-      INTEGER, INTENT(IN) :: LLANDUSE, LSOIL
+      INTEGER, INTENT(IN), VALUE :: LLANDUSE, LSOIL
 
 ! ----------------------------------------------------------------------
 ! 1. CONFIGURATION INFORMATION (C):
 ! ----------------------------------------------------------------------
-      INTEGER,INTENT(IN) ::  NSOIL,SLOPETYP,SOILTYP,VEGTYP
-      INTEGER, INTENT(IN) :: ISURBAN
+      INTEGER,INTENT(IN), VALUE :: NSOIL, SLOPETYP, SOILTYP, VEGTYP
+      INTEGER, INTENT(IN), VALUE :: ISURBAN
       INTEGER,INTENT(OUT)::  NROOT
       INTEGER  KZ, K, iout
 
 ! ----------------------------------------------------------------------
 ! 2. LOGICAL:
 ! ----------------------------------------------------------------------
-      LOGICAL, INTENT(IN) :: RDLAI2D
-      LOGICAL, INTENT(IN) :: USEMONALB
-      INTEGER, INTENT(IN) :: OPT_THCND
+      LOGICAL, INTENT(IN), VALUE :: RDLAI2D
+      LOGICAL, INTENT(IN), VALUE :: USEMONALB
+      INTEGER, INTENT(IN), VALUE :: OPT_THCND
 
       REAL, INTENT(INOUT):: SFHEAD1RT,INFXS1RT, ETPND1
 
-      REAL, INTENT(IN)   :: SHDMIN,SHDMAX,DT,DQSDT2,LWDN,PRCP,PRCPRAIN,     &
-                            Q2,Q2SAT,SFCPRS,SFCSPD,SFCTMP, SNOALB,          &
-                            SOLDN,SOLNET,TBOT,TH2,ZLVL,                            &
-                            FFROZP,AOASIS
+      REAL, INTENT(IN), VALUE :: SHDMIN, SHDMAX, DT, DQSDT2, LWDN, PRCP, PRCPRAIN, Q2
+      REAL, INTENT(IN), VALUE :: Q2SAT, SFCPRS, SFCSPD, SFCTMP, SNOALB, SOLDN, SOLNET, TBOT
+      REAL, INTENT(IN), VALUE :: TH2, ZLVL, FFROZP, AOASIS
       REAL, INTENT(OUT)  :: EMBRD
       REAL, INTENT(OUT)  :: ALBEDO
       REAL, INTENT(INOUT):: COSZ, SOLARDIRECT,CH,CM,                        &
@@ -5062,7 +5061,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
                             RUNOFF3,RC,RSMIN,RCQ,RCS,RCSOIL,RCT,SSOIL,      &
                             SMCDRY,SMCMAX,SMCREF,SMCWLT,SNOMLT, SOILM,      &
                             SOILW,FDOWN,Q1
-      LOGICAL, INTENT(IN) :: UA_PHYS   ! UA: flag for UA option
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
       REAL,INTENT(OUT)    :: FLX4      ! UA: energy added to sensible heat
       REAL,INTENT(OUT)    :: FVB       ! UA: frac. veg. w/snow beneath
       REAL,INTENT(OUT)    :: FBUR      ! UA: fraction of canopy buried
@@ -5098,7 +5097,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 !
 !  FASDAS
 !
-   INTEGER, INTENT(IN   )  ::  fasdas
+      INTEGER, INTENT(IN   ), VALUE :: fasdas
    REAL,    INTENT(INOUT)  ::  XSDA_QFX, XQNORM
    REAL,    INTENT(INOUT)  ::  HFX_PHY, QFX_PHY
    REAL,    INTENT(  OUT)  ::  HCPCT_FASDAS
@@ -5620,14 +5619,14 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! SNOW ALBEDO FIELDS PROVIDED BY D. ROBINSON AND G. KUKLA
 ! (1985, JCAM, VOL 24, 402-411)
 ! ----------------------------------------------------------------------
-      REAL, INTENT(IN)  ::  ALB, SNOALB, EMBRD, SHDFAC, SHDMIN, SNCOVR, TSNOW
-      REAL, INTENT(IN)  :: DT
-      LOGICAL, INTENT(IN) :: SNOWNG
+      REAL, INTENT(IN), VALUE :: ALB, SNOALB, EMBRD, SHDFAC, SHDMIN, SNCOVR, TSNOW
+      REAL, INTENT(IN), VALUE :: DT
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG
       REAL, INTENT(INOUT):: SNOTIME1
       REAL, INTENT(OUT) ::  ALBEDO, EMISSI
       REAL              :: SNOALB2
       REAL              :: TM,SNOALB1
-      REAL, INTENT(IN)  :: LVCOEF
+      REAL, INTENT(IN), VALUE :: LVCOEF
       REAL, PARAMETER   :: SNACCA=0.94,SNACCB=0.58,SNTHWA=0.82,SNTHWB=0.46
 ! turn of vegetation effect
 !      ALBEDO = ALB + (1.0- (SHDFAC - SHDMIN))* SNCOVR * (SNOALB - ALB)
@@ -5761,11 +5760,10 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
 
       IMPLICIT NONE
-      INTEGER, INTENT(IN) :: NROOT,NSOIL
+      INTEGER, INTENT(IN), VALUE :: NROOT, NSOIL
       INTEGER  K
-      REAL,    INTENT(IN) :: CH,DQSDT2,HS,Q2,Q2SAT,RSMIN,RGL,RSMAX,        &
-                             SFCPRS,SFCTMP,SMCREF,SMCWLT, SOLAR,TOPT,XLAI, &
-                             EMISSI
+      REAL,    INTENT(IN), VALUE :: CH, DQSDT2, HS, Q2, Q2SAT, RSMIN, RGL, RSMAX
+      REAL,    INTENT(IN), VALUE :: SFCPRS, SFCTMP, SMCREF, SMCWLT, SOLAR, TOPT, XLAI, EMISSI
       REAL,DIMENSION(1:NSOIL), INTENT(IN) :: SMC,ZSOIL
       REAL,    INTENT(OUT):: PC,RC,RCQ,RCS,RCSOIL,RCT
       REAL                :: DELTA,FF,GX,P,RR
@@ -5869,7 +5867,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CALCULATE SNOW TERMAL CONDUCTIVITY
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN) :: DSNOW
+      REAL, INTENT(IN), VALUE :: DSNOW
       REAL, INTENT(OUT):: SNCOND
       REAL             :: C
       REAL, PARAMETER  :: UNIT = 0.11631
@@ -5914,8 +5912,8 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CALCULATE DIRECT SOIL EVAPORATION
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN) :: ETP1,SMC,BEXP,DKSAT,DWSAT,FXEXP,              &
-                          SHDFAC,SMCDRY,SMCMAX,ZSOIL,SMCREF,SMCWLT
+      REAL, INTENT(IN), VALUE :: ETP1, SMC, BEXP, DKSAT, DWSAT, FXEXP, SHDFAC, SMCDRY
+      REAL, INTENT(IN), VALUE :: SMCMAX, ZSOIL, SMCREF, SMCWLT
       REAL, INTENT(OUT):: EDIR
       REAL             :: FX, SRATIO
 
@@ -5959,13 +5957,13 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CALCULATE DIRECT SOIL EVAPORATION
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN) :: ETP1,SMC,BEXP,DKSAT,DWSAT,FXEXP,              &
-                          SHDFAC,SMCDRY,SMCMAX,ZSOIL,SMCREF,SMCWLT
+      REAL, INTENT(IN), VALUE :: ETP1, SMC, BEXP, DKSAT, DWSAT, FXEXP, SHDFAC, SMCDRY
+      REAL, INTENT(IN), VALUE :: SMCMAX, ZSOIL, SMCREF, SMCWLT
       REAL, INTENT(OUT):: EDIR
       REAL             :: FX, SRATIO
 
       REAL, INTENT(INOUT) :: SFHEAD1RT,ETPND1
-      REAL, INTENT(IN   ) :: DT
+      REAL, INTENT(IN   ), VALUE :: DT
        REAL             :: EDIRTMP
 
 
@@ -6061,11 +6059,11 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CORRECTION FACTOR, FRZFACT AND PARAMETER SLOPE.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)   :: NSOIL, NROOT
+      INTEGER, INTENT(IN), VALUE :: NSOIL, NROOT
       INTEGER               :: I,K
-      REAL,    INTENT(IN)   :: BEXP, CFACTR,CMC,CMCMAX,DKSAT,           &
-                                 DT,DWSAT,ETP1,FXEXP,PC,Q2,SFCTMP,           &
-                                 SHDFAC,SMCDRY,SMCMAX,SMCREF,SMCWLT
+      REAL,    INTENT(IN), VALUE :: BEXP, CFACTR, CMC, CMCMAX, DKSAT, DT, DWSAT, ETP1
+      REAL,    INTENT(IN), VALUE :: FXEXP, PC, Q2, SFCTMP, SHDFAC, SMCDRY, SMCMAX, SMCREF
+      REAL,    INTENT(IN), VALUE :: SMCWLT
       REAL,    INTENT(OUT)  :: EC,EDIR,ETA1,ETT
       REAL                  :: CMC2MS
       REAL,DIMENSION(1:NSOIL), INTENT(IN) :: RTDIS, SMC, SH2O, ZSOIL
@@ -6148,7 +6146,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 !$acc routine seq
 #endif
     IMPLICIT NONE		
-    REAL, INTENT(IN)  :: SMCMAX
+      REAL, INTENT(IN), VALUE :: SMCMAX
     REAL, INTENT(OUT) :: FLIMIT
 
     FLIMIT = 0.90
@@ -6203,7 +6201,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 !   FREE..........SUPERCOOLED LIQUID WATER CONTENT
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN)     :: BEXP,PSIS,SH2O,SMC,SMCMAX,TKELV
+      REAL, INTENT(IN), VALUE :: BEXP, PSIS, SH2O, SMC, SMCMAX, TKELV
       REAL, INTENT(OUT)    :: FREE
       REAL                 :: BX,DENOM,DF,DSWL,FK,SWL,SWLK
       INTEGER              :: NLOG,KCOUNT
@@ -6327,13 +6325,13 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
       LOGICAL              :: ITAVG
-      INTEGER, INTENT(IN)  :: OPT_THCND
-      INTEGER, INTENT(IN)  :: NSOIL, VEGTYP, SOILTYP
-      INTEGER, INTENT(IN)  :: ISURBAN
+      INTEGER, INTENT(IN), VALUE :: OPT_THCND
+      INTEGER, INTENT(IN), VALUE :: NSOIL, VEGTYP, SOILTYP
+      INTEGER, INTENT(IN), VALUE :: ISURBAN
       INTEGER              :: I, K
 
-      REAL, INTENT(IN)     :: BEXP, CSOIL, DF1, DT,F1,PSISAT,QUARTZ,     &
-                              SMCMAX ,TBOT,YY,ZZ1, ZBOT
+      REAL, INTENT(IN), VALUE :: BEXP, CSOIL, DF1, DT, F1, PSISAT, QUARTZ, SMCMAX
+      REAL, INTENT(IN), VALUE :: TBOT, YY, ZZ1, ZBOT
       REAL, DIMENSION(1:NSOIL), INTENT(IN)   :: SMC,STC,ZSOIL
       REAL, DIMENSION(1:NSOIL), INTENT(INOUT):: SH2O
       REAL, DIMENSION(1:NSOIL), INTENT(OUT)  :: RHSTS
@@ -6588,7 +6586,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CALCULATE/UPDATE THE SOIL TEMPERATURE FIELD.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)  :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER              :: K
 
       REAL, DIMENSION(1:NSOIL), INTENT(IN):: STCIN
@@ -6656,16 +6654,16 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)  :: OPT_THCND
-      INTEGER, INTENT(IN)  :: NROOT,NSOIL,VEGTYP,SOILTYP
-      INTEGER, INTENT(IN)  :: ISURBAN
+      INTEGER, INTENT(IN), VALUE :: OPT_THCND
+      INTEGER, INTENT(IN), VALUE :: NROOT, NSOIL, VEGTYP, SOILTYP
+      INTEGER, INTENT(IN), VALUE :: ISURBAN
       INTEGER              :: K
 
-      REAL, INTENT(IN)     :: BEXP,CFACTR, CMCMAX,CSOIL,DKSAT,DT,DWSAT, &
-                              EPSCA,ETP,FDOWN,F1,FXEXP,FRZFACT,KDT,PC,  &
-                              PRCP,PSISAT,Q2,QUARTZ,RCH,RR,SBETA,SFCTMP,&
-                              SHDFAC,SLOPE,SMCDRY,SMCMAX,SMCREF,SMCWLT, &
-                              T24,TBOT,TH2,ZBOT,EMISSI
+      REAL, INTENT(IN), VALUE :: BEXP, CFACTR, CMCMAX, CSOIL, DKSAT, DT, DWSAT, EPSCA
+      REAL, INTENT(IN), VALUE :: ETP, FDOWN, F1, FXEXP, FRZFACT, KDT, PC, PRCP
+      REAL, INTENT(IN), VALUE :: PSISAT, Q2, QUARTZ, RCH, RR, SBETA, SFCTMP, SHDFAC
+      REAL, INTENT(IN), VALUE :: SLOPE, SMCDRY, SMCMAX, SMCREF, SMCWLT, T24, TBOT, TH2
+      REAL, INTENT(IN), VALUE :: ZBOT, EMISSI
       REAL, INTENT(INOUT)  :: CMC,BETA,T1
       REAL, INTENT(OUT)    :: DEW,DRIP,EC,EDIR,ETA,ETT,FLX1,FLX3,       &
                               RUNOFF1,RUNOFF2,RUNOFF3,SSOIL
@@ -6939,13 +6937,12 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CALLING ROUTINE FOR LATER USE.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      LOGICAL, INTENT(IN)     :: SNOWNG, FRZGRA
-      REAL, INTENT(IN)        :: CH, DQSDT2,FDOWN,PRCP,                 &
-                                 Q2, Q2SAT,SSOIL, SFCPRS, SFCTMP,       &
-                                 T2V, TH2,EMISSI_IN,SNEQV,AOASIS
-      REAL, INTENT(IN)        :: T1 , SNCOVR
-      REAL, INTENT(IN)        :: ALBEDO,SOLDN,FVB,GAMA,STC1
-      LOGICAL, INTENT(IN)     :: UA_PHYS
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG, FRZGRA
+      REAL, INTENT(IN), VALUE :: CH, DQSDT2, FDOWN, PRCP, Q2, Q2SAT, SSOIL, SFCPRS
+      REAL, INTENT(IN), VALUE :: SFCTMP, T2V, TH2, EMISSI_IN, SNEQV, AOASIS
+      REAL, INTENT(IN), VALUE :: T1, SNCOVR
+      REAL, INTENT(IN), VALUE :: ALBEDO, SOLDN, FVB, GAMA, STC1
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
 !
       REAL, INTENT(OUT)       :: EPSCA,ETP,FLX2,RCH,RR,T24
       REAL, INTENT(OUT)       :: FLX4,ETPN
@@ -7135,10 +7132,10 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       INTEGER, PARAMETER     :: MAX_SLOPETYP=30,MAX_SOILTYP=30,MAX_VEGTYP=30
       LOGICAL                :: LOCAL
-      INTEGER, INTENT(IN) :: LLANDUSE, LSOIL
+      INTEGER, INTENT(IN), VALUE :: LLANDUSE, LSOIL
 
 ! Veg parameters
-      INTEGER, INTENT(IN)    :: VEGTYP
+      INTEGER, INTENT(IN), VALUE :: VEGTYP
       INTEGER, INTENT(OUT)   :: NROOT
       REAL, INTENT(INOUT)    :: SHDFAC
       REAL, INTENT(OUT)      :: HS,RSMIN,RGL,SNUP,                          &
@@ -7148,11 +7145,11 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
                                 Z0MIN,     Z0MAX,                           &
                                 ALBEDOMIN, ALBEDOMAX, ZTOPV, ZBOTV
 ! Soil parameters
-      INTEGER, INTENT(IN)    :: SOILTYP
+      INTEGER, INTENT(IN), VALUE :: SOILTYP
       REAL, INTENT(OUT)      :: BEXP,DKSAT,DWSAT,F1,QUARTZ,SMCDRY,          &
                                 SMCMAX,SMCREF,SMCWLT,PSISAT
 ! General parameters
-      INTEGER, INTENT(IN)    :: SLOPETYP,NSOIL
+      INTEGER, INTENT(IN), VALUE :: SLOPETYP, NSOIL
       INTEGER                :: I
 
       REAL,    INTENT(OUT)   :: SLOPE,CZIL,SBETA,FXEXP,                     &
@@ -7293,7 +7290,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)   :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER               :: K, KK
 
       REAL, DIMENSION(1:NSOIL), INTENT(IN):: A, B, D
@@ -7349,12 +7346,12 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)   :: OPT_THCND
-      INTEGER, INTENT(IN)   :: NSOIL, VEGTYP, ISURBAN, SOILTYP
+      INTEGER, INTENT(IN), VALUE :: OPT_THCND
+      INTEGER, INTENT(IN), VALUE :: NSOIL, VEGTYP, ISURBAN, SOILTYP
       INTEGER               :: I
 
-      REAL, INTENT(IN)      :: BEXP,CSOIL,DF1,DT,F1,PSISAT,QUARTZ,     &
-                               SMCMAX, SMCWLT, TBOT,YY, ZBOT,ZZ1
+      REAL, INTENT(IN), VALUE :: BEXP, CSOIL, DF1, DT, F1, PSISAT, QUARTZ, SMCMAX
+      REAL, INTENT(IN), VALUE :: SMCWLT, TBOT, YY, ZBOT, ZZ1
       REAL, INTENT(INOUT)   :: T1
       REAL, INTENT(OUT)     :: SSOIL
       REAL, DIMENSION(1:NSOIL), INTENT(IN)    :: SMC,ZSOIL
@@ -7426,11 +7423,11 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)   :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER               :: I,K
 
-      REAL, INTENT(IN)      :: BEXP, CMCMAX, DKSAT,DWSAT, DT, EC, EDIR,  &
-                               KDT, PRCP1, SHDFAC, SLOPE, SMCMAX, SMCWLT
+      REAL, INTENT(IN), VALUE :: BEXP, CMCMAX, DKSAT, DWSAT, DT, EC, EDIR, KDT
+      REAL, INTENT(IN), VALUE :: PRCP1, SHDFAC, SLOPE, SMCMAX, SMCWLT
       REAL, INTENT(OUT)                      :: DRIP, RUNOFF1, RUNOFF2, RUNOFF3
       REAL, INTENT(INOUT)   :: CMC
       REAL, DIMENSION(1:NSOIL), INTENT(IN)   :: ET,ZSOIL
@@ -7570,13 +7567,13 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      REAL, INTENT(IN)     :: SNEQV,SNUP,SALP,SNOWH
+      REAL, INTENT(IN), VALUE :: SNEQV, SNUP, SALP, SNOWH
       REAL, INTENT(OUT)    :: SNCOVR
       REAL                 :: RSNOW, Z0N
-      LOGICAL, INTENT(IN)  :: UA_PHYS  ! UA: flag for UA option
-      REAL, INTENT(IN)     :: ZTOPV    ! UA: height of canopy top
-      REAL, INTENT(IN)     :: ZBOTV    ! UA: height of canopy bottom
-      REAL, INTENT(IN)     :: SHDFAC   ! UA: vegetation fraction
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
+      REAL, INTENT(IN), VALUE :: ZTOPV
+      REAL, INTENT(IN), VALUE :: ZBOTV
+      REAL, INTENT(IN), VALUE :: SHDFAC
       REAL, INTENT(INOUT)  :: XLAI     ! UA: LAI modified by snow
       REAL, INTENT(OUT)    :: FVB      ! UA: frac. veg. w/snow beneath
       REAL, INTENT(OUT)    :: GAMA     ! UA: = EXP(-1.* XLAI)
@@ -7672,9 +7669,8 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)   :: K,NSOIL
-      REAL, INTENT(IN)      :: BEXP, DT, PSISAT, QTOT, SMC, SMCMAX,    &
-                               TAVG
+      INTEGER, INTENT(IN), VALUE :: K, NSOIL
+      REAL, INTENT(IN), VALUE :: BEXP, DT, PSISAT, QTOT, SMC, SMCMAX, TAVG
       REAL, INTENT(INOUT)   :: SH2O
 
       REAL, DIMENSION(1:NSOIL), INTENT(IN):: ZSOIL
@@ -7777,25 +7773,24 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
 
-      INTEGER, INTENT(IN)   :: OPT_THCND
-      INTEGER, INTENT(IN)   :: NROOT, NSOIL,VEGTYP,SOILTYP
-      INTEGER, INTENT(IN)   :: ISURBAN
+      INTEGER, INTENT(IN), VALUE :: OPT_THCND
+      INTEGER, INTENT(IN), VALUE :: NROOT, NSOIL, VEGTYP, SOILTYP
+      INTEGER, INTENT(IN), VALUE :: ISURBAN
       INTEGER               :: K
 !
 ! kmh 09/03/2006 add IT16 for surface temperature iteration
 !
       INTEGER               :: IT16
-      LOGICAL, INTENT(IN)   :: SNOWNG
+      LOGICAL, INTENT(IN), VALUE :: SNOWNG
 
 !DJG NDHMS/WRF-Hydro edit...
        REAL, INTENT(INOUT)    ::  SFHEAD1RT,INFXS1RT,ETPND1
 
-      REAL, INTENT(IN)      :: BEXP,CFACTR, CMCMAX,CSOIL,DF1,DKSAT,     &
-                               DT,DWSAT, EPSCA,FDOWN,F1,FXEXP,          &
-                               FRZFACT,KDT,PC, PRCP,PSISAT,Q2,QUARTZ,   &
-                               RCH,RR,SBETA,SFCPRS, SFCTMP, SHDFAC,     &
-                               SLOPE,SMCDRY,SMCMAX,SMCREF,SMCWLT, T24,  &
-                               TBOT,TH2,ZBOT,EMISSI,SOLDN
+      REAL, INTENT(IN), VALUE :: BEXP, CFACTR, CMCMAX, CSOIL, DF1, DKSAT, DT, DWSAT
+      REAL, INTENT(IN), VALUE :: EPSCA, FDOWN, F1, FXEXP, FRZFACT, KDT, PC, PRCP
+      REAL, INTENT(IN), VALUE :: PSISAT, Q2, QUARTZ, RCH, RR, SBETA, SFCPRS, SFCTMP
+      REAL, INTENT(IN), VALUE :: SHDFAC, SLOPE, SMCDRY, SMCMAX, SMCREF, SMCWLT, T24, TBOT
+      REAL, INTENT(IN), VALUE :: TH2, ZBOT, EMISSI, SOLDN
       REAL, INTENT(INOUT)   :: CMC, BETA, ESD,FLX2,PRCPF,SNOWH,SNCOVR,  &
                                SNDENS, T1, RIBB, ETP
       REAL, INTENT(OUT)     :: DEW,DRIP,EC,EDIR, ETNS, ESNOW,ETT,       &
@@ -7819,9 +7814,9 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
       REAL, PARAMETER       :: ESDMIN = 1.E-6, LSUBC = 2.501000E+6,     &
                                LSUBS = 2.83E+6, TFREEZ = 273.15,        &
                                SNOEXP = 2.0
-      LOGICAL, INTENT(IN)   :: UA_PHYS  ! UA: flag for UA option
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
       REAL, INTENT(INOUT)   :: FLX4     ! UA: energy removed by canopy
-      REAL, INTENT(IN)      :: ETPN     ! UA: adjusted pot. evap. [mm/s]
+      REAL, INTENT(IN), VALUE :: ETPN
       REAL                  :: ETP1N    ! UA: adjusted pot. evap. [m/s]
 
 !
@@ -8182,14 +8177,14 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
       IMPLICIT NONE
 
       INTEGER                :: IPOL, J
-      REAL, INTENT(IN)       :: ESD, DTSEC,TSNOW,TSOIL
+      REAL, INTENT(IN), VALUE :: ESD, DTSEC, TSNOW, TSOIL
       REAL, INTENT(INOUT)    :: SNOWH, SNDENS
       REAL                   :: BFAC,DSX,DTHR,DW,SNOWHC,PEXP,           &
                                 TAVGC,TSNOWC,TSOILC,ESDC,ESDCX
       REAL, PARAMETER        :: C1 = 0.01, C2 = 21.0, G = 9.81,         &
                                 KN = 4000.0
-      LOGICAL, INTENT(IN)    :: UA_PHYS  ! UA: flag for UA option
-      REAL, INTENT(IN)       :: SNOMLT   ! UA: snow melt [m]
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
+      REAL, INTENT(IN), VALUE :: SNOMLT
       REAL                   :: SNOMLTC  ! UA: snow melt [cm]
 ! ----------------------------------------------------------------------
 ! CONVERSION INTO SIMULATION UNITS
@@ -8308,16 +8303,16 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! Z0S     SNOW ROUGHNESS LENGTH:=0.001 (m)
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN)        :: SNCOVR, Z0BRD
+      REAL, INTENT(IN), VALUE :: SNCOVR, Z0BRD
       REAL, INTENT(OUT)       :: Z0
       REAL, PARAMETER         :: Z0S=0.001
-      REAL, INTENT(IN)        :: SNOWH
+      REAL, INTENT(IN), VALUE :: SNOWH
       REAL                    :: BURIAL
       REAL                    :: Z0EFF
-      LOGICAL, INTENT(IN)     :: UA_PHYS   ! UA: flag for UA option
-      REAL, INTENT(IN)        :: FBUR      ! UA: fraction of canopy buried
-      REAL, INTENT(IN)        :: FGSN      ! UA: ground snow cover fraction
-      REAL, INTENT(IN)        :: SHDMAX    ! UA: maximum vegetation fraction
+      LOGICAL, INTENT(IN), VALUE :: UA_PHYS
+      REAL, INTENT(IN), VALUE :: FBUR
+      REAL, INTENT(IN), VALUE :: FGSN
+      REAL, INTENT(IN), VALUE :: SHDMAX
       REAL, PARAMETER         :: Z0G=0.01  ! UA: soil roughness
       REAL                    :: FV,A1,A2
 
@@ -8361,7 +8356,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! SNDENS  SNOW DENSITY (G/CM3=DIMENSIONLESS FRACTION OF H2O DENSITY)
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      REAL, INTENT(IN)        :: NEWSN, TEMP
+      REAL, INTENT(IN), VALUE :: NEWSN, TEMP
       REAL, INTENT(INOUT)     :: SNDENS, SNOWH
       REAL                    :: DSNEW, HNEWC, SNOWHC,NEWSNC,TEMPC
 
@@ -8414,7 +8409,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! COEFFICIENTS FOR THE TRI-DIAGONAL MATRIX OF THE IMPLICIT TIME SCHEME.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)       :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER                   :: IALP1, IOHINF, J, JJ,  K, KS
 
 !DJG NDHMS/WRF-Hydro edit... Variables used in OV routing infiltration calcs
@@ -8423,8 +8418,8 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 
 
 
-      REAL, INTENT(IN)          :: BEXP, DKSAT, DT, DWSAT, EDIR, FRZX,  &
-                                   KDT, PCPDRP, SLOPE, SMCMAX, SMCWLT
+      REAL, INTENT(IN), VALUE :: BEXP, DKSAT, DT, DWSAT, EDIR, FRZX, KDT, PCPDRP
+      REAL, INTENT(IN), VALUE :: SLOPE, SMCMAX, SMCWLT
       REAL, INTENT(OUT)         :: RUNOFF1, RUNOFF2
       REAL, DIMENSION(1:NSOIL), INTENT(IN)   :: ET, SH2O, SH2OA, SICE,  &
                                                 ZSOIL
@@ -8711,14 +8706,14 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! CONTENT VALUES.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)       :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER                   :: I, K, KK11
 
 !!DJG NDHMS/WRF-Hydro edit...
       REAL, INTENT(INOUT)       :: INFXS1RT
       REAL                      :: AVAIL
 
-      REAL, INTENT(IN)          :: CMCMAX, DT, SMCMAX
+      REAL, INTENT(IN), VALUE :: CMCMAX, DT, SMCMAX
       REAL, INTENT(OUT)         :: RUNOFF3
       REAL, INTENT(INOUT)       :: CMC
       REAL, DIMENSION(1:NSOIL), INTENT(IN)     :: SH2OIN, SICE, ZSOIL
@@ -8841,9 +8836,9 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! THE MIDDLE LAYER TEMPERATURES
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)       :: NSOIL
+      INTEGER, INTENT(IN), VALUE :: NSOIL
       INTEGER                   :: K
-      REAL, INTENT(IN)          :: TB, TU, ZBOT
+      REAL, INTENT(IN), VALUE :: TB, TU, ZBOT
       REAL, INTENT(OUT)         :: TBND1
       REAL, DIMENSION(1:NSOIL), INTENT(IN)   :: ZSOIL
       REAL                      :: ZB, ZUP
@@ -8889,8 +8884,8 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! June 2001 CHANGES: FROZEN SOIL CONDITION.
 ! ----------------------------------------------------------------------
       IMPLICIT NONE
-      INTEGER, INTENT(IN)       :: SOILTYP, OPT_THCND  
-      REAL, INTENT(IN)          :: QZ,  SMC, SMCMAX, SH2O, BEXP, PSISAT
+      INTEGER, INTENT(IN), VALUE :: SOILTYP, OPT_THCND
+      REAL, INTENT(IN), VALUE :: QZ, SMC, SMCMAX, SH2O, BEXP, PSISAT
       REAL, INTENT(OUT)         :: DF
       REAL                      :: AKE, GAMMD, THKDRY, THKICE, THKO,    &
                                    THKQTZ,THKSAT,THKS,THKW,SATRATIO,XU, &
