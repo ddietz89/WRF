@@ -703,9 +703,16 @@ CONTAINS
       LOGICAL :: np_new
       CHARACTER(LEN=160) :: np_msg
 #endif
+      LOGICAL :: bc_on
 
 !------------
 
+      ! GPU only when dat has a device copy: for host-only arrays (some physics-block temporaries) the kernels
+      ! below would otherwise copy the strided boundary strips in and out on every call (~17 transfers each)
+      bc_on = wrf_gpu_on
+#ifdef WRF_GPU_RESIDENT
+      IF ( bc_on ) bc_on = acc_is_present( dat )
+#endif
 #ifdef WRF_GPU_RESIDENT
       ! diagnostic: report (once per address) dat arrays that have no device copy - each kernel below then copies
       ! boundary strips row by row
@@ -905,7 +912,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -931,7 +938,7 @@ CONTAINS
 
           IF (variable /= 'u' .and. variable /= 'x' ) THEN
 
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
 #if defined(INTEL_ALIGN64)
 !DEC$ ASSUME_ALIGNED dat:64
@@ -948,7 +955,7 @@ CONTAINS
           ELSE
 
 !!!!!!! I am not sure about this one!  JM 20020402
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO j = MAX(jds,jts-1)-bdyzone, MIN(jte+1,jde+jstag)+bdyzone
             DO k = kts, k_end
               dat(ide+1,k,j) = dat(ide,k,j)
@@ -1103,7 +1110,7 @@ CONTAINS
                        config_flags%nested            ) .and.  &
                          ( jts == jds) .and. open_bc_copy )  THEN
 
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jds-1) = dat(i,k,jds)
@@ -1124,7 +1131,7 @@ CONTAINS
 
           IF (variable /= 'v' .and. variable /= 'y' ) THEN
 
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde  ) = dat(i,k,jde-1)
@@ -1135,7 +1142,7 @@ CONTAINS
 
           ELSE
 
-!$acc parallel loop collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO k = kts, k_end
             DO i = i_start, i_end
               dat(i,k,jde+1) = dat(i,k,jde)
