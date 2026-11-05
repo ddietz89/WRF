@@ -118,7 +118,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
 #ifdef WRF_GPU_RESIDENT
-   USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre, wrf_gpu_ra_lw, wrf_gpu_ra_sw
+   USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre, wrf_gpu_ra_lw, wrf_gpu_ra_sw, wrf_gpu_lean_step
+#ifdef WRF_GPU_RESIDENT
+   USE module_diag_afwa, ONLY : afwa_time_flags
+#endif
    USE module_diagnostics_driver, ONLY : wrf_gpu_diag
    USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
@@ -251,6 +254,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! receiving the zeroed tendencies and the phy_prep fields (needs no host physics writing them: no PBL
    ! scalar/tracer mixing, no grid nudging)
    LOGICAL :: gpu_prep_dev = .FALSE.
+   LOGICAL :: lean_rad, lean_h3, ld_after, ld_out, ld_first
    LOGICAL, EXTERNAL :: wrf_gpu_h1chk
    LOGICAL, EXTERNAL :: wrf_gpu_async_mode
    DOUBLE PRECISION :: h1ck(2,10)
@@ -1092,6 +1096,23 @@ BENCH_START(calc_p_rho_tim)
    wrf_gpu_diag = IAND( wrf_gpu_xfer(), 65536 ) /= 0   ! every-step NWP + AFWA diagnostics on the GPU
    wrf_gpu_sfc = IAND( wrf_gpu_xfer(), 131072 ) /= 0  ! MYJ surface layer on the GPU
    wrf_gpu_lsm = IAND( wrf_gpu_xfer(), 262144 ) /= 0  ! Noah LSM point loop on the GPU
+   ! lean step (bit 524288): no radiation this step and every other physics package on the GPU - the host gets
+   ! levels 1-2 of the phy_prep fields / moisture only (gpu_lean_pull) and skips its phy_prep
+   wrf_gpu_lean_step = .FALSE.
+   IF ( IAND( wrf_gpu_xfer(), 524288 ) /= 0 .AND. gpu_prep_dev .AND. wrf_gpu_pbl .AND. wrf_gpu_cu .AND.        &
+        wrf_gpu_sfc .AND. wrf_gpu_lsm .AND. grid%itimestep > 1 .AND. config_flags%shcu_physics == 0 .AND.      &
+        config_flags%sf_urban_physics == 0 .AND. config_flags%fractional_seaice == 0 ) THEN
+      ! radiation_driver's run_param (radtacttime is set on the first step)
+      lean_rad = ( config_flags%radt == 0. ) .OR. ( grid%stepra == 1 )
+      IF ( .NOT. lean_rad ) THEN
+         IF ( config_flags%use_adaptive_time_step ) THEN
+            lean_rad = curr_secs .GE. grid%radtacttime
+         ELSE
+            lean_rad = MOD( grid%itimestep, grid%stepra ) .EQ. 1 + grid%ra_call_offset
+         ENDIF
+      ENDIF
+      wrf_gpu_lean_step = .NOT. lean_rad
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
 #ifdef WRF_SEG_TIMERS
@@ -1111,7 +1132,10 @@ BENCH_START(calc_p_rho_tim)
      IF ( ASSOCIATED(grid%scalar) ) h1ck(1,10) = SUM( DBLE(grid%scalar) )
    ENDIF
    gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
-   IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
+   IF ( wrf_gpu_lean_step ) THEN
+!$acc wait
+     CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
+   ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h1.inc"
    ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
 #  include "gpu_upd_host_h1.inc"
@@ -5652,12 +5676,25 @@ BENCH_END(bc_2d_tim)
    CALL seg_enter( 5 )
 #endif
    IF ( IAND( wrf_gpu_xfer(), 8 ) /= 0 ) THEN
+   ! lean (bit 524288): no host 3-D state needed after this step when its diagnostics run on the GPU (same test as
+   ! diagnostics_driver); the next step pulls the state at H1 if it is not lean
+   lean_h3 = IAND( wrf_gpu_xfer(), 524288 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 65536 ) /= 0 .AND.               &
+             config_flags%nwp_diagnostics == 1 .AND. config_flags%afwa_diag_opt == 1 .AND.                       &
+             config_flags%mp_physics == THOMPSON .AND. .NOT. F_QNG .AND. grid%itimestep /= 1 .AND. gpu_prep_dev
+   IF ( lean_h3 ) THEN
+      CALL afwa_time_flags( grid, ld_after, ld_out, ld_first )
+      lean_h3 = .NOT. ( ld_out .OR. ld_first )
+   ENDIF
+   IF ( .NOT. lean_h3 ) THEN
    IF ( IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h3.inc"
    ELSE
 #  include "gpu_upd_host_h3.inc"
    ENDIF
    gpu_h3_done = .TRUE.
+   ELSE
+   gpu_h3_done = .FALSE.
+   ENDIF
    ! updraft helicity (cal_helicity in part2) is GPU-computed: the host diagnostics read/reset it and H1 pushes it back
 !$acc update self(grid%uh) if(associated(grid%uh))
 !$acc update self(grid%up_heli_max) if(associated(grid%up_heli_max))
@@ -6835,4 +6872,87 @@ SUBROUTINE gpu_retile( grid, to_phys, ids, ide, jds, jde, ips, ipe, jps, jpe )
       CALL set_tiles( ZONE_SOLVE_EM, grid, ids, ide, jds, jde, ips, ipe, jps, jpe )
    ENDIF
 END SUBROUTINE gpu_retile
+
+! WRF_GPU lean step: levels kms..kms+1 of the GPU phy_prep fields and the moisture species to the host, packed on
+! the device (one contiguous transfer instead of ~20 full 3-D pulls)
+SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   INTEGER, INTENT(IN) :: num_moist, ims, ime, jms, jme, kms, kme
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy, p_phy, pi_phy, p8w, t8w, dz8w
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(INOUT) :: moist
+   REAL, ALLOCATABLE, SAVE :: buf(:,:,:,:)
+   INTEGER :: i, j, k, n, nf
+   nf = 12 + num_moist
+   IF ( ALLOCATED(buf) ) THEN
+      IF ( SIZE(buf,4) /= nf .OR. SIZE(buf,1) /= ime-ims+1 .OR. SIZE(buf,3) /= jme-jms+1 ) THEN
+!$acc exit data delete(buf)
+         DEALLOCATE(buf)
+      ENDIF
+   ENDIF
+   IF ( .NOT. ALLOCATED(buf) ) THEN
+      ALLOCATE( buf(ims:ime,2,jms:jme,nf) )
+!$acc enter data create(buf)
+   ENDIF
+   CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
+                   grid%z, grid%z_at_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
+!$acc update self(buf)
+   !$OMP PARALLEL DO PRIVATE(i,j,k,n)
+   DO j = jms, jme
+   DO k = 1, 2
+   DO i = ims, ime
+      grid%t_phy(i,kms+k-1,j) = buf(i,k,j,1)
+      th_phy(i,kms+k-1,j) = buf(i,k,j,2)
+      p_phy(i,kms+k-1,j) = buf(i,k,j,3)
+      pi_phy(i,kms+k-1,j) = buf(i,k,j,4)
+      grid%u_phy(i,kms+k-1,j) = buf(i,k,j,5)
+      grid%v_phy(i,kms+k-1,j) = buf(i,k,j,6)
+      p8w(i,kms+k-1,j) = buf(i,k,j,7)
+      t8w(i,kms+k-1,j) = buf(i,k,j,8)
+      dz8w(i,kms+k-1,j) = buf(i,k,j,9)
+      grid%rho(i,kms+k-1,j) = buf(i,k,j,10)
+      grid%z(i,kms+k-1,j) = buf(i,k,j,11)
+      grid%z_at_w(i,kms+k-1,j) = buf(i,k,j,12)
+      DO n = 1, num_moist
+         moist(i,kms+k-1,j,n) = buf(i,k,j,12+n)
+      ENDDO
+   ENDDO
+   ENDDO
+   ENDDO
+   !$OMP END PARALLEL DO
+END SUBROUTINE gpu_lean_pull
+
+SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, dz8w, rho, z, z_at_w, moist, &
+                      num_moist, nf, ims, ime, jms, jme, kms, kme )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: num_moist, nf, ims, ime, jms, jme, kms, kme
+   REAL, DIMENSION(ims:ime,2,jms:jme,nf), INTENT(INOUT) :: buf
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, &
+                                                          dz8w, rho, z, z_at_w
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
+   INTEGER :: i, j, k, n
+!$acc parallel loop collapse(3) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,moist)
+   DO j = jms, jme
+   DO k = 1, 2
+   DO i = ims, ime
+      buf(i,k,j,1) = t_phy(i,kms+k-1,j)
+      buf(i,k,j,2) = th_phy(i,kms+k-1,j)
+      buf(i,k,j,3) = p_phy(i,kms+k-1,j)
+      buf(i,k,j,4) = pi_phy(i,kms+k-1,j)
+      buf(i,k,j,5) = u_phy(i,kms+k-1,j)
+      buf(i,k,j,6) = v_phy(i,kms+k-1,j)
+      buf(i,k,j,7) = p8w(i,kms+k-1,j)
+      buf(i,k,j,8) = t8w(i,kms+k-1,j)
+      buf(i,k,j,9) = dz8w(i,kms+k-1,j)
+      buf(i,k,j,10) = rho(i,kms+k-1,j)
+      buf(i,k,j,11) = z(i,kms+k-1,j)
+      buf(i,k,j,12) = z_at_w(i,kms+k-1,j)
+      DO n = 1, num_moist
+         buf(i,k,j,12+n) = moist(i,kms+k-1,j,n)
+      ENDDO
+   ENDDO
+   ENDDO
+   ENDDO
+END SUBROUTINE lean_pack
 #endif

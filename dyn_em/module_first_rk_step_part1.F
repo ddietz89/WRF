@@ -49,6 +49,9 @@ CONTAINS
     USE module_domain, ONLY : domain, domain_clock_get, get_ijk_from_subgrid
     USE module_configure, ONLY : grid_config_rec_type, model_config_rec
     USE module_radiation_driver, ONLY : pre_radiation_driver, radiation_driver
+#ifdef WRF_GPU_RESIDENT
+    USE module_radiation_driver, ONLY : wrf_gpu_lean_step
+#endif
     USE module_surface_driver, ONLY : surface_driver
     USE module_cumulus_driver, ONLY : cumulus_driver
     USE module_shallowcu_driver, ONLY : shallowcu_driver
@@ -219,6 +222,10 @@ BENCH_END(init_zero_tend_tim)
 #ifdef WRF_SEG_TIMERS
       CALL phys_tick(0)
 #endif
+#ifdef WRF_GPU_RESIDENT
+      ! lean GPU step: the GPU ran phy_prep and the host has levels 1-2 of its fields (solve_em gpu_lean_pull)
+      IF ( .NOT. wrf_gpu_lean_step ) THEN
+#endif
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij )
       DO ij = 1 , grid%num_tiles
@@ -241,6 +248,9 @@ BENCH_END(init_zero_tend_tim)
                         k_start, k_end                                   )
       ENDDO
       !$OMP END PARALLEL DO
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
 
 BENCH_END(phy_prep_tim)
 

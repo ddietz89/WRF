@@ -15,6 +15,10 @@ MODULE module_radiation_driver
    LOGICAL :: wrf_gpu_ra_lw = .FALSE.
 ! (WRF_GPU_XFER bit 32768, with 16384): RRTMG SW core on the GPU as well (daylight columns)
    LOGICAL :: wrf_gpu_ra_sw = .FALSE.
+! residency builds (WRF_GPU_XFER bit 524288): this step is "lean" - no radiation, every other physics package on
+! the GPU: the host has only levels 1-2 of the phy_prep fields / moisture (solve_em gpu_lean_pull; part1 skips the
+! host phy_prep)
+   LOGICAL :: wrf_gpu_lean_step = .FALSE.
 #endif
 CONTAINS
 !BOP
@@ -1163,6 +1167,7 @@ CONTAINS
    END IF
 #ifdef WRF_GPU
    wrf_gpu_ra_ran = run_param
+   IF ( run_param .AND. wrf_gpu_lean_step ) CALL wrf_error_fatal('radiation_driver: radiation on a lean GPU step')
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( run_param .AND. wrf_gpu_ra_pullre ) THEN
