@@ -15948,6 +15948,9 @@ contains
          call get_environment_variable('WRF_GPU_RACHUNK', v, status=st)
          if (st == 0) read(v, *, iostat=st) nch
          if (nch .lt. 1) nch = 131072
+         ! balanced chunks of at most ~72000 columns (one wave at 64 registers on a 72-SM V100); larger chunks leave
+         ! GBs of work arrays in the device pool and the Thompson stack reservation then fails on 500x380
+         if (st /= 0 .and. ncolm > 72000) nch = (ncolm + (ncolm+71999)/72000 - 1) / ((ncolm+71999)/72000)
          nch = min(nch, ncolm)
          gw_ncolm = ncolm
          gw_nlay = nlay
