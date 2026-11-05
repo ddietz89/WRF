@@ -2084,12 +2084,14 @@ CONTAINS
        sfc_gpu_ran = .TRUE.
        IF ( .NOT. sfc_gpu_entered ) THEN   ! (no copy for arrays already in the grid enter-data list)
 !$acc enter data copyin(ht,tsk,qsfc,thz0,qz0,uz0,vz0,lowlyr,xland,ivgtyp,ust,znt,z0,pblh,mavail,rmol,akhs,akms)
-!$acc enter data copyin(br,chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr)
+!$acc enter data copyin(br,hfx,qfx,lh,flhc,flqc,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr)
 !$acc enter data copyin(q10,pshltr,u10e,v10e)
          sfc_gpu_entered = .TRUE.
        ENDIF
        ! host-written inputs (land surface, GPU-MYJ outputs pulled to the host, sea-ice / SST updates)
 !$acc update device(tsk,qsfc,thz0,qz0,uz0,vz0,xland,ust,znt,z0,pblh,mavail,rmol,akhs,akms,lowlyr,ivgtyp)
+       ! chs, chs2, cqs2, cpm, qgh are automatic arrays of this routine (outputs of the surface layer)
+!$acc data create(chs,chs2,cqs2,cpm,qgh)
        CALL MYJSFC_GPU(itimestep,ht,dz8w,                       &
               p_phy,p8w,th_phy,t_phy,                              &
               qv_curr,qc_curr,                                     &
@@ -2110,6 +2112,7 @@ CONTAINS
        ! what the host reads next (land surface, PBL push, history)
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,flhc,flqc,qgh,cpm,ct,u10,v10,t2,th2,tshltr,th10,q2,qshltr,q10)
 !$acc update self(pshltr,u10e,v10e,thz0,qz0,uz0,vz0,ust,znt,pblh,rmol,akhs,akms,qsfc)
+!$acc end data
       ENDIF
      ENDIF
 #endif
