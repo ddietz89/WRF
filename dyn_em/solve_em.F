@@ -6890,7 +6890,7 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(INOUT) :: moist
    REAL, ALLOCATABLE, SAVE :: buf(:,:,:,:)
    INTEGER :: i, j, k, n, nf
-   nf = 12 + num_moist
+   nf = 14 + num_moist
    IF ( ALLOCATED(buf) ) THEN
       IF ( SIZE(buf,4) /= nf .OR. SIZE(buf,1) /= ime-ims+1 .OR. SIZE(buf,3) /= jme-jms+1 ) THEN
 !$acc exit data delete(buf)
@@ -6902,7 +6902,7 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
 !$acc enter data create(buf)
    ENDIF
    CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
-                   grid%z, grid%z_at_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
+                   grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
 !$acc update self(buf)
    !$OMP PARALLEL DO PRIVATE(i,j,k,n)
    DO j = jms, jme
@@ -6920,8 +6920,10 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
       grid%rho(i,kms+k-1,j) = buf(i,k,j,10)
       grid%z(i,kms+k-1,j) = buf(i,k,j,11)
       grid%z_at_w(i,kms+k-1,j) = buf(i,k,j,12)
+      grid%p_hyd(i,kms+k-1,j) = buf(i,k,j,13)
+      grid%p_hyd_w(i,kms+k-1,j) = buf(i,k,j,14)
       DO n = 1, num_moist
-         moist(i,kms+k-1,j,n) = buf(i,k,j,12+n)
+         moist(i,kms+k-1,j,n) = buf(i,k,j,14+n)
       ENDDO
    ENDDO
    ENDDO
@@ -6952,19 +6954,20 @@ SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, n
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: th_phy, p_phy, pi_phy, p8w, t8w, dz8w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
    REAL, ALLOCATABLE :: buf(:,:,:,:)
-   CHARACTER(LEN=12), PARAMETER :: nm(12) = (/ 't_phy  ', 'th_phy ', 'p_phy  ', 'pi_phy ', 'u_phy  ', 'v_phy  ', &
-                                               'p8w    ', 't8w    ', 'dz8w   ', 'rho    ', 'z      ', 'z_at_w ' /)
+   CHARACTER(LEN=12), PARAMETER :: nm(14) = (/ 't_phy  ', 'th_phy ', 'p_phy  ', 'pi_phy ', 'u_phy  ', 'v_phy  ', &
+                                               'p8w    ', 't8w    ', 'dz8w   ', 'rho    ', 'z      ', 'z_at_w ', &
+                                               'p_hyd  ', 'p_hyd_w' /)
    REAL :: h, dmax
    INTEGER :: i, j, k, f, nf, ib, jb
-   nf = 12 + num_moist
+   nf = 14 + num_moist
    ALLOCATE( buf(ims:ime,2,jms:jme,nf) )
 !$acc wait
 !$acc data create(buf)
    CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
-                   grid%z, grid%z_at_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
+                   grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
 !$acc update self(buf)
 !$acc end data
-   DO f = 1, 12
+   DO f = 1, 14
       dmax = 0. ; ib = 0 ; jb = 0
       DO j = jps, MIN(jpe, jme) ; DO k = 1, 2 ; DO i = ips, MIN(ipe, ime)
          SELECT CASE (f)
@@ -6979,7 +6982,9 @@ SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, n
          CASE (9) ; h = dz8w(i,kms+k-1,j)
          CASE (10) ; h = grid%rho(i,kms+k-1,j)
          CASE (11) ; h = grid%z(i,kms+k-1,j)
-         CASE DEFAULT ; h = grid%z_at_w(i,kms+k-1,j)
+         CASE (12) ; h = grid%z_at_w(i,kms+k-1,j)
+         CASE (13) ; h = grid%p_hyd(i,kms+k-1,j)
+         CASE DEFAULT ; h = grid%p_hyd_w(i,kms+k-1,j)
          END SELECT
          IF ( ABS(buf(i,k,j,f) - h) > dmax ) THEN
             dmax = ABS(buf(i,k,j,f) - h) ; ib = i ; jb = j
@@ -6990,16 +6995,16 @@ SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, n
    DEALLOCATE( buf )
 END SUBROUTINE gpu_lean_check
 
-SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, dz8w, rho, z, z_at_w, moist, &
+SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, dz8w, rho, z, z_at_w, p_hyd, p_hyd_w, moist, &
                       num_moist, nf, ims, ime, jms, jme, kms, kme )
    IMPLICIT NONE
    INTEGER, INTENT(IN) :: num_moist, nf, ims, ime, jms, jme, kms, kme
    REAL, DIMENSION(ims:ime,2,jms:jme,nf), INTENT(INOUT) :: buf
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, &
-                                                          dz8w, rho, z, z_at_w
+                                                          dz8w, rho, z, z_at_w, p_hyd, p_hyd_w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
    INTEGER :: i, j, k, n
-!$acc parallel loop collapse(3) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,moist)
+!$acc parallel loop collapse(3) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,p_hyd,p_hyd_w,moist)
    DO j = jms, jme
    DO k = 1, 2
    DO i = ims, ime
@@ -7015,8 +7020,10 @@ SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w,
       buf(i,k,j,10) = rho(i,kms+k-1,j)
       buf(i,k,j,11) = z(i,kms+k-1,j)
       buf(i,k,j,12) = z_at_w(i,kms+k-1,j)
+      buf(i,k,j,13) = p_hyd(i,kms+k-1,j)
+      buf(i,k,j,14) = p_hyd_w(i,kms+k-1,j)
       DO n = 1, num_moist
-         buf(i,k,j,12+n) = moist(i,kms+k-1,j,n)
+         buf(i,k,j,14+n) = moist(i,kms+k-1,j,n)
       ENDDO
    ENDDO
    ENDDO
