@@ -32,6 +32,14 @@ MODULE module_em
 
    USE module_configure, ONLY: grid_config_rec_type, model_config_rec, model_to_grid_config_rec
 
+#ifdef WRF_GPU
+   ! WRF_GPU_EARLYDYN: rk_tendency in two parts at rk_step 1 - 1 = everything before the forward-in-time block
+   ! (advection, rhs_ph, pressure gradient, buoyancy, w_damp, Coriolis, curvature; inputs are the state and the
+   ! rk_step_prep fields only), launched on a second queue before the physics; 2 = the forward-in-time block
+   ! (diffusion into the *_tendf arrays), at its usual place after the physics. 0 = whole routine.
+   INTEGER :: rkt_part = 0
+#endif
+
 CONTAINS
 
 !------------------------------------------------------------------------
@@ -369,6 +377,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 !
 !</DESCRIPTION>
 
+#ifdef WRF_GPU
+   IF ( rkt_part /= 2 ) THEN
+#endif
    CALL zero_tend ( ru_tend,                      &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
@@ -799,6 +810,10 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 !
 !**************************************************************
 
+#ifdef WRF_GPU
+   ENDIF
+   IF ( rkt_part /= 1 ) THEN
+#endif
   forward_step: IF( rk_step == 1 ) THEN
 
     diff_opt1 : IF (config_flags%diff_opt .eq. 1) THEN
@@ -953,6 +968,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                               its, ite, jts, jte, kts, kte   )
 
   END IF forward_step
+#ifdef WRF_GPU
+   ENDIF
+#endif
 
 END SUBROUTINE rk_tendency
 

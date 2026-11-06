@@ -207,6 +207,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
                                                                                    
    ! Whether advection should produce decoupled horizontal and vertical advective tendency outputs
    LOGICAL                        :: tenddec
+#ifdef WRF_GPU_RESIDENT
+   LOGICAL                        :: early_rkt
+   INTEGER, SAVE                  :: earlydyn = -1
+   CHARACTER(LEN=8)               :: edv
+#endif
    
    ! Flag for producing diagnostic fields (e.g., radar reflectivity)
    LOGICAL                        :: diag_flag
@@ -1039,6 +1044,54 @@ BENCH_START(set_phys_bc_tim)
      !$OMP END PARALLEL DO
 BENCH_END(set_phys_bc_tim)
 
+#ifdef WRF_GPU_RESIDENT
+   ! WRF_GPU_EARLYDYN=1: at rk_step 1 the dynamics tendencies of rk_tendency that need only the state and the
+   ! rk_step_prep fields (advection, rhs_ph, pressure gradient, buoyancy, w_damp, Coriolis, curvature) go on
+   ! OpenACC queue 2 here, so they run on the GPU while the physics block keeps the host busy; the diffusion
+   ! part (needs part2's km) runs at the usual place, after queue 1 has waited for queue 2
+   IF ( earlydyn < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_EARLYDYN', edv )
+      earlydyn = 0
+      IF ( TRIM(edv) == '1' ) earlydyn = 1
+   ENDIF
+   early_rkt = .FALSE.
+   IF ( earlydyn == 1 .AND. rk_step == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on .AND. wrf_gpu_q == 1 .AND.  &
+        IAND( wrf_gpu_xfer(), 1048576 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 8388608 ) /= 0 ) THEN
+!$acc wait(1) async(2)
+      wrf_gpu_q = 2 ; wrf_gpu_xw_skip = .TRUE. ; rkt_part = 1
+       CALL rk_tendency ( config_flags, rk_step                                                                &
+                         ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
+                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
+                         ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
+                         ,grid%t_save, mu_save, grid%rthften                                                   &
+                         ,grid%ru, grid%rv, grid%rw, grid%ww, wwE, wwI                                         &
+                         ,grid%u_2, grid%v_2, grid%w_2, grid%t_2, grid%ph_2                                    &
+                         ,grid%u_1, grid%v_1, grid%w_1, grid%t_1, grid%ph_1                                    &
+                         ,grid%h_diabatic, grid%phb, grid%t_init                                               &
+                         ,grid%mu_1, grid%mu_2, grid%mut, grid%muu, grid%muv, grid%mub                         & 
+                         ,grid%c1h, grid%c2h, grid%c1f, grid%c2f                                               &
+                         ,grid%al, grid%ht, grid%alt, grid%p, grid%pb, grid%php, cqu, cqv, cqw                 & 
+                         ,grid%u_base, grid%v_base, grid%t_base, grid%qv_base, grid%z_base                     &
+                         ,grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv                                    &
+                         ,grid%msfvy, grid%msftx,grid%msfty, grid%clat, grid%f, grid%e, grid%sina, grid%cosa   &
+                         ,grid%fnm, grid%fnp, grid%rdn, grid%rdnw                                              &
+                         ,grid%dt, grid%rdx, grid%rdy, grid%khdif, grid%kvdif, grid%xkmh, grid%xkhh            &
+                         ,grid%diff_6th_opt, grid%diff_6th_factor                                              &
+                         ,config_flags%momentum_adv_opt                                                        &
+                         ,grid%dampcoef,grid%zdamp,config_flags%damp_opt,config_flags%rad_nudge                &
+                         ,grid%cf1, grid%cf2, grid%cf3, grid%cfn, grid%cfn1, num_3d_m                          &
+                         ,config_flags%non_hydrostatic, config_flags%top_lid                                   &
+                         ,grid%u_frame, grid%v_frame                                                           &
+                         ,ids, ide, jds, jde, kds, kde                                                         &
+                         ,ims, ime, jms, jme, kms, kme                                                         &
+                         ,grid%i_start(1), grid%i_end(1)                                                     &
+                         ,grid%j_start(1), grid%j_end(1)                                                     &
+                         ,k_start, k_end                                                                       &
+                         ,max_vert_cfl_tmp(1), max_horiz_cfl_tmp(1)                                         )
+      rkt_part = 0 ; wrf_gpu_xw_skip = .FALSE. ; wrf_gpu_q = 1
+      early_rkt = .TRUE.
+   ENDIF
+#endif
      rk_step_is_one : IF (rk_step == 1) THEN ! only need to initialize diffusion tendencies
 
 BENCH_START(calc_p_rho_tim)
@@ -1448,6 +1501,12 @@ BENCH_START(rk_tend_tim)
       CALL gpu_ckv( grid, 'z_base', 1, grid%z_base, kms, kme, 1, 1, 1, 1, kps, kpe, 1, 1, 1, 1 )
    ENDIF
 #endif
+#ifdef WRF_GPU_RESIDENT
+     IF ( early_rkt ) THEN
+!$acc wait(2) async(1)
+        rkt_part = 2
+     ENDIF
+#endif
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
      DO ij = 1 , grid%num_tiles
@@ -1489,6 +1548,11 @@ BENCH_START(rk_tend_tim)
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
    CALL gpu_ckt( grid, 'k1_rktend', rk_step, grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend, mu_tend, &
         ims, ime, jms, jme, kms, kme, ips, MIN(ipe,ide-1), jps, MIN(jpe,jde-1), kps, kpe )
+#endif
+#ifdef WRF_GPU_RESIDENT
+     IF ( early_rkt ) THEN
+        rkt_part = 0 ; early_rkt = .FALSE.
+     ENDIF
 #endif
 BENCH_END(rk_tend_tim)
 
