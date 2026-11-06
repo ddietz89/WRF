@@ -100,9 +100,15 @@ CONTAINS
       USE module_diag_cordex, ONLY: cordex_output_calc, cordex_hf_output_calc
 #endif
 
+#ifdef WRF_GPU_RESIDENT
+      USE module_wrf_error, ONLY : wrf_gpu_on
+#endif
       IMPLICIT NONE
 #ifdef WRF_GPU_RESIDENT
       LOGICAL :: gpu_diag_step, d_after_dump, d_out_step, d_first_step, d_nwp_reset
+      LOGICAL :: upf_on
+      INTEGER, SAVE :: diag_upf = -1
+      CHARACTER(LEN=8) :: upfv
       INTEGER :: d_idump
       REAL :: d_tfo
 #endif
@@ -229,10 +235,37 @@ CONTAINS
       !  There are some fields that were defined in the first RK loop for
       !  physics and are now a time-step old.
 
+#ifdef WRF_GPU_RESIDENT
+      ! GPU diagnostics step (same test as below): the host t_2/moist are not current (lean step, no H3 pull),
+      ! so the serial host loop (~7.5 ms/step on big1000) computed a value nobody reads; run it on the device,
+      ! where the state is current (WRF_GPU_DIAGUPF=0 restores the host loop)
+      gpu_diag_step = .FALSE.
+      IF ( wrf_gpu_diag .AND. config_flags%nwp_diagnostics == 1 .AND. config_flags%afwa_diag_opt == 1 .AND. &
+           config_flags%mp_physics == THOMPSON .AND. .NOT. F_QNG .AND. grid%itimestep /= 1 ) THEN
+         CALL afwa_time_flags( grid, d_after_dump, d_out_step, d_first_step )
+         gpu_diag_step = .NOT. ( d_out_step .OR. d_first_step )
+      ENDIF
+      IF ( diag_upf < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_DIAGUPF', upfv )
+         diag_upf = 1
+         IF ( TRIM(upfv) == '0' ) diag_upf = 0
+      ENDIF
+      IF ( gpu_diag_step .AND. diag_upf == 1 .AND. config_flags%diag_nwp2 /= do_trad_fields ) THEN
+         upf_on = wrf_gpu_on ; wrf_gpu_on = .TRUE.
       CALL update_phys_fields ( grid, config_flags, moist,           &
                                 ids,  ide,  jds,  jde,  kds,  kde,   &
                                 ims,  ime,  jms,  jme,  kms,  kme,   &
                                 ips,  ipe,  jps,  jpe,  kps,  kpe    )
+         wrf_gpu_on = upf_on
+      ELSE
+#endif
+      CALL update_phys_fields ( grid, config_flags, moist,           &
+                                ids,  ide,  jds,  jde,  kds,  kde,   &
+                                ims,  ime,  jms,  jme,  kms,  kme,   &
+                                ips,  ipe,  jps,  jpe,  kps,  kpe    )
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
 
       !  Lightning flash rate diagnostic production.
 
@@ -455,12 +488,7 @@ CONTAINS
       CALL diag_tick(2)
 #endif
 #ifdef WRF_GPU_RESIDENT
-      gpu_diag_step = .FALSE.
-      IF ( wrf_gpu_diag .AND. config_flags%nwp_diagnostics == 1 .AND. config_flags%afwa_diag_opt == 1 .AND. &
-           config_flags%mp_physics == THOMPSON .AND. .NOT. F_QNG .AND. grid%itimestep /= 1 ) THEN
-         CALL afwa_time_flags( grid, d_after_dump, d_out_step, d_first_step )
-         gpu_diag_step = .NOT. ( d_out_step .OR. d_first_step )
-      ENDIF
+      ! (gpu_diag_step was set before update_phys_fields)
       IF ( gpu_diag_step ) THEN
          ! diagnostic_output_nwp reset logic (host scalars)
          d_idump = (grid%history_interval * 60.) / grid%dt
