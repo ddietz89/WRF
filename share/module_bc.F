@@ -659,7 +659,7 @@ CONTAINS
        END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE set_physical_bc2d
 
@@ -1166,7 +1166,7 @@ CONTAINS
       END IF periodicity_y
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE set_physical_bc3d
 
@@ -1491,7 +1491,7 @@ CONTAINS
 
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE relax_bdytend_core
 !------------------------------------------------------------------------
@@ -1624,7 +1624,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE spec_bdytend
    
@@ -1812,7 +1812,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE spec_bdytend_perturb
 
@@ -2161,7 +2161,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE spec_bdyupdate
 !------------------------------------------------------------------------
@@ -2325,7 +2325,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE spec_bdy_final
 !------------------------------------------------------------------------
@@ -2452,7 +2452,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE zero_grad_bdy
 !------------------------------------------------------------------------
@@ -2587,7 +2587,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE flow_dep_bdy
 

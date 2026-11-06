@@ -81,7 +81,7 @@
         rsl_gpu_q = 1
         IF ( ispack == 1 ) THEN
           IF ( rsl_gpu_need_wait ) THEN
-!$acc wait
+!$acc wait(1)
             rsl_gpu_need_wait = .FALSE.
           ENDIF
           IF ( rsl_gpu_nseg > 0 ) THEN
@@ -338,7 +338,7 @@
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO j = js, je
@@ -396,7 +396,7 @@
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*8, 1 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO j = js, je
@@ -453,7 +453,7 @@
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO j = js, je
@@ -509,7 +509,7 @@
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*8, 0 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO j = js, je
@@ -687,7 +687,7 @@
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO k = ks, ke
@@ -744,7 +744,7 @@
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*8, 1 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO k = ks, ke
@@ -801,7 +801,7 @@
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO k = ks, ke
@@ -857,7 +857,7 @@
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*8, 0 )
           IF ( q_ == acc_async_sync ) THEN
-!$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
+!$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
 !$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO k = ks, ke

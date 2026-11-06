@@ -1119,7 +1119,7 @@ SUBROUTINE rk_addtend_dry ( ru_tend, rv_tend, rw_tend, ph_tend, t_tend,      &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE rk_addtend_dry
 
@@ -1555,7 +1555,7 @@ SUBROUTINE q_diabatic_add ( scs, sce,                        &
    END DO scalar_loop
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE q_diabatic_add
 
@@ -1630,7 +1630,7 @@ SUBROUTINE q_diabatic_subtr( scs, sce,                       &
    END DO scalar_loop
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE q_diabatic_subtr
 
@@ -1709,7 +1709,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    IF ( ALLOCATED(tendency) ) THEN
       IF ( ANY(LBOUND(tendency) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tendency) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tendency)
 #endif
          DEALLOCATE(tendency)
@@ -1718,10 +1718,10 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    IF ( .NOT. ALLOCATED(tendency) ) THEN
       ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tendency)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tendency) async(wrf_gpu_q)
       tendency = 0   ! device copy starts zeroed (pool memory is not)
@@ -1978,7 +1978,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
 #endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE rk_update_scalar
 
@@ -2035,7 +2035,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
    IF ( ALLOCATED(tendency) ) THEN
       IF ( ANY(LBOUND(tendency) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tendency) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tendency)
 #endif
          DEALLOCATE(tendency)
@@ -2044,10 +2044,10 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
    IF ( .NOT. ALLOCATED(tendency) ) THEN
       ALLOCATE( tendency(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tendency)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tendency) async(wrf_gpu_q)
       tendency = 0   ! device copy starts zeroed (pool memory is not)
@@ -2150,7 +2150,7 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE rk_update_scalar_pd
 
@@ -2875,7 +2875,7 @@ SUBROUTINE calculate_phy_tend (config_flags,c1,c2,                     &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calculate_phy_tend
 
@@ -2914,7 +2914,7 @@ SUBROUTINE positive_definite_filter ( a,                          &
   ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   END SUBROUTINE positive_definite_filter
 
@@ -2953,7 +2953,7 @@ SUBROUTINE bound_tke ( tke, tke_upper_bound,       &
   ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   END SUBROUTINE bound_tke
 
@@ -2991,7 +2991,7 @@ SUBROUTINE bound_qna ( qna,                        &
   ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   END SUBROUTINE bound_qna
 
@@ -3095,7 +3095,7 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( ALLOCATED(u) ) THEN
       IF ( ANY(LBOUND(u) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(u) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(u)
 #endif
          DEALLOCATE(u)
@@ -3104,10 +3104,10 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(u) ) THEN
       ALLOCATE( u(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(u)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(u) async(wrf_gpu_q)
       u = 0   ! device copy starts zeroed (pool memory is not)
@@ -3117,7 +3117,7 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( ALLOCATED(v) ) THEN
       IF ( ANY(LBOUND(v) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(v) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(v)
 #endif
          DEALLOCATE(v)
@@ -3126,10 +3126,10 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(v) ) THEN
       ALLOCATE( v(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(v) async(wrf_gpu_q)
       v = 0   ! device copy starts zeroed (pool memory is not)
@@ -3139,7 +3139,7 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( ALLOCATED(w) ) THEN
       IF ( ANY(LBOUND(w) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(w) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(w)
 #endif
          DEALLOCATE(w)
@@ -3148,10 +3148,10 @@ subroutine trajectory (     grid,config_flags,               &
    IF ( .NOT. ALLOCATED(w) ) THEN
       ALLOCATE( w(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(w)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(w) async(wrf_gpu_q)
       w = 0   ! device copy starts zeroed (pool memory is not)
@@ -3400,7 +3400,7 @@ enddo traj_loop
 !end trajectory
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE trajectory
 !------------------------------------------------------------------------

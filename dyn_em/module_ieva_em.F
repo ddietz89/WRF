@@ -323,11 +323,11 @@ SUBROUTINE WW_SPLIT(wwE, wwI,                         &
 !=========================================================================
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 RETURN
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE WW_SPLIT
  

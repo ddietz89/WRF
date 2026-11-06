@@ -165,7 +165,7 @@ CONTAINS
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE spec_bdyupdate_ph
 
@@ -265,7 +265,7 @@ CONTAINS
    IF ( ALLOCATED(rfield) ) THEN
       IF ( ANY(LBOUND(rfield) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rfield) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rfield)
 #endif
          DEALLOCATE(rfield)
@@ -428,7 +428,7 @@ CONTAINS
    IF ( ALLOCATED(rscalar) ) THEN
       IF ( ANY(LBOUND(rscalar) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rscalar) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rscalar)
 #endif
          DEALLOCATE(rscalar)
@@ -1360,7 +1360,7 @@ CONTAINS
       ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   END SUBROUTINE set_w_surface
 
@@ -1815,7 +1815,7 @@ CONTAINS
       END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE mass_weight
   

@@ -202,7 +202,7 @@ SUBROUTINE calc_mu_uv ( config_flags,                 &
       END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_mu_uv
 
@@ -362,7 +362,7 @@ SUBROUTINE calc_mu_uv_1 ( config_flags,                 &
       END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_mu_uv_1
 
@@ -449,7 +449,7 @@ SUBROUTINE couple_momentum ( muu, ru, u, msfu,              &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE couple_momentum
 
@@ -589,7 +589,7 @@ SUBROUTINE calc_mu_staggered ( mu, mub, muu, muv,            &
       END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_mu_staggered
 
@@ -632,7 +632,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( ALLOCATED(muu) ) THEN
       IF ( ANY(LBOUND(muu) /= (/ims,jms/)) .OR. ANY(UBOUND(muu) /= (/ime,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muu)
 #endif
          DEALLOCATE(muu)
@@ -641,10 +641,10 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( .NOT. ALLOCATED(muu) ) THEN
       ALLOCATE( muu(ims:ime,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muu)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muu) async(wrf_gpu_q)
       muu = 0   ! device copy starts zeroed (pool memory is not)
@@ -654,7 +654,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( ALLOCATED(muv) ) THEN
       IF ( ANY(LBOUND(muv) /= (/ims,jms/)) .OR. ANY(UBOUND(muv) /= (/ime,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muv)
 #endif
          DEALLOCATE(muv)
@@ -663,10 +663,10 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    IF ( .NOT. ALLOCATED(muv) ) THEN
       ALLOCATE( muv(ims:ime,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muv) async(wrf_gpu_q)
       muv = 0   ! device copy starts zeroed (pool memory is not)
@@ -768,7 +768,7 @@ SUBROUTINE couple ( mu, mub, rfield, field, name, &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE couple
 
@@ -819,7 +819,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( ALLOCATED(muu) ) THEN
       IF ( ANY(LBOUND(muu) /= (/its,jts/)) .OR. ANY(UBOUND(muu) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muu)
 #endif
          DEALLOCATE(muu)
@@ -828,10 +828,10 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( .NOT. ALLOCATED(muu) ) THEN
       ALLOCATE( muu(its:ite+1,jts:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muu)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muu) async(wrf_gpu_q)
       muu = 0   ! device copy starts zeroed (pool memory is not)
@@ -841,7 +841,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( ALLOCATED(muv) ) THEN
       IF ( ANY(LBOUND(muv) /= (/its,jts/)) .OR. ANY(UBOUND(muv) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muv)
 #endif
          DEALLOCATE(muv)
@@ -850,10 +850,10 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    IF ( .NOT. ALLOCATED(muv) ) THEN
       ALLOCATE( muv(its:ite+1,jts:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muv) async(wrf_gpu_q)
       muv = 0   ! device copy starts zeroed (pool memory is not)
@@ -977,7 +977,7 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_ww_cp
 
@@ -1020,7 +1020,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    IF ( ALLOCATED(qtot) ) THEN
       IF ( ANY(LBOUND(qtot) /= (/its/)) .OR. ANY(UBOUND(qtot) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(qtot)
 #endif
          DEALLOCATE(qtot)
@@ -1029,10 +1029,10 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    IF ( .NOT. ALLOCATED(qtot) ) THEN
       ALLOCATE( qtot(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(qtot)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(qtot) async(wrf_gpu_q)
       qtot = 0   ! device copy starts zeroed (pool memory is not)
@@ -1140,7 +1140,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
       END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_cq
 
@@ -1188,7 +1188,7 @@ SUBROUTINE calc_alt ( alt, al, alb,                  &
 
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_alt
 
@@ -1251,7 +1251,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( ALLOCATED(temp) ) THEN
       IF ( ANY(LBOUND(temp) /= (/its/)) .OR. ANY(UBOUND(temp) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(temp)
 #endif
          DEALLOCATE(temp)
@@ -1260,10 +1260,10 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( .NOT. ALLOCATED(temp) ) THEN
       ALLOCATE( temp(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(temp)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(temp) async(wrf_gpu_q)
       temp = 0   ! device copy starts zeroed (pool memory is not)
@@ -1273,7 +1273,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( ALLOCATED(cpovcv_v) ) THEN
       IF ( ANY(LBOUND(cpovcv_v) /= (/its/)) .OR. ANY(UBOUND(cpovcv_v) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(cpovcv_v)
 #endif
          DEALLOCATE(cpovcv_v)
@@ -1282,10 +1282,10 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    IF ( .NOT. ALLOCATED(cpovcv_v) ) THEN
       ALLOCATE( cpovcv_v(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(cpovcv_v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(cpovcv_v) async(wrf_gpu_q)
       cpovcv_v = 0   ! device copy starts zeroed (pool memory is not)
@@ -1549,7 +1549,7 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
    END IF nonhydro
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_p_rho_phi
 
@@ -1597,7 +1597,7 @@ SUBROUTINE calc_php ( php, ph, phb,                  &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_php
 
@@ -1698,7 +1698,7 @@ SUBROUTINE diagnose_w( ph_tend, ph_new, ph_old, w, mut,     &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE diagnose_w
 
@@ -2576,7 +2576,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    END IF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   END SUBROUTINE rhs_ph
 
@@ -2835,7 +2835,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_pressure_gradient
 
@@ -2925,7 +2925,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE pg_buoy_w
 
@@ -3069,7 +3069,7 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
    ! collected by solve_em at the end of the step - the per-stage warning is printed there (aggregated)
       IF ( ALLOCATED(wdamp_part) ) THEN
         IF ( LBOUND(wdamp_part,2) /= jms .OR. UBOUND(wdamp_part,2) /= jme ) THEN
-!$acc wait
+!$acc wait(1)
 !$acc exit data delete(wdamp_part)
           DEALLOCATE(wdamp_part)
         ENDIF
@@ -3112,7 +3112,7 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
    ! GPU: same damping and CFL maxima as below, as reductions. The per-point debug WRITE (level 100) and the
    ! location of the maximum (only printed in the warning message) are not tracked on this path.
    maxi = 0 ; maxj = 0 ; maxk = 0 ; maxdub = 0. ; maxdeta = 0.
-!$acc wait
+!$acc wait(1)
       BLOCK
       INTEGER :: cfg_w_damping
       cfg_w_damping = config_flags%w_damping
@@ -3460,7 +3460,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion
 
@@ -3575,7 +3575,7 @@ SUBROUTINE horizontal_diffusion_3dmp ( name, field, tendency, MUT, c1, c2,  &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion_3dmp
 
@@ -3635,7 +3635,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(vfluxm) ) THEN
       IF ( ANY(LBOUND(vfluxm) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxm) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(vfluxm)
 #endif
          DEALLOCATE(vfluxm)
@@ -3644,10 +3644,10 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( .NOT. ALLOCATED(vfluxm) ) THEN
       ALLOCATE( vfluxm(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(vfluxm)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(vfluxm) async(wrf_gpu_q)
       vfluxm = 0   ! device copy starts zeroed (pool memory is not)
@@ -3657,7 +3657,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(vfluxp) ) THEN
       IF ( ANY(LBOUND(vfluxp) /= (/its,jts/)) .OR. ANY(UBOUND(vfluxp) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(vfluxp)
 #endif
          DEALLOCATE(vfluxp)
@@ -3666,10 +3666,10 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( .NOT. ALLOCATED(vfluxp) ) THEN
       ALLOCATE( vfluxp(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(vfluxp)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(vfluxp) async(wrf_gpu_q)
       vfluxp = 0   ! device copy starts zeroed (pool memory is not)
@@ -3679,7 +3679,7 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( ALLOCATED(zz) ) THEN
       IF ( ANY(LBOUND(zz) /= (/its,jts/)) .OR. ANY(UBOUND(zz) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zz)
 #endif
          DEALLOCATE(zz)
@@ -3688,10 +3688,10 @@ SUBROUTINE vertical_diffusion ( name, field, tendency,        &
    IF ( .NOT. ALLOCATED(zz) ) THEN
       ALLOCATE( zz(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zz)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zz) async(wrf_gpu_q)
       zz = 0   ! device copy starts zeroed (pool memory is not)
@@ -3787,7 +3787,7 @@ j_loop_s : DO j = j_start, j_end
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion
 
@@ -3889,7 +3889,7 @@ j_loop_s : DO j = j_start, j_end
  ENDDO j_loop_s
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_mp
 
@@ -3992,7 +3992,7 @@ j_loop_s : DO j = j_start, j_end
  ENDDO j_loop_s
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_3dmp
 
@@ -4104,7 +4104,7 @@ j_loop_u : DO j = j_start, j_end
  ENDDO j_loop_u
    
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_u
 
@@ -4213,7 +4213,7 @@ j_loop_v : DO j = j_start, j_end
  ENDDO j_loop_v
    
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_v
 
@@ -4273,7 +4273,7 @@ SUBROUTINE calculate_full ( rfield, rfieldb, rfieldp,     &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calculate_full
 
@@ -4495,7 +4495,7 @@ SUBROUTINE coriolis ( ru, rv, rw, ru_tend, rv_tend, rw_tend, &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE coriolis
 
@@ -4578,7 +4578,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( ALLOCATED(ru) ) THEN
       IF ( ANY(LBOUND(ru) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(ru) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(ru)
 #endif
          DEALLOCATE(ru)
@@ -4587,10 +4587,10 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( .NOT. ALLOCATED(ru) ) THEN
       ALLOCATE( ru(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(ru)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(ru) async(wrf_gpu_q)
       ru = 0   ! device copy starts zeroed (pool memory is not)
@@ -4600,7 +4600,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( ALLOCATED(rv) ) THEN
       IF ( ANY(LBOUND(rv) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(rv) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rv)
 #endif
          DEALLOCATE(rv)
@@ -4609,10 +4609,10 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    IF ( .NOT. ALLOCATED(rv) ) THEN
       ALLOCATE( rv(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rv) async(wrf_gpu_q)
       rv = 0   ! device copy starts zeroed (pool memory is not)
@@ -4892,7 +4892,7 @@ SUBROUTINE perturbation_coriolis ( ru_in, rv_in, rw, ru_tend, rv_tend, rw_tend, 
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE perturbation_coriolis
 
@@ -4963,7 +4963,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( ALLOCATED(vxgm) ) THEN
       IF ( ANY(LBOUND(vxgm) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(vxgm) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(vxgm)
 #endif
          DEALLOCATE(vxgm)
@@ -4972,10 +4972,10 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    IF ( .NOT. ALLOCATED(vxgm) ) THEN
       ALLOCATE( vxgm(its-1:ite,kts:kte,jts-1:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(vxgm)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(vxgm) async(wrf_gpu_q)
       vxgm = 0   ! device copy starts zeroed (pool memory is not)
@@ -5240,7 +5240,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE curvature
 
@@ -5352,7 +5352,7 @@ SUBROUTINE decouple ( rr, rfield, field, name, config_flags, &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE decouple
 #endif
@@ -5396,7 +5396,7 @@ SUBROUTINE zero_tend ( tendency,                     &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
       END SUBROUTINE zero_tend
 
@@ -5436,7 +5436,7 @@ SUBROUTINE zero_tend2d( tendency,                     &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
       END SUBROUTINE zero_tend2d
 
@@ -5816,7 +5816,7 @@ END SUBROUTINE pole_point_bc
     enddo
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE phy_prep
 
@@ -6296,7 +6296,7 @@ END SUBROUTINE phy_prep
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE phy_prep_part2
 !------------------------------------------------------------
@@ -6513,7 +6513,7 @@ END SUBROUTINE phy_prep_part2
     enddo
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE moist_physics_prep_em
 
@@ -6755,7 +6755,7 @@ END SUBROUTINE phy_prep_part2
      ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
    END SUBROUTINE moist_physics_finish_em
 
@@ -6808,7 +6808,7 @@ SUBROUTINE set_tend ( field, field_adv_tend, msf,       &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE set_tend
 
@@ -7105,7 +7105,7 @@ END SUBROUTINE set_tend
 !-----------------------------------------------------------------------
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE rk_rayleigh_damp
 
@@ -7642,7 +7642,7 @@ END SUBROUTINE set_tend
 !------------------------------------------------------------------------------
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE sixth_order_diffusion
 
@@ -7681,7 +7681,7 @@ SUBROUTINE initialize_moist_old ( moist_old , moist , &
    END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE initialize_moist_old
 
@@ -7723,7 +7723,7 @@ SUBROUTINE conv_t_tendf_to_moist ( t_1 , moist_old ,                &
    END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE conv_t_tendf_to_moist
 
@@ -7777,7 +7777,7 @@ END SUBROUTINE conv_t_tendf_to_moist
     end if
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
   end subroutine Cloud_tracer_nudge
 

@@ -328,7 +328,7 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE small_step_prep
 
@@ -487,7 +487,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE small_step_finish
 
@@ -603,7 +603,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
      ENDDO
      ENDDO
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
      RETURN
    ENDIF
@@ -668,7 +668,7 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        ENDDO
      END IF
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_p_rho
 !----------------------------------------------------------------------
@@ -762,7 +762,7 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
         ENDDO
       ENDDO outer_j_loop
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE calc_coef_w
 !----------------------------------------------------------------------
@@ -1288,7 +1288,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
      END IF
   END IF
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE advance_uv
 !---------------------------------------------------------------------
@@ -1588,7 +1588,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   ENDIF
 #endif
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE advance_mu_t
           
@@ -1696,7 +1696,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( ALLOCATED(mut_inv) ) THEN
       IF ( ANY(LBOUND(mut_inv) /= (/its/)) .OR. ANY(UBOUND(mut_inv) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(mut_inv)
 #endif
          DEALLOCATE(mut_inv)
@@ -1705,10 +1705,10 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( .NOT. ALLOCATED(mut_inv) ) THEN
       ALLOCATE( mut_inv(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(mut_inv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(mut_inv) async(wrf_gpu_q)
       mut_inv = 0   ! device copy starts zeroed (pool memory is not)
@@ -1718,7 +1718,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( ALLOCATED(dampwt) ) THEN
       IF ( ANY(LBOUND(dampwt) /= (/kts/)) .OR. ANY(UBOUND(dampwt) /= (/kte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dampwt)
 #endif
          DEALLOCATE(dampwt)
@@ -1727,10 +1727,10 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
    IF ( .NOT. ALLOCATED(dampwt) ) THEN
       ALLOCATE( dampwt(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dampwt)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dampwt) async(wrf_gpu_q)
       dampwt = 0   ! device copy starts zeroed (pool memory is not)
@@ -2084,7 +2084,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 #endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE advance_w
 
@@ -2269,7 +2269,7 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE sumflux
 

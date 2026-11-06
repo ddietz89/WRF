@@ -110,7 +110,7 @@
    IF ( ALLOCATED(mm) ) THEN
       IF ( ANY(LBOUND(mm) /= (/its,jts/)) .OR. ANY(UBOUND(mm) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(mm)
 #endif
          DEALLOCATE(mm)
@@ -119,10 +119,10 @@
    IF ( .NOT. ALLOCATED(mm) ) THEN
       ALLOCATE( mm(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(mm)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(mm) async(wrf_gpu_q)
       mm = 0   ! device copy starts zeroed (pool memory is not)
@@ -132,7 +132,7 @@
    IF ( ALLOCATED(zzavg) ) THEN
       IF ( ANY(LBOUND(zzavg) /= (/its,jts/)) .OR. ANY(UBOUND(zzavg) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zzavg)
 #endif
          DEALLOCATE(zzavg)
@@ -141,10 +141,10 @@
    IF ( .NOT. ALLOCATED(zzavg) ) THEN
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zzavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -154,7 +154,7 @@
    IF ( ALLOCATED(zeta_zd12) ) THEN
       IF ( ANY(LBOUND(zeta_zd12) /= (/its,jts/)) .OR. ANY(UBOUND(zeta_zd12) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zeta_zd12)
 #endif
          DEALLOCATE(zeta_zd12)
@@ -163,10 +163,10 @@
    IF ( .NOT. ALLOCATED(zeta_zd12) ) THEN
       ALLOCATE( zeta_zd12(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zeta_zd12)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zeta_zd12) async(wrf_gpu_q)
       zeta_zd12 = 0   ! device copy starts zeroed (pool memory is not)
@@ -176,7 +176,7 @@
    IF ( ALLOCATED(tmp1) ) THEN
       IF ( ANY(LBOUND(tmp1) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(tmp1) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1)
 #endif
          DEALLOCATE(tmp1)
@@ -185,10 +185,10 @@
    IF ( .NOT. ALLOCATED(tmp1) ) THEN
       ALLOCATE( tmp1(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -198,7 +198,7 @@
    IF ( ALLOCATED(hat) ) THEN
       IF ( ANY(LBOUND(hat) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(hat) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(hat)
 #endif
          DEALLOCATE(hat)
@@ -207,10 +207,10 @@
    IF ( .NOT. ALLOCATED(hat) ) THEN
       ALLOCATE( hat(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(hat)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(hat) async(wrf_gpu_q)
       hat = 0   ! device copy starts zeroed (pool memory is not)
@@ -220,7 +220,7 @@
    IF ( ALLOCATED(hatavg) ) THEN
       IF ( ANY(LBOUND(hatavg) /= (/its-2,kts,jts-2/)) .OR. ANY(UBOUND(hatavg) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(hatavg)
 #endif
          DEALLOCATE(hatavg)
@@ -229,10 +229,10 @@
    IF ( .NOT. ALLOCATED(hatavg) ) THEN
       ALLOCATE( hatavg(its-2:ite+2,kts:kte,jts-2:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(hatavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(hatavg) async(wrf_gpu_q)
       hatavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -1451,7 +1451,7 @@
 !=======================================================================
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_deform_and_div
 
@@ -1664,7 +1664,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    IF ( ALLOCATED(dampk) ) THEN
       IF ( ANY(LBOUND(dampk) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dampk) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dampk)
 #endif
          DEALLOCATE(dampk)
@@ -1673,10 +1673,10 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    IF ( .NOT. ALLOCATED(dampk) ) THEN
       ALLOCATE( dampk(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dampk)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dampk) async(wrf_gpu_q)
       dampk = 0   ! device copy starts zeroed (pool memory is not)
@@ -1686,7 +1686,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    IF ( ALLOCATED(dampkv) ) THEN
       IF ( ANY(LBOUND(dampkv) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dampkv) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dampkv)
 #endif
          DEALLOCATE(dampkv)
@@ -1695,10 +1695,10 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    IF ( .NOT. ALLOCATED(dampkv) ) THEN
       ALLOCATE( dampkv(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dampkv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dampkv) async(wrf_gpu_q)
       dampkv = 0   ! device copy starts zeroed (pool memory is not)
@@ -1801,7 +1801,7 @@ SUBROUTINE cal_dampkm( config_flags,xkmh,xkhh,xkmv,xkhv,                       &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE cal_dampkm
 
@@ -1876,7 +1876,7 @@ END SUBROUTINE cal_dampkm
    IF ( ALLOCATED(tmp1sfc) ) THEN
       IF ( ANY(LBOUND(tmp1sfc) /= (/its,jts/)) .OR. ANY(UBOUND(tmp1sfc) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1sfc)
 #endif
          DEALLOCATE(tmp1sfc)
@@ -1885,10 +1885,10 @@ END SUBROUTINE cal_dampkm
    IF ( .NOT. ALLOCATED(tmp1sfc) ) THEN
       ALLOCATE( tmp1sfc(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1sfc)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1sfc) async(wrf_gpu_q)
       tmp1sfc = 0   ! device copy starts zeroed (pool memory is not)
@@ -1898,7 +1898,7 @@ END SUBROUTINE cal_dampkm
    IF ( ALLOCATED(tmp1top) ) THEN
       IF ( ANY(LBOUND(tmp1top) /= (/its,jts/)) .OR. ANY(UBOUND(tmp1top) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1top)
 #endif
          DEALLOCATE(tmp1top)
@@ -1907,10 +1907,10 @@ END SUBROUTINE cal_dampkm
    IF ( .NOT. ALLOCATED(tmp1top) ) THEN
       ALLOCATE( tmp1top(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1top)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1top) async(wrf_gpu_q)
       tmp1top = 0   ! device copy starts zeroed (pool memory is not)
@@ -1920,7 +1920,7 @@ END SUBROUTINE cal_dampkm
    IF ( ALLOCATED(tmp1) ) THEN
       IF ( ANY(LBOUND(tmp1) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmp1) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1)
 #endif
          DEALLOCATE(tmp1)
@@ -1929,10 +1929,10 @@ END SUBROUTINE cal_dampkm
    IF ( .NOT. ALLOCATED(tmp1) ) THEN
       ALLOCATE( tmp1(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -1942,7 +1942,7 @@ END SUBROUTINE cal_dampkm
    IF ( ALLOCATED(qvs) ) THEN
       IF ( ANY(LBOUND(qvs) /= (/its,kts,jts/)) .OR. ANY(UBOUND(qvs) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(qvs)
 #endif
          DEALLOCATE(qvs)
@@ -1951,10 +1951,10 @@ END SUBROUTINE cal_dampkm
    IF ( .NOT. ALLOCATED(qvs) ) THEN
       ALLOCATE( qvs(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(qvs)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(qvs) async(wrf_gpu_q)
       qvs = 0   ! device copy starts zeroed (pool memory is not)
@@ -1964,7 +1964,7 @@ END SUBROUTINE cal_dampkm
    IF ( ALLOCATED(qctmp) ) THEN
       IF ( ANY(LBOUND(qctmp) /= (/its,kts,jts/)) .OR. ANY(UBOUND(qctmp) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(qctmp)
 #endif
          DEALLOCATE(qctmp)
@@ -1973,10 +1973,10 @@ END SUBROUTINE cal_dampkm
    IF ( .NOT. ALLOCATED(qctmp) ) THEN
       ALLOCATE( qctmp(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(qctmp)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(qctmp) async(wrf_gpu_q)
       qctmp = 0   ! device copy starts zeroed (pool memory is not)
@@ -2176,7 +2176,7 @@ END SUBROUTINE cal_dampkm
 ! end of MARTA/WCS change
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE calculate_N2
 
@@ -2240,7 +2240,7 @@ SUBROUTINE isotropic_km( config_flags,                                         &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE isotropic_km
 
@@ -2304,7 +2304,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    IF ( ALLOCATED(def2) ) THEN
       IF ( ANY(LBOUND(def2) /= (/its,kts,jts/)) .OR. ANY(UBOUND(def2) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(def2)
 #endif
          DEALLOCATE(def2)
@@ -2313,10 +2313,10 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    IF ( .NOT. ALLOCATED(def2) ) THEN
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(def2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -2441,7 +2441,7 @@ SUBROUTINE smag_km( config_flags,xkmh,xkmv,xkhh,xkhv,BN2,                      &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE smag_km
 
@@ -2499,7 +2499,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    IF ( ALLOCATED(def2) ) THEN
       IF ( ANY(LBOUND(def2) /= (/its,kts,jts/)) .OR. ANY(UBOUND(def2) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(def2)
 #endif
          DEALLOCATE(def2)
@@ -2508,10 +2508,10 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
    IF ( .NOT. ALLOCATED(def2) ) THEN
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(def2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -2596,7 +2596,7 @@ SUBROUTINE smag2d_km( config_flags,xkmh,xkmv,xkhh,xkhv,                        &
       END BLOCK
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE smag2d_km
 
@@ -2712,7 +2712,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(l_scale) ) THEN
       IF ( ANY(LBOUND(l_scale) /= (/its,kts,jts/)) .OR. ANY(UBOUND(l_scale) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(l_scale)
 #endif
          DEALLOCATE(l_scale)
@@ -2721,10 +2721,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(l_scale) ) THEN
       ALLOCATE( l_scale(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(l_scale)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(l_scale) async(wrf_gpu_q)
       l_scale = 0   ! device copy starts zeroed (pool memory is not)
@@ -2734,7 +2734,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(dthrdn) ) THEN
       IF ( ANY(LBOUND(dthrdn) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dthrdn) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dthrdn)
 #endif
          DEALLOCATE(dthrdn)
@@ -2743,10 +2743,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(dthrdn) ) THEN
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dthrdn)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
@@ -2756,7 +2756,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(def2) ) THEN
       IF ( ANY(LBOUND(def2) /= (/its,kts,jts/)) .OR. ANY(UBOUND(def2) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(def2)
 #endif
          DEALLOCATE(def2)
@@ -2765,10 +2765,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(def2) ) THEN
       ALLOCATE( def2(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(def2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(def2) async(wrf_gpu_q)
       def2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -2778,7 +2778,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(xkmh_s) ) THEN
       IF ( ANY(LBOUND(xkmh_s) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkmh_s) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkmh_s)
 #endif
          DEALLOCATE(xkmh_s)
@@ -2787,10 +2787,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(xkmh_s) ) THEN
       ALLOCATE( xkmh_s(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkmh_s)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkmh_s) async(wrf_gpu_q)
       xkmh_s = 0   ! device copy starts zeroed (pool memory is not)
@@ -2800,7 +2800,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(xkhh_s) ) THEN
       IF ( ANY(LBOUND(xkhh_s) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkhh_s) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkhh_s)
 #endif
          DEALLOCATE(xkhh_s)
@@ -2809,10 +2809,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(xkhh_s) ) THEN
       ALLOCATE( xkhh_s(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkhh_s)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkhh_s) async(wrf_gpu_q)
       xkhh_s = 0   ! device copy starts zeroed (pool memory is not)
@@ -3040,7 +3040,7 @@ END SUBROUTINE smag2d_km
     ENDIF
 !!!
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE tke_km
 
@@ -3115,7 +3115,7 @@ END SUBROUTINE smag2d_km
     END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE calc_l_scale
 
@@ -3200,7 +3200,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(zfull) ) THEN
       IF ( ANY(LBOUND(zfull) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zfull) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zfull)
 #endif
          DEALLOCATE(zfull)
@@ -3209,10 +3209,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(zfull) ) THEN
       ALLOCATE( zfull(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zfull)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zfull) async(wrf_gpu_q)
       zfull = 0   ! device copy starts zeroed (pool memory is not)
@@ -3222,7 +3222,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(za) ) THEN
       IF ( ANY(LBOUND(za) /= (/its,kts,jts/)) .OR. ANY(UBOUND(za) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(za)
 #endif
          DEALLOCATE(za)
@@ -3231,10 +3231,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(za) ) THEN
       ALLOCATE( za(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(za)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
@@ -3244,7 +3244,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(elb) ) THEN
       IF ( ANY(LBOUND(elb) /= (/its,kts,jts/)) .OR. ANY(UBOUND(elb) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(elb)
 #endif
          DEALLOCATE(elb)
@@ -3253,10 +3253,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(elb) ) THEN
       ALLOCATE( elb(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(elb)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(elb) async(wrf_gpu_q)
       elb = 0   ! device copy starts zeroed (pool memory is not)
@@ -3266,7 +3266,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(qtke) ) THEN
       IF ( ANY(LBOUND(qtke) /= (/its,kts,jts/)) .OR. ANY(UBOUND(qtke) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(qtke)
 #endif
          DEALLOCATE(qtke)
@@ -3275,10 +3275,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(qtke) ) THEN
       ALLOCATE( qtke(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(qtke)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(qtke) async(wrf_gpu_q)
       qtke = 0   ! device copy starts zeroed (pool memory is not)
@@ -3288,7 +3288,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(els) ) THEN
       IF ( ANY(LBOUND(els) /= (/its,kts,jts/)) .OR. ANY(UBOUND(els) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(els)
 #endif
          DEALLOCATE(els)
@@ -3297,10 +3297,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(els) ) THEN
       ALLOCATE( els(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(els)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(els) async(wrf_gpu_q)
       els = 0   ! device copy starts zeroed (pool memory is not)
@@ -3310,7 +3310,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(elf) ) THEN
       IF ( ANY(LBOUND(elf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(elf) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(elf)
 #endif
          DEALLOCATE(elf)
@@ -3319,10 +3319,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(elf) ) THEN
       ALLOCATE( elf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(elf)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(elf) async(wrf_gpu_q)
       elf = 0   ! device copy starts zeroed (pool memory is not)
@@ -3332,7 +3332,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(sflux) ) THEN
       IF ( ANY(LBOUND(sflux) /= (/its,jts/)) .OR. ANY(UBOUND(sflux) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(sflux)
 #endif
          DEALLOCATE(sflux)
@@ -3341,10 +3341,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(sflux) ) THEN
       ALLOCATE( sflux(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(sflux)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(sflux) async(wrf_gpu_q)
       sflux = 0   ! device copy starts zeroed (pool memory is not)
@@ -3354,7 +3354,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(elt) ) THEN
       IF ( ANY(LBOUND(elt) /= (/its,jts/)) .OR. ANY(UBOUND(elt) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(elt)
 #endif
          DEALLOCATE(elt)
@@ -3363,10 +3363,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(elt) ) THEN
       ALLOCATE( elt(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(elt)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(elt) async(wrf_gpu_q)
       elt = 0   ! device copy starts zeroed (pool memory is not)
@@ -3376,7 +3376,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(vsc) ) THEN
       IF ( ANY(LBOUND(vsc) /= (/its,jts/)) .OR. ANY(UBOUND(vsc) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(vsc)
 #endif
          DEALLOCATE(vsc)
@@ -3385,10 +3385,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(vsc) ) THEN
       ALLOCATE( vsc(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(vsc)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(vsc) async(wrf_gpu_q)
       vsc = 0   ! device copy starts zeroed (pool memory is not)
@@ -3398,7 +3398,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(dthrdn) ) THEN
       IF ( ANY(LBOUND(dthrdn) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dthrdn) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dthrdn)
 #endif
          DEALLOCATE(dthrdn)
@@ -3407,10 +3407,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(dthrdn) ) THEN
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dthrdn)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
@@ -3646,7 +3646,7 @@ END SUBROUTINE smag2d_km
     ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE meso_length_scale
 !=======================================================================
@@ -3722,7 +3722,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(zfull) ) THEN
       IF ( ANY(LBOUND(zfull) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zfull) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zfull)
 #endif
          DEALLOCATE(zfull)
@@ -3731,10 +3731,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(zfull) ) THEN
       ALLOCATE( zfull(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zfull)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zfull) async(wrf_gpu_q)
       zfull = 0   ! device copy starts zeroed (pool memory is not)
@@ -3744,7 +3744,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(za) ) THEN
       IF ( ANY(LBOUND(za) /= (/its,kts,jts/)) .OR. ANY(UBOUND(za) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(za)
 #endif
          DEALLOCATE(za)
@@ -3753,10 +3753,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(za) ) THEN
       ALLOCATE( za(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(za)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
@@ -3766,7 +3766,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(dlg) ) THEN
       IF ( ANY(LBOUND(dlg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dlg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dlg)
 #endif
          DEALLOCATE(dlg)
@@ -3775,10 +3775,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(dlg) ) THEN
       ALLOCATE( dlg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dlg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dlg) async(wrf_gpu_q)
       dlg = 0   ! device copy starts zeroed (pool memory is not)
@@ -3788,7 +3788,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(dlu) ) THEN
       IF ( ANY(LBOUND(dlu) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dlu) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dlu)
 #endif
          DEALLOCATE(dlu)
@@ -3797,10 +3797,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(dlu) ) THEN
       ALLOCATE( dlu(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dlu)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dlu) async(wrf_gpu_q)
       dlu = 0   ! device copy starts zeroed (pool memory is not)
@@ -3810,7 +3810,7 @@ END SUBROUTINE smag2d_km
    IF ( ALLOCATED(dld) ) THEN
       IF ( ANY(LBOUND(dld) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dld) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dld)
 #endif
          DEALLOCATE(dld)
@@ -3819,10 +3819,10 @@ END SUBROUTINE smag2d_km
    IF ( .NOT. ALLOCATED(dld) ) THEN
       ALLOCATE( dld(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dld)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dld) async(wrf_gpu_q)
       dld = 0   ! device copy starts zeroed (pool memory is not)
@@ -3977,7 +3977,7 @@ END SUBROUTINE smag2d_km
     ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE free_atmos_length
 !=======================================================================
@@ -4321,7 +4321,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1avg) ) THEN
       IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1avg)
 #endif
          DEALLOCATE(titau1avg)
@@ -4330,10 +4330,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1avg) ) THEN
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4343,7 +4343,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2avg) ) THEN
       IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2avg)
 #endif
          DEALLOCATE(titau2avg)
@@ -4352,10 +4352,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2avg) ) THEN
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4365,7 +4365,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1) ) THEN
       IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1)
 #endif
          DEALLOCATE(titau1)
@@ -4374,10 +4374,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1) ) THEN
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -4387,7 +4387,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2) ) THEN
       IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2)
 #endif
          DEALLOCATE(titau2)
@@ -4396,10 +4396,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2) ) THEN
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -4409,7 +4409,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -4418,10 +4418,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4431,7 +4431,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(rravg) ) THEN
       IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rravg)
 #endif
          DEALLOCATE(rravg)
@@ -4440,10 +4440,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(rravg) ) THEN
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rravg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4453,7 +4453,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(zy_at_u) ) THEN
       IF ( ANY(LBOUND(zy_at_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_u) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zy_at_u)
 #endif
          DEALLOCATE(zy_at_u)
@@ -4462,10 +4462,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zy_at_u) ) THEN
       ALLOCATE( zy_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zy_at_u)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zy_at_u) async(wrf_gpu_q)
       zy_at_u = 0   ! device copy starts zeroed (pool memory is not)
@@ -4475,7 +4475,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( ALLOCATED(zx_at_u) ) THEN
       IF ( ANY(LBOUND(zx_at_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_u) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zx_at_u)
 #endif
          DEALLOCATE(zx_at_u)
@@ -4484,10 +4484,10 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zx_at_u) ) THEN
       ALLOCATE( zx_at_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zx_at_u)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zx_at_u) async(wrf_gpu_q)
       zx_at_u = 0   ! device copy starts zeroed (pool memory is not)
@@ -4627,7 +4627,7 @@ SUBROUTINE horizontal_diffusion_u_2( tendency, config_flags,              &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion_u_2
 
@@ -4714,7 +4714,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1avg) ) THEN
       IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1avg)
 #endif
          DEALLOCATE(titau1avg)
@@ -4723,10 +4723,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1avg) ) THEN
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4736,7 +4736,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2avg) ) THEN
       IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2avg)
 #endif
          DEALLOCATE(titau2avg)
@@ -4745,10 +4745,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2avg) ) THEN
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4758,7 +4758,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1) ) THEN
       IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1)
 #endif
          DEALLOCATE(titau1)
@@ -4767,10 +4767,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1) ) THEN
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -4780,7 +4780,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2) ) THEN
       IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2)
 #endif
          DEALLOCATE(titau2)
@@ -4789,10 +4789,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2) ) THEN
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -4802,7 +4802,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -4811,10 +4811,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4824,7 +4824,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(rravg) ) THEN
       IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rravg)
 #endif
          DEALLOCATE(rravg)
@@ -4833,10 +4833,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(rravg) ) THEN
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rravg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
@@ -4846,7 +4846,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(zy_at_v) ) THEN
       IF ( ANY(LBOUND(zy_at_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_v) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zy_at_v)
 #endif
          DEALLOCATE(zy_at_v)
@@ -4855,10 +4855,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zy_at_v) ) THEN
       ALLOCATE( zy_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zy_at_v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zy_at_v) async(wrf_gpu_q)
       zy_at_v = 0   ! device copy starts zeroed (pool memory is not)
@@ -4868,7 +4868,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( ALLOCATED(zx_at_v) ) THEN
       IF ( ANY(LBOUND(zx_at_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_v) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zx_at_v)
 #endif
          DEALLOCATE(zx_at_v)
@@ -4877,10 +4877,10 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zx_at_v) ) THEN
       ALLOCATE( zx_at_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zx_at_v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zx_at_v) async(wrf_gpu_q)
       zx_at_v = 0   ! device copy starts zeroed (pool memory is not)
@@ -5015,7 +5015,7 @@ SUBROUTINE horizontal_diffusion_v_2( tendency, config_flags,              &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion_v_2
 
@@ -5102,7 +5102,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1avg) ) THEN
       IF ( ANY(LBOUND(titau1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1avg)
 #endif
          DEALLOCATE(titau1avg)
@@ -5111,10 +5111,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1avg) ) THEN
       ALLOCATE( titau1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1avg) async(wrf_gpu_q)
       titau1avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5124,7 +5124,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2avg) ) THEN
       IF ( ANY(LBOUND(titau2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2avg)
 #endif
          DEALLOCATE(titau2avg)
@@ -5133,10 +5133,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2avg) ) THEN
       ALLOCATE( titau2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2avg) async(wrf_gpu_q)
       titau2avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5146,7 +5146,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau1) ) THEN
       IF ( ANY(LBOUND(titau1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau1) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau1)
 #endif
          DEALLOCATE(titau1)
@@ -5155,10 +5155,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau1) ) THEN
       ALLOCATE( titau1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau1) async(wrf_gpu_q)
       titau1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -5168,7 +5168,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(titau2) ) THEN
       IF ( ANY(LBOUND(titau2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau2) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau2)
 #endif
          DEALLOCATE(titau2)
@@ -5177,10 +5177,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(titau2) ) THEN
       ALLOCATE( titau2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau2) async(wrf_gpu_q)
       titau2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -5190,7 +5190,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -5199,10 +5199,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5212,7 +5212,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(rravg) ) THEN
       IF ( ANY(LBOUND(rravg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rravg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rravg)
 #endif
          DEALLOCATE(rravg)
@@ -5221,10 +5221,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(rravg) ) THEN
       ALLOCATE( rravg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rravg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5234,7 +5234,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(zx_at_w) ) THEN
       IF ( ANY(LBOUND(zx_at_w) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_w) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zx_at_w)
 #endif
          DEALLOCATE(zx_at_w)
@@ -5243,10 +5243,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zx_at_w) ) THEN
       ALLOCATE( zx_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zx_at_w)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zx_at_w) async(wrf_gpu_q)
       zx_at_w = 0   ! device copy starts zeroed (pool memory is not)
@@ -5256,7 +5256,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( ALLOCATED(zy_at_w) ) THEN
       IF ( ANY(LBOUND(zy_at_w) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_w) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zy_at_w)
 #endif
          DEALLOCATE(zy_at_w)
@@ -5265,10 +5265,10 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    IF ( .NOT. ALLOCATED(zy_at_w) ) THEN
       ALLOCATE( zy_at_w(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zy_at_w)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zy_at_w) async(wrf_gpu_q)
       zy_at_w = 0   ! device copy starts zeroed (pool memory is not)
@@ -5399,7 +5399,7 @@ SUBROUTINE horizontal_diffusion_w_2( tendency, config_flags,              &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion_w_2
 
@@ -5491,7 +5491,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(H1avg) ) THEN
       IF ( ANY(LBOUND(H1avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H1avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(H1avg)
 #endif
          DEALLOCATE(H1avg)
@@ -5500,10 +5500,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(H1avg) ) THEN
       ALLOCATE( H1avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(H1avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(H1avg) async(wrf_gpu_q)
       H1avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5513,7 +5513,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(H2avg) ) THEN
       IF ( ANY(LBOUND(H2avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H2avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(H2avg)
 #endif
          DEALLOCATE(H2avg)
@@ -5522,10 +5522,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(H2avg) ) THEN
       ALLOCATE( H2avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(H2avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(H2avg) async(wrf_gpu_q)
       H2avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5535,7 +5535,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(H1) ) THEN
       IF ( ANY(LBOUND(H1) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H1) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(H1)
 #endif
          DEALLOCATE(H1)
@@ -5544,10 +5544,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(H1) ) THEN
       ALLOCATE( H1(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(H1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(H1) async(wrf_gpu_q)
       H1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -5557,7 +5557,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(H2) ) THEN
       IF ( ANY(LBOUND(H2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(H2) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(H2)
 #endif
          DEALLOCATE(H2)
@@ -5566,10 +5566,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(H2) ) THEN
       ALLOCATE( H2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(H2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(H2) async(wrf_gpu_q)
       H2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -5579,7 +5579,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -5588,10 +5588,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -5601,7 +5601,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(zx_at_m) ) THEN
       IF ( ANY(LBOUND(zx_at_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zx_at_m) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zx_at_m)
 #endif
          DEALLOCATE(zx_at_m)
@@ -5610,10 +5610,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(zx_at_m) ) THEN
       ALLOCATE( zx_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zx_at_m)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zx_at_m) async(wrf_gpu_q)
       zx_at_m = 0   ! device copy starts zeroed (pool memory is not)
@@ -5623,7 +5623,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(zy_at_m) ) THEN
       IF ( ANY(LBOUND(zy_at_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(zy_at_m) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zy_at_m)
 #endif
          DEALLOCATE(zy_at_m)
@@ -5632,10 +5632,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(zy_at_m) ) THEN
       ALLOCATE( zy_at_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zy_at_m)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zy_at_m) async(wrf_gpu_q)
       zy_at_m = 0   ! device copy starts zeroed (pool memory is not)
@@ -5645,7 +5645,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( ALLOCATED(tmptendf) ) THEN
       IF ( ANY(LBOUND(tmptendf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmptendf) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmptendf)
 #endif
          DEALLOCATE(tmptendf)
@@ -5654,10 +5654,10 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(tmptendf) ) THEN
       ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmptendf)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmptendf) async(wrf_gpu_q)
       tmptendf = 0   ! device copy starts zeroed (pool memory is not)
@@ -5908,7 +5908,7 @@ SUBROUTINE horizontal_diffusion_s (tendency, config_flags,                &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE horizontal_diffusion_s
 
@@ -6036,7 +6036,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
    IF ( ALLOCATED(var_mix) ) THEN
       IF ( ANY(LBOUND(var_mix) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(var_mix) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(var_mix)
 #endif
          DEALLOCATE(var_mix)
@@ -6045,10 +6045,10 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
    IF ( .NOT. ALLOCATED(var_mix) ) THEN
       ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(var_mix)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(var_mix) async(wrf_gpu_q)
       var_mix = 0   ! device copy starts zeroed (pool memory is not)
@@ -6419,7 +6419,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_2
 
@@ -6488,7 +6488,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
    IF ( ALLOCATED(titau3) ) THEN
       IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau3)
 #endif
          DEALLOCATE(titau3)
@@ -6497,10 +6497,10 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(titau3) ) THEN
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau3)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
@@ -6510,7 +6510,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
    IF ( ALLOCATED(zzavg) ) THEN
       IF ( ANY(LBOUND(zzavg) /= (/its,jts/)) .OR. ANY(UBOUND(zzavg) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zzavg)
 #endif
          DEALLOCATE(zzavg)
@@ -6519,10 +6519,10 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(zzavg) ) THEN
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zzavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -6594,7 +6594,7 @@ SUBROUTINE vertical_diffusion_u_2( tendency, config_flags,                &
 ! ******** MODIF...
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_u_2
 
@@ -6661,7 +6661,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
    IF ( ALLOCATED(titau3) ) THEN
       IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau3)
 #endif
          DEALLOCATE(titau3)
@@ -6670,10 +6670,10 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(titau3) ) THEN
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau3)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
@@ -6683,7 +6683,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
    IF ( ALLOCATED(zzavg) ) THEN
       IF ( ANY(LBOUND(zzavg) /= (/its,jts/)) .OR. ANY(UBOUND(zzavg) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zzavg)
 #endif
          DEALLOCATE(zzavg)
@@ -6692,10 +6692,10 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
    IF ( .NOT. ALLOCATED(zzavg) ) THEN
       ALLOCATE( zzavg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zzavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zzavg) async(wrf_gpu_q)
       zzavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -6768,7 +6768,7 @@ SUBROUTINE vertical_diffusion_v_2( tendency, config_flags,                &
 ! ******** MODIF...
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_v_2
 
@@ -6829,7 +6829,7 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    IF ( ALLOCATED(titau3) ) THEN
       IF ( ANY(LBOUND(titau3) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau3) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau3)
 #endif
          DEALLOCATE(titau3)
@@ -6838,10 +6838,10 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    IF ( .NOT. ALLOCATED(titau3) ) THEN
       ALLOCATE( titau3(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau3)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau3) async(wrf_gpu_q)
       titau3 = 0   ! device copy starts zeroed (pool memory is not)
@@ -6903,7 +6903,7 @@ SUBROUTINE vertical_diffusion_w_2(tendency, config_flags,                 &
    ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_w_2
 
@@ -6968,7 +6968,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( ALLOCATED(H3) ) THEN
       IF ( ANY(LBOUND(H3) /= (/its,kts,jts/)) .OR. ANY(UBOUND(H3) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(H3)
 #endif
          DEALLOCATE(H3)
@@ -6977,10 +6977,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( .NOT. ALLOCATED(H3) ) THEN
       ALLOCATE( H3(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(H3)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(H3) async(wrf_gpu_q)
       H3 = 0   ! device copy starts zeroed (pool memory is not)
@@ -6990,7 +6990,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -6999,10 +6999,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -7012,7 +7012,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( ALLOCATED(rravg) ) THEN
       IF ( ANY(LBOUND(rravg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(rravg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rravg)
 #endif
          DEALLOCATE(rravg)
@@ -7021,10 +7021,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( .NOT. ALLOCATED(rravg) ) THEN
       ALLOCATE( rravg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rravg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rravg) async(wrf_gpu_q)
       rravg = 0   ! device copy starts zeroed (pool memory is not)
@@ -7034,7 +7034,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( ALLOCATED(tmptendf) ) THEN
       IF ( ANY(LBOUND(tmptendf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmptendf) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmptendf)
 #endif
          DEALLOCATE(tmptendf)
@@ -7043,10 +7043,10 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    IF ( .NOT. ALLOCATED(tmptendf) ) THEN
       ALLOCATE( tmptendf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmptendf)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmptendf) async(wrf_gpu_q)
       tmptendf = 0   ! device copy starts zeroed (pool memory is not)
@@ -7138,7 +7138,7 @@ SUBROUTINE vertical_diffusion_s( tendency, config_flags, var, xkhv,       &
    ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE vertical_diffusion_s
 
@@ -7264,7 +7264,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(zq) ) THEN
       IF ( ANY(LBOUND(zq) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zq) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zq)
 #endif
          DEALLOCATE(zq)
@@ -7273,10 +7273,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(zq) ) THEN
       ALLOCATE( zq(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zq)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zq) async(wrf_gpu_q)
       zq = 0   ! device copy starts zeroed (pool memory is not)
@@ -7286,7 +7286,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(za) ) THEN
       IF ( ANY(LBOUND(za) /= (/its,kts,jts/)) .OR. ANY(UBOUND(za) /= (/ite,kte-1,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(za)
 #endif
          DEALLOCATE(za)
@@ -7295,10 +7295,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(za) ) THEN
       ALLOCATE( za(its:ite,kts:kte-1,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(za)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(za) async(wrf_gpu_q)
       za = 0   ! device copy starts zeroed (pool memory is not)
@@ -7308,7 +7308,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(thv) ) THEN
       IF ( ANY(LBOUND(thv) /= (/its,kts,jts/)) .OR. ANY(UBOUND(thv) /= (/ite,kte-1,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(thv)
 #endif
          DEALLOCATE(thv)
@@ -7317,10 +7317,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(thv) ) THEN
       ALLOCATE( thv(its:ite,kts:kte-1,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(thv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(thv) async(wrf_gpu_q)
       thv = 0   ! device copy starts zeroed (pool memory is not)
@@ -7330,7 +7330,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(zfacmf) ) THEN
       IF ( ANY(LBOUND(zfacmf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zfacmf) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zfacmf)
 #endif
          DEALLOCATE(zfacmf)
@@ -7339,10 +7339,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(zfacmf) ) THEN
       ALLOCATE( zfacmf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zfacmf)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zfacmf) async(wrf_gpu_q)
       zfacmf = 0   ! device copy starts zeroed (pool memory is not)
@@ -7352,7 +7352,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(entfacmf) ) THEN
       IF ( ANY(LBOUND(entfacmf) /= (/its,kts,jts/)) .OR. ANY(UBOUND(entfacmf) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(entfacmf)
 #endif
          DEALLOCATE(entfacmf)
@@ -7361,10 +7361,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(entfacmf) ) THEN
       ALLOCATE( entfacmf(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(entfacmf)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(entfacmf) async(wrf_gpu_q)
       entfacmf = 0   ! device copy starts zeroed (pool memory is not)
@@ -7374,7 +7374,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(govrth) ) THEN
       IF ( ANY(LBOUND(govrth) /= (/its,jts/)) .OR. ANY(UBOUND(govrth) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(govrth)
 #endif
          DEALLOCATE(govrth)
@@ -7383,10 +7383,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(govrth) ) THEN
       ALLOCATE( govrth(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(govrth)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(govrth) async(wrf_gpu_q)
       govrth = 0   ! device copy starts zeroed (pool memory is not)
@@ -7396,7 +7396,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(sflux) ) THEN
       IF ( ANY(LBOUND(sflux) /= (/its,jts/)) .OR. ANY(UBOUND(sflux) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(sflux)
 #endif
          DEALLOCATE(sflux)
@@ -7405,10 +7405,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(sflux) ) THEN
       ALLOCATE( sflux(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(sflux)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(sflux) async(wrf_gpu_q)
       sflux = 0   ! device copy starts zeroed (pool memory is not)
@@ -7418,7 +7418,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(wstar3) ) THEN
       IF ( ANY(LBOUND(wstar3) /= (/its,jts/)) .OR. ANY(UBOUND(wstar3) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(wstar3)
 #endif
          DEALLOCATE(wstar3)
@@ -7427,10 +7427,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(wstar3) ) THEN
       ALLOCATE( wstar3(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(wstar3)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(wstar3) async(wrf_gpu_q)
       wstar3 = 0   ! device copy starts zeroed (pool memory is not)
@@ -7440,7 +7440,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(wstar) ) THEN
       IF ( ANY(LBOUND(wstar) /= (/its,jts/)) .OR. ANY(UBOUND(wstar) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(wstar)
 #endif
          DEALLOCATE(wstar)
@@ -7449,10 +7449,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(wstar) ) THEN
       ALLOCATE( wstar(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(wstar)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(wstar) async(wrf_gpu_q)
       wstar = 0   ! device copy starts zeroed (pool memory is not)
@@ -7462,7 +7462,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(rigs) ) THEN
       IF ( ANY(LBOUND(rigs) /= (/its,jts/)) .OR. ANY(UBOUND(rigs) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rigs)
 #endif
          DEALLOCATE(rigs)
@@ -7471,10 +7471,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(rigs) ) THEN
       ALLOCATE( rigs(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rigs)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rigs) async(wrf_gpu_q)
       rigs = 0   ! device copy starts zeroed (pool memory is not)
@@ -7484,7 +7484,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(pblflg) ) THEN
       IF ( ANY(LBOUND(pblflg) /= (/its,jts/)) .OR. ANY(UBOUND(pblflg) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(pblflg)
 #endif
          DEALLOCATE(pblflg)
@@ -7493,10 +7493,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(pblflg) ) THEN
       ALLOCATE( pblflg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(pblflg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(pblflg) async(wrf_gpu_q)
       pblflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
@@ -7506,7 +7506,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(sfcflg) ) THEN
       IF ( ANY(LBOUND(sfcflg) /= (/its,jts/)) .OR. ANY(UBOUND(sfcflg) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(sfcflg)
 #endif
          DEALLOCATE(sfcflg)
@@ -7515,10 +7515,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(sfcflg) ) THEN
       ALLOCATE( sfcflg(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(sfcflg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(sfcflg) async(wrf_gpu_q)
       sfcflg = .FALSE.   ! device copy starts zeroed (pool memory is not)
@@ -7528,7 +7528,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(stable) ) THEN
       IF ( ANY(LBOUND(stable) /= (/its,jts/)) .OR. ANY(UBOUND(stable) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(stable)
 #endif
          DEALLOCATE(stable)
@@ -7537,10 +7537,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(stable) ) THEN
       ALLOCATE( stable(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(stable)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(stable) async(wrf_gpu_q)
       stable = .FALSE.   ! device copy starts zeroed (pool memory is not)
@@ -7550,7 +7550,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(deltaoh) ) THEN
       IF ( ANY(LBOUND(deltaoh) /= (/its,jts/)) .OR. ANY(UBOUND(deltaoh) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(deltaoh)
 #endif
          DEALLOCATE(deltaoh)
@@ -7559,10 +7559,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(deltaoh) ) THEN
       ALLOCATE( deltaoh(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(deltaoh)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(deltaoh) async(wrf_gpu_q)
       deltaoh = 0   ! device copy starts zeroed (pool memory is not)
@@ -7572,7 +7572,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(we) ) THEN
       IF ( ANY(LBOUND(we) /= (/its,jts/)) .OR. ANY(UBOUND(we) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(we)
 #endif
          DEALLOCATE(we)
@@ -7581,10 +7581,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(we) ) THEN
       ALLOCATE( we(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(we)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(we) async(wrf_gpu_q)
       we = 0   ! device copy starts zeroed (pool memory is not)
@@ -7594,7 +7594,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(enlfrac2) ) THEN
       IF ( ANY(LBOUND(enlfrac2) /= (/its,jts/)) .OR. ANY(UBOUND(enlfrac2) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(enlfrac2)
 #endif
          DEALLOCATE(enlfrac2)
@@ -7603,10 +7603,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(enlfrac2) ) THEN
       ALLOCATE( enlfrac2(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(enlfrac2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(enlfrac2) async(wrf_gpu_q)
       enlfrac2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -7616,7 +7616,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(hfxpbl) ) THEN
       IF ( ANY(LBOUND(hfxpbl) /= (/its,jts/)) .OR. ANY(UBOUND(hfxpbl) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(hfxpbl)
 #endif
          DEALLOCATE(hfxpbl)
@@ -7625,10 +7625,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(hfxpbl) ) THEN
       ALLOCATE( hfxpbl(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(hfxpbl)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(hfxpbl) async(wrf_gpu_q)
       hfxpbl = 0   ! device copy starts zeroed (pool memory is not)
@@ -7638,7 +7638,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(bfxpbl) ) THEN
       IF ( ANY(LBOUND(bfxpbl) /= (/its,jts/)) .OR. ANY(UBOUND(bfxpbl) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(bfxpbl)
 #endif
          DEALLOCATE(bfxpbl)
@@ -7647,10 +7647,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(bfxpbl) ) THEN
       ALLOCATE( bfxpbl(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(bfxpbl)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(bfxpbl) async(wrf_gpu_q)
       bfxpbl = 0   ! device copy starts zeroed (pool memory is not)
@@ -7660,7 +7660,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(dthv) ) THEN
       IF ( ANY(LBOUND(dthv) /= (/its,jts/)) .OR. ANY(UBOUND(dthv) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dthv)
 #endif
          DEALLOCATE(dthv)
@@ -7669,10 +7669,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(dthv) ) THEN
       ALLOCATE( dthv(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dthv)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dthv) async(wrf_gpu_q)
       dthv = 0   ! device copy starts zeroed (pool memory is not)
@@ -7682,7 +7682,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(wm2) ) THEN
       IF ( ANY(LBOUND(wm2) /= (/its,jts/)) .OR. ANY(UBOUND(wm2) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(wm2)
 #endif
          DEALLOCATE(wm2)
@@ -7691,10 +7691,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(wm2) ) THEN
       ALLOCATE( wm2(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(wm2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(wm2) async(wrf_gpu_q)
       wm2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -7704,7 +7704,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(wscale) ) THEN
       IF ( ANY(LBOUND(wscale) /= (/its,jts/)) .OR. ANY(UBOUND(wscale) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(wscale)
 #endif
          DEALLOCATE(wscale)
@@ -7713,10 +7713,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(wscale) ) THEN
       ALLOCATE( wscale(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(wscale)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(wscale) async(wrf_gpu_q)
       wscale = 0   ! device copy starts zeroed (pool memory is not)
@@ -7726,7 +7726,7 @@ END SUBROUTINE vertical_diffusion_s
    IF ( ALLOCATED(thermal) ) THEN
       IF ( ANY(LBOUND(thermal) /= (/its,jts/)) .OR. ANY(UBOUND(thermal) /= (/ite,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(thermal)
 #endif
          DEALLOCATE(thermal)
@@ -7735,10 +7735,10 @@ END SUBROUTINE vertical_diffusion_s
    IF ( .NOT. ALLOCATED(thermal) ) THEN
       ALLOCATE( thermal(its:ite,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(thermal)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(thermal) async(wrf_gpu_q)
       thermal = 0   ! device copy starts zeroed (pool memory is not)
@@ -8020,7 +8020,7 @@ END SUBROUTINE vertical_diffusion_s
   ENDDO
   ENDDO
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 END SUBROUTINE nonlocal_flux
 
@@ -8241,7 +8241,7 @@ END SUBROUTINE nonlocal_flux
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_titau_11_22_33
 
@@ -8310,7 +8310,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -8319,10 +8319,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8332,7 +8332,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(rhoavg) ) THEN
       IF ( ANY(LBOUND(rhoavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rhoavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rhoavg)
 #endif
          DEALLOCATE(rhoavg)
@@ -8341,10 +8341,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(rhoavg) ) THEN
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rhoavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8446,7 +8446,7 @@ END SUBROUTINE nonlocal_flux
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_titau_12_21
 
@@ -8518,7 +8518,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -8527,10 +8527,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8540,7 +8540,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(rhoavg) ) THEN
       IF ( ANY(LBOUND(rhoavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rhoavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rhoavg)
 #endif
          DEALLOCATE(rhoavg)
@@ -8549,10 +8549,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(rhoavg) ) THEN
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rhoavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8660,7 +8660,7 @@ END SUBROUTINE nonlocal_flux
     ENDDO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_titau_13_31
 
@@ -8732,7 +8732,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -8741,10 +8741,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8754,7 +8754,7 @@ END SUBROUTINE nonlocal_flux
    IF ( ALLOCATED(rhoavg) ) THEN
       IF ( ANY(LBOUND(rhoavg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rhoavg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rhoavg)
 #endif
          DEALLOCATE(rhoavg)
@@ -8763,10 +8763,10 @@ END SUBROUTINE nonlocal_flux
    IF ( .NOT. ALLOCATED(rhoavg) ) THEN
       ALLOCATE( rhoavg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rhoavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -8876,7 +8876,7 @@ END SUBROUTINE nonlocal_flux
     END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_titau_23_32
 
@@ -9214,7 +9214,7 @@ END SUBROUTINE phy_bc
     END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE tke_rhs
 
@@ -9375,7 +9375,7 @@ END SUBROUTINE phy_bc
 !-----------------------------------------------------------------------
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE tke_buoyancy
 
@@ -9480,7 +9480,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(dthrdn) ) THEN
       IF ( ANY(LBOUND(dthrdn) /= (/its,kts,jts/)) .OR. ANY(UBOUND(dthrdn) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(dthrdn)
 #endif
          DEALLOCATE(dthrdn)
@@ -9489,10 +9489,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(dthrdn) ) THEN
       ALLOCATE( dthrdn(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(dthrdn)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(dthrdn) async(wrf_gpu_q)
       dthrdn = 0   ! device copy starts zeroed (pool memory is not)
@@ -9502,7 +9502,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(l_scale) ) THEN
       IF ( ANY(LBOUND(l_scale) /= (/its,kts,jts/)) .OR. ANY(UBOUND(l_scale) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(l_scale)
 #endif
          DEALLOCATE(l_scale)
@@ -9511,10 +9511,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(l_scale) ) THEN
       ALLOCATE( l_scale(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(l_scale)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(l_scale) async(wrf_gpu_q)
       l_scale = 0   ! device copy starts zeroed (pool memory is not)
@@ -9524,7 +9524,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(sumtke) ) THEN
       IF ( ANY(LBOUND(sumtke) /= (/its/)) .OR. ANY(UBOUND(sumtke) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(sumtke)
 #endif
          DEALLOCATE(sumtke)
@@ -9533,10 +9533,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(sumtke) ) THEN
       ALLOCATE( sumtke(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(sumtke)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(sumtke) async(wrf_gpu_q)
       sumtke = 0   ! device copy starts zeroed (pool memory is not)
@@ -9546,7 +9546,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(sumtkez) ) THEN
       IF ( ANY(LBOUND(sumtkez) /= (/its/)) .OR. ANY(UBOUND(sumtkez) /= (/ite/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(sumtkez)
 #endif
          DEALLOCATE(sumtkez)
@@ -9555,10 +9555,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(sumtkez) ) THEN
       ALLOCATE( sumtkez(its:ite) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(sumtkez)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(sumtkez) async(wrf_gpu_q)
       sumtkez = 0   ! device copy starts zeroed (pool memory is not)
@@ -9632,7 +9632,7 @@ END SUBROUTINE phy_bc
       END DO
       END BLOCK
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE tke_dissip
 
@@ -9757,7 +9757,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(avg) ) THEN
       IF ( ANY(LBOUND(avg) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(avg) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(avg)
 #endif
          DEALLOCATE(avg)
@@ -9766,10 +9766,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(avg) ) THEN
       ALLOCATE( avg(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(avg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(avg) async(wrf_gpu_q)
       avg = 0   ! device copy starts zeroed (pool memory is not)
@@ -9779,7 +9779,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(titau) ) THEN
       IF ( ANY(LBOUND(titau) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(titau) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau)
 #endif
          DEALLOCATE(titau)
@@ -9788,10 +9788,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(titau) ) THEN
       ALLOCATE( titau(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau) async(wrf_gpu_q)
       titau = 0   ! device copy starts zeroed (pool memory is not)
@@ -9801,7 +9801,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(tmp2) ) THEN
       IF ( ANY(LBOUND(tmp2) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(tmp2) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp2)
 #endif
          DEALLOCATE(tmp2)
@@ -9810,10 +9810,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(tmp2) ) THEN
       ALLOCATE( tmp2(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp2)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp2) async(wrf_gpu_q)
       tmp2 = 0   ! device copy starts zeroed (pool memory is not)
@@ -9823,7 +9823,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(titau12) ) THEN
       IF ( ANY(LBOUND(titau12) /= (/its,kts,jts/)) .OR. ANY(UBOUND(titau12) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(titau12)
 #endif
          DEALLOCATE(titau12)
@@ -9832,10 +9832,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(titau12) ) THEN
       ALLOCATE( titau12(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(titau12)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(titau12) async(wrf_gpu_q)
       titau12 = 0   ! device copy starts zeroed (pool memory is not)
@@ -9845,7 +9845,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(tmp1) ) THEN
       IF ( ANY(LBOUND(tmp1) /= (/its,kts,jts/)) .OR. ANY(UBOUND(tmp1) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1)
 #endif
          DEALLOCATE(tmp1)
@@ -9854,10 +9854,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(tmp1) ) THEN
       ALLOCATE( tmp1(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -9867,7 +9867,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(zxavg) ) THEN
       IF ( ANY(LBOUND(zxavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zxavg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zxavg)
 #endif
          DEALLOCATE(zxavg)
@@ -9876,10 +9876,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(zxavg) ) THEN
       ALLOCATE( zxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zxavg) async(wrf_gpu_q)
       zxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -9889,7 +9889,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(zyavg) ) THEN
       IF ( ANY(LBOUND(zyavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(zyavg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(zyavg)
 #endif
          DEALLOCATE(zyavg)
@@ -9898,10 +9898,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(zyavg) ) THEN
       ALLOCATE( zyavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(zyavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(zyavg) async(wrf_gpu_q)
       zyavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -10189,7 +10189,7 @@ END SUBROUTINE phy_bc
 ! end of MARTA/WCS change
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE tke_shear
 
@@ -10241,7 +10241,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(z_at_w) ) THEN
       IF ( ANY(LBOUND(z_at_w) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(z_at_w) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(z_at_w)
 #endif
          DEALLOCATE(z_at_w)
@@ -10250,10 +10250,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(z_at_w) ) THEN
       ALLOCATE( z_at_w(its-1:ite,kts:kte,jts-1:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(z_at_w)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(z_at_w) async(wrf_gpu_q)
       z_at_w = 0   ! device copy starts zeroed (pool memory is not)
@@ -10503,7 +10503,7 @@ END SUBROUTINE phy_bc
     END DO
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE compute_diff_metrics
 
@@ -10598,7 +10598,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(mm) ) THEN
       IF ( ANY(LBOUND(mm) /= (/its-3,jts-3/)) .OR. ANY(UBOUND(mm) /= (/ite+2,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(mm)
 #endif
          DEALLOCATE(mm)
@@ -10607,10 +10607,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(mm) ) THEN
       ALLOCATE( mm(its-3:ite+2,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(mm)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(mm) async(wrf_gpu_q)
       mm = 0   ! device copy starts zeroed (pool memory is not)
@@ -10620,7 +10620,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(tmp1) ) THEN
       IF ( ANY(LBOUND(tmp1) /= (/its-3,kts,jts-3/)) .OR. ANY(UBOUND(tmp1) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tmp1)
 #endif
          DEALLOCATE(tmp1)
@@ -10629,10 +10629,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(tmp1) ) THEN
       ALLOCATE( tmp1(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tmp1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tmp1) async(wrf_gpu_q)
       tmp1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -10642,7 +10642,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(hat) ) THEN
       IF ( ANY(LBOUND(hat) /= (/its-3,kts,jts-3/)) .OR. ANY(UBOUND(hat) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(hat)
 #endif
          DEALLOCATE(hat)
@@ -10651,10 +10651,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(hat) ) THEN
       ALLOCATE( hat(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(hat)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(hat) async(wrf_gpu_q)
       hat = 0   ! device copy starts zeroed (pool memory is not)
@@ -10664,7 +10664,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(hatavg) ) THEN
       IF ( ANY(LBOUND(hatavg) /= (/its-3,kts,jts-3/)) .OR. ANY(UBOUND(hatavg) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(hatavg)
 #endif
          DEALLOCATE(hatavg)
@@ -10673,10 +10673,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(hatavg) ) THEN
       ALLOCATE( hatavg(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(hatavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(hatavg) async(wrf_gpu_q)
       hatavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -10686,7 +10686,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(wavg) ) THEN
       IF ( ANY(LBOUND(wavg) /= (/its-3,kts,jts-3/)) .OR. ANY(UBOUND(wavg) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(wavg)
 #endif
          DEALLOCATE(wavg)
@@ -10695,10 +10695,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(wavg) ) THEN
       ALLOCATE( wavg(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(wavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(wavg) async(wrf_gpu_q)
       wavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -10708,7 +10708,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(rvort) ) THEN
       IF ( ANY(LBOUND(rvort) /= (/its-3,kts,jts-3/)) .OR. ANY(UBOUND(rvort) /= (/ite+2,kte,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rvort)
 #endif
          DEALLOCATE(rvort)
@@ -10717,10 +10717,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(rvort) ) THEN
       ALLOCATE( rvort(its-3:ite+2,kts:kte,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rvort)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rvort) async(wrf_gpu_q)
       rvort = 0   ! device copy starts zeroed (pool memory is not)
@@ -10730,7 +10730,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(use_column) ) THEN
       IF ( ANY(LBOUND(use_column) /= (/its-3,jts-3/)) .OR. ANY(UBOUND(use_column) /= (/ite+2,jte+2/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(use_column)
 #endif
          DEALLOCATE(use_column)
@@ -10739,10 +10739,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(use_column) ) THEN
       ALLOCATE( use_column(its-3:ite+2,jts-3:jte+2) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(use_column)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(use_column) async(wrf_gpu_q)
       use_column = .FALSE.   ! device copy starts zeroed (pool memory is not)
@@ -11166,7 +11166,7 @@ END SUBROUTINE phy_bc
 ! End update of boundary for updraft helicity.
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE cal_helicity
 !=======================================================================
@@ -11382,7 +11382,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(var_mix) ) THEN
       IF ( ANY(LBOUND(var_mix) /= (/ims,kms,jms/)) .OR. ANY(UBOUND(var_mix) /= (/ime,kme,jme/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(var_mix)
 #endif
          DEALLOCATE(var_mix)
@@ -11391,10 +11391,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(var_mix) ) THEN
       ALLOCATE( var_mix(ims:ime,kms:kme,jms:jme) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(var_mix)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(var_mix) async(wrf_gpu_q)
       var_mix = 0   ! device copy starts zeroed (pool memory is not)
@@ -11404,7 +11404,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(xkxavg_m) ) THEN
       IF ( ANY(LBOUND(xkxavg_m) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg_m) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg_m)
 #endif
          DEALLOCATE(xkxavg_m)
@@ -11413,10 +11413,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(xkxavg_m) ) THEN
       ALLOCATE( xkxavg_m(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg_m)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg_m) async(wrf_gpu_q)
       xkxavg_m = 0   ! device copy starts zeroed (pool memory is not)
@@ -11426,7 +11426,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(xkxavg_s) ) THEN
       IF ( ANY(LBOUND(xkxavg_s) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(xkxavg_s) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg_s)
 #endif
          DEALLOCATE(xkxavg_s)
@@ -11435,10 +11435,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(xkxavg_s) ) THEN
       ALLOCATE( xkxavg_s(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg_s)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg_s) async(wrf_gpu_q)
       xkxavg_s = 0   ! device copy starts zeroed (pool memory is not)
@@ -11448,7 +11448,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(xkxavg) ) THEN
       IF ( ANY(LBOUND(xkxavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg)
 #endif
          DEALLOCATE(xkxavg)
@@ -11457,10 +11457,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(xkxavg) ) THEN
       ALLOCATE( xkxavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg) async(wrf_gpu_q)
       xkxavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -11470,7 +11470,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(xkxavg_w) ) THEN
       IF ( ANY(LBOUND(xkxavg_w) /= (/its,kts,jts/)) .OR. ANY(UBOUND(xkxavg_w) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(xkxavg_w)
 #endif
          DEALLOCATE(xkxavg_w)
@@ -11479,10 +11479,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(xkxavg_w) ) THEN
       ALLOCATE( xkxavg_w(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(xkxavg_w)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(xkxavg_w) async(wrf_gpu_q)
       xkxavg_w = 0   ! device copy starts zeroed (pool memory is not)
@@ -11492,7 +11492,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(rhoavg) ) THEN
       IF ( ANY(LBOUND(rhoavg) /= (/its,kts,jts/)) .OR. ANY(UBOUND(rhoavg) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rhoavg)
 #endif
          DEALLOCATE(rhoavg)
@@ -11501,10 +11501,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(rhoavg) ) THEN
       ALLOCATE( rhoavg(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rhoavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rhoavg) async(wrf_gpu_q)
       rhoavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -11514,7 +11514,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(nlflux_rho) ) THEN
       IF ( ANY(LBOUND(nlflux_rho) /= (/its,kts,jts/)) .OR. ANY(UBOUND(nlflux_rho) /= (/ite,kte,jte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(nlflux_rho)
 #endif
          DEALLOCATE(nlflux_rho)
@@ -11523,10 +11523,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(nlflux_rho) ) THEN
       ALLOCATE( nlflux_rho(its:ite,kts:kte,jts:jte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(nlflux_rho)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(nlflux_rho) async(wrf_gpu_q)
       nlflux_rho = 0   ! device copy starts zeroed (pool memory is not)
@@ -11536,7 +11536,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(gamvavg) ) THEN
       IF ( ANY(LBOUND(gamvavg) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(gamvavg) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(gamvavg)
 #endif
          DEALLOCATE(gamvavg)
@@ -11545,10 +11545,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(gamvavg) ) THEN
       ALLOCATE( gamvavg(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(gamvavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(gamvavg) async(wrf_gpu_q)
       gamvavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -11558,7 +11558,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(gamuavg) ) THEN
       IF ( ANY(LBOUND(gamuavg) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(gamuavg) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(gamuavg)
 #endif
          DEALLOCATE(gamuavg)
@@ -11567,10 +11567,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(gamuavg) ) THEN
       ALLOCATE( gamuavg(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(gamuavg)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(gamuavg) async(wrf_gpu_q)
       gamuavg = 0   ! device copy starts zeroed (pool memory is not)
@@ -11580,7 +11580,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(tao_xz) ) THEN
       IF ( ANY(LBOUND(tao_xz) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(tao_xz) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tao_xz)
 #endif
          DEALLOCATE(tao_xz)
@@ -11589,10 +11589,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(tao_xz) ) THEN
       ALLOCATE( tao_xz(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tao_xz)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tao_xz) async(wrf_gpu_q)
       tao_xz = 0   ! device copy starts zeroed (pool memory is not)
@@ -11602,7 +11602,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(tao_yz) ) THEN
       IF ( ANY(LBOUND(tao_yz) /= (/its-1,jts-1/)) .OR. ANY(UBOUND(tao_yz) /= (/ite+1,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(tao_yz)
 #endif
          DEALLOCATE(tao_yz)
@@ -11611,10 +11611,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(tao_yz) ) THEN
       ALLOCATE( tao_yz(its-1:ite+1,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(tao_yz)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(tao_yz) async(wrf_gpu_q)
       tao_yz = 0   ! device copy starts zeroed (pool memory is not)
@@ -11624,7 +11624,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(muavg_u) ) THEN
       IF ( ANY(LBOUND(muavg_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(muavg_u) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muavg_u)
 #endif
          DEALLOCATE(muavg_u)
@@ -11633,10 +11633,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(muavg_u) ) THEN
       ALLOCATE( muavg_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muavg_u)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muavg_u) async(wrf_gpu_q)
       muavg_u = 0   ! device copy starts zeroed (pool memory is not)
@@ -11646,7 +11646,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(muavg_v) ) THEN
       IF ( ANY(LBOUND(muavg_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(muavg_v) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(muavg_v)
 #endif
          DEALLOCATE(muavg_v)
@@ -11655,10 +11655,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(muavg_v) ) THEN
       ALLOCATE( muavg_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(muavg_v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(muavg_v) async(wrf_gpu_q)
       muavg_v = 0   ! device copy starts zeroed (pool memory is not)
@@ -11668,7 +11668,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(rdz_u) ) THEN
       IF ( ANY(LBOUND(rdz_u) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rdz_u) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rdz_u)
 #endif
          DEALLOCATE(rdz_u)
@@ -11677,10 +11677,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(rdz_u) ) THEN
       ALLOCATE( rdz_u(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rdz_u)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rdz_u) async(wrf_gpu_q)
       rdz_u = 0   ! device copy starts zeroed (pool memory is not)
@@ -11690,7 +11690,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(rdz_v) ) THEN
       IF ( ANY(LBOUND(rdz_v) /= (/its-1,kts,jts-1/)) .OR. ANY(UBOUND(rdz_v) /= (/ite+1,kte,jte+1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(rdz_v)
 #endif
          DEALLOCATE(rdz_v)
@@ -11699,10 +11699,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(rdz_v) ) THEN
       ALLOCATE( rdz_v(its-1:ite+1,kts:kte,jts-1:jte+1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(rdz_v)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(rdz_v) async(wrf_gpu_q)
       rdz_v = 0   ! device copy starts zeroed (pool memory is not)
@@ -11712,7 +11712,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(a) ) THEN
       IF ( ANY(LBOUND(a) /= (/kts/)) .OR. ANY(UBOUND(a) /= (/kte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(a)
 #endif
          DEALLOCATE(a)
@@ -11721,10 +11721,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(a) ) THEN
       ALLOCATE( a(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(a)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(a) async(wrf_gpu_q)
       a = 0   ! device copy starts zeroed (pool memory is not)
@@ -11734,7 +11734,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(b) ) THEN
       IF ( ANY(LBOUND(b) /= (/kts/)) .OR. ANY(UBOUND(b) /= (/kte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(b)
 #endif
          DEALLOCATE(b)
@@ -11743,10 +11743,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(b) ) THEN
       ALLOCATE( b(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(b)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(b) async(wrf_gpu_q)
       b = 0   ! device copy starts zeroed (pool memory is not)
@@ -11756,7 +11756,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(c) ) THEN
       IF ( ANY(LBOUND(c) /= (/kts/)) .OR. ANY(UBOUND(c) /= (/kte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(c)
 #endif
          DEALLOCATE(c)
@@ -11765,10 +11765,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(c) ) THEN
       ALLOCATE( c(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(c)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(c) async(wrf_gpu_q)
       c = 0   ! device copy starts zeroed (pool memory is not)
@@ -11778,7 +11778,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(d) ) THEN
       IF ( ANY(LBOUND(d) /= (/kts/)) .OR. ANY(UBOUND(d) /= (/kte/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(d)
 #endif
          DEALLOCATE(d)
@@ -11787,10 +11787,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(d) ) THEN
       ALLOCATE( d(kts:kte) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(d)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(d) async(wrf_gpu_q)
       d = 0   ! device copy starts zeroed (pool memory is not)
@@ -11800,7 +11800,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(a1) ) THEN
       IF ( ANY(LBOUND(a1) /= (/kts/)) .OR. ANY(UBOUND(a1) /= (/kte-1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(a1)
 #endif
          DEALLOCATE(a1)
@@ -11809,10 +11809,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(a1) ) THEN
       ALLOCATE( a1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(a1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(a1) async(wrf_gpu_q)
       a1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -11822,7 +11822,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(b1) ) THEN
       IF ( ANY(LBOUND(b1) /= (/kts/)) .OR. ANY(UBOUND(b1) /= (/kte-1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(b1)
 #endif
          DEALLOCATE(b1)
@@ -11831,10 +11831,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(b1) ) THEN
       ALLOCATE( b1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(b1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(b1) async(wrf_gpu_q)
       b1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -11844,7 +11844,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(c1) ) THEN
       IF ( ANY(LBOUND(c1) /= (/kts/)) .OR. ANY(UBOUND(c1) /= (/kte-1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(c1)
 #endif
          DEALLOCATE(c1)
@@ -11853,10 +11853,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(c1) ) THEN
       ALLOCATE( c1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(c1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(c1) async(wrf_gpu_q)
       c1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -11866,7 +11866,7 @@ END SUBROUTINE phy_bc
    IF ( ALLOCATED(d1) ) THEN
       IF ( ANY(LBOUND(d1) /= (/kts/)) .OR. ANY(UBOUND(d1) /= (/kte-1/)) ) THEN
 #ifdef WRF_GPU_RESIDENT
-!$acc wait   ! async kernels may still use it
+!$acc wait(1)   ! async kernels may still use it
 !$acc exit data delete(d1)
 #endif
          DEALLOCATE(d1)
@@ -11875,10 +11875,10 @@ END SUBROUTINE phy_bc
    IF ( .NOT. ALLOCATED(d1) ) THEN
       ALLOCATE( d1(kts:kte-1) )
 #ifdef WRF_GPU_RESIDENT
-!$acc wait
+!$acc wait(1)
 !$acc enter data create(d1)
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
 !$acc kernels present(d1) async(wrf_gpu_q)
       d1 = 0   ! device copy starts zeroed (pool memory is not)
@@ -12663,7 +12663,7 @@ END SUBROUTINE phy_bc
    ENDIF
  
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
       ENDIF
     END SUBROUTINE vertical_diffusion_implicit
 

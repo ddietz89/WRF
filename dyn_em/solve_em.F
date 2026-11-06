@@ -32,7 +32,7 @@ CONTAINS
       prev_seg = c
    END SUBROUTINE seg_enter
    SUBROUTINE seg_leave()
-!$acc wait
+!$acc wait(1)
       CALL seg_mark( prev_seg )
    END SUBROUTINE seg_leave
 END MODULE wrf_seg_timers
@@ -431,7 +431,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 !  Compute these starting and stopping locations for each tile and number of tiles.
 !  See: https://www2.mmm.ucar.edu/wrf/WG2/topics/settiles
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -1045,52 +1045,7 @@ BENCH_START(set_phys_bc_tim)
 BENCH_END(set_phys_bc_tim)
 
 #ifdef WRF_GPU_RESIDENT
-   ! WRF_GPU_EARLYDYN=1: at rk_step 1 the dynamics tendencies of rk_tendency that need only the state and the
-   ! rk_step_prep fields (advection, rhs_ph, pressure gradient, buoyancy, w_damp, Coriolis, curvature) go on
-   ! OpenACC queue 2 here, so they run on the GPU while the physics block keeps the host busy; the diffusion
-   ! part (needs part2's km) runs at the usual place, after queue 1 has waited for queue 2
-   IF ( earlydyn < 0 ) THEN
-      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_EARLYDYN', edv )
-      earlydyn = 0
-      IF ( TRIM(edv) == '1' ) earlydyn = 1
-   ENDIF
    early_rkt = .FALSE.
-   IF ( earlydyn == 1 .AND. rk_step == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on .AND. wrf_gpu_q == 1 .AND.  &
-        IAND( wrf_gpu_xfer(), 1048576 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 8388608 ) /= 0 ) THEN
-!$acc wait(1) async(2)
-      wrf_gpu_q = 2 ; wrf_gpu_xw_skip = .TRUE. ; rkt_part = 1
-       CALL rk_tendency ( config_flags, rk_step                                                                &
-                         ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
-                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
-                         ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
-                         ,grid%t_save, mu_save, grid%rthften                                                   &
-                         ,grid%ru, grid%rv, grid%rw, grid%ww, wwE, wwI                                         &
-                         ,grid%u_2, grid%v_2, grid%w_2, grid%t_2, grid%ph_2                                    &
-                         ,grid%u_1, grid%v_1, grid%w_1, grid%t_1, grid%ph_1                                    &
-                         ,grid%h_diabatic, grid%phb, grid%t_init                                               &
-                         ,grid%mu_1, grid%mu_2, grid%mut, grid%muu, grid%muv, grid%mub                         & 
-                         ,grid%c1h, grid%c2h, grid%c1f, grid%c2f                                               &
-                         ,grid%al, grid%ht, grid%alt, grid%p, grid%pb, grid%php, cqu, cqv, cqw                 & 
-                         ,grid%u_base, grid%v_base, grid%t_base, grid%qv_base, grid%z_base                     &
-                         ,grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv                                    &
-                         ,grid%msfvy, grid%msftx,grid%msfty, grid%clat, grid%f, grid%e, grid%sina, grid%cosa   &
-                         ,grid%fnm, grid%fnp, grid%rdn, grid%rdnw                                              &
-                         ,grid%dt, grid%rdx, grid%rdy, grid%khdif, grid%kvdif, grid%xkmh, grid%xkhh            &
-                         ,grid%diff_6th_opt, grid%diff_6th_factor                                              &
-                         ,config_flags%momentum_adv_opt                                                        &
-                         ,grid%dampcoef,grid%zdamp,config_flags%damp_opt,config_flags%rad_nudge                &
-                         ,grid%cf1, grid%cf2, grid%cf3, grid%cfn, grid%cfn1, num_3d_m                          &
-                         ,config_flags%non_hydrostatic, config_flags%top_lid                                   &
-                         ,grid%u_frame, grid%v_frame                                                           &
-                         ,ids, ide, jds, jde, kds, kde                                                         &
-                         ,ims, ime, jms, jme, kms, kme                                                         &
-                         ,grid%i_start(1), grid%i_end(1)                                                     &
-                         ,grid%j_start(1), grid%j_end(1)                                                     &
-                         ,k_start, k_end                                                                       &
-                         ,max_vert_cfl_tmp(1), max_horiz_cfl_tmp(1)                                         )
-      rkt_part = 0 ; wrf_gpu_xw_skip = .FALSE. ; wrf_gpu_q = 1
-      early_rkt = .TRUE.
-   ENDIF
 #endif
      rk_step_is_one : IF (rk_step == 1) THEN ! only need to initialize diffusion tendencies
 
@@ -1193,7 +1148,7 @@ BENCH_START(calc_p_rho_tim)
       IF ( sfcl_st == 0 ) READ( sfcl_env, *, IOSTAT=sfcl_st ) wrf_gpu_sfc_leanmode
    ENDIF
    IF ( wrf_gpu_sfc_hoststale .AND. .NOT. wrf_gpu_lean_step ) THEN
-!$acc wait
+!$acc wait(1)
       CALL gpu_sfc_catchup( grid )
 !$acc update self(chklowq)
       wrf_gpu_sfc_hoststale = .FALSE.
@@ -1204,7 +1159,7 @@ BENCH_START(calc_p_rho_tim)
       IF ( sfcl_st == 0 ) wrf_gpu_hnsteady = sfcl_env(1:1) == '1'
    ENDIF
    IF ( wrf_gpu_sfc_hoststale_hn .AND. .NOT. wrf_gpu_lean_step ) THEN
-!$acc wait
+!$acc wait(1)
       CALL gpu_sfc_catchup_hn( grid )
       wrf_gpu_sfc_hoststale_hn = .FALSE.
    ENDIF
@@ -1228,7 +1183,7 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
    gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
    IF ( wrf_gpu_lean_step ) THEN
-!$acc wait
+!$acc wait(1)
      CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
    ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h1.inc"
@@ -1238,7 +1193,7 @@ BENCH_START(calc_p_rho_tim)
 #  include "gpu_upd_host_pre_phys.inc"
    ENDIF
    IF ( wrf_gpu_h1chk() .AND. gpu_h3_done ) THEN
-!$acc wait
+!$acc wait(1)
      IF ( ASSOCIATED(grid%alt) ) h1ck(2,1) = SUM( DBLE(grid%alt) )
      IF ( ASSOCIATED(grid%p) ) h1ck(2,2) = SUM( DBLE(grid%p) )
      IF ( ASSOCIATED(grid%ph_2) ) h1ck(2,3) = SUM( DBLE(grid%ph_2) )
@@ -1270,7 +1225,54 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
+#endif
+#ifdef WRF_GPU_RESIDENT
+   ! WRF_GPU_EARLYDYN=1: at rk_step 1 the dynamics tendencies of rk_tendency that need only the state and the
+   ! rk_step_prep fields (advection, rhs_ph, pressure gradient, buoyancy, w_damp, Coriolis, curvature) go on
+   ! OpenACC queue 2 here (after the lean pull, the last GPU work before the host physics), so they run on the GPU while the physics block keeps the host busy; the diffusion
+   ! part (needs part2's km) runs at the usual place, after queue 1 has waited for queue 2
+   IF ( earlydyn < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_EARLYDYN', edv )
+      earlydyn = 0
+      IF ( TRIM(edv) == '1' ) earlydyn = 1
+   ENDIF
+   IF ( earlydyn == 1 .AND. rk_step == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on .AND. wrf_gpu_q == 1 .AND.  &
+        IAND( wrf_gpu_xfer(), 1048576 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 8388608 ) /= 0 ) THEN
+!$acc wait(1) async(2)
+      wrf_gpu_q = 2 ; wrf_gpu_xw_skip = .TRUE. ; rkt_part = 1
+       CALL rk_tendency ( config_flags, rk_step                                                                &
+                         ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
+                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
+                         ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
+                         ,grid%t_save, mu_save, grid%rthften                                                   &
+                         ,grid%ru, grid%rv, grid%rw, grid%ww, wwE, wwI                                         &
+                         ,grid%u_2, grid%v_2, grid%w_2, grid%t_2, grid%ph_2                                    &
+                         ,grid%u_1, grid%v_1, grid%w_1, grid%t_1, grid%ph_1                                    &
+                         ,grid%h_diabatic, grid%phb, grid%t_init                                               &
+                         ,grid%mu_1, grid%mu_2, grid%mut, grid%muu, grid%muv, grid%mub                         & 
+                         ,grid%c1h, grid%c2h, grid%c1f, grid%c2f                                               &
+                         ,grid%al, grid%ht, grid%alt, grid%p, grid%pb, grid%php, cqu, cqv, cqw                 & 
+                         ,grid%u_base, grid%v_base, grid%t_base, grid%qv_base, grid%z_base                     &
+                         ,grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv                                    &
+                         ,grid%msfvy, grid%msftx,grid%msfty, grid%clat, grid%f, grid%e, grid%sina, grid%cosa   &
+                         ,grid%fnm, grid%fnp, grid%rdn, grid%rdnw                                              &
+                         ,grid%dt, grid%rdx, grid%rdy, grid%khdif, grid%kvdif, grid%xkmh, grid%xkhh            &
+                         ,grid%diff_6th_opt, grid%diff_6th_factor                                              &
+                         ,config_flags%momentum_adv_opt                                                        &
+                         ,grid%dampcoef,grid%zdamp,config_flags%damp_opt,config_flags%rad_nudge                &
+                         ,grid%cf1, grid%cf2, grid%cf3, grid%cfn, grid%cfn1, num_3d_m                          &
+                         ,config_flags%non_hydrostatic, config_flags%top_lid                                   &
+                         ,grid%u_frame, grid%v_frame                                                           &
+                         ,ids, ide, jds, jde, kds, kde                                                         &
+                         ,ims, ime, jms, jme, kms, kme                                                         &
+                         ,grid%i_start(1), grid%i_end(1)                                                     &
+                         ,grid%j_start(1), grid%j_end(1)                                                     &
+                         ,k_start, k_end                                                                       &
+                         ,max_vert_cfl_tmp(1), max_horiz_cfl_tmp(1)                                         )
+      rkt_part = 0 ; wrf_gpu_xw_skip = .FALSE. ; wrf_gpu_q = 1
+      early_rkt = .TRUE.
+   ENDIF
 #endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'b_preH1', rk_step, ids, ide, jds, jde, kds, kde, &
@@ -1407,7 +1409,7 @@ BENCH_START(calc_p_rho_tim)
        CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -4298,14 +4300,14 @@ BENCH_END(bc_end_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
      IF ( wrf_gpu_xw_skip ) THEN
-!$acc wait
+!$acc wait(1)
        wrf_gpu_xw_skip = .FALSE.
      ENDIF
 #endif
    END DO Runge_Kutta_loop
 #ifdef WRF_GPU_RESIDENT
    IF ( wrf_gpu_wdamp_defer .AND. ALLOCATED(wdamp_part) ) THEN
-!$acc wait
+!$acc wait(1)
 !$acc update self(wdamp_part)
       grid%max_vert_cfl  = MAX( grid%max_vert_cfl,  MAXVAL(wdamp_part(1,:)) )
       grid%max_horiz_cfl = MAX( grid%max_horiz_cfl, MAXVAL(wdamp_part(2,:)) )
@@ -4418,7 +4420,7 @@ BENCH_END(bc_end_tim)
    ENDIF
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'f_preH2', rk_step, ids, ide, jds, jde, kds, kde, &
@@ -5085,7 +5087,7 @@ BENCH_START(moist_phys_end_tim)
    ENDIF
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -5867,7 +5869,7 @@ BENCH_END(bc_2d_tim)
    ENDIF
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'h_preH3', rk_step, ids, ide, jds, jde, kds, kde, &
@@ -5906,7 +5908,7 @@ BENCH_END(bc_2d_tim)
        CALL gpu_retile( grid, .FALSE., ids, ide, jds, jde, ips, ipe, jps, jpe )
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_SEG_TIMERS
    CALL seg_mark( 1 )
@@ -6148,7 +6150,7 @@ BENCH_END(bc_2d_tim)
        CALL gpu_field_trace( grid, 'd_end_step' )
 #endif
 #ifdef WRF_GPU
-!$acc wait
+!$acc wait(1)
 #endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'i_end', rk_step, ids, ide, jds, jde, kds, kde, &
@@ -6357,12 +6359,12 @@ SUBROUTINE gpu_pull_for_output( grid )
    ENDDO
    IF ( .NOT. any_ring ) RETURN
    IF ( wrf_gpu_sfc_hoststale ) THEN
-!$acc wait
+!$acc wait(1)
       CALL gpu_sfc_catchup( grid )
       wrf_gpu_sfc_hoststale = .FALSE.
    ENDIF
    IF ( wrf_gpu_sfc_hoststale_hn ) THEN
-!$acc wait
+!$acc wait(1)
       CALL gpu_sfc_catchup_hn( grid )
       wrf_gpu_sfc_hoststale_hn = .FALSE.
    ENDIF
@@ -6397,7 +6399,7 @@ SUBROUTINE gpu_pull_for_output( grid )
 !$acc update self(grid%rucuten) if(associated(grid%rucuten))
 !$acc update self(grid%rvcuten) if(associated(grid%rvcuten))
    ENDIF
-!$acc wait
+!$acc wait(1)
 END SUBROUTINE gpu_pull_for_output
 #endif
 #ifdef WRF_GPU
@@ -6962,7 +6964,7 @@ SUBROUTINE gpu_stage_pull( a, n )
       IF ( .NOT. ok ) CALL wrf_message( 'gpu_stage_pull: no pinned staging buffers - using update self' )
       IF ( ok ) CALL wrf_message( 'gpu_stage_pull: pinned staging buffers 2 x 8 MB' )
    ENDIF
-!$acc wait
+!$acc wait(1)
    IF ( .NOT. ok ) THEN
 !$acc update self(a)
       RETURN
@@ -7241,7 +7243,7 @@ SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, n
    INTEGER :: i, j, k, f, nf, ib, jb
    nf = 14 + num_moist
    ALLOCATE( buf(ims:ime,2,jms:jme,nf) )
-!$acc wait
+!$acc wait(1)
 !$acc data create(buf)
    CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
                    grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
