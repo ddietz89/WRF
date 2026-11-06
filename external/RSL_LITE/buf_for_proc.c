@@ -58,6 +58,24 @@
 # include <stdio.h>
 #endif
 #include <stdlib.h>
+#include <dlfcn.h>
+/* WRF_GPU_HALOPIN=1: page-lock RSL buffers with the CUDA driver (cuMemHostRegister) so halo D2H/H2D are direct DMA */
+static int rsl_pin_on = -1 ;
+static int (*rsl_cu_reg)(void *, size_t, unsigned int) = NULL ;
+static int (*rsl_cu_unreg)(void *) = NULL ;
+static void rsl_pin ( char * p, int n, int on ) {
+  if ( rsl_pin_on < 0 ) {
+    char *e = getenv("WRF_GPU_HALOPIN") ; rsl_pin_on = ( e && e[0] != '0' ) ;
+    if ( rsl_pin_on ) {
+      void *h = dlopen("libcuda.so.1", RTLD_NOW|RTLD_NOLOAD) ; if ( !h ) h = dlopen("libcuda.so.1", RTLD_NOW) ;
+      if ( h ) { rsl_cu_reg = (int(*)(void*,size_t,unsigned int))dlsym(h,"cuMemHostRegister_v2") ; rsl_cu_unreg = (int(*)(void*))dlsym(h,"cuMemHostUnregister") ; }
+      if ( !rsl_cu_reg || !rsl_cu_unreg ) rsl_pin_on = 0 ;
+    }
+  }
+  if ( !rsl_pin_on || p == NULL || n <= 0 ) return ;
+  if ( on ) { int r = rsl_cu_reg( p, (size_t)n, 0 ) ; if ( r != 0 ) fprintf(stderr,"RSL pin: cuMemHostRegister rc=%d size=%d\n",r,n) ; }
+  else rsl_cu_unreg( p ) ;
+}
 #include "rsl_lite.h"
 #ifndef STUBMPI
 #  include "mpi.h"
@@ -121,6 +139,8 @@ buffer_for_proc( P, size, code )
   if ( code == RSL_FREEBUF )
   {
 /* fprintf(stderr,"buffer_for_proc freeing buffer %d\n",P) ; */
+    { int c_ ; for ( c_ = 0 ; c_ < 2 ; c_++ ) if ( buftab[c_][P].buf != NULL ) {
+        long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; rsl_pin( buftab[c_][P].buf, n_, 0 ) ; } }
     if ( buftab[0][P].buf != NULL ) RSL_FREE( buftab[0][P].buf ) ;
     if ( buftab[1][P].buf != NULL ) RSL_FREE( buftab[1][P].buf ) ;
     buftab[0][P].buf  = NULL ;    
@@ -138,9 +158,14 @@ fprintf(stderr,"buffer_for_proc %s %d : was %d, increasing to %d\n",
          (code == RSL_SENDBUF)?"RSL_SENDBUF":"RSL_RECVBUF",
 	 P,buftab[code][P].size, size+512) ;
 #endif
-      if ( buftab[code][P].buf != NULL ) RSL_FREE( buftab[code][P].buf ) ;
+      if ( buftab[code][P].buf != NULL ) {
+        { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
+        rsl_pin( buftab[code][P].buf, buftab[code][P].size, 0 ) ;
+        RSL_FREE( buftab[code][P].buf ) ;
+      }
       buftab[code][P].buf = RSL_MALLOC(char,size+512) ;
       buftab[code][P].size = size+512 ;
+      { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 1 ; rsl_pin( buftab[code][P].buf, n_, 1 ) ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
 /* show_tot_size() ; */
     }
     ret = buftab[code][P].buf ;

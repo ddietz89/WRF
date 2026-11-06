@@ -211,3 +211,21 @@ void F_UNPACK_INT_AD (int *inbuf, int *outbuf, int* memorder, int* js, int* je, 
 
 int TASK_FOR_POINT ( int* i_p , int* j_p , int* ids_p, int* ide_p , int* jds_p, int* jde_p , int* npx_p , int* npy_p , int* Px_p, int* Py_p , int* minx_p, int* miny_p, int* ierr_p );
 void TASK_FOR_POINT_MESSAGE();
+
+/* GPU halo batching helpers (f_pack.F90, WRF_GPU_HALOBATCH) */
+#ifdef NOUNDERSCORE
+# define RSL_GPU_BUF_MAP rsl_gpu_buf_map
+# define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush
+# define RSL_GPU_RECV_PUSH rsl_gpu_recv_push
+#elif defined(F2CSTYLE)
+# define RSL_GPU_BUF_MAP rsl_gpu_buf_map__
+# define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush__
+# define RSL_GPU_RECV_PUSH rsl_gpu_recv_push__
+#else
+# define RSL_GPU_BUF_MAP rsl_gpu_buf_map_
+# define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush_
+# define RSL_GPU_RECV_PUSH rsl_gpu_recv_push_
+#endif
+void RSL_GPU_BUF_MAP ( long long * addr, int * nbytes, int * onoff ) ;
+void RSL_GPU_SEND_FLUSH ( void ) ;
+void RSL_GPU_RECV_PUSH ( long long * addr, int * nbytes ) ;

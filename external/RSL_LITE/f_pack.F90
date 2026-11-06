@@ -13,7 +13,133 @@
         LOGICAL :: rsl_gpu_on = .TRUE.
         ! managed-memory builds: fields are device-accessible without being in the present table
         LOGICAL :: rsl_gpu_managed = .FALSE.
+        ! WRF_GPU_HALOBATCH (2026-11-06): RSL send/recv buffers mapped on the device; device-resident fields are
+        ! packed/unpacked into the mapped buffers on queue 1 without a per-field transfer/sync; RSL_LITE_EXCH_X/Y
+        ! moves the packed send segments to the host in one update (rsl_gpu_send_flush) and the whole received
+        ! buffer to the device in one update (rsl_gpu_recv_push).
+        INTEGER :: rsl_gpu_batch = -1          ! -1 unread, 0 off, 1 on
+        LOGICAL :: rsl_gpu_need_wait = .TRUE.  ! first device pack of an exchange drains all queues
+        INTEGER, PARAMETER :: rsl_gpu_maxseg = 4096
+        INTEGER :: rsl_gpu_nseg = 0
+        INTEGER*8 :: rsl_gpu_seg_a(rsl_gpu_maxseg), rsl_gpu_seg_n(rsl_gpu_maxseg)
       END MODULE rsl_gpu_ctl
+      LOGICAL FUNCTION rsl_gpu_batch_on ()
+        USE rsl_gpu_ctl
+        CHARACTER(16) :: v
+        INTEGER :: l, st
+        IF ( rsl_gpu_batch < 0 ) THEN
+          rsl_gpu_batch = 0
+#if defined(_OPENACC) || defined(WRF_GPU)
+          CALL get_environment_variable( 'WRF_GPU_HALOBATCH', v, l, st )
+          IF ( st == 0 .AND. l > 0 ) THEN
+            IF ( v(1:1) /= '0' ) rsl_gpu_batch = 1
+          ENDIF
+#endif
+        ENDIF
+        rsl_gpu_batch_on = rsl_gpu_batch == 1 .AND. rsl_gpu_on .AND. .NOT. rsl_gpu_managed
+      END FUNCTION rsl_gpu_batch_on
+      ! map/unmap a freshly allocated RSL buffer on the device (called from buffer_for_proc)
+      SUBROUTINE rsl_gpu_buf_map ( addr, nbytes, onoff )
+        USE iso_c_binding
+#if defined(_OPENACC) || defined(WRF_GPU)
+        USE openacc
+#endif
+        IMPLICIT NONE
+        INTEGER*8 addr
+        INTEGER nbytes, onoff
+#if defined(_OPENACC) || defined(WRF_GPU)
+        INTEGER(1), POINTER :: bp(:)
+        LOGICAL, EXTERNAL :: rsl_gpu_batch_on
+        IF ( .NOT. rsl_gpu_batch_on() ) RETURN
+        IF ( nbytes <= 0 ) RETURN
+        CALL c_f_pointer( TRANSFER(addr, c_null_ptr), bp, (/ nbytes /) )
+        IF ( onoff == 1 ) THEN
+!$acc enter data create(bp)
+        ELSE IF ( acc_is_present( bp ) ) THEN
+!$acc exit data delete(bp)
+        ENDIF
+#endif
+      END SUBROUTINE rsl_gpu_buf_map
+      ! device pack/unpack target check: returns the async queue to use (1 = batched into the mapped buffer,
+      ! acc_async_sync = classic per-field path). Pack: records the segment and drains queues once per exchange.
+      INTEGER FUNCTION rsl_gpu_q ( addr, nbytes, ispack )
+        USE iso_c_binding
+        USE rsl_gpu_ctl
+#if defined(_OPENACC) || defined(WRF_GPU)
+        USE openacc
+#endif
+        IMPLICIT NONE
+        INTEGER*8 addr
+        INTEGER nbytes, ispack
+#if defined(_OPENACC) || defined(WRF_GPU)
+        INTEGER(1), POINTER :: bp(:)
+        LOGICAL, EXTERNAL :: rsl_gpu_batch_on
+        rsl_gpu_q = acc_async_sync
+        IF ( .NOT. rsl_gpu_batch_on() ) RETURN
+        CALL c_f_pointer( TRANSFER(addr, c_null_ptr), bp, (/ nbytes /) )
+        IF ( .NOT. acc_is_present( bp ) ) RETURN
+        rsl_gpu_q = 1
+        IF ( ispack == 1 ) THEN
+          IF ( rsl_gpu_need_wait ) THEN
+!$acc wait
+            rsl_gpu_need_wait = .FALSE.
+          ENDIF
+          IF ( rsl_gpu_nseg > 0 ) THEN
+            IF ( rsl_gpu_seg_a(rsl_gpu_nseg) + rsl_gpu_seg_n(rsl_gpu_nseg) == addr ) THEN
+              rsl_gpu_seg_n(rsl_gpu_nseg) = rsl_gpu_seg_n(rsl_gpu_nseg) + nbytes
+              RETURN
+            ENDIF
+          ENDIF
+          IF ( rsl_gpu_nseg >= rsl_gpu_maxseg ) THEN
+            CALL rsl_gpu_send_flush()
+          ENDIF
+          rsl_gpu_nseg = rsl_gpu_nseg + 1
+          rsl_gpu_seg_a(rsl_gpu_nseg) = addr ; rsl_gpu_seg_n(rsl_gpu_nseg) = nbytes
+        ENDIF
+#else
+        rsl_gpu_q = -1
+#endif
+      END FUNCTION rsl_gpu_q
+      ! before MPI send: finish the queued device packs and copy the packed segments to the host
+      SUBROUTINE rsl_gpu_send_flush ()
+        USE iso_c_binding
+        USE rsl_gpu_ctl
+        IMPLICIT NONE
+#if defined(_OPENACC) || defined(WRF_GPU)
+        INTEGER(1), POINTER :: bp(:)
+        INTEGER :: n
+        IF ( rsl_gpu_nseg == 0 ) RETURN
+!$acc wait(1)
+        DO n = 1, rsl_gpu_nseg
+          CALL c_f_pointer( TRANSFER(rsl_gpu_seg_a(n), c_null_ptr), bp, (/ INT(rsl_gpu_seg_n(n)) /) )
+!$acc update self(bp)
+        ENDDO
+        rsl_gpu_nseg = 0
+#endif
+      END SUBROUTINE rsl_gpu_send_flush
+      ! after MPI receive: copy the received buffer to its device mirror (unpacks then run on queue 1);
+      ! also re-arms the once-per-exchange queue drain for the next exchange's packs
+      SUBROUTINE rsl_gpu_recv_push ( addr, nbytes )
+        USE iso_c_binding
+        USE rsl_gpu_ctl
+#if defined(_OPENACC) || defined(WRF_GPU)
+        USE openacc
+#endif
+        IMPLICIT NONE
+        INTEGER*8 addr
+        INTEGER nbytes
+#if defined(_OPENACC) || defined(WRF_GPU)
+        INTEGER(1), POINTER :: bp(:)
+        LOGICAL, EXTERNAL :: rsl_gpu_batch_on
+        rsl_gpu_need_wait = .TRUE.
+        IF ( nbytes <= 0 ) RETURN
+        IF ( .NOT. rsl_gpu_batch_on() ) RETURN
+        CALL c_f_pointer( TRANSFER(addr, c_null_ptr), bp, (/ nbytes /) )
+        IF ( .NOT. acc_is_present( bp ) ) RETURN
+!$acc update device(bp)
+#endif
+      END SUBROUTINE rsl_gpu_recv_push
+
       SUBROUTINE rsl_set_gpu_managed ( flag )
         USE rsl_gpu_ctl
         LOGICAL, INTENT(IN) :: flag
@@ -164,12 +290,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nk_, nn_
+        INTEGER ni_, nk_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+          q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -217,12 +347,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nk_, nn_
+        INTEGER ni_, nk_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo pack: field resident on device -> gather strip on device, copy out only the strip
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+          q_ = rsl_gpu_q( LOC(outbuf), nn_*8, 1 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -269,12 +403,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nk_, nn_
+        INTEGER ni_, nk_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+          q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -321,12 +459,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nk_, nn_
+        INTEGER ni_, nk_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo unpack: copy in only the strip, scatter into the device-resident field
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
+          q_ = rsl_gpu_q( LOC(inbuf), nn_*8, 0 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO j = js, je
           DO k = ks, ke
           DO i = is, ie
@@ -495,12 +637,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nj_, nn_
+        INTEGER ni_, nj_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+          q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO k = ks, ke
           DO j = js, je
           DO i = is, ie
@@ -547,12 +693,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nj_, nn_
+        INTEGER ni_, nj_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo pack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+          q_ = rsl_gpu_q( LOC(outbuf), nn_*8, 1 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyout(outbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyout(outbuf(1:nn_)) async(q_)
           DO k = ks, ke
           DO j = js, je
           DO i = is, ie
@@ -599,12 +749,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nj_, nn_
+        INTEGER ni_, nj_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+          q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO k = ks, ke
           DO j = js, je
           DO i = is, ie
@@ -651,12 +805,16 @@
         ! Local
         INTEGER i,j,k,p
 #if defined(_OPENACC) || defined(WRF_GPU)
-        INTEGER ni_, nj_, nn_
+        INTEGER ni_, nj_, nn_, q_
+        INTEGER, EXTERNAL :: rsl_gpu_q
         ! GPU halo unpack (2-D / XY-ordered fields resident on the device): only the strip crosses PCIe
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
+          q_ = rsl_gpu_q( LOC(inbuf), nn_*8, 0 )
+          IF ( q_ == acc_async_sync ) THEN
 !$acc wait   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
-!$acc parallel loop collapse(3) copyin(inbuf(1:nn_))
+          ENDIF
+!$acc parallel loop collapse(3) copyin(inbuf(1:nn_)) async(q_)
           DO k = ks, ke
           DO j = js, je
           DO i = is, ie
