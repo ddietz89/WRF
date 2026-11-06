@@ -1975,6 +1975,7 @@
 !.. where necessary in the tendency equations.
 !+---+-----------------------------------------------------------------+
 
+#ifndef WRF_GPU
       do k = kts, kte
          tten(k) = 0.
          qvten(k) = 0.
@@ -2078,6 +2079,7 @@
          pnb_scb(k) = 0.
          pnb_gcb(k) = 0.
       enddo
+#endif
 #if ( WRF_CHEM == 1 )
     if ( wetscav_on ) then
       do k = kts, kte
@@ -2329,6 +2331,113 @@
 !+---+-----------------------------------------------------------------+
 
       if (no_micro) return
+#ifdef WRF_GPU
+!.. GPU: zero the tendency/process-rate arrays only for columns that do microphysics (none of them is
+!.. read or written before the no_micro return) - clear columns skip ~90 local-memory array stores
+      do k = kts, kte
+         tten(k) = 0.
+         qvten(k) = 0.
+         qcten(k) = 0.
+         qiten(k) = 0.
+         qrten(k) = 0.
+         qsten(k) = 0.
+         qgten(k) = 0.
+         ngten(k) = 0.
+         qbten(k) = 0.
+         niten(k) = 0.
+         nrten(k) = 0.
+         ncten(k) = 0.
+         nwfaten(k) = 0.
+         nifaten(k) = 0.
+         nbcaten(k) = 0.
+
+         prw_vcd(k) = 0.
+
+         pnc_wcd(k) = 0.
+         pnc_wau(k) = 0.
+         pnc_rcw(k) = 0.
+         pnc_scw(k) = 0.
+         pnc_gcw(k) = 0.
+
+         prv_rev(k) = 0.
+         prr_wau(k) = 0.
+         prr_rcw(k) = 0.
+         prr_rcs(k) = 0.
+         prr_rcg(k) = 0.
+         prr_sml(k) = 0.
+         prr_gml(k) = 0.
+         prr_rci(k) = 0.
+         pnr_wau(k) = 0.
+         pnr_rcs(k) = 0.
+         pnr_rcg(k) = 0.
+         pnr_rci(k) = 0.
+         pnr_sml(k) = 0.
+         pnr_gml(k) = 0.
+         pnr_rev(k) = 0.
+         pnr_rcr(k) = 0.
+         pnr_rfz(k) = 0.
+
+         pri_inu(k) = 0.
+         pni_inu(k) = 0.
+         pri_ihm(k) = 0.
+         pni_ihm(k) = 0.
+         pri_wfz(k) = 0.
+         pni_wfz(k) = 0.
+         pri_rfz(k) = 0.
+         pni_rfz(k) = 0.
+         pri_ide(k) = 0.
+         pni_ide(k) = 0.
+         pri_rci(k) = 0.
+         pni_rci(k) = 0.
+         pni_sci(k) = 0.
+         pni_iau(k) = 0.
+         pri_iha(k) = 0.
+         pni_iha(k) = 0.
+
+         prs_iau(k) = 0.
+         prs_sci(k) = 0.
+         prs_rcs(k) = 0.
+         prs_scw(k) = 0.
+         prs_sde(k) = 0.
+         prs_ihm(k) = 0.
+         prs_ide(k) = 0.
+
+         prg_scw(k) = 0.
+         prg_rfz(k) = 0.
+         prg_gde(k) = 0.
+         prg_gcw(k) = 0.
+         prg_rci(k) = 0.
+         prg_rcs(k) = 0.
+         prg_rcg(k) = 0.
+         prg_ihm(k) = 0.
+         !   new source/sink terms for 3-moment graupel
+         png_scw(k) = 0.
+         png_rcs(k) = 0.
+         png_rcg(k) = 0.
+         png_gde(k) = 0.
+
+         pbg_scw(k) = 0.
+         pbg_rfz(k) = 0.
+         pbg_gcw(k) = 0.
+         pbg_rci(k) = 0.
+         pbg_rcs(k) = 0.
+         pbg_rcg(k) = 0.
+         pbg_sml(k) = 0.
+         pbg_gml(k) = 0.
+
+         pna_rca(k) = 0.
+         pna_sca(k) = 0.
+         pna_gca(k) = 0.
+
+         pnd_rcd(k) = 0.
+         pnd_scd(k) = 0.
+         pnd_gcd(k) = 0.
+
+         pnb_rcb(k) = 0.
+         pnb_scb(k) = 0.
+         pnb_gcb(k) = 0.
+      enddo
+#endif
 
 !+---+-----------------------------------------------------------------+
 !..Calculate y-intercept, slope, and useful moments for snow.
