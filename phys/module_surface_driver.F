@@ -18,6 +18,10 @@ MODULE module_surface_driver
 ! this step (H1 push, host post-LSM fluxes and SFCDIAGS, diagnostics T2 push); the rest of the host surface state is
 ! left stale (wrf_gpu_sfc_hoststale) until solve_em's catch-up pull before a non-lean step or history output
   LOGICAL :: wrf_gpu_sfc_lean = .FALSE., wrf_gpu_sfc_hoststale = .FALSE.
+  ! WRF_GPU_HNSTEADY=1 (2026-11-06): lean steps with host Noah keep the surface-layer/PBL state on the device
+  ! (no per-step re-push/pull of the full surface list): the host Noah pushes its outputs right after it runs,
+  ! the GPU-owned surface-layer/PBL fields are caught up (wrf_gpu_sfc_hoststale_hn) before non-lean steps/output
+  LOGICAL :: wrf_gpu_hnsteady = .FALSE., wrf_gpu_sfc_hoststale_hn = .FALSE.
 ! which reduced pulls are active (env WRF_GPU_SFCLEAN, set by solve_em): 1 surface layer, 2 Noah, 4 MYJ PBL
   INTEGER :: wrf_gpu_sfc_leanmode = 7
 #endif
@@ -2147,7 +2151,12 @@ CONTAINS
               MINVAL(j_start(1:num_tiles)),MAXVAL(j_end(1:num_tiles)), kts,kte )
        ! what the host reads next (land surface, PBL push, history)
        ! (only when the LSM below runs steady: a non-steady LSM re-pushes znt/qz0/br/... from the host)
-       IF ( wrf_gpu_sfc_lean .AND. gpu_steady .AND. IAND(wrf_gpu_sfc_leanmode,1) /= 0 ) THEN
+       IF ( wrf_gpu_hnsteady .AND. .NOT. wrf_gpu_lsm .AND. wrf_gpu_sfc_lean .AND. gpu_steady ) THEN
+         ! host Noah reads these (znt/z0/qz0: it rewrites land points, then pushes whole arrays back; t2/th2/q2:
+         ! the host land-surface diagnostics update them after the LSM)
+!$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc,znt,z0,qz0,t2,th2,q2)
+         wrf_gpu_sfc_hoststale_hn = .TRUE.
+       ELSE IF ( wrf_gpu_sfc_lean .AND. gpu_steady .AND. IAND(wrf_gpu_sfc_leanmode,1) /= 0 ) THEN
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc)
          wrf_gpu_sfc_hoststale = .TRUE.
        ELSE
@@ -4674,6 +4683,15 @@ CONTAINS
 #endif
 
  430 CONTINUE
+#ifdef WRF_GPU_RESIDENT
+     ! host Noah on a lean step (WRF_GPU_HNSTEADY): push what the device consumers (next surface layer, PBL,
+     ! cumulus, diagnostics) read from the LSM; the PBL then treats the device surface state as current
+     IF ( wrf_gpu_hnsteady .AND. sfc_gpu_ran .AND. .NOT. lsm_gpu_ran .AND. wrf_gpu_sfc_lean .AND.            &
+          sf_surface_physics == LSMSCHEME .AND. ISFFLX .NE. 0 .AND. sf_ocean_physics == 0 .AND. LakeModel /= 1 ) THEN
+!$acc update device(tsk,hfx,qfx,lh,grdflx,qsfc,znt,z0,qz0,chklowq,snow) if_present
+       wrf_gpu_sfcdev_ran = .TRUE.
+     ENDIF
+#endif
 
 #if ( EM_CORE==1)
    IF (sf_ocean_physics .EQ. OMLSCHEME .or. sf_ocean_physics .EQ. PWP3DSCHEME) THEN

@@ -124,7 +124,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_diag_afwa, ONLY : afwa_time_flags
 #endif
    USE module_diagnostics_driver, ONLY : wrf_gpu_diag
-   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale, wrf_gpu_sfc_leanmode
+   USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale, wrf_gpu_sfc_leanmode, &
+                                    wrf_gpu_hnsteady, wrf_gpu_sfc_hoststale_hn
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
@@ -1143,6 +1144,16 @@ BENCH_START(calc_p_rho_tim)
       CALL gpu_sfc_catchup( grid )
 !$acc update self(chklowq)
       wrf_gpu_sfc_hoststale = .FALSE.
+   ENDIF
+   IF ( grid%itimestep <= 2 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HNSTEADY', sfcl_env, STATUS=sfcl_st )
+      wrf_gpu_hnsteady = .FALSE.
+      IF ( sfcl_st == 0 ) wrf_gpu_hnsteady = sfcl_env(1:1) == '1'
+   ENDIF
+   IF ( wrf_gpu_sfc_hoststale_hn .AND. .NOT. wrf_gpu_lean_step ) THEN
+!$acc wait
+      CALL gpu_sfc_catchup_hn( grid )
+      wrf_gpu_sfc_hoststale_hn = .FALSE.
    ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
@@ -6149,6 +6160,29 @@ END SUBROUTINE gpu_field_trace
 ! Lean GPU steps leave the surface-layer / Noah / MYJ surface outputs on the device (module_surface_driver
 ! wrf_gpu_sfc_lean): pull them before the host needs them (non-lean step, history output). T2/TH2/Q2 are not pulled:
 ! the host's SFCDIAGS values are the current ones.
+! WRF_GPU_HNSTEADY: GPU-owned surface-layer / PBL fields the lean host-Noah steps left stale on the host
+SUBROUTINE gpu_sfc_catchup_hn( grid )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+!$acc update self(grid%flhc) if(associated(grid%flhc))
+!$acc update self(grid%flqc) if(associated(grid%flqc))
+!$acc update self(grid%tshltr) if(associated(grid%tshltr))
+!$acc update self(grid%th10) if(associated(grid%th10))
+!$acc update self(grid%qshltr) if(associated(grid%qshltr))
+!$acc update self(grid%q10) if(associated(grid%q10))
+!$acc update self(grid%pshltr) if(associated(grid%pshltr))
+!$acc update self(grid%u10e) if(associated(grid%u10e))
+!$acc update self(grid%v10e) if(associated(grid%v10e))
+!$acc update self(grid%thz0) if(associated(grid%thz0))
+!$acc update self(grid%uz0) if(associated(grid%uz0))
+!$acc update self(grid%vz0) if(associated(grid%vz0))
+!$acc update self(grid%akhs) if(associated(grid%akhs))
+!$acc update self(grid%akms) if(associated(grid%akms))
+!$acc update self(grid%ct) if(associated(grid%ct))
+!$acc update self(grid%kpbl) if(associated(grid%kpbl))
+END SUBROUTINE gpu_sfc_catchup_hn
+
 SUBROUTINE gpu_sfc_catchup( grid )
    USE module_domain, ONLY : domain
    IMPLICIT NONE
@@ -6238,7 +6272,7 @@ END FUNCTION gpu_resprefetch
 
 SUBROUTINE gpu_pull_for_output( grid )
    USE module_domain, ONLY : domain
-   USE module_surface_driver, ONLY : wrf_gpu_sfc_hoststale
+   USE module_surface_driver, ONLY : wrf_gpu_sfc_hoststale, wrf_gpu_sfc_hoststale_hn
    USE module_utility
    USE module_streams, ONLY : MAX_WRF_ALARMS
    USE openacc, ONLY : acc_is_present
@@ -6262,6 +6296,11 @@ SUBROUTINE gpu_pull_for_output( grid )
 !$acc wait
       CALL gpu_sfc_catchup( grid )
       wrf_gpu_sfc_hoststale = .FALSE.
+   ENDIF
+   IF ( wrf_gpu_sfc_hoststale_hn ) THEN
+!$acc wait
+      CALL gpu_sfc_catchup_hn( grid )
+      wrf_gpu_sfc_hoststale_hn = .FALSE.
    ENDIF
 #  include "gpu_upd_host_pre_phys.inc"
    IF ( IAND( wrf_gpu_xfer(), 32 ) /= 0 ) THEN    ! GPU Thompson: effective radii (pulled lazily otherwise)

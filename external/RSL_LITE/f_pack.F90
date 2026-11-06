@@ -119,6 +119,28 @@
         USE rsl_gpu_ctl
         rsl_gpu_nseg = 0
       END SUBROUTINE rsl_gpu_seg_clear
+      ! RSL_HOSTPACKDBG=1: report host-branch packs (field not device-present) - address/bounds, first 80
+      SUBROUTINE rsl_hostpack_dbg ( addr, js, je, ks, ke, is, ie )
+        USE rsl_gpu_ctl
+        IMPLICIT NONE
+        INTEGER*8 addr
+        INTEGER js, je, ks, ke, is, ie
+        INTEGER, SAVE :: dbg = -1, cnt = 0, off = 0
+        CHARACTER(8) :: v
+        INTEGER :: l, st
+        IF ( dbg < 0 ) THEN
+          dbg = 0
+          CALL get_environment_variable( 'RSL_HOSTPACKDBG', v, l, st )
+          IF ( st == 0 .AND. l > 0 ) THEN
+            IF ( v(1:1) /= '0' ) dbg = 1
+            READ(v,*,IOSTAT=st) off
+          ENDIF
+        ENDIF
+        IF ( dbg == 0 .OR. .NOT. rsl_gpu_on ) RETURN
+        cnt = cnt + 1
+        IF ( cnt <= off .OR. cnt > off + 80 ) RETURN
+        WRITE(0,'(A,Z16,6I6)') 'RSL HOSTPACK ', addr, js, je, ks, ke, is, ie
+      END SUBROUTINE rsl_hostpack_dbg
       ! before MPI send: finish the queued device packs and copy the packed segments to the host
       SUBROUTINE rsl_gpu_send_flush ()
         USE iso_c_binding
@@ -329,6 +351,7 @@
           curs = nn_
           RETURN
         ENDIF
+        CALL rsl_hostpack_dbg( LOC(inbuf), js, je, ks, ke, is, ie )
 #endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
@@ -386,6 +409,7 @@
           curs = nn_
           RETURN
         ENDIF
+        CALL rsl_hostpack_dbg( LOC(inbuf), js, je, ks, ke, is, ie )
 #endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
@@ -676,6 +700,7 @@
           curs = nn_
           RETURN
         ENDIF
+        CALL rsl_hostpack_dbg( LOC(inbuf), js, je, ks, ke, is, ie )
 #endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
@@ -732,6 +757,7 @@
           curs = nn_
           RETURN
         ENDIF
+        CALL rsl_hostpack_dbg( LOC(inbuf), js, je, ks, ke, is, ie )
 #endif
 !$OMP PARALLEL PRIVATE (i,j,k,p) 
 #ifndef _OPENMP
