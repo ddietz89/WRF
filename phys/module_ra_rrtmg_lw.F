@@ -11813,6 +11813,11 @@ contains
 !$acc declare create(w_fnet, w_htr, w_totuclfl, w_totdclfl, w_fnetc, w_htrc)
 !$acc declare create(w_wkl, w_wx, w_semiss, w_planklay, w_planklev, w_plankbnd)
 !$acc declare create(w_fracs, w_taug, w_cldfmc, w_taucmc)
+      ! staged run (WRF_GPU_RASTAGE=1): per-column stage results between the stage kernels
+      integer :: gw_stage = -1
+      integer, allocatable :: s_nl(:), s_lt(:), s_ncb(:)
+      real(kind=rb), allocatable :: s_tb(:), s_pw(:)
+!$acc declare create(s_nl, s_lt, s_ncb, s_tb, s_pw)
       end module rrtmg_lw_gwork
       module rrtmg_lw_gpu
       use parkind, only : im => kind_im, rb => kind_rb
@@ -12142,6 +12147,31 @@ contains
       enddo
 
       end subroutine setcoef_g
+
+      subroutine taumol_band_g(iw, nlayers, laytrop, ib)
+!$acc routine seq
+      implicit none
+      integer, intent(in) :: iw, ib
+      integer(kind=im), intent(in) :: nlayers, laytrop
+      select case (ib)
+      case (1) ; call taugb1_g(iw, nlayers, laytrop)
+      case (2) ; call taugb2_g(iw, nlayers, laytrop)
+      case (3) ; call taugb3_g(iw, nlayers, laytrop)
+      case (4) ; call taugb4_g(iw, nlayers, laytrop)
+      case (5) ; call taugb5_g(iw, nlayers, laytrop)
+      case (6) ; call taugb6_g(iw, nlayers, laytrop)
+      case (7) ; call taugb7_g(iw, nlayers, laytrop)
+      case (8) ; call taugb8_g(iw, nlayers, laytrop)
+      case (9) ; call taugb9_g(iw, nlayers, laytrop)
+      case (10) ; call taugb10_g(iw, nlayers, laytrop)
+      case (11) ; call taugb11_g(iw, nlayers, laytrop)
+      case (12) ; call taugb12_g(iw, nlayers, laytrop)
+      case (13) ; call taugb13_g(iw, nlayers, laytrop)
+      case (14) ; call taugb14_g(iw, nlayers, laytrop)
+      case (15) ; call taugb15_g(iw, nlayers, laytrop)
+      case (16) ; call taugb16_g(iw, nlayers, laytrop)
+      end select
+      end subroutine taumol_band_g
 
       subroutine taumol_g(iw, nlayers, laytrop)
 !$acc routine seq
@@ -16029,6 +16059,10 @@ contains
       use rrtmg_lw_gtab, only: lw_gtab_done, rrtmg_lw_gtab_init
       implicit none
       integer :: c0, c1, ic, iw, nlay, ierr, nch, nl
+      integer :: ib, k, st, lt_, ncb_
+      integer(kind=im) :: nl_
+      real(kind=rb) :: tb_, pw_
+      character(len=16) :: v
       character(len=128) :: msg
       if (.not. lw_gtab_done) call rrtmg_lw_gtab_init()
       nlay = gw_nlay
@@ -16156,11 +16190,69 @@ contains
       allocate(w_cldfmc(nch,ngptlw,nl))
       if (allocated(w_taucmc)) deallocate(w_taucmc)
       allocate(w_taucmc(nch,ngptlw,nl))
+      if (gw_stage < 0) then
+         gw_stage = 0
+         call get_environment_variable('WRF_GPU_RASTAGE', v, status=st)
+         if (st == 0) read(v, *, iostat=st) gw_stage
+      endif
+      if (allocated(s_nl)) deallocate(s_nl, s_lt, s_ncb, s_tb, s_pw)
+      allocate(s_nl(nch), s_lt(nch), s_ncb(nch), s_tb(nch), s_pw(nch))
 !$acc update device(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2)
 !$acc update device(in_cfc11, in_cfc12, in_cfc22, in_ccl4, in_cldf, in_ciwp, in_clwp, in_cswp, in_rei)
 !$acc update device(in_rel, in_res, in_hgt, in_emis, in_tsfc, in_lat, in_flag)
       do c0 = 1, gw_ncolm, gw_nchunk
          c1 = min(c0 + gw_nchunk - 1, gw_ncolm)
+       if (gw_stage == 1) then
+         ! staged: column setup | coefficients | optical depths per (column, band) | radiative transfer
+!$acc parallel loop gang vector vector_length(128) private(iw, nl_, tb_, pw_, ncb_)
+         do ic = c0, c1
+            iw = ic - c0 + 1
+            s_nl(iw) = -1
+            out_err(ic) = 0
+            if (in_flag(ic,1) .eq. 1) then
+               call mcica_lw_g(ic, iw, nlay, in_flag(ic,2), in_flag(ic,3), in_flag(ic,4), in_flag(ic,8))
+               if (out_err(ic) .eq. 0) then
+                  call inatm_g(ic, iw, nlay, nl_, tb_, pw_)
+                  call cldprmc_g(ic, iw, nl_, in_flag(ic,5), in_flag(ic,6), in_flag(ic,7), ncb_)
+                  if (out_err(ic) .eq. 0) then
+                     s_nl(iw) = nl_ ; s_tb(iw) = tb_ ; s_pw(iw) = pw_ ; s_ncb(iw) = ncb_
+                  endif
+               endif
+            endif
+         enddo
+!$acc parallel loop gang vector vector_length(128) private(iw, lt_)
+         do ic = c0, c1
+            iw = ic - c0 + 1
+            if (s_nl(iw) .gt. 0) then
+               call setcoef_g(iw, s_nl(iw), 1, s_tb(iw), lt_)
+               s_lt(iw) = lt_
+            endif
+         enddo
+!$acc parallel loop gang vector vector_length(128) collapse(2) private(iw)
+         do ib = 1, 16
+         do ic = c0, c1
+            iw = ic - c0 + 1
+            if (s_nl(iw) .gt. 0) call taumol_band_g(iw, s_nl(iw), s_lt(iw), ib)
+         enddo
+         enddo
+!$acc parallel loop gang vector vector_length(128) private(iw, k)
+         do ic = c0, c1
+            iw = ic - c0 + 1
+            if (s_nl(iw) .gt. 0) then
+               call rtrnmc_g(iw, s_nl(iw), 1, 16, 0, s_pw(iw), s_ncb(iw))
+               do k = 0, s_nl(iw)
+                  out_uflx(ic,k+1) = w_totuflux(iw,k)
+                  out_dflx(ic,k+1) = w_totdflux(iw,k)
+                  out_uflxc(ic,k+1) = w_totuclfl(iw,k)
+                  out_dflxc(ic,k+1) = w_totdclfl(iw,k)
+               enddo
+               do k = 0, s_nl(iw)-1
+                  out_hr(ic,k+1) = w_htr(iw,k)
+                  out_hrc(ic,k+1) = w_htrc(iw,k)
+               enddo
+            endif
+         enddo
+       else
 !$acc parallel loop gang vector vector_length(128) private(iw)
          do ic = c0, c1
             if (in_flag(ic,1) .eq. 1) then
@@ -16170,6 +16262,7 @@ contains
                out_err(ic) = 0
             endif
          enddo
+       endif
       enddo
 !$acc update self(out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc, out_err)
       if (allocated(w_pavel)) deallocate(w_pavel)
