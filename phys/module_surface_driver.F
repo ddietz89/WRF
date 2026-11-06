@@ -24,6 +24,9 @@ MODULE module_surface_driver
   LOGICAL :: wrf_gpu_hnsteady = .FALSE., wrf_gpu_sfc_hoststale_hn = .FALSE.
 ! which reduced pulls are active (env WRF_GPU_SFCLEAN, set by solve_em): 1 surface layer, 2 Noah, 4 MYJ PBL
   INTEGER :: wrf_gpu_sfc_leanmode = 7
+  ! WRF_GPU_EARLYDYN=2: solve_em points this at its stage-1 rk_tendency launch (queue 2); fired once, after the
+  ! surface-layer pull of a host-Noah lean step, so the GPU runs it while the host does Noah
+  PROCEDURE(), POINTER :: wrf_gpu_early_hook => NULL()
 #endif
 CONTAINS
 
@@ -2164,6 +2167,7 @@ CONTAINS
 !$acc update self(pshltr,u10e,v10e,thz0,qz0,uz0,vz0,ust,znt,pblh,rmol,akhs,akms,qsfc)
        ENDIF
 !$acc end data
+       IF ( ASSOCIATED( wrf_gpu_early_hook ) ) CALL wrf_gpu_early_hook()
       ENDIF
      ENDIF
 #endif

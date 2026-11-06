@@ -126,6 +126,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_diagnostics_driver, ONLY : wrf_gpu_diag
    USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale, wrf_gpu_sfc_leanmode, &
                                     wrf_gpu_hnsteady, wrf_gpu_sfc_hoststale_hn
+#ifdef WRF_GPU_RESIDENT
+   USE module_surface_driver, ONLY : wrf_gpu_early_hook
+#endif
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
 #endif
@@ -210,6 +213,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU_RESIDENT
    LOGICAL                        :: early_rkt
    INTEGER, SAVE                  :: earlydyn = -1
+   INTEGER                        :: ed_its, ed_ite, ed_jts, ed_jte
    CHARACTER(LEN=8)               :: edv
 #endif
    
@@ -1236,42 +1240,22 @@ BENCH_START(calc_p_rho_tim)
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_EARLYDYN', edv )
       earlydyn = 0
       IF ( TRIM(edv) == '1' ) earlydyn = 1
+      IF ( TRIM(edv) == '2' ) earlydyn = 2
    ENDIF
-   IF ( earlydyn == 1 .AND. rk_step == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on .AND. wrf_gpu_q == 1 .AND.  &
+   ed_its = grid%i_start(1) ; ed_ite = grid%i_end(1) ; ed_jts = grid%j_start(1) ; ed_jte = grid%j_end(1)
+   ! WRF_GPU_EARLYDYN=2: same work, but launched from inside the surface driver (wrf_gpu_early_hook) after the
+   ! surface-layer pull, so its host launch time overlaps nothing on the critical path and the GPU runs it while the
+   ! host does Noah; the Noah push (synchronous) then waits for queue 2. If the hook does not fire, early_rkt stays
+   ! .FALSE. and rk_tendency runs whole at the usual place.
+   IF ( earlydyn >= 1 .AND. rk_step == 1 .AND. grid%num_tiles == 1 .AND. wrf_gpu_on .AND. wrf_gpu_q == 1 .AND.  &
         IAND( wrf_gpu_xfer(), 1048576 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 8388608 ) /= 0 ) THEN
-!$acc wait(1) async(2)
-      wrf_gpu_q = 2 ; wrf_gpu_xw_skip = .TRUE. ; rkt_part = 1
-       CALL rk_tendency ( config_flags, rk_step                                                                &
-                         ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
-                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
-                         ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
-                         ,grid%t_save, mu_save, grid%rthften                                                   &
-                         ,grid%ru, grid%rv, grid%rw, grid%ww, wwE, wwI                                         &
-                         ,grid%u_2, grid%v_2, grid%w_2, grid%t_2, grid%ph_2                                    &
-                         ,grid%u_1, grid%v_1, grid%w_1, grid%t_1, grid%ph_1                                    &
-                         ,grid%h_diabatic, grid%phb, grid%t_init                                               &
-                         ,grid%mu_1, grid%mu_2, grid%mut, grid%muu, grid%muv, grid%mub                         & 
-                         ,grid%c1h, grid%c2h, grid%c1f, grid%c2f                                               &
-                         ,grid%al, grid%ht, grid%alt, grid%p, grid%pb, grid%php, cqu, cqv, cqw                 & 
-                         ,grid%u_base, grid%v_base, grid%t_base, grid%qv_base, grid%z_base                     &
-                         ,grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv                                    &
-                         ,grid%msfvy, grid%msftx,grid%msfty, grid%clat, grid%f, grid%e, grid%sina, grid%cosa   &
-                         ,grid%fnm, grid%fnp, grid%rdn, grid%rdnw                                              &
-                         ,grid%dt, grid%rdx, grid%rdy, grid%khdif, grid%kvdif, grid%xkmh, grid%xkhh            &
-                         ,grid%diff_6th_opt, grid%diff_6th_factor                                              &
-                         ,config_flags%momentum_adv_opt                                                        &
-                         ,grid%dampcoef,grid%zdamp,config_flags%damp_opt,config_flags%rad_nudge                &
-                         ,grid%cf1, grid%cf2, grid%cf3, grid%cfn, grid%cfn1, num_3d_m                          &
-                         ,config_flags%non_hydrostatic, config_flags%top_lid                                   &
-                         ,grid%u_frame, grid%v_frame                                                           &
-                         ,ids, ide, jds, jde, kds, kde                                                         &
-                         ,ims, ime, jms, jme, kms, kme                                                         &
-                         ,grid%i_start(1), grid%i_end(1)                                                     &
-                         ,grid%j_start(1), grid%j_end(1)                                                     &
-                         ,k_start, k_end                                                                       &
-                         ,max_vert_cfl_tmp(1), max_horiz_cfl_tmp(1)                                         )
-      rkt_part = 0 ; wrf_gpu_xw_skip = .FALSE. ; wrf_gpu_q = 1
-      early_rkt = .TRUE.
+     IF ( earlydyn == 2 ) THEN
+      ! the hook fires inside the host-physics block (host tiling, wrf_gpu_on=.FALSE.): keep the GPU tile now
+      ed_its = grid%i_start(1) ; ed_ite = grid%i_end(1) ; ed_jts = grid%j_start(1) ; ed_jte = grid%j_end(1)
+      wrf_gpu_early_hook => early_rkt_launch
+     ELSE
+      CALL early_rkt_launch()
+     ENDIF
    ENDIF
 #endif
 #ifdef WRF_GPU
@@ -1357,6 +1341,9 @@ BENCH_START(calc_p_rho_tim)
 #ifdef WRF_SEG_TIMERS
    CALL seg_leave()
 #endif
+#endif
+#ifdef WRF_GPU_RESIDENT
+   wrf_gpu_early_hook => NULL()
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
@@ -6170,6 +6157,50 @@ BENCH_END(bc_2d_tim)
 #endif
    RETURN
 
+#ifdef WRF_GPU_RESIDENT
+CONTAINS
+   SUBROUTINE early_rkt_launch()
+      ! stage-1 rk_tendency part 1 (state-only tendencies) on queue 2; see WRF_GPU_EARLYDYN above
+      LOGICAL :: ed_on
+      wrf_gpu_early_hook => NULL()
+      ed_on = wrf_gpu_on
+      IF ( .NOT. ed_on ) THEN ; wrf_gpu_on = .TRUE. ; CALL rsl_set_gpu_on( .TRUE. ) ; ENDIF
+!$acc wait(1) async(2)
+      wrf_gpu_q = 2 ; wrf_gpu_xw_skip = .TRUE. ; rkt_part = 1
+       CALL rk_tendency ( config_flags, rk_step                                                                &
+                         ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
+                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
+                         ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
+                         ,grid%t_save, mu_save, grid%rthften                                                   &
+                         ,grid%ru, grid%rv, grid%rw, grid%ww, wwE, wwI                                         &
+                         ,grid%u_2, grid%v_2, grid%w_2, grid%t_2, grid%ph_2                                    &
+                         ,grid%u_1, grid%v_1, grid%w_1, grid%t_1, grid%ph_1                                    &
+                         ,grid%h_diabatic, grid%phb, grid%t_init                                               &
+                         ,grid%mu_1, grid%mu_2, grid%mut, grid%muu, grid%muv, grid%mub                         & 
+                         ,grid%c1h, grid%c2h, grid%c1f, grid%c2f                                               &
+                         ,grid%al, grid%ht, grid%alt, grid%p, grid%pb, grid%php, cqu, cqv, cqw                 & 
+                         ,grid%u_base, grid%v_base, grid%t_base, grid%qv_base, grid%z_base                     &
+                         ,grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv                                    &
+                         ,grid%msfvy, grid%msftx,grid%msfty, grid%clat, grid%f, grid%e, grid%sina, grid%cosa   &
+                         ,grid%fnm, grid%fnp, grid%rdn, grid%rdnw                                              &
+                         ,grid%dt, grid%rdx, grid%rdy, grid%khdif, grid%kvdif, grid%xkmh, grid%xkhh            &
+                         ,grid%diff_6th_opt, grid%diff_6th_factor                                              &
+                         ,config_flags%momentum_adv_opt                                                        &
+                         ,grid%dampcoef,grid%zdamp,config_flags%damp_opt,config_flags%rad_nudge                &
+                         ,grid%cf1, grid%cf2, grid%cf3, grid%cfn, grid%cfn1, num_3d_m                          &
+                         ,config_flags%non_hydrostatic, config_flags%top_lid                                   &
+                         ,grid%u_frame, grid%v_frame                                                           &
+                         ,ids, ide, jds, jde, kds, kde                                                         &
+                         ,ims, ime, jms, jme, kms, kme                                                         &
+                         ,ed_its, ed_ite                                                                       &
+                         ,ed_jts, ed_jte                                                                       &
+                         ,k_start, k_end                                                                       &
+                         ,max_vert_cfl_tmp(1), max_horiz_cfl_tmp(1)                                         )
+      rkt_part = 0 ; wrf_gpu_xw_skip = .FALSE. ; wrf_gpu_q = 1
+      early_rkt = .TRUE.
+      IF ( .NOT. ed_on ) THEN ; wrf_gpu_on = .FALSE. ; CALL rsl_set_gpu_on( .FALSE. ) ; ENDIF
+   END SUBROUTINE early_rkt_launch
+#endif
 END SUBROUTINE solve_em
 
 #ifdef WRF_GPU_FIELDTRACE
