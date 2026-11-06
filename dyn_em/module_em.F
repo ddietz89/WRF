@@ -1264,6 +1264,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+     ! h_tendency/z_tendency are written and read only with tenddec (CORDEX diagnostics): skip zeroing them otherwise
+     IF ( tenddec ) THEN
+#endif
      CALL zero_tend ( h_tendency(ims,kms,jms),      &
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
@@ -1273,6 +1277,9 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
+#ifdef WRF_GPU
+     ENDIF
+#endif
 
      CALL nl_get_time_step ( 1, time_step )
 
