@@ -1667,6 +1667,9 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
    REAL, DIMENSION(its:ite) :: muold, munew
     REAL :: muo, mun   ! GPU (i,k,j) kernels
     LOGICAL :: advtd
+    REAL :: tf_r
+    INTEGER, SAVE :: rkufuse = -1
+    CHARACTER(LEN=8) :: rkv
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
@@ -1736,6 +1739,37 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       k_end   = min( kte, kde-1 )
     ENDIF
 
+#ifdef WRF_GPU
+    IF ( rkufuse < 0 ) THEN
+       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_RKUFUSE', rkv )
+       rkufuse = 0
+       IF ( TRIM(rkv) == '1' ) rkufuse = 1
+    ENDIF
+    IF ( rkufuse == 1 .AND. wrf_gpu_on .AND. .NOT. tenddec ) THEN
+! WRF_GPU_RKUFUSE=1: tendency (0, advection*msfty, + sc_tend) and the scalar update in one (i,k,j) kernel per
+! species (tenddec off: no advh_t/advz_t accumulation); same values as the separate kernels below
+      DO  im = scs,sce
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+      DO  j = jts, min(jte,jde-1)
+      DO  k = kts, min(kte,kde-1)
+!$acc loop vector private(muo,mun,tf_r)
+      DO  i = its, min(ite,ide-1)
+        tf_r = 0.
+        IF ( i >= i_start .AND. i <= i_end .AND. j >= j_start .AND. j <= j_end .AND.             &
+             k >= k_start .AND. k <= k_end ) tf_r = advect_tend(i,k,j) * msfty(i,j)
+        IF ( i >= i_start_spc .AND. i <= i_end_spc .AND. j >= j_start_spc .AND. j <= j_end_spc .AND. &
+             k >= k_start_spc .AND. k <= k_end_spc ) tf_r = tf_r + sc_tend(i,k,j,im)
+        muo = MU_OLD(i,j) + MU_BASE(i,j)
+        mun = MU_NEW(i,j) + MU_BASE(i,j)
+        IF ( rk_step == 1 ) scalar_1(i,k,j,im) = scalar_2(i,k,j,im)
+        scalar_2(i,k,j,im) = ((c1(k)*muo+c2(k))*scalar_1(i,k,j,im)   &
+                             + dt*tf_r)/(c1(k)*mun+c2(k))
+      ENDDO
+      ENDDO
+      ENDDO
+      ENDDO
+    ELSE
+#endif
     IF ( rk_step == 1 ) THEN
 
       !  replace t-dt values (in scalar_1) with t values scalar_2,
@@ -1914,6 +1948,9 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
       ENDDO
 
     END IF
+#ifdef WRF_GPU
+    ENDIF
+#endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait
