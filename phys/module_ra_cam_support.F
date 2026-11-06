@@ -3448,6 +3448,10 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
    INTEGER, PARAMETER :: lonsiz = 1
    INTEGER :: i, j, k, itf, jtf, ktf, m, pin_unit, lat_unit, oz_unit, ierr
    REAL    :: interp_pt
+#ifdef WRF_GPU
+   INTEGER :: kl, nlat
+   REAL    :: aoz
+#endif
    CHARACTER*255 :: message
    real, pointer :: ozmixin(:,:,:,:), lat_ozone(:), plev(:)
 !   REAL, DIMENSION( lonsiz, levsiz, latsiz, num_months )    ::   &
@@ -3561,6 +3565,36 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
 !    real :: g                            ! interpolated function value
 !---------------------------------------------------------------------------
 
+#ifdef WRF_GPU
+      ! GPU builds run one MPI rank per GPU with many host threads. The latitude bracket of
+      ! lin_interpol2 depends only on XLAT(i,j): find it once per column, then apply the same
+      ! interpolation arithmetic as lin_interpol2 to every (k,m) - no per-call array temporaries.
+      ! Threaded over j.
+!$OMP PARALLEL DO PRIVATE(i,j,k,m,interp_pt,kl,nlat,aoz) SCHEDULE(static)
+      do j=jts,jtf
+      do i=its,itf
+         interp_pt=XLAT(i,j)
+         nlat=size(lat_ozone)
+         if (interp_pt <= lat_ozone(1)) then
+           kl = 1
+         else if (interp_pt >= lat_ozone(nlat)) then
+           kl = nlat - 1
+         else
+           kl = 1
+           do while (interp_pt > lat_ozone(kl+1) .and. kl < nlat)
+             kl = kl + 1
+           end do
+         end if
+         do m=2,num_months
+         do k=1,levsiz
+           aoz = (  ozmixin(1,k,kl+1,m) - ozmixin(1,k,kl,m) ) / ( lat_ozone(kl+1) - lat_ozone(kl) )
+           ozmixm(i,k,j,m) = ozmixin(1,k,kl,m) + aoz * (interp_pt - lat_ozone(kl))
+         enddo
+         enddo
+      enddo
+      enddo
+!$OMP END PARALLEL DO
+#else
       do m=2,num_months
       do j=jts,jtf
       do k=1,levsiz
@@ -3571,6 +3605,7 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
       enddo
       enddo
       enddo
+#endif
 
 ! Old code for fixed ozone
 
