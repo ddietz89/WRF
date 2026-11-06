@@ -10152,6 +10152,42 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !-- here is the limiter...
 
+#ifdef WRF_GPU
+   CALL adv_fuse_get
+   IF ( IAND(adv_fuse_bits,16) /= 0 ) THEN
+! WRF_GPU_ADVFUSE bit 16: low-order solution, outgoing flux and rescaling in one kernel (ph_low/flux_out kept in
+! registers). A cell rescales only its outgoing faces and reads only the outgoing part of each face flux, so the
+! neighbours' rescaling never changes what it reads -> same results as the three kernels below
+!$acc parallel loop collapse(3) private(scale,ub,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j=j_start, j_end
+   DO k=kts, ktf
+   DO i=i_start, i_end
+     ub = ((c1(k)*mub(i,j)+c2(k))+(c1(k)*mu_old(i,j)))*field_old(i,k,j) &
+                - dt*( msftx(i,j)*msfty(i,j)*(               &
+                       rdx*(fqxl(i+1,k,j)-fqxl(i,k,j)) +     &
+                       rdy*(fqyl(i,k,j+1)-fqyl(i,k,j))  )    &
+                      +msfty(i,j)*rdzw(k)*(fqzl(i,k+1,j)-fqzl(i,k,j)) )
+     vb = dt*( (msftx(i,j)*msfty(i,j))*( &
+                                rdx*(  max(0.,fqx (i+1,k,j))      &
+                                      -min(0.,fqx (i  ,k,j)) )    &
+                               +rdy*(  max(0.,fqy (i,k,j+1))      &
+                                      -min(0.,fqy (i,k,j  )) ) )  &
+                +msfty(i,j)*rdzw(k)*(  min(0.,fqz (i,k+1,j))      &
+                                      -max(0.,fqz (i,k  ,j)) )   )
+     IF( vb .gt. ub ) THEN
+       scale = max(0.,ub/(vb+eps))
+       IF( fqx (i+1,k,j) .gt. 0.) fqx(i+1,k,j) = scale*fqx(i+1,k,j)
+       IF( fqx (i  ,k,j) .lt. 0.) fqx(i  ,k,j) = scale*fqx(i  ,k,j)
+       IF( fqy (i,k,j+1) .gt. 0.) fqy(i,k,j+1) = scale*fqy(i,k,j+1)
+       IF( fqy (i,k,j  ) .lt. 0.) fqy(i,k,j  ) = scale*fqy(i,k,j  )
+       IF( fqz (i,k+1,j) .lt. 0.) fqz(i,k+1,j) = scale*fqz(i,k+1,j)
+       IF( fqz (i,k  ,j) .gt. 0.) fqz(i,k  ,j) = scale*fqz(i,k  ,j)
+     END IF
+   ENDDO
+   ENDDO
+   ENDDO
+   ELSE
+#endif
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
@@ -10212,6 +10248,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ENDDO
+#ifdef WRF_GPU
+   ENDIF
+#endif
 
    END IF
 
@@ -10221,6 +10260,45 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   i_end   = MIN(ite,ide-1)
   j_start = jts
   j_end   = MIN(jte,jde-1)
+
+#ifdef WRF_GPU
+  IF ( IAND(adv_fuse_bits,16) /= 0 .AND. .NOT. tenddec ) THEN
+! WRF_GPU_ADVFUSE bit 16: z, x and y pd-limited flux divergence in one kernel, same order and ranges
+   imin = i_start
+   imax = i_end
+   IF(degrade_xs) imin = MAX(its,ids+1)
+   IF(degrade_xe) imax = MIN(ite,ide-2)
+   jmin = j_start
+   jmax = j_end
+   IF(degrade_ys) jmin = MAX(jts,jds+1)
+   IF(degrade_ye) jmax = MIN(jte,jde-2)
+!$acc parallel loop collapse(3) private(ub) async(wrf_gpu_q) if(wrf_gpu_on)
+  DO j = j_start, j_end
+  DO k = kts, ktf
+  DO i = i_start, i_end
+     ub = tendency(i,k,j)                           &
+                            -rdzw(k)*( fqz (i,k+1,j)-fqz (i,k,j)  &
+                                      +fqzl(i,k+1,j)-fqzl(i,k,j))
+     IF ( i >= imin .AND. i <= imax ) THEN
+       ub = ub                           &
+               - msftx(i,j)*( rdx*( fqx (i+1,k,j)-fqx (i,k,j)     &
+                                   +fqxl(i+1,k,j)-fqxl(i,k,j))   )
+     ENDIF
+     IF ( j >= jmin .AND. j <= jmax ) THEN
+       ub = ub                           &
+               - msftx(i,j)*( rdy*( fqy (i,k,j+1)-fqy (i,k,j)     &
+                                   +fqyl(i,k,j+1)-fqyl(i,k,j))   )
+     ENDIF
+     tendency(i,k,j) = ub
+  ENDDO
+  ENDDO
+  ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+  RETURN
+  ENDIF
+#endif
 
 !$acc parallel loop collapse(3) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
