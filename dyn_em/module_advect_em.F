@@ -126,6 +126,11 @@ MODULE module_advect_em
   USE module_model_constants
   USE module_wrf_error
 
+#ifdef WRF_GPU
+  ! WRF_GPU_ADVFUSE=1: advect_scalar (5th-order horizontal, 3rd-order vertical) as one (i,k,j) kernel
+  LOGICAL, SAVE :: adv_fuse_init = .FALSE., adv_fuse = .FALSE.
+#endif
+
 CONTAINS
 
 !-------------------------------------------------------------------------------
@@ -3793,6 +3798,146 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
   ktf=MIN(kte,kde-1)
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
+
+#ifdef WRF_GPU
+! WRF_GPU_ADVFUSE=1: y, x and vertical flux divergence in one (i,k,j) kernel. Same flux expressions, boundary
+! degradation and update order (y, then x, then z) as the three separate kernels below, with no fqy3 scratch.
+  IF ( .NOT. adv_fuse_init ) THEN
+     adv_fuse_init = .TRUE.
+     CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVFUSE', wrf_err_message )
+     adv_fuse = TRIM(wrf_err_message) == '1'
+  ENDIF
+  IF ( adv_fuse .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar .AND.        &
+       .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                      &
+               config_flags%open_ys .OR. config_flags%open_ye ) ) THEN
+   degrade_xs = .true.
+   degrade_xe = .true.
+   degrade_ys = .true.
+   degrade_ye = .true.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xs .or. (its > ids+3) ) degrade_xs = .false.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xe .or. (ite < ide-3) ) degrade_xe = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ys .or. (jts > jds+3) ) degrade_ys = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ye .or. (jte < jde-4) ) degrade_ye = .false.
+   ! y bounds (target rows j_start..j_end, faces j_start..j_end+1)
+   j_start = jts
+   j_end   = MIN(jte,jde-1)
+   j_start_f = j_start
+   j_end_f   = j_end+1
+   IF(degrade_ys) then
+     j_start = MAX(jts,jds+1)
+     j_start_f = jds+3
+   ENDIF
+   IF(degrade_ye) then
+     j_end = MIN(jte,jde-2)
+     j_end_f = jde-3
+   ENDIF
+   ! x bounds
+   i_start = its
+   i_end   = MIN(ite,ide-1)
+   i_start_f = i_start
+   i_end_f   = i_end+1
+   IF(degrade_xs) then
+     i_start = MAX(ids+1,its)
+     i_start_f = MIN(i_start+2,ids+3)
+   ENDIF
+   IF(degrade_xe) then
+     i_end = MIN(ide-2,ite)
+     i_end_f = ide-3
+   ENDIF
+   itf = MIN(ite,ide-1)
+   jtf = MIN(jte,jde-1)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts, jtf
+   DO k = kts, ktf
+!$acc loop vector private(vel,mrdx,mrdy,ii,jp,kk,m,ff,fl,fr,ub)
+   DO i = its, itf
+     ub = tendency(i,k,j)
+     ! y flux divergence (rows j_start..j_end; faces outside every branch are zero, as fqy3 = 0.)
+     IF ( j >= j_start .AND. j <= j_end ) THEN
+       DO m = 0, 1
+         jp = j + m
+         IF( (jp >= j_start_f ) .and. (jp <= j_end_f) ) THEN
+           vel = rv(i,k,jp)
+           ff = vel*flux5(                                         &
+                  field(i,k,jp-3), field(i,k,jp-2), field(i,k,jp-1),    &
+                  field(i,k,jp  ), field(i,k,jp+1), field(i,k,jp+2),  vel )
+         ELSE IF ( jp == jds+1 ) THEN
+           ff = 0.5*rv(i,k,jp)*(field(i,k,jp)+field(i,k,jp-1))
+         ELSE IF ( jp == jds+2 ) THEN
+           vel = rv(i,k,jp)
+           ff = vel*flux3(field(i,k,jp-2),field(i,k,jp-1),field(i,k,jp),field(i,k,jp+1),vel )
+         ELSE IF ( jp == jde-1 ) THEN
+           ff = 0.5*rv(i,k,jp)*(field(i,k,jp)+field(i,k,jp-1))
+         ELSE IF ( jp == jde-2 ) THEN
+           vel = rv(i,k,jp)
+           ff = vel*flux3(field(i,k,jp-2),field(i,k,jp-1),field(i,k,jp),field(i,k,jp+1),vel )
+         ELSE
+           ff = 0.
+         ENDIF
+         IF ( m == 0 ) THEN
+           fl = ff
+         ELSE
+           fr = ff
+         ENDIF
+       ENDDO
+       mrdy=msftx(i,j)*rdy
+       ub = ub - mrdy*(fr-fl)
+     ENDIF
+     ! x flux divergence
+     IF ( i >= i_start .AND. i <= i_end ) THEN
+       DO m = 0, 1
+         ii = i + m
+         IF ( ii >= i_start_f .AND. ii <= i_end_f ) THEN
+           vel = ru(ii,k,j)
+           ff = vel*flux5( field(ii-3,k,j), field(ii-2,k,j),  &
+                           field(ii-1,k,j), field(ii  ,k,j),  &
+                           field(ii+1,k,j), field(ii+2,k,j),  &
+                           vel                             )
+         ELSE IF ( ( degrade_xs .AND. ii == ids+1 ) .OR. ( degrade_xe .AND. ii == ide-1 ) ) THEN
+           ff = 0.5*(ru(ii,k,j))*(field(ii,k,j)+field(ii-1,k,j))
+         ELSE
+           vel = ru(ii,k,j)
+           ff = vel*flux3( field(ii-2,k,j), field(ii-1,k,j),  &
+                           field(ii  ,k,j), field(ii+1,k,j),  &
+                           vel                     )
+         ENDIF
+         IF ( m == 0 ) THEN
+           fl = ff
+         ELSE
+           fr = ff
+         ENDIF
+       ENDDO
+       mrdx=msftx(i,j)*rdx
+       ub = ub - mrdx*(fr-fl)
+     ENDIF
+     ! vertical flux divergence (3rd order; 2nd order next to the boundaries, zero flux at kts and kte)
+     DO m = 0, 1
+       kk = k + m
+       IF ( kk == kts .OR. kk > ktf ) THEN
+         ff = 0.
+       ELSE IF ( kk == kts+1 .OR. kk == ktf ) THEN
+         ff = rom(i,kk,j)*(fzm(kk)*field(i,kk,j)+fzp(kk)*field(i,kk-1,j))
+       ELSE
+         vel = rom(i,kk,j)
+         ff = vel*flux3( field(i,kk-2,j), field(i,kk-1,j),      &
+                         field(i,kk  ,j), field(i,kk+1,j),  -vel )
+       ENDIF
+       IF ( m == 0 ) THEN
+         fl = ff
+       ELSE
+         fr = ff
+       ENDIF
+     ENDDO
+     tendency(i,k,j) = ub - rdzw(k)*(fr-fl)
+   ENDDO
+   ENDDO
+   ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+   RETURN
+  ENDIF
+#endif
 
 !  begin with horizontal flux divergence
 !  here is the choice of flux operators
