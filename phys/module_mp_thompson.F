@@ -1818,6 +1818,13 @@
 #endif
 
       DOUBLE PRECISION, PARAMETER:: zeroD0 = 0.0d0
+#ifdef WRF_GPU
+      DOUBLE PRECISION:: pnc_wau_s, pnc_rcw_s, pnc_scw_s, pnc_gcw_s, prr_rcs_s, prr_rcg_s, prr_rci_s, pnr_wau_s, pnr_rcs_s, pnr_rcg_s, pnr_rci_s, pnr_sml_s
+      DOUBLE PRECISION:: pnr_gml_s, pnr_rcr_s, pnr_rfz_s, pri_inu_s, pni_inu_s, pri_ihm_s, pni_ihm_s, pri_wfz_s, pni_wfz_s, pri_rfz_s, pni_rfz_s, pri_ide_s
+      DOUBLE PRECISION:: pni_ide_s, pni_rci_s, pni_sci_s, pni_iau_s, pri_iha_s, pni_iha_s, prs_rcs_s, prs_ihm_s, prs_ide_s, prg_rfz_s, prg_rci_s, prg_rcs_s
+      DOUBLE PRECISION:: prg_rcg_s, prg_ihm_s, png_scw_s, png_rcs_s, png_rcg_s, png_gde_s, pbg_scw_s, pbg_rfz_s, pbg_gcw_s, pbg_rci_s, pbg_rcs_s, pbg_rcg_s
+      DOUBLE PRECISION:: pbg_sml_s, pbg_gml_s, pna_rca_s, pna_sca_s, pna_gca_s, pnd_rcd_s, pnd_scd_s, pnd_gcd_s, pnb_rcb_s, pnb_scb_s, pnb_gcb_s
+#endif
 
 #ifdef WRF_GPU
       REAL, DIMENSION(1:KTGPU):: temp, twet, pres, qv
@@ -2354,88 +2361,21 @@
          prw_vcd(k) = 0.
 
          pnc_wcd(k) = 0.
-         pnc_wau(k) = 0.
-         pnc_rcw(k) = 0.
-         pnc_scw(k) = 0.
-         pnc_gcw(k) = 0.
-
          prv_rev(k) = 0.
          prr_wau(k) = 0.
          prr_rcw(k) = 0.
-         prr_rcs(k) = 0.
-         prr_rcg(k) = 0.
          prr_sml(k) = 0.
          prr_gml(k) = 0.
-         prr_rci(k) = 0.
-         pnr_wau(k) = 0.
-         pnr_rcs(k) = 0.
-         pnr_rcg(k) = 0.
-         pnr_rci(k) = 0.
-         pnr_sml(k) = 0.
-         pnr_gml(k) = 0.
          pnr_rev(k) = 0.
-         pnr_rcr(k) = 0.
-         pnr_rfz(k) = 0.
-
-         pri_inu(k) = 0.
-         pni_inu(k) = 0.
-         pri_ihm(k) = 0.
-         pni_ihm(k) = 0.
-         pri_wfz(k) = 0.
-         pni_wfz(k) = 0.
-         pri_rfz(k) = 0.
-         pni_rfz(k) = 0.
-         pri_ide(k) = 0.
-         pni_ide(k) = 0.
          pri_rci(k) = 0.
-         pni_rci(k) = 0.
-         pni_sci(k) = 0.
-         pni_iau(k) = 0.
-         pri_iha(k) = 0.
-         pni_iha(k) = 0.
-
          prs_iau(k) = 0.
          prs_sci(k) = 0.
-         prs_rcs(k) = 0.
          prs_scw(k) = 0.
          prs_sde(k) = 0.
-         prs_ihm(k) = 0.
-         prs_ide(k) = 0.
-
          prg_scw(k) = 0.
-         prg_rfz(k) = 0.
          prg_gde(k) = 0.
          prg_gcw(k) = 0.
-         prg_rci(k) = 0.
-         prg_rcs(k) = 0.
-         prg_rcg(k) = 0.
-         prg_ihm(k) = 0.
          !   new source/sink terms for 3-moment graupel
-         png_scw(k) = 0.
-         png_rcs(k) = 0.
-         png_rcg(k) = 0.
-         png_gde(k) = 0.
-
-         pbg_scw(k) = 0.
-         pbg_rfz(k) = 0.
-         pbg_gcw(k) = 0.
-         pbg_rci(k) = 0.
-         pbg_rcs(k) = 0.
-         pbg_rcg(k) = 0.
-         pbg_sml(k) = 0.
-         pbg_gml(k) = 0.
-
-         pna_rca(k) = 0.
-         pna_sca(k) = 0.
-         pna_gca(k) = 0.
-
-         pnd_rcd(k) = 0.
-         pnd_scd(k) = 0.
-         pnd_gcd(k) = 0.
-
-         pnb_rcb(k) = 0.
-         pnb_scb(k) = 0.
-         pnb_gcb(k) = 0.
       enddo
 #endif
 
@@ -2574,6 +2514,1092 @@
 !..Compute warm-rain process terms (except evap done later).
 !+---+-----------------------------------------------------------------+
 
+#ifdef WRF_GPU
+!.. GPU: warm-rain rates, ice rates, depletion limits and tendencies fused into one level loop (every one of
+!.. them is per level). The 59 process rates used only here are scalars (zeroed per level, as the zero loop
+!.. did) instead of KTGPU-long local arrays - same per-level arithmetic, far less local-memory traffic.
+      do k = kts, kte
+         pnc_wau_s = 0.
+         pnc_rcw_s = 0.
+         pnc_scw_s = 0.
+         pnc_gcw_s = 0.
+         prr_rcs_s = 0.
+         prr_rcg_s = 0.
+         prr_rci_s = 0.
+         pnr_wau_s = 0.
+         pnr_rcs_s = 0.
+         pnr_rcg_s = 0.
+         pnr_rci_s = 0.
+         pnr_sml_s = 0.
+         pnr_gml_s = 0.
+         pnr_rcr_s = 0.
+         pnr_rfz_s = 0.
+         pri_inu_s = 0.
+         pni_inu_s = 0.
+         pri_ihm_s = 0.
+         pni_ihm_s = 0.
+         pri_wfz_s = 0.
+         pni_wfz_s = 0.
+         pri_rfz_s = 0.
+         pni_rfz_s = 0.
+         pri_ide_s = 0.
+         pni_ide_s = 0.
+         pni_rci_s = 0.
+         pni_sci_s = 0.
+         pni_iau_s = 0.
+         pri_iha_s = 0.
+         pni_iha_s = 0.
+         prs_rcs_s = 0.
+         prs_ihm_s = 0.
+         prs_ide_s = 0.
+         prg_rfz_s = 0.
+         prg_rci_s = 0.
+         prg_rcs_s = 0.
+         prg_rcg_s = 0.
+         prg_ihm_s = 0.
+         png_scw_s = 0.
+         png_rcs_s = 0.
+         png_rcg_s = 0.
+         png_gde_s = 0.
+         pbg_scw_s = 0.
+         pbg_rfz_s = 0.
+         pbg_gcw_s = 0.
+         pbg_rci_s = 0.
+         pbg_rcs_s = 0.
+         pbg_rcg_s = 0.
+         pbg_sml_s = 0.
+         pbg_gml_s = 0.
+         pna_rca_s = 0.
+         pna_sca_s = 0.
+         pna_gca_s = 0.
+         pnd_rcd_s = 0.
+         pnd_scd_s = 0.
+         pnd_gcd_s = 0.
+         pnb_rcb_s = 0.
+         pnb_scb_s = 0.
+         pnb_gcb_s = 0.
+
+!..Rain self-collection follows Seifert, 1994 and drop break-up
+!.. follows Verlinde and Cotton, 1993.                                        RAIN2M
+         if (L_qr(k) .and. mvd_r(k).gt. D0r) then
+!-GT      Ef_rr = 1.0
+!-GT      if (mvd_r(k) .gt. 1500.0E-6) then
+             Ef_rr = 1.0 - EXP(2300.0*(mvd_r(k)-1950.0E-6))
+!-GT      endif
+          pnr_rcr_s = Ef_rr * 2.0*nr(k)*rr(k)
+         endif
+
+         mvd_c(k) = D0c
+         if (L_qc(k)) then
+          nu_c = MIN(15, NINT(1000.E6/nc(k)) + 2)
+          xDc = MAX(D0c*1.E6, ((rc(k)/(am_r*nc(k)))**obmr) * 1.E6)
+          lamc = (nc(k)*am_r* ccg(2,nu_c) * ocg1(nu_c) / rc(k))**obmr
+          mvd_c(k) = (3.0+nu_c+0.672) / lamc
+          mvd_c(k) = MAX(D0c, MIN(mvd_c(k), D0r))
+         endif
+
+!..Autoconversion follows Berry & Reinhardt (1974) with characteristic
+!.. diameters correctly computed from gamma distrib of cloud droplets.
+         if (rc(k).gt. 0.01e-3) then
+          Dc_g = ((ccg(3,nu_c)*ocg2(nu_c))**obmr / lamc) * 1.E6
+          Dc_b = (xDc*xDc*xDc*Dc_g*Dc_g*Dc_g - xDc*xDc*xDc*xDc*xDc*xDc) &
+                 **(1./6.)
+          zeta1 = 0.5*((6.25E-6*xDc*Dc_b*Dc_b*Dc_b - 0.4) &
+                     + abs(6.25E-6*xDc*Dc_b*Dc_b*Dc_b - 0.4))
+          zeta = 0.027*rc(k)*zeta1
+          taud = 0.5*((0.5*Dc_b - 7.5) + abs(0.5*Dc_b - 7.5)) + R1
+          tau  = 3.72/(rc(k)*taud)
+          prr_wau(k) = zeta/tau
+          prr_wau(k) = MIN(DBLE(rc(k)*odts), prr_wau(k))
+          pnr_wau_s = prr_wau(k) / (am_r*nu_c*10.*D0r*D0r*D0r)             ! RAIN2M
+          pnc_wau_s = MIN(DBLE(nc(k)*odts), prr_wau(k)                 &
+                     / (am_r*mvd_c(k)*mvd_c(k)*mvd_c(k)))                   ! Qc2M
+         endif
+
+!..Rain collecting cloud water.  In CE, assume Dc<<Dr and vtc=~0.
+         if (L_qr(k) .and. mvd_r(k).gt. D0r .and. mvd_c(k).gt. D0c) then
+          lamr = 1./ilamr(k)
+          idx = 1 + INT(nbr*DLOG(mvd_r(k)/Dr(1))/DLOG(Dr(nbr)/Dr(1)))
+          idx = MIN(idx, nbr)
+          Ef_rw = t_Efrw(idx, INT(mvd_c(k)*1.E6))
+          prr_rcw(k) = rhof(k)*t1_qr_qc*Ef_rw*rc(k)*N0_r(k) &
+                         *((lamr+fv_r)**(-cre(9)))
+          prr_rcw(k) = MIN(DBLE(rc(k)*odts), prr_rcw(k))
+          pnc_rcw_s = rhof(k)*t1_qr_qc*Ef_rw*nc(k)*N0_r(k)             &
+                         *((lamr+fv_r)**(-cre(9)))                          ! Qc2M
+          pnc_rcw_s = MIN(DBLE(nc(k)*odts), pnc_rcw_s)
+         endif
+
+!..Rain collecting aerosols, wet scavenging.
+         if (L_qr(k) .and. mvd_r(k).gt. D0r) then
+          Ef_ra = Eff_aero(mvd_r(k),0.04E-6,visco(k),rho(k),temp(k),'r')
+          lamr = 1./ilamr(k)
+          pna_rca_s = rhof(k)*t1_qr_qc*Ef_ra*nwfa(k)*N0_r(k)           &
+                         *((lamr+fv_r)**(-cre(9)))
+          pna_rca_s = MIN(DBLE(nwfa(k)*odts), pna_rca_s)
+
+          Ef_ra = Eff_aero(mvd_r(k),0.8E-6,visco(k),rho(k),temp(k),'r')
+          pnd_rcd_s = rhof(k)*t1_qr_qc*Ef_ra*nifa(k)*N0_r(k)           &
+                         *((lamr+fv_r)**(-cre(9)))
+          pnd_rcd_s = MIN(DBLE(nifa(k)*odts), pnd_rcd_s)
+
+          if (present(wif_input_opt)) then
+            if (wif_input_opt .eq. 2) then
+              Ef_ra = Eff_aero(mvd_r(k),0.0236E-6, &
+                                 visco(k),rho(k),temp(k),'r')
+              pnb_rcb_s = rhof(k)*t1_qr_qc*Ef_ra*nbca(k)*N0_r(k)       &
+                             *((lamr+fv_r)**(-cre(9)))
+              pnb_rcb_s = MIN(DBLE(nbca(k)*odts), pnb_rcb_s)
+            endif
+          endif
+         endif
+
+      if (.not. iiwarm) then
+         vts_boost(k) = 1.0
+         orho = 1./rho(k)
+
+         if (L_qs(k)) then
+            xDs = smoc(k) / smob(k)
+            rho_s = MAX(rho_g(1), MIN(0.13/xDs, rho_i-100.))
+         else
+            xDs = 0.
+            rho_s = 100.
+         endif
+
+!..Temperature lookup table indexes.
+         tempc = temp(k) - 273.15
+         idx_tc = MAX(1, MIN(NINT(-tempc), 45) )
+         idx_t = INT( (tempc-2.5)/5. ) - 1
+         idx_t = MAX(1, -idx_t)
+         idx_t = MIN(idx_t, ntb_t)
+         IT = MAX(1, MIN(NINT(-tempc), 31) )
+
+!..Cloud water lookup table index.
+         if (rc(k).gt. r_c(1)) then
+          nic = NINT(ALOG10(rc(k)))
+          do nn = nic-1, nic+1
+             n = nn
+             if ( (rc(k)/10.**nn).ge.1.0 .and. &
+                  (rc(k)/10.**nn).lt.10.0) goto 141
+          enddo
+ 141      continue
+          idx_c = INT(rc(k)/10.**n) + 10*(n-nic2) - (n-nic2)
+          idx_c = MAX(1, MIN(idx_c, ntb_c))
+         else
+          idx_c = 1
+         endif
+
+!..Cloud droplet number lookup table index.
+         idx_n = NINT(1.0 + FLOAT(nbc) * DLOG(nc(k)/t_Nc(1)) / nic1)
+         idx_n = MAX(1, MIN(idx_n, nbc))
+
+!..Cloud ice lookup table indexes.
+         if (ri(k).gt. r_i(1)) then
+          nii = NINT(ALOG10(ri(k)))
+          do nn = nii-1, nii+1
+             n = nn
+             if ( (ri(k)/10.**nn).ge.1.0 .and. &
+                  (ri(k)/10.**nn).lt.10.0) goto 142
+          enddo
+ 142      continue
+          idx_i = INT(ri(k)/10.**n) + 10*(n-nii2) - (n-nii2)
+          idx_i = MAX(1, MIN(idx_i, ntb_i))
+         else
+          idx_i = 1
+         endif
+
+         if (ni(k).gt. Nt_i(1)) then
+          nii = NINT(ALOG10(ni(k)))
+          do nn = nii-1, nii+1
+             n = nn
+             if ( (ni(k)/10.**nn).ge.1.0 .and. &
+                  (ni(k)/10.**nn).lt.10.0) goto 143
+          enddo
+ 143      continue
+          idx_i1 = INT(ni(k)/10.**n) + 10*(n-nii3) - (n-nii3)
+          idx_i1 = MAX(1, MIN(idx_i1, ntb_i1))
+         else
+          idx_i1 = 1
+         endif
+
+!..Rain lookup table indexes.
+         if (rr(k).gt. r_r(1)) then
+          nir = NINT(ALOG10(rr(k)))
+          do nn = nir-1, nir+1
+             n = nn
+             if ( (rr(k)/10.**nn).ge.1.0 .and. &
+                  (rr(k)/10.**nn).lt.10.0) goto 144
+          enddo
+ 144      continue
+          idx_r = INT(rr(k)/10.**n) + 10*(n-nir2) - (n-nir2)
+          idx_r = MAX(1, MIN(idx_r, ntb_r))
+
+          lamr = 1./ilamr(k)
+          lam_exp = lamr * (crg(3)*org2*org1)**bm_r
+          N0_exp = org1*rr(k)/am_r * lam_exp**cre(1)
+          nir = NINT(DLOG10(N0_exp))
+          do nn = nir-1, nir+1
+             n = nn
+             if ( (N0_exp/10.**nn).ge.1.0 .and. &
+                  (N0_exp/10.**nn).lt.10.0) goto 145
+          enddo
+ 145      continue
+          idx_r1 = INT(N0_exp/10.**n) + 10*(n-nir3) - (n-nir3)
+          idx_r1 = MAX(1, MIN(idx_r1, ntb_r1))
+         else
+          idx_r = 1
+          idx_r1 = ntb_r1
+         endif
+
+!..Snow lookup table index.
+         if (rs(k).gt. r_s(1)) then
+          nis = NINT(ALOG10(rs(k)))
+          do nn = nis-1, nis+1
+             n = nn
+             if ( (rs(k)/10.**nn).ge.1.0 .and. &
+                  (rs(k)/10.**nn).lt.10.0) goto 146
+          enddo
+ 146      continue
+          idx_s = INT(rs(k)/10.**n) + 10*(n-nis2) - (n-nis2)
+          idx_s = MAX(1, MIN(idx_s, ntb_s))
+         else
+          idx_s = 1
+         endif
+
+!..Graupel lookup table index.
+         if (rg(k).gt. r_g(1)) then
+          nig = NINT(ALOG10(rg(k)))
+          do nn = nig-1, nig+1
+             n = nn
+             if ( (rg(k)/10.**nn).ge.1.0 .and. &
+                  (rg(k)/10.**nn).lt.10.0) goto 147
+          enddo
+ 147      continue
+          idx_g = INT(rg(k)/10.**n) + 10*(n-nig2) - (n-nig2)
+          idx_g = MAX(1, MIN(idx_g, ntb_g))
+
+          lamg = 1./ilamg(k)
+          lam_exp = lamg * (cgg(3,1)*ogg2*ogg1)**bm_g
+          N0_exp = ogg1*rg(k)/am_g(idx_bg(k)) * lam_exp**cge(1,1)
+          nig = NINT(DLOG10(N0_exp))
+          do nn = nig-1, nig+1
+             n = nn
+             if ( (N0_exp/10.**nn).ge.1.0 .and. &
+                  (N0_exp/10.**nn).lt.10.0) goto 148
+          enddo
+ 148      continue
+          idx_g1 = INT(N0_exp/10.**n) + 10*(n-nig3) - (n-nig3)
+          idx_g1 = MAX(1, MIN(idx_g1, ntb_g1))
+         else
+          idx_g = 1
+          idx_g1 = ntb_g1
+         endif
+
+!..Deposition/sublimation prefactor (from Srivastava & Coen 1992).
+         otemp = 1./temp(k)
+         rvs = rho(k)*qvsi(k)
+         rvs_p = rvs*otemp*(lsub*otemp*oRv - 1.)
+         rvs_pp = rvs * ( otemp*(lsub*otemp*oRv - 1.) &
+                         *otemp*(lsub*otemp*oRv - 1.) &
+                         + (-2.*lsub*otemp*otemp*otemp*oRv) &
+                         + otemp*otemp)
+         gamsc = lsub*diffu(k)/tcond(k) * rvs_p
+         alphsc = 0.5*(gamsc/(1.+gamsc))*(gamsc/(1.+gamsc)) &
+                    * rvs_pp/rvs_p * rvs/rvs_p
+         alphsc = MAX(1.E-9, alphsc)
+         xsat = ssati(k)
+         if (abs(xsat).lt. 1.E-9) xsat=0.
+         t1_subl = 4.*PI*( 1.0 - alphsc*xsat &
+                + 2.*alphsc*alphsc*xsat*xsat &
+                - 5.*alphsc*alphsc*alphsc*xsat*xsat*xsat ) &
+                / (1.+gamsc)
+
+!..Snow collecting cloud water.  In CE, assume Dc<<Ds and vtc=~0.
+         if (L_qc(k) .and. mvd_c(k).gt. D0c) then
+          if (xDs .gt. D0s) then
+           idx = 1 + INT(nbs*DLOG(xDs/Ds(1))/DLOG(Ds(nbs)/Ds(1)))
+           idx = MIN(idx, nbs)
+           Ef_sw = t_Efsw(idx, INT(mvd_c(k)*1.E6))
+           prs_scw(k) = rhof(k)*t1_qs_qc*Ef_sw*rc(k)*smoe(k)
+           prs_scw(k) = MIN(DBLE(rc(k)*odts), prs_scw(k))
+           pnc_scw_s = rhof(k)*t1_qs_qc*Ef_sw*nc(k)*smoe(k)                ! Qc2M
+           pnc_scw_s = MIN(DBLE(nc(k)*odts), pnc_scw_s)
+          endif
+
+!..Graupel collecting cloud water.  In CE, assume Dc<<Dg and vtc=~0.
+          if (rg(k).ge. r_g(1) .and. mvd_c(k).gt. D0c) then
+           xDg = (bm_g + mu_g + 1.) * ilamg(k)
+           vtg = rhof(k)*av_g(idx_bg(k))*cgg(6,idx_bg(k))*ogg3 * ilamg(k)**bv_g(idx_bg(k))
+           stoke_g = mvd_c(k)*mvd_c(k)*vtg*rho_w/(9.*visco(k)*xDg)
+!..Rime density formula of Cober and List (1993) also used by Milbrandt and Morrison (2014).
+           const_Ri = -1.*(mvd_c(k)*0.5E6)*vtg/MIN(-0.1,tempc)
+           const_Ri = MAX(0.1, MIN(const_Ri, 10.))
+           rime_dens = (0.051 + 0.114*const_Ri - 0.0055*const_Ri*const_Ri)*1000.
+            if (stoke_g.ge.0.4 .and. stoke_g.le.10.) then
+             Ef_gw = 0.55*ALOG10(2.51*stoke_g)
+            elseif (stoke_g.lt.0.4) then
+             Ef_gw = 0.0
+            elseif (stoke_g.gt.10) then
+             Ef_gw = 0.77
+            endif
+!!! Not sure what to do here - hail increases size rapidly here below melting level.
+            if (twet(k).gt.T_0) Ef_gw = Ef_gw*0.1
+            t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
+            prg_gcw(k) = rhof(k)*t1_qg_qc*Ef_gw*rc(k)*N0_g(k) &
+                          *ilamg(k)**cge(9,idx_bg(k))
+            pnc_gcw_s = rhof(k)*t1_qg_qc*Ef_gw*nc(k)*N0_g(k)           &
+                          *ilamg(k)**cge(9,idx_bg(k))                    ! Qc2M
+            pnc_gcw_s = MIN(DBLE(nc(k)*odts), pnc_gcw_s)
+            if (twet(k).lt.T_0) pbg_gcw_s = prg_gcw(k)/rime_dens
+          endif
+         endif
+
+!..Snow and graupel collecting aerosols, wet scavenging.
+         if (rs(k) .gt. r_s(1)) then
+          Ef_sa = Eff_aero(xDs,0.04E-6,visco(k),rho(k),temp(k),'s')
+          pna_sca_s = rhof(k)*t1_qs_qc*Ef_sa*nwfa(k)*smoe(k)
+          pna_sca_s = MIN(DBLE(nwfa(k)*odts), pna_sca_s)
+
+          Ef_sa = Eff_aero(xDs,0.8E-6,visco(k),rho(k),temp(k),'s')
+          pnd_scd_s = rhof(k)*t1_qs_qc*Ef_sa*nifa(k)*smoe(k)
+          pnd_scd_s = MIN(DBLE(nifa(k)*odts), pnd_scd_s)
+
+          if (present(wif_input_opt)) then
+            if (wif_input_opt .eq. 2) then
+              Ef_sa = Eff_aero(xDs,0.0236E-6,visco(k),rho(k),temp(k),'s')
+              pnb_scb_s = rhof(k)*t1_qs_qc*Ef_sa*nbca(k)*smoe(k)
+              pnb_scb_s = MIN(DBLE(nbca(k)*odts), pnb_scb_s)
+            endif
+          endif
+         endif
+         if (rg(k) .gt. r_g(1)) then
+          xDg = (bm_g + mu_g + 1.) * ilamg(k)
+          Ef_ga = Eff_aero(xDg,0.04E-6,visco(k),rho(k),temp(k),'g')
+          t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
+          pna_gca_s = rhof(k)*t1_qg_qc*Ef_ga*nwfa(k)*N0_g(k)           &
+                        *ilamg(k)**cge(9,idx_bg(k))
+          pna_gca_s = MIN(DBLE(nwfa(k)*odts), pna_gca_s)
+
+          Ef_ga = Eff_aero(xDg,0.8E-6,visco(k),rho(k),temp(k),'g')
+          pnd_gcd_s = rhof(k)*t1_qg_qc*Ef_ga*nifa(k)*N0_g(k)           &
+                        *ilamg(k)**cge(9,idx_bg(k))
+          pnd_gcd_s = MIN(DBLE(nifa(k)*odts), pnd_gcd_s)
+
+          if (present(wif_input_opt)) then
+            if (wif_input_opt .eq. 2) then
+              Ef_ga = Eff_aero(xDg,0.0236E-6,visco(k),rho(k),temp(k),'g')
+              pnb_gcb_s = rhof(k)*t1_qg_qc*Ef_ga*nbca(k)*N0_g(k)       &
+                            *ilamg(k)**cge(9,idx_bg(k))
+              pnb_gcb_s = MIN(DBLE(nbca(k)*odts), pnb_gcb_s)
+            endif
+          endif
+         endif
+
+!..Rain collecting snow.  Cannot assume Wisner (1972) approximation
+!.. or Mizuno (1990) approach so we solve the CE explicitly and store
+!.. results in lookup table.
+         if (rr(k).ge. r_r(1)) then
+          if (rs(k).ge. r_s(1)) then
+           if (twet(k).lt.T_0) then
+            prr_rcs_s = -(tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
+                           + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r) &
+                           + tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
+                           + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r))
+            prs_rcs_s = tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
+                         + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r) &
+                         - tcs_racs1(idx_s,idx_t,idx_r1,idx_r) &
+                         - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
+            prg_rcs_s = tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
+                         + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r) &
+                         + tcs_racs1(idx_s,idx_t,idx_r1,idx_r) &
+                         + tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
+            prr_rcs_s = MAX(DBLE(-rr(k)*odts), prr_rcs_s)
+            prs_rcs_s = MAX(DBLE(-rs(k)*odts), prs_rcs_s)
+            prg_rcs_s = MIN(DBLE((rr(k)+rs(k))*odts), prg_rcs_s)
+            pnr_rcs_s = tnr_racs1(idx_s,idx_t,idx_r1,idx_r)            &   ! RAIN2M
+                         + tnr_racs2(idx_s,idx_t,idx_r1,idx_r)          &
+                         + tnr_sacr1(idx_s,idx_t,idx_r1,idx_r)          &
+                         + tnr_sacr2(idx_s,idx_t,idx_r1,idx_r)
+            pnr_rcs_s = MIN(DBLE(nr(k)*odts), pnr_rcs_s)
+            png_rcs_s = pnr_rcs_s
+!-GT        pbg_rcs_s = prg_rcs_s/(0.5*(rho_i+rho_s))
+            pbg_rcs_s = prg_rcs_s/rho_i
+           else
+            prs_rcs_s = -tcs_racs1(idx_s,idx_t,idx_r1,idx_r)           &
+                         - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)          &
+                         + tmr_racs2(idx_s,idx_t,idx_r1,idx_r)          &
+                         + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r)
+            prs_rcs_s = MAX(DBLE(-rs(k)*odts), prs_rcs_s)
+            prr_rcs_s = -prs_rcs_s
+           endif
+          endif
+
+!..Rain collecting graupel.  Cannot assume Wisner (1972) approximation
+!.. or Mizuno (1990) approach so we solve the CE explicitly and store
+!.. results in lookup table.
+          if (rg(k).ge. r_g(1)) then
+           if (twet(k).lt.T_0) then
+            prg_rcg_s = tmr_racg(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)  &
+                         + tcr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
+            prg_rcg_s = MIN(DBLE(rr(k)*odts), prg_rcg_s)
+            prr_rcg_s = -prg_rcg_s
+            pnr_rcg_s = tnr_racg(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)  &   ! RAIN2M
+                         + tnr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
+            pnr_rcg_s = MIN(DBLE(nr(k)*odts), pnr_rcg_s)
+!-GT        pbg_rcg_s = prg_rcg_s/(0.5*(rho_i+rho_g(idx_bg(k))))
+            pbg_rcg_s = prg_rcg_s/rho_i
+           else
+            prr_rcg_s = tcg_racg(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
+            prr_rcg_s = MIN(DBLE(rg(k)*odts), prr_rcg_s)
+            prg_rcg_s = -prr_rcg_s
+            png_rcg_s = tnr_racg(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
+!!!                    + tnr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
+            png_rcg_s = MIN(DBLE(ng(k)*odts), png_rcg_s)
+            pbg_rcg_s = prg_rcg_s/rho_g(idx_bg(k))
+!..Put in explicit drop break-up due to collisions.
+            pnr_rcg_s = -1.5*tnr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)  ! RAIN2M
+           endif
+          endif
+         endif
+
+!+---+-----------------------------------------------------------------+
+!..Next IF block handles only those processes below 0C.
+!+---+-----------------------------------------------------------------+
+
+         if (temp(k).lt.T_0) then
+
+          vts_boost(k) = 1.0
+          rate_max = (qv(k)-qvsi(k))*rho(k)*odts*0.999
+
+!+---+---------------- BEGIN NEW ICE NUCLEATION -----------------------+
+!..Freezing of supercooled water (rain or cloud) is influenced by dust
+!.. but still using Bigg 1953 with a temperature adjustment of a few
+!.. degrees depending on dust concentration.  A default value by way
+!.. of idx_IN is 1.0 per Liter of air is used when dustyIce flag is
+!.. false.  Next, a combination of deposition/condensation freezing
+!.. using DeMott et al (2010) dust nucleation when water saturated or
+!.. Phillips et al (2008) when below water saturation; else, without
+!.. dustyIce flag, use the previous Cooper (1986) temperature-dependent
+!.. value.  Lastly, allow homogeneous freezing of deliquesced aerosols
+!.. following Koop et al. (2001, Nature).
+!.. Implemented by T. Eidhammer and G. Thompson 2012Dec18
+!+---+-----------------------------------------------------------------+
+
+          if (dustyIce .AND. is_aerosol_aware) then
+           xni = iceDeMott(tempc,qvs(k),qvs(k),qvsi(k),rho(k),nifa(k))
+          else
+           xni = 1.0 *1000.                                               ! Default is 1.0 per Liter
+          endif
+
+!..Ice nuclei lookup table index.
+          if (xni.gt. Nt_IN(1)) then
+           niin = NINT(ALOG10(xni))
+           do nn = niin-1, niin+1
+              n = nn
+              if ( (xni/10.**nn).ge.1.0 .and. &
+                   (xni/10.**nn).lt.10.0) goto 149
+           enddo
+ 149       continue
+           idx_IN = INT(xni/10.**n) + 10*(n-niin2) - (n-niin2)
+           idx_IN = MAX(1, MIN(idx_IN, ntb_IN))
+          else
+           idx_IN = 1
+          endif
+
+!..Freezing of water drops into graupel/cloud ice (Bigg 1953).
+          if (rr(k).gt. r_r(1)) then
+           prg_rfz_s = tpg_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           pri_rfz_s = tpi_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           pni_rfz_s = tni_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+           pnr_rfz_s = tnr_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts          ! RAIN2M
+           pnr_rfz_s = MIN(DBLE(nr(k)*odts), pnr_rfz_s)
+          elseif (rr(k).gt. R1 .and. temp(k).lt.HGFR) then
+           pri_rfz_s = rr(k)*odts
+           pni_rfz_s = nr(k)*odts                                         ! RAIN2M
+          endif
+          pbg_rfz_s = prg_rfz_s/rho_i
+
+          if (rc(k).gt. r_c(1)) then
+           pri_wfz_s = tpi_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+           pri_wfz_s = MIN(DBLE(rc(k)*odts), pri_wfz_s)
+           pni_wfz_s = tni_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+           pni_wfz_s = MIN(DBLE(nc(k)*odts), pri_wfz_s/(2.*xm0i),     &
+                                pni_wfz_s)
+          elseif (rc(k).gt. R1 .and. temp(k).lt.HGFR) then
+           pri_wfz_s = rc(k)*odts
+           pni_wfz_s = nc(k)*odts
+          endif
+
+!..Deposition nucleation of dust/mineral from DeMott et al (2010)
+!.. we may need to relax the temperature and ssati constraints.
+          if ( (ssati(k).ge. 0.25) .or. (ssatw(k).gt. eps &
+                                .and. temp(k).lt.253.15) ) then
+           if (dustyIce .AND. is_aerosol_aware) then
+            xnc = iceDeMott(tempc,qv(k),qvs(k),qvsi(k),rho(k),nifa(k))
+           else
+            xnc = MIN(250.E3, TNO*EXP(ATO*(T_0-temp(k))))
+           endif
+           xni = ni(k) + (pni_rfz_s+pni_wfz_s)*dtsave
+           pni_inu_s = 0.5*(xnc-xni + abs(xnc-xni))*odts
+           pri_inu_s = MIN(DBLE(rate_max), xm0i*pni_inu_s)
+           pni_inu_s = pri_inu_s/xm0i
+          endif
+
+!..Freezing of aqueous aerosols based on Koop et al (2001, Nature)
+          xni = ns(k)+ni(k) + (pni_rfz_s+pni_wfz_s+pni_inu_s)*dtsave
+          if (is_aerosol_aware .AND. homogIce .AND. (xni.le.999.E3)     &
+     &                .AND.(temp(k).lt.238).AND.(ssati(k).ge.0.4) ) then
+            xnc = iceKoop(temp(k),qv(k),qvs(k),nwfa(k), dtsave)
+            pni_iha_s = xnc*odts
+            pri_iha_s = MIN(DBLE(rate_max), xm0i*0.1*pni_iha_s)
+            pni_iha_s = pri_iha_s/(xm0i*0.1)
+          endif
+!+---+------------------ END NEW ICE NUCLEATION -----------------------+
+
+
+!..Deposition/sublimation of cloud ice (Srivastava & Coen 1992).
+          if (L_qi(k)) then
+           lami = (am_i*cig(2)*oig1*ni(k)/ri(k))**obmi
+           ilami = 1./lami
+           xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
+           xmi = am_i*xDi**bm_i
+           oxmi = 1./xmi
+           pri_ide_s = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+                  *oig1*cig(5)*ni(k)*ilami
+
+           if (pri_ide_s .lt. 0.0) then
+            pri_ide_s = MAX(DBLE(-ri(k)*odts), pri_ide_s, DBLE(rate_max))
+            pni_ide_s = pri_ide_s*oxmi
+            pni_ide_s = MAX(DBLE(-ni(k)*odts), pni_ide_s)
+           else
+            pri_ide_s = MIN(pri_ide_s, DBLE(rate_max))
+            prs_ide_s = (1.0D0-tpi_ide(idx_i,idx_i1))*pri_ide_s
+            pri_ide_s = tpi_ide(idx_i,idx_i1)*pri_ide_s
+           endif
+
+!..Some cloud ice needs to move into the snow category.  Use lookup
+!.. table that resulted from explicit bin representation of distrib.
+           if ( (idx_i.eq. ntb_i) .or. (xDi.gt. 5.0*D0s) ) then
+            prs_iau(k) = ri(k)*.99*odts
+            pni_iau_s = ni(k)*.95*odts
+           elseif (xDi.lt. 0.1*D0s) then
+            prs_iau(k) = 0.
+            pni_iau_s = 0.
+           else
+            prs_iau(k) = tps_iaus(idx_i,idx_i1)*odts
+            prs_iau(k) = MIN(DBLE(ri(k)*.99*odts), prs_iau(k))
+            pni_iau_s = tni_iaus(idx_i,idx_i1)*odts
+            pni_iau_s = MIN(DBLE(ni(k)*.95*odts), pni_iau_s)
+           endif
+          endif
+
+!..Deposition/sublimation of snow/graupel follows Srivastava & Coen
+!.. (1992).
+          if (L_qs(k)) then
+           C_snow = C_sqrd + (tempc+1.5)*(C_cube-C_sqrd)/(-30.+1.5)
+           C_snow = MAX(C_sqrd, MIN(C_snow, C_cube))
+           prs_sde(k) = C_snow*t1_subl*diffu(k)*ssati(k)*rvs &
+                        * (t1_qs_sd*smo1(k) &
+                         + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
+           if (prs_sde(k).lt. 0.) then
+            prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k), DBLE(rate_max))
+           else
+            prs_sde(k) = MIN(prs_sde(k), DBLE(rate_max))
+           endif
+          endif
+
+          if (L_qg(k) .and. ssati(k).lt. -eps) then
+           t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
+           prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+               * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
+               + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
+           if (prg_gde(k).lt. 0.) then
+            prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k), DBLE(rate_max))
+            png_gde_s = prg_gde(k) * ng(k)/rg(k)
+           else
+            prg_gde(k) = MIN(prg_gde(k), DBLE(rate_max))
+           endif
+          endif
+
+!..Snow collecting cloud ice.  In CE, assume Di<<Ds and vti=~0.
+          if (L_qi(k)) then
+           lami = (am_i*cig(2)*oig1*ni(k)/ri(k))**obmi
+           ilami = 1./lami
+           xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
+           xmi = am_i*xDi**bm_i
+           oxmi = 1./xmi
+           if (rs(k).ge. r_s(1)) then
+            prs_sci(k) = t1_qs_qi*rhof(k)*Ef_si*ri(k)*smoe(k)
+            pni_sci_s = prs_sci(k) * oxmi
+           endif
+
+!..Rain collecting cloud ice.  In CE, assume Di<<Dr and vti=~0.
+           if (rr(k).ge. r_r(1) .and. mvd_r(k).gt. 4.*xDi) then
+            lamr = 1./ilamr(k)
+            pri_rci(k) = rhof(k)*t1_qr_qi*Ef_ri*ri(k)*N0_r(k) &
+                           *((lamr+fv_r)**(-cre(9)))
+            pnr_rci_s = rhof(k)*t1_qr_qi*Ef_ri*ni(k)*N0_r(k)           &   ! RAIN2M
+                           *((lamr+fv_r)**(-cre(9)))
+            pnr_rci_s = MIN(DBLE(nr(k)*odts), pnr_rci_s)
+            pni_rci_s = pri_rci(k) * oxmi
+            prr_rci_s = rhof(k)*t2_qr_qi*Ef_ri*ni(k)*N0_r(k) &
+                           *((lamr+fv_r)**(-cre(8)))
+            prr_rci_s = MIN(DBLE(rr(k)*odts), prr_rci_s)
+            prg_rci_s = pri_rci(k) + prr_rci_s
+            pbg_rci_s = prg_rci_s/rho_i
+           endif
+          endif
+
+!..Ice multiplication from rime-splinters (Hallet & Mossop 1974).
+          if (prg_gcw(k).gt. eps .and. tempc.gt.-8.0) then
+           tf = 0.
+           if (tempc.ge.-5.0 .and. tempc.lt.-3.0) then
+            tf = 0.5*(-3.0 - tempc)
+           elseif (tempc.gt.-8.0 .and. tempc.lt.-5.0) then
+            tf = 0.33333333*(8.0 + tempc)
+           endif
+           pni_ihm_s = 3.5E8*tf*prg_gcw(k)
+           pri_ihm_s = xm0i*pni_ihm_s
+           prs_ihm_s = prs_scw(k)/(prs_scw(k)+prg_gcw(k)) &
+                          * pri_ihm_s
+           prg_ihm_s = prg_gcw(k)/(prs_scw(k)+prg_gcw(k)) &
+                          * pri_ihm_s
+          endif
+
+!..A portion of rimed snow converts to graupel but some remains snow.
+!.. Interp from 15 to 95% as riming factor increases from 2.0 to 30.0
+!.. 0.028 came from (.95-.15)/(30.-2.).  This remains ad-hoc and should
+!.. be revisited.
+          if (prs_scw(k).gt.2.0*prs_sde(k) .and. &
+                         prs_sde(k).gt.eps) then
+           r_frac = MIN(30.0D0, prs_scw(k)/prs_sde(k))
+           g_frac = MIN(0.95, 0.15 + (r_frac-2.)*.028)
+           vts_boost(k) = MIN(1.5, 1.1 + (r_frac-2.)*.014)
+           prg_scw(k) = g_frac*prs_scw(k)
+           png_scw_s = prg_scw(k)*smo0(k)/rs(k)
+!..GT      png_scw_s = prg_scw(k)*ns(k)/rs(k)
+           vts = av_s*xDs**bv_s * EXP(-fv_s*xDs)
+           const_Ri = -1.*(mvd_c(k)*0.5E6)*vts/MIN(-0.1,tempc)
+           const_Ri = MAX(0.1, MIN(const_Ri, 10.))
+           rime_dens = (0.051 + 0.114*const_Ri - 0.0055*const_Ri*const_Ri)*1000.
+           if(rime_dens .lt. 150.) then                                  ! Idea of A. Jensen
+              g_frac = 0.
+              prg_scw(k)=0.
+              png_scw_s=0.
+           endif
+           pbg_scw_s = prg_scw(k)/(0.5*(rime_dens+rho_s))
+           prs_scw(k) = (1. - g_frac)*prs_scw(k)
+          endif
+
+         else
+
+!..Melt snow and graupel and enhance from collisions with liquid.
+!.. We also need to sublimate snow and graupel if subsaturated.
+          if (L_qs(k)) then
+           prr_sml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
+                      * (t1_qs_me*smo1(k) + t2_qs_me*rhof2(k)*vsc2(k)*smof(k))
+           if (prr_sml(k) .gt. 0.) then
+              prr_sml(k) = prr_sml(k) + 4218.*olfus*(twet(k)-T_0)       &
+                                      * (prr_rcs_s+prs_scw(k))
+           endif
+           prr_sml(k) = MIN(DBLE(rs(k)*odts), MAX(0.D0, prr_sml(k)))
+
+           if (prr_sml(k).gt.0.0) then
+              pnr_sml_s = smo0(k)/rs(k)*prr_sml(k) * 10.0**(-0.25*(twet(k)-T_0))
+           elseif (ssati(k).lt. 0.) then
+              prs_sde(k) = C_sqrd*t1_subl*diffu(k)*ssati(k)*rvs &
+                         * (t1_qs_sd*smo1(k) &
+                          + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
+            prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k))
+           endif
+          endif
+
+          if (L_qg(k)) then
+           N0_melt = N0_g(k)
+           if ((rg(k)*ng(k)) .lt. 1.E-4) then
+              lamg = 1./ilamg(k)
+              N0_melt = (1.E-4/rg(k))*ogg2*lamg**cge(2,1)
+           endif
+           t2_qg_me = PI*4.*C_cube*olfus * 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
+           prr_gml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
+                      * N0_melt*(t1_qg_me*ilamg(k)**cge(10,1)           &
+                      + t2_qg_me*rhof2(k)*vsc2(k)*ilamg(k)**cge(11,idx_bg(k)))
+!          if (prr_gml(k) .gt. 0.) then
+!             prr_gml(k) = prr_gml(k) + 4218.*olfus*(twet(k)-T_0)       &
+!                                     * (prr_rcg_s+prg_gcw(k))
+!          endif
+           prr_gml(k) = MIN(DBLE(rg(k)*odts), MAX(0.D0, prr_gml(k)))
+!           pnr_gml_s = N0_g(k)*cgg(2)*ilamg(k)**cge(2) / rg(k)         &   ! RAIN2M
+!                      * prr_gml(k) * 10.0**(-0.5*tempc)
+
+           if (prr_gml(k) .gt. 0.0) then
+            melt_f = MAX(0.05, MIN(prr_gml(k)*dt/rg(k),1.0))
+            !..1000 is density water, 50 is lower limit (max ice density is 800)
+            pbg_gml_s = prr_gml(k) / MAX(MIN(melt_f*rho_g(idx_bg(k)),1000.),50.)
+!-GT        pnr_gml_s = prr_gml(k)*ng(k)/rg(k)
+            pnr_gml_s = prr_gml(k)*ng(k)/rg(k) * 10.0**(-0.33*(twet(k)-T_0))
+           elseif (ssati(k).lt. 0.) then
+            t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
+            prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+                * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
+                + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
+            prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k))
+            png_gde_s = prg_gde(k) * ng(k)/rg(k)
+           endif
+          endif
+
+!.. This change will be required if users run adaptive time step that
+!.. results in delta-t that is generally too long to allow cloud water
+!.. collection by snow/graupel above melting temperature.
+!.. Credit to Bjorn-Egil Nygaard for discovering.
+          if (dt .gt. 120.) then
+             prr_rcw(k)=prr_rcw(k)+prs_scw(k)+prg_gcw(k)
+             prs_scw(k)=0.
+             prg_gcw(k)=0.
+          endif
+
+         endif
+
+         if (.not. is_hail_aware) idx_bg(k) = idx_bg1
+
+      endif
+
+!..If ice supersaturated, ensure sum of depos growth terms does not
+!.. deplete more vapor than possibly exists.  If subsaturated, limit
+!.. sum of sublimation terms such that vapor does not reproduce ice
+!.. supersat again.
+         sump = pri_inu_s + pri_ide_s + prs_ide_s &
+              + prs_sde(k) + prg_gde(k) + pri_iha_s
+         rate_max = (qv(k)-qvsi(k))*rho(k)*odts*0.999
+         if ( (sump.gt. eps .and. sump.gt. rate_max) .or. &
+              (sump.lt. -eps .and. sump.lt. rate_max) ) then
+          ratio = rate_max/sump
+          pri_inu_s = pri_inu_s * ratio
+          pri_ide_s = pri_ide_s * ratio
+          pni_ide_s = pni_ide_s * ratio
+          prs_ide_s = prs_ide_s * ratio
+          prs_sde(k) = prs_sde(k) * ratio
+          prg_gde(k) = prg_gde(k) * ratio
+          pri_iha_s = pri_iha_s * ratio
+         endif
+
+!..Cloud water conservation.
+         sump = -prr_wau(k) - pri_wfz_s - prr_rcw(k) &
+                - prs_scw(k) - prg_scw(k) - prg_gcw(k)
+         rate_max = -rc(k)*odts
+         if (sump.lt. rate_max .and. L_qc(k)) then
+          ratio = rate_max/sump
+          prr_wau(k) = prr_wau(k) * ratio
+          pri_wfz_s = pri_wfz_s * ratio
+          prr_rcw(k) = prr_rcw(k) * ratio
+          prs_scw(k) = prs_scw(k) * ratio
+          prg_scw(k) = prg_scw(k) * ratio
+          prg_gcw(k) = prg_gcw(k) * ratio
+         endif
+
+!..Cloud ice conservation.
+         sump = pri_ide_s - prs_iau(k) - prs_sci(k) &
+                - pri_rci(k)
+         rate_max = -ri(k)*odts
+         if (sump.lt. rate_max .and. L_qi(k)) then
+          ratio = rate_max/sump
+          pri_ide_s = pri_ide_s * ratio
+          prs_iau(k) = prs_iau(k) * ratio
+          prs_sci(k) = prs_sci(k) * ratio
+          pri_rci(k) = pri_rci(k) * ratio
+         endif
+
+!..Rain conservation.
+         sump = -prg_rfz_s - pri_rfz_s - prr_rci_s &
+                + prr_rcs_s + prr_rcg_s
+         rate_max = -rr(k)*odts
+         if (sump.lt. rate_max .and. L_qr(k)) then
+          ratio = rate_max/sump
+          prg_rfz_s = prg_rfz_s * ratio
+          pri_rfz_s = pri_rfz_s * ratio
+          prr_rci_s = prr_rci_s * ratio
+          prr_rcs_s = prr_rcs_s * ratio
+          prr_rcg_s = prr_rcg_s * ratio
+         endif
+
+!..Snow conservation.
+         sump = prs_sde(k) - prs_ihm_s - prr_sml(k) &
+                + prs_rcs_s
+         rate_max = -rs(k)*odts
+         if (sump.lt. rate_max .and. L_qs(k)) then
+          ratio = rate_max/sump
+          prs_sde(k) = prs_sde(k) * ratio
+          prs_ihm_s = prs_ihm_s * ratio
+          prr_sml(k) = prr_sml(k) * ratio
+          prs_rcs_s = prs_rcs_s * ratio
+         endif
+
+!..Graupel conservation.
+         sump = prg_gde(k) - prg_ihm_s - prr_gml(k) &
+              + prg_rcg_s
+         rate_max = -rg(k)*odts
+         if (sump.lt. rate_max .and. L_qg(k)) then
+          ratio = rate_max/sump
+          prg_gde(k) = prg_gde(k) * ratio
+          prg_ihm_s = prg_ihm_s * ratio
+          prr_gml(k) = prr_gml(k) * ratio
+          prg_rcg_s = prg_rcg_s * ratio
+         endif
+
+!..Re-enforce proper mass conservation for subsequent elements in case
+!.. any of the above terms were altered.  Thanks P. Blossey. 2009Sep28
+         pri_ihm_s = prs_ihm_s + prg_ihm_s
+         ratio = MIN( ABS(prr_rcg_s), ABS(prg_rcg_s) )
+         prr_rcg_s = ratio * SIGN(1.0, SNGL(prr_rcg_s))
+         prg_rcg_s = -prr_rcg_s
+         if (twet(k).gt.T_0) then
+            ratio = MIN( ABS(prr_rcs_s), ABS(prs_rcs_s) )
+            prr_rcs_s = ratio * SIGN(1.0, SNGL(prr_rcs_s))
+            prs_rcs_s = -prr_rcs_s
+         endif
+
+         orho = 1./rho(k)
+         lfus2 = lsub - lvap(k)
+
+!..Aerosol number tendency
+         if (is_aerosol_aware) then
+            nwfaten(k) = nwfaten(k) - (pna_rca_s + pna_sca_s          &
+                       + pna_gca_s + pni_iha_s) * orho
+            nifaten(k) = nifaten(k) - (pnd_rcd_s + pnd_scd_s          &
+                       + pnd_gcd_s) * orho
+            if (wif_input_opt .eq. 2) then
+               nbcaten(k) = nbcaten(k) - (pnb_rcb_s + pnb_scb_s       &
+                          + pnb_gcb_s) * orho
+            else
+               nbcaten(k) = 0.0
+            endif
+            if (dustyIce) then
+               nifaten(k) = nifaten(k) - pni_inu_s*orho
+            else
+               nifaten(k) = 0.
+            endif
+         endif
+
+!..Water vapor tendency
+         qvten(k) = qvten(k) + (-pri_inu_s - pri_iha_s - pri_ide_s   &
+                      - prs_ide_s - prs_sde(k) - prg_gde(k)) &
+                      * orho
+
+!..Cloud water tendency
+         qcten(k) = qcten(k) + (-prr_wau(k) - pri_wfz_s &
+                      - prr_rcw(k) - prs_scw(k) - prg_scw(k) &
+                      - prg_gcw(k)) &
+                      * orho
+
+!..Cloud water number tendency
+         ncten(k) = ncten(k) + (-pnc_wau_s - pnc_rcw_s &
+                      - pni_wfz_s - pnc_scw_s - pnc_gcw_s) &
+                      * orho
+
+!..Cloud water mass/number balance; keep mass-wt mean size between
+!.. 1 and 50 microns.  Also no more than Nt_c_max drops total.
+         xrc=MAX(R1, (qc1d(k) + qcten(k)*dtsave)*rho(k))
+         xnc=MAX(2., (nc1d(k) + ncten(k)*dtsave)*rho(k))
+         if (xrc .gt. R1) then
+          nu_c = MIN(15, NINT(1000.E6/xnc) + 2)
+          lamc = (xnc*am_r*ccg(2,nu_c)*ocg1(nu_c)/rc(k))**obmr
+          xDc = (bm_r + nu_c + 1.) / lamc
+          if (xDc.lt. D0c) then
+           lamc = cce(2,nu_c)/D0c
+           xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
+           ncten(k) = (xnc-nc1d(k)*rho(k))*odts*orho
+          elseif (xDc.gt. D0r*2.) then
+           lamc = cce(2,nu_c)/(D0r*2.)
+           xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
+           ncten(k) = (xnc-nc1d(k)*rho(k))*odts*orho
+          endif
+         else
+          ncten(k) = -nc1d(k)*odts
+         endif
+         xnc=MAX(0.,(nc1d(k) + ncten(k)*dtsave)*rho(k))
+         if (xnc.gt.Nt_c_max) &
+                ncten(k) = (Nt_c_max-nc1d(k)*rho(k))*odts*orho
+
+!..Cloud ice mixing ratio tendency
+         qiten(k) = qiten(k) + (pri_inu_s + pri_iha_s + pri_ihm_s    &
+                      + pri_wfz_s + pri_rfz_s + pri_ide_s &
+                      - prs_iau(k) - prs_sci(k) - pri_rci(k)) &
+                      * orho
+
+!..Cloud ice number tendency.
+         niten(k) = niten(k) + (pni_inu_s + pni_iha_s + pni_ihm_s    &
+                      + pni_wfz_s + pni_rfz_s + pni_ide_s &
+                      - pni_iau_s - pni_sci_s - pni_rci_s) &
+                      * orho
+
+!..Cloud ice mass/number balance; keep mass-wt mean size between
+!.. 5 and 300 microns.  Also no more than 500 xtals per liter.
+         xri=MAX(R1,(qi1d(k) + qiten(k)*dtsave)*rho(k))
+         xni=MAX(R2,(ni1d(k) + niten(k)*dtsave)*rho(k))
+         if (xri.gt. R1) then
+           lami = (am_i*cig(2)*oig1*xni/xri)**obmi
+           ilami = 1./lami
+           xDi = (bm_i + mu_i + 1.) * ilami
+           if (xDi.lt. 5.E-6) then
+            lami = cie(2)/5.E-6
+            xni = MIN(999.D3, cig(1)*oig2*xri/am_i*lami**bm_i)
+            niten(k) = (xni-ni1d(k)*rho(k))*odts*orho
+           elseif (xDi.gt. 300.E-6) then
+            lami = cie(2)/300.E-6
+            xni = cig(1)*oig2*xri/am_i*lami**bm_i
+            niten(k) = (xni-ni1d(k)*rho(k))*odts*orho
+           endif
+         else
+          niten(k) = -ni1d(k)*odts
+         endif
+         xni=MAX(0.,(ni1d(k) + niten(k)*dtsave)*rho(k))
+         if (xni.gt.999.E3) &
+                niten(k) = (999.E3-ni1d(k)*rho(k))*odts*orho
+
+!..Rain tendency
+         qrten(k) = qrten(k) + (prr_wau(k) + prr_rcw(k) &
+                      + prr_sml(k) + prr_gml(k) + prr_rcs_s &
+                      + prr_rcg_s - prg_rfz_s &
+                      - pri_rfz_s - prr_rci_s) &
+                      * orho
+
+!..Rain number tendency
+         nrten(k) = nrten(k) + (pnr_wau_s + pnr_sml_s + pnr_gml_s    &
+                      - (pnr_rfz_s + pnr_rcr_s + pnr_rcg_s           &
+                      + pnr_rcs_s + pnr_rci_s + pni_rfz_s) )         &
+                      * orho
+
+!..Rain mass/number balance; keep median volume diameter between
+!.. 37 microns (D0r*0.75) and 2.5 mm.
+         xrr=MAX(R1,(qr1d(k) + qrten(k)*dtsave)*rho(k))
+         xnr=MAX(R2,(nr1d(k) + nrten(k)*dtsave)*rho(k))
+         if (xrr.gt. R1) then
+           lamr = (am_r*crg(3)*org2*xnr/xrr)**obmr
+           mvd_r(k) = (3.0 + mu_r + 0.672) / lamr
+           if (mvd_r(k) .gt. 2.5E-3) then
+              mvd_r(k) = 2.5E-3
+              lamr = (3.0 + mu_r + 0.672) / mvd_r(k)
+              xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
+              nrten(k) = (xnr-nr1d(k)*rho(k))*odts*orho
+           elseif (mvd_r(k) .lt. D0r*0.75) then
+              mvd_r(k) = D0r*0.75
+              lamr = (3.0 + mu_r + 0.672) / mvd_r(k)
+              xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
+              nrten(k) = (xnr-nr1d(k)*rho(k))*odts*orho
+           endif
+         else
+           qrten(k) = -qr1d(k)*odts
+           nrten(k) = -nr1d(k)*odts
+         endif
+
+!..Snow tendency
+         qsten(k) = qsten(k) + (prs_iau(k) + prs_sde(k) + prs_sci(k)    &
+                      + prs_scw(k) + prs_rcs_s + prs_ide_s            &
+                      - prs_ihm_s - prr_sml(k))                        &
+                      * orho
+
+!..Graupel tendency
+         qgten(k) = qgten(k) + (prg_scw(k) + prg_rfz_s &
+                      + prg_gde(k) + prg_rcg_s + prg_gcw(k) &
+                      + prg_rci_s + prg_rcs_s - prg_ihm_s &
+                      - prr_gml(k))                          &
+                      * orho
+
+!..Graupel number tendency
+         ngten(k) = ngten(k) + (png_scw_s + pnr_rfz_s - png_rcg_s    &
+                      + pnr_rci_s + png_rcs_s + png_gde_s            &
+                      - pnr_gml_s) * orho
+
+!..Graupel volume mixing ratio tendency
+         qbten(k) = qbten(k) + (pbg_scw_s + pbg_rfz_s                 &
+                      + pbg_gcw_s + pbg_rci_s + pbg_rcs_s            &
+                      + pbg_rcg_s + pbg_sml_s - pbg_gml_s            &
+                      + (prg_gde(k) - prg_ihm_s) /rho_g(idx_bg(k)) )   &
+                      * orho
+
+!..Graupel mass/number balance; keep its median volume diameter between
+!.. 3.0 times minimum size (D0g) and 25 mm.
+         xrg=MAX(R1,(qg1d(k) + qgten(k)*dtsave)*rho(k))
+         xng=MAX(R2,(ng1d(k) + ngten(k)*dtsave)*rho(k))
+         xrb=MAX(xrg/rho(k)/rho_g(NRHG),(qb1d(k) + qbten(k)*dtsave))
+         xrb=MIN(xrg/rho(k)/rho_g(1), xrb)
+
+         if (xrg .gt. R1) then
+            lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*xng/xrg)**obmg
+            mvd_g(k) = (3.0 + mu_g + 0.672) / lamg
+
+      if(debug_flag) then
+           xrho_g = MAX(rho_g(1),MIN(rg(k)/rho(k)/rb(k),rho_g(NRHG)))
+           afall = a_coeff*((4.0*xrho_g*9.8)/(3.0*rho(k)))**b_coeff
+           afall = afall * visco(k)**(1.0-2.0*b_coeff)
+           vtg1 = rhof(k)*afall*cgg(6,idx_bg(k))*ogg3 / lamg**bfall
+           vtg2 = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
+#ifndef WRF_GPU
+         write(mp_debug, *) 'DEBUG: xrg, xng, xrb, ns, idx_bg, rho_g, mvd, vtg: ', k, xrg, xng, xrb, ns(k), idx_bg(k), xrg/rho(k)/xrb, mvd_g(k)*1000., vtg1, vtg2
+#endif
+#ifndef WRF_GPU
+         CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
+         write(mp_debug, *) 'DEBUG: qgten: ', qgten(k), prg_scw(k), prg_rfz_s, prg_gde(k), prg_rcg_s, prg_gcw(k), prg_rci_s, prg_rcs_s, prg_ihm_s, prr_gml(k)
+#endif
+#ifndef WRF_GPU
+         CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
+         write(mp_debug, *) 'DEBUG: ngten: ', ngten(k), png_scw_s, pnr_rfz_s, png_rcg_s, pnr_rci_s, png_rcs_s, pnr_gml_s
+#endif
+#ifndef WRF_GPU
+         CALL wrf_debug(0, mp_debug)
+#endif
+#ifndef WRF_GPU
+         write(mp_debug, *) 'DEBUG: qbten: ', qbten(k), pbg_scw_s, pbg_rfz_s, pbg_gcw_s, pbg_rci_s, pbg_rcs_s, pbg_rcg_s, pbg_sml_s, pbg_gml_s
+#endif
+#ifndef WRF_GPU
+         CALL wrf_debug(0, mp_debug)
+#endif
+      endif
+
+            if (mvd_g(k) .gt. 25.4E-3) then
+               mvd_g(k) = 25.4E-3
+               lamg = (3.0 + mu_g + 0.672) / mvd_g(k)
+               xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg(k))
+               ngten(k) = (xng-ng1d(k)*rho(k))*odts*orho
+            elseif (mvd_g(k) .lt. D0r) then
+               mvd_g(k) = D0r
+               lamg = (3.0 + mu_g + 0.672) / mvd_g(k)
+               xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg(k))
+               ngten(k) = (xng-ng1d(k)*rho(k))*odts*orho
+            endif
+
+         else
+           qgten(k) = -qg1d(k)*odts
+           ngten(k) = -ng1d(k)*odts
+           qbten(k) = -qb1d(k)*odts
+         endif
+
+!..Temperature tendency
+         if (temp(k).lt.T_0) then
+          tten(k) = tten(k) &
+                    + ( lsub*ocp(k)*(pri_inu_s + pri_ide_s &
+                                     + prs_ide_s + prs_sde(k) &
+                                     + prg_gde(k) + pri_iha_s) &
+                     + lfus2*ocp(k)*(pri_wfz_s + pri_rfz_s &
+                                     + prg_rfz_s + prs_scw(k) &
+                                     + prg_scw(k) + prg_gcw(k) &
+                                     + prg_rcs_s + prs_rcs_s &
+                                     + prr_rci_s + prg_rcg_s) &
+                       )*orho * (1-IFDRY)
+         else
+          tten(k) = tten(k) &
+                    + ( lfus*ocp(k)*(-prr_sml(k) - prr_gml(k) &
+                                     - prr_rcg_s - prr_rcs_s) &
+                      + lsub*ocp(k)*(prs_sde(k) + prg_gde(k)) &
+                       )*orho * (1-IFDRY)
+         endif
+
+      enddo
+#else
       do k = kts, kte
 
 !..Rain self-collection follows Seifert, 1994 and drop break-up
@@ -3617,6 +4643,7 @@
          endif
 
       enddo
+#endif
 
 !+---+-----------------------------------------------------------------+
 !..Update variables for TAU+1 before condensation & sedimention.
