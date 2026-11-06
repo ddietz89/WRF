@@ -128,10 +128,26 @@ MODULE module_advect_em
 
 #ifdef WRF_GPU
   ! WRF_GPU_ADVFUSE=1: advect_scalar (5th-order horizontal, 3rd-order vertical) as one (i,k,j) kernel
-  LOGICAL, SAVE :: adv_fuse_init = .FALSE., adv_fuse = .FALSE.
+  ! bits: 1 advect_scalar, 2 advect_u, 4 advect_v, 8 advect_w
+  LOGICAL, SAVE :: adv_fuse_init = .FALSE.
+  INTEGER, SAVE :: adv_fuse_bits = 0
 #endif
 
 CONTAINS
+
+#ifdef WRF_GPU
+SUBROUTINE adv_fuse_get
+   CHARACTER(LEN=32) :: v
+   INTEGER :: st, ios
+   IF ( adv_fuse_init ) RETURN
+   adv_fuse_init = .TRUE.
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVFUSE', v, STATUS=st )
+   IF ( st == 0 ) THEN
+      READ ( v, *, IOSTAT=ios ) adv_fuse_bits
+      IF ( ios /= 0 ) adv_fuse_bits = 0
+   ENDIF
+END SUBROUTINE adv_fuse_get
+#endif
 
 !-------------------------------------------------------------------------------
 
@@ -190,7 +206,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    INTEGER :: i_start, i_end, j_start, j_end
    INTEGER :: i_start_f, i_end_f, j_start_f, j_end_f
    INTEGER :: jmin, jmax, jp, jm, imin, imax, im, ip
-   INTEGER :: jp1, jp0, jtmp
+   INTEGER :: jp1, jp0, jtmp, m
 
    INTEGER :: horz_order, vert_order
 
@@ -270,6 +286,174 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    vert_order = config_flags%v_mom_adv_order
 
    ktf=MIN(kte,kde-1)
+
+#ifdef WRF_GPU
+! WRF_GPU_ADVFUSE bit 2: y, x and vertical flux divergence of u in one (i,k,j) kernel - same flux expressions,
+! boundary degradation and update order (y, x, z) as the separate kernels below, no fqy3/fqx/vflux scratch
+   CALL adv_fuse_get
+   IF ( IAND(adv_fuse_bits,2) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
+        .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
+                      config_flags%open_ys .OR. config_flags%open_ye ) ) THEN
+   degrade_xs = .true.
+   degrade_xe = .true.
+   degrade_ys = .true.
+   degrade_ye = .true.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xs .or. (its > ids+3) ) degrade_xs = .false.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xe .or. (ite < ide-2) ) degrade_xe = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ys .or. (jts > jds+3) ) degrade_ys = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ye .or. (jte < jde-4) ) degrade_ye = .false.
+   ! y part: columns imin..imax, target rows j_start..j_end, faces j_start..j_end+1
+   imin = its
+   imax = ite
+   IF ( specified ) imin = MAX(ids+1,its)
+   IF ( specified ) imax = MIN(ide-1,ite)
+   IF ( config_flags%periodic_x ) imin = its
+   IF ( config_flags%periodic_x ) imax = ite
+   j_start = jts
+   j_end   = MIN(jte,jde-1)
+   j_start_f = j_start
+   j_end_f   = j_end+1
+   IF(degrade_ys) then
+     j_start = MAX(jts,jds+1)
+     j_start_f = jds+3
+   ENDIF
+   IF(degrade_ye) then
+     j_end = MIN(jte,jde-2)
+     j_end_f = jde-3
+   ENDIF
+   ! x part
+   i_start = its
+   i_end   = ite
+   i_start_f = i_start
+   i_end_f   = i_end+1
+   IF(degrade_xs) then
+     i_start = MAX(ids+1,its)
+     i_start_f = ids+3
+   ENDIF
+   IF(degrade_xe) then
+     i_end = MIN(ide-1,ite)
+     i_end_f = ide-2
+   ENDIF
+   ! vertical part: columns jmin..jmax (open_ys/open_ye are excluded above)
+   jmin = its
+   jmax = ite
+   IF ( specified ) jmin = MAX(ids+1,its)
+   IF ( specified ) jmax = MIN(ide-1,ite)
+   IF ( config_flags%periodic_x ) jmin = its
+   IF ( config_flags%periodic_x ) jmax = ite
+   jtf = MIN(jte,jde-1)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts, jtf
+   DO k = kts, ktf
+!$acc loop vector private(vel,mrdx,mrdy,ip,jp,m,ub,vb,uw,dvm,dvp)
+   DO i = its, ite
+     uw = tendency(i,k,j)
+     IF ( i >= imin .AND. i <= imax .AND. j >= j_start .AND. j <= j_end ) THEN
+       DO m = 0, 1
+         jp = j + m
+         IF( (jp >= j_start_f ) .and. (jp <= j_end_f) ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i-1,k,jp))
+           vb = vel*flux5(               &
+                  u(i,k,jp-3), u(i,k,jp-2), u(i,k,jp-1),       &
+                  u(i,k,jp  ), u(i,k,jp+1), u(i,k,jp+2),  vel )
+         ELSE IF ( jp == jds+1 ) THEN
+           vb = 0.25*(rv(i,k,jp)+rv(i-1,k,jp))  &
+                                  *(u(i,k,jp)+u(i,k,jp-1))
+         ELSE IF ( jp == jds+2 ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i-1,k,jp))
+           vb = vel*flux3(      &
+                u(i,k,jp-2),u(i,k,jp-1), u(i,k,jp),u(i,k,jp+1),vel )
+         ELSE IF ( jp == jde-1 ) THEN
+           vb = 0.25*(rv(i,k,jp)+rv(i-1,k,jp))    &
+                  *(u(i,k,jp)+u(i,k,jp-1))
+         ELSE IF ( jp == jde-2 ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i-1,k,jp))
+           vb = vel*flux3(     &
+                u(i,k,jp-2),u(i,k,jp-1),    &
+                u(i,k,jp),u(i,k,jp+1),vel )
+         ELSE
+           vb = 0.
+         ENDIF
+         IF ( m == 0 ) THEN
+           dvm = vb
+         ELSE
+           dvp = vb
+         ENDIF
+       ENDDO
+       mrdy=msfux(i,j)*rdy
+       uw = uw - mrdy*(dvp-dvm)
+     ENDIF
+     IF ( i >= i_start .AND. i <= i_end ) THEN
+       DO m = 0, 1
+         ip = i + m
+         IF ( degrade_xs .AND. i_start == ids+1 .AND. ip == ids+1 ) THEN
+           ub = u(ip-1,k,j)
+           IF (specified .AND. u(ip,k,j) .LT. 0.)ub = u(ip,k,j)
+           vb = 0.25*(ru(ip,k,j)+ru(ip-1,k,j)) &
+                  *(u(ip,k,j)+ub)
+         ELSE IF ( degrade_xs .AND. ip == ids+2 ) THEN
+           vel = 0.5*(ru(ip,k,j)+ru(ip-1,k,j))
+           vb = vel*flux3( u(ip-2,k,j), u(ip-1,k,j),  &
+                           u(ip  ,k,j), u(ip+1,k,j),  &
+                           vel                     )
+         ELSE IF ( degrade_xe .AND. i_end == ide-1 .AND. ip == ide ) THEN
+           ub = u(ip,k,j)
+           IF (specified .AND. u(ip-1,k,j) .GT. 0.)ub = u(ip-1,k,j)
+           vb = 0.25*(ru(ip,k,j)+ru(ip-1,k,j)) &
+                  *(u(ip-1,k,j)+ub)
+         ELSE IF ( degrade_xe .AND. ip == ide-1 ) THEN
+           vel = 0.5*(ru(ip,k,j)+ru(ip-1,k,j))
+           vb = vel*flux3( u(ip-2,k,j), u(ip-1,k,j),  &
+                           u(ip  ,k,j), u(ip+1,k,j),  &
+                           vel                     )
+         ELSE
+           vel = 0.5*(ru(ip,k,j)+ru(ip-1,k,j))
+           vb = vel*flux5( u(ip-3,k,j), u(ip-2,k,j),  &
+                           u(ip-1,k,j), u(ip  ,k,j),  &
+                           u(ip+1,k,j), u(ip+2,k,j),  &
+                           vel                     )
+         ENDIF
+         IF ( m == 0 ) THEN
+           dvm = vb
+         ELSE
+           dvp = vb
+         ENDIF
+       ENDDO
+       mrdx=msfux(i,j)*rdx
+       uw = uw - mrdx*(dvp-dvm)
+     ENDIF
+     IF ( i >= jmin .AND. i <= jmax ) THEN
+       DO m = 0, 1
+         jp = k + m
+         IF ( jp == kts .OR. jp > ktf ) THEN
+           vb = 0.
+         ELSE IF ( jp == kts+1 .OR. jp == ktf ) THEN
+           vb = 0.5*(rom(i,jp,j)+rom(i-1,jp,j))  &
+                  *(fzm(jp)*u(i,jp,j)+fzp(jp)*u(i,jp-1,j))
+         ELSE
+           vel = 0.5*(rom(i-1,jp,j)+rom(i,jp,j))
+           vb = vel*flux3(               &
+                  u(i,jp-2,j), u(i,jp-1,j),       &
+                  u(i,jp  ,j), u(i,jp+1,j),  -vel )
+         ENDIF
+         IF ( m == 0 ) THEN
+           dvm = vb
+         ELSE
+           dvp = vb
+         ENDIF
+       ENDDO
+       uw = uw - rdzw(k)*(dvp-dvm)
+     ENDIF
+     tendency(i,k,j) = uw
+   ENDDO
+   ENDDO
+   ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+   RETURN
+   ENDIF
+#endif
 
 !  begin with horizontal flux divergence
 
@@ -1985,6 +2169,164 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    ktf=MIN(kte,kde-1)
    horz_order = config_flags%h_mom_adv_order
    vert_order = config_flags%v_mom_adv_order
+
+#ifdef WRF_GPU
+! WRF_GPU_ADVFUSE bit 4: y, x and vertical flux divergence of v in one (i,k,j) kernel - same flux expressions,
+! boundary degradation and update order (y, x, z) as the separate kernels below, no fqy3/fqx/vflux scratch
+   CALL adv_fuse_get
+   IF ( IAND(adv_fuse_bits,4) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
+        .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
+                      config_flags%open_ys .OR. config_flags%open_ye ) ) THEN
+   degrade_xs = .true.
+   degrade_xe = .true.
+   degrade_ys = .true.
+   degrade_ye = .true.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xs .or. (its > ids+3) ) degrade_xs = .false.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xe .or. (ite < ide-3) ) degrade_xe = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ys .or. (jts > jds+3) ) degrade_ys = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ye .or. (jte < jde-3) ) degrade_ye = .false.
+   itf = MIN(ite,ide-1)
+   ! y part: target rows j_start..j_end, faces j_start..j_end+1
+   j_start = jts
+   j_end   = jte
+   j_start_f = j_start
+   j_end_f   = j_end+1
+   IF(degrade_ys) then
+     j_start = MAX(jts,jds+1)
+     j_start_f = jds+3
+   ENDIF
+   IF(degrade_ye) then
+     j_end = MIN(jte,jde-1)
+     j_end_f = jde-2
+   ENDIF
+   ! x and vertical parts: rows jmin..jmax
+   jmin = jts
+   jmax = jte
+   IF ( specified ) jmin = MAX(jds+1,jts)
+   IF ( specified ) jmax = MIN(jde-1,jte)
+   i_start = its
+   i_end   = itf
+   i_start_f = i_start
+   i_end_f   = i_end+1
+   IF(degrade_xs) then
+     i_start = MAX(ids+1,its)
+     i_start_f = MIN(i_start+2,ids+3)
+   ENDIF
+   IF(degrade_xe) then
+     i_end = MIN(ide-2,ite)
+     i_end_f = ide-3
+   ENDIF
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts, jte
+   DO k = kts, ktf
+!$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,dup,dum)
+   DO i = its, itf
+     uw = tendency(i,k,j)
+     IF ( j >= j_start .AND. j <= j_end ) THEN
+       DO jm = 0, 1
+         jp = j + jm
+         IF( (jp >= j_start_f ) .and. (jp <= j_end_f) ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i,k,jp-1))
+           ub = vel*flux5(               &
+                  v(i,k,jp-3), v(i,k,jp-2), v(i,k,jp-1),       &
+                  v(i,k,jp  ), v(i,k,jp+1), v(i,k,jp+2),  vel )
+         ELSE IF ( jp == jds+1 ) THEN
+           vb = v(i,k,jp-1)
+           IF (specified .AND. v(i,k,jp) .LT. 0.)vb = v(i,k,jp)
+           ub = 0.25*(rv(i,k,jp)+rv(i,k,jp-1))  &
+                  *(v(i,k,jp)+vb)
+         ELSE IF ( jp == jds+2 ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i,k,jp-1))
+           ub = vel*flux3(      &
+                v(i,k,jp-2),v(i,k,jp-1),v(i,k,jp),v(i,k,jp+1),vel )
+         ELSE IF ( jp == jde ) THEN
+           vb = v(i,k,jp)
+           IF (specified .AND. v(i,k,jp-1) .GT. 0.)vb = v(i,k,jp-1)
+           ub = 0.25*(rv(i,k,jp)+rv(i,k,jp-1))    &
+                  *(vb+v(i,k,jp-1))
+         ELSE IF ( jp == jde-1 ) THEN
+           vel = 0.5*(rv(i,k,jp)+rv(i,k,jp-1))
+           ub = vel*flux3(     &
+                v(i,k,jp-2),v(i,k,jp-1),v(i,k,jp),v(i,k,jp+1),vel )
+         ELSE
+           ub = 0.
+         ENDIF
+         IF ( jm == 0 ) THEN
+           dum = ub
+         ELSE
+           dup = ub
+         ENDIF
+       ENDDO
+       mrdy=msfvy(i,j)*rdy
+       uw = uw - mrdy*(dup-dum)
+     ENDIF
+     IF ( j >= jmin .AND. j <= jmax ) THEN
+       IF ( i >= i_start .AND. i <= i_end ) THEN
+         DO jm = 0, 1
+           jp = i + jm
+           IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+1 ) THEN
+             ub = 0.25*(ru(jp,k,j)+ru(jp,k,j-1)) &
+                     *(v(jp,k,j)+v(jp-1,k,j))
+           ELSE IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+2 ) THEN
+             vel = 0.5*(ru(jp,k,j)+ru(jp,k,j-1))
+             ub = vel*flux3( v(jp-2,k,j), v(jp-1,k,j),  &
+                             v(jp  ,k,j), v(jp+1,k,j),  &
+                             vel                     )
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-1 ) THEN
+             ub = 0.25*(ru(i_end+1,k,j)+ru(i_end+1,k,j-1))      &
+                     *(v(i_end+1,k,j)+v(i_end,k,j))
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-2 ) THEN
+             vel = 0.5*(ru(jp,k,j)+ru(jp,k,j-1))
+             ub = vel*flux3( v(jp-2,k,j), v(jp-1,k,j),  &
+                             v(jp  ,k,j), v(jp+1,k,j),  &
+                             vel                     )
+           ELSE
+             vel = 0.5*(ru(jp,k,j)+ru(jp,k,j-1))
+             ub = vel*flux5( v(jp-3,k,j), v(jp-2,k,j),  &
+                             v(jp-1,k,j), v(jp  ,k,j),  &
+                             v(jp+1,k,j), v(jp+2,k,j),  &
+                             vel                     )
+           ENDIF
+           IF ( jm == 0 ) THEN
+             dum = ub
+           ELSE
+             dup = ub
+           ENDIF
+         ENDDO
+         mrdx=msfvy(i,j)*rdx
+         uw = uw - mrdx*(dup-dum)
+       ENDIF
+       DO jm = 0, 1
+         jp = k + jm
+         IF ( jp == kts .OR. jp > ktf ) THEN
+           ub = 0.
+         ELSE IF ( jp == kts+1 .OR. jp == ktf ) THEN
+           ub = 0.5*(rom(i,jp,j)+rom(i,jp,j-1))  &
+                  *(fzm(jp)*v(i,jp,j)+fzp(jp)*v(i,jp-1,j))
+         ELSE
+           vel = 0.5*(rom(i,jp,j)+rom(i,jp,j-1))
+           ub = vel*flux3(               &
+                  v(i,jp-2,j), v(i,jp-1,j),       &
+                  v(i,jp  ,j), v(i,jp+1,j), -vel )
+         ENDIF
+         IF ( jm == 0 ) THEN
+           dum = ub
+         ELSE
+           dup = ub
+         ENDIF
+       ENDDO
+       uw = uw - (msfvy(i,j)/msfvx(i,j))*rdzw(k)*(dup-dum)
+     ENDIF
+     tendency(i,k,j) = uw
+   ENDDO
+   ENDDO
+   ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+   RETURN
+   ENDIF
+#endif
 
 
 !  here is the choice of flux operators
@@ -3802,12 +4144,8 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
 ! WRF_GPU_ADVFUSE=1: y, x and vertical flux divergence in one (i,k,j) kernel. Same flux expressions, boundary
 ! degradation and update order (y, then x, then z) as the three separate kernels below, with no fqy3 scratch.
-  IF ( .NOT. adv_fuse_init ) THEN
-     adv_fuse_init = .TRUE.
-     CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVFUSE', wrf_err_message )
-     adv_fuse = TRIM(wrf_err_message) == '1'
-  ENDIF
-  IF ( adv_fuse .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar .AND.        &
+  CALL adv_fuse_get
+  IF ( IAND(adv_fuse_bits,1) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar .AND.        &
        .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                      &
                config_flags%open_ys .OR. config_flags%open_ye ) ) THEN
    degrade_xs = .true.
@@ -5645,6 +5983,211 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
   ktf=MIN(kte,kde-1)
   horz_order = config_flags%h_sca_adv_order
   vert_order = config_flags%v_sca_adv_order
+
+#ifdef WRF_GPU
+! WRF_GPU_ADVFUSE bit 8: y, x and vertical flux divergence of w in one (i,k,j) kernel - same flux expressions
+! (lid-level velocity extrapolation, lid flux term), boundary degradation and update order (y, x, z) as the
+! separate kernels below, no fqy3/fqx/vflux scratch
+   CALL adv_fuse_get
+   IF ( IAND(adv_fuse_bits,8) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
+        .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
+                      config_flags%open_ys .OR. config_flags%open_ye ) ) THEN
+   degrade_xs = .true.
+   degrade_xe = .true.
+   degrade_ys = .true.
+   degrade_ye = .true.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xs .or. (its > ids+3) ) degrade_xs = .false.
+   IF( config_flags%periodic_x   .or. config_flags%symmetric_xe .or. (ite < ide-3) ) degrade_xe = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ys .or. (jts > jds+3) ) degrade_ys = .false.
+   IF( config_flags%periodic_y   .or. config_flags%symmetric_ye .or. (jte < jde-4) ) degrade_ye = .false.
+   itf = MIN(ite,ide-1)
+   jtf = MIN(jte,jde-1)
+   j_start = jts
+   j_end   = jtf
+   j_start_f = j_start
+   j_end_f   = j_end+1
+   IF(degrade_ys) then
+     j_start = MAX(jts,jds+1)
+     j_start_f = jds+3
+   ENDIF
+   IF(degrade_ye) then
+     j_end = MIN(jte,jde-2)
+     j_end_f = jde-3
+   ENDIF
+   i_start = its
+   i_end   = itf
+   i_start_f = i_start
+   i_end_f   = i_end+1
+   IF(degrade_xs) then
+     i_start = MAX(ids+1,its)
+     i_start_f = MIN(i_start+2,ids+3)
+   ENDIF
+   IF(degrade_xe) then
+     i_end = MIN(ide-2,ite)
+     i_end_f = ide-3
+   ENDIF
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts, jtf
+   DO k = kts+1, ktf+1
+!$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,vw)
+   DO i = its, itf
+     uw = tendency(i,k,j)
+     IF ( j >= j_start .AND. j <= j_end ) THEN
+       DO jm = 0, 1
+         jp = j + jm
+         IF ( k <= ktf ) THEN
+           IF( (jp >= j_start_f ) .and. (jp <= j_end_f) ) THEN
+             vel = fzm(k)*rv(i,k,jp)+fzp(k)*rv(i,k-1,jp)
+             vw = vel*flux5(                     &
+                  w(i,k,jp-3), w(i,k,jp-2), w(i,k,jp-1),       &
+                  w(i,k,jp  ), w(i,k,jp+1), w(i,k,jp+2),  vel )
+           ELSE IF ( jp == jds+1 ) THEN
+             vw = 0.5*(fzm(k)*rv(i,k,jp)+fzp(k)*rv(i,k-1,jp))*          &
+                  (w(i,k,jp)+w(i,k,jp-1))
+           ELSE IF ( jp == jds+2 ) THEN
+             vel = fzm(k)*rv(i,k,jp)+fzp(k)*rv(i,k-1,jp)
+             vw = vel*flux3(              &
+                  w(i,k,jp-2),w(i,k,jp-1),w(i,k,jp),w(i,k,jp+1),vel )
+           ELSE IF ( jp == jde-1 ) THEN
+             vw = 0.5*(fzm(k)*rv(i,k,jp)+fzp(k)*rv(i,k-1,jp))*      &
+                  (w(i,k,jp)+w(i,k,jp-1))
+           ELSE IF ( jp == jde-2 ) THEN
+             vel = fzm(k)*rv(i,k,jp)+fzp(k)*rv(i,k-1,jp)
+             vw = vel*flux3(             &
+                  w(i,k,jp-2),w(i,k,jp-1),    &
+                  w(i,k,jp),w(i,k,jp+1),vel )
+           ELSE
+             vw = 0.
+           ENDIF
+         ELSE
+           IF( (jp >= j_start_f ) .and. (jp <= j_end_f) ) THEN
+             vel = (2.-fzm(k-1))*rv(i,k-1,jp)-fzp(k-1)*rv(i,k-2,jp)
+             vw = vel*flux5(                     &
+                  w(i,k,jp-3), w(i,k,jp-2), w(i,k,jp-1),       &
+                  w(i,k,jp  ), w(i,k,jp+1), w(i,k,jp+2),  vel )
+           ELSE IF ( jp == jds+1 ) THEN
+             vw = 0.5*((2.-fzm(k-1))*rv(i,k-1,jp)-fzp(k-1)*rv(i,k-2,jp))*          &
+                  (w(i,k,jp)+w(i,k,jp-1))
+           ELSE IF ( jp == jds+2 ) THEN
+             vel = (2.-fzm(k-1))*rv(i,k-1,jp)-fzp(k-1)*rv(i,k-2,jp)
+             vw = vel*flux3(              &
+                  w(i,k,jp-2),w(i,k,jp-1),w(i,k,jp),w(i,k,jp+1),vel )
+           ELSE IF ( jp == jde-1 ) THEN
+             vw = 0.5*((2.-fzm(k-1))*rv(i,k-1,jp)-fzp(k-1)*rv(i,k-2,jp))*      &
+                  (w(i,k,jp)+w(i,k,jp-1))
+           ELSE IF ( jp == jde-2 ) THEN
+             vel = (2.-fzm(k-1))*rv(i,k-1,jp)-fzp(k-1)*rv(i,k-2,jp)
+             vw = vel*flux3(             &
+                  w(i,k,jp-2),w(i,k,jp-1),    &
+                  w(i,k,jp),w(i,k,jp+1),vel )
+           ELSE
+             vw = 0.
+           ENDIF
+         ENDIF
+         IF ( jm == 0 ) THEN
+           ub = vw
+         ELSE
+           vb = vw
+         ENDIF
+       ENDDO
+       mrdy=msftx(i,j)*rdy
+       uw = uw - mrdy*(vb-ub)
+     ENDIF
+     IF ( i >= i_start .AND. i <= i_end ) THEN
+       DO jm = 0, 1
+         jp = i + jm
+         IF ( k <= ktf ) THEN
+           IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+1 ) THEN
+             vw = 0.5*(fzm(k)*ru(jp,k,j)+fzp(k)*ru(jp,k-1,j)) &
+                  *(w(jp,k,j)+w(jp-1,k,j))
+           ELSE IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+2 ) THEN
+             vel = fzm(k)*ru(jp,k,j)+fzp(k)*ru(jp,k-1,j)
+             vw = vel*flux3( w(jp-2,k,j), w(jp-1,k,j),  &
+                             w(jp  ,k,j), w(jp+1,k,j),  &
+                             vel                     )
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-1 ) THEN
+             vw = 0.5*(fzm(k)*ru(jp,k,j)+fzp(k)*ru(jp,k-1,j))      &
+                  *(w(jp,k,j)+w(jp-1,k,j))
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-2 ) THEN
+             vel = fzm(k)*ru(jp,k,j)+fzp(k)*ru(jp,k-1,j)
+             vw = vel*flux3( w(jp-2,k,j), w(jp-1,k,j),  &
+                             w(jp  ,k,j), w(jp+1,k,j),  &
+                             vel                     )
+           ELSE
+             vel = fzm(k)*ru(jp,k,j)+fzp(k)*ru(jp,k-1,j)
+             vw = vel*flux5( w(jp-3,k,j), w(jp-2,k,j),  &
+                             w(jp-1,k,j), w(jp  ,k,j),  &
+                             w(jp+1,k,j), w(jp+2,k,j),  &
+                             vel                     )
+           ENDIF
+         ELSE
+           IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+1 ) THEN
+             vw = 0.5*((2.-fzm(k-1))*ru(jp,k-1,j)-fzp(k-1)*ru(jp,k-2,j)) &
+                  *(w(jp,k,j)+w(jp-1,k,j))
+           ELSE IF ( degrade_xs .AND. jp >= i_start .AND. jp < i_start_f .AND. jp == ids+2 ) THEN
+             vel = (2.-fzm(k-1))*ru(jp,k-1,j)-fzp(k-1)*ru(jp,k-2,j)
+             vw = vel*flux3( w(jp-2,k,j), w(jp-1,k,j),  &
+                             w(jp  ,k,j), w(jp+1,k,j),  &
+                             vel                     )
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-1 ) THEN
+             vw = 0.5*((2.-fzm(k-1))*ru(jp,k-1,j)-fzp(k-1)*ru(jp,k-2,j))      &
+                  *(w(jp,k,j)+w(jp-1,k,j))
+           ELSE IF ( degrade_xe .AND. jp > i_end_f .AND. jp <= i_end+1 .AND. jp == ide-2 ) THEN
+             vel = (2.-fzm(k-1))*ru(jp,k-1,j)-fzp(k-1)*ru(jp,k-2,j)
+             vw = vel*flux3( w(jp-2,k,j), w(jp-1,k,j),  &
+                             w(jp  ,k,j), w(jp+1,k,j),  &
+                             vel                     )
+           ELSE
+             vel = (2.-fzm(k-1))*ru(jp,k-1,j)-fzp(k-1)*ru(jp,k-2,j)
+             vw = vel*flux5( w(jp-3,k,j), w(jp-2,k,j),  &
+                             w(jp-1,k,j), w(jp  ,k,j),  &
+                             w(jp+1,k,j), w(jp+2,k,j),  &
+                             vel                     )
+           ENDIF
+         ENDIF
+         IF ( jm == 0 ) THEN
+           ub = vw
+         ELSE
+           vb = vw
+         ENDIF
+       ENDDO
+       mrdx=msftx(i,j)*rdx
+       uw = uw - mrdx*(vb-ub)
+     ENDIF
+     ! vertical: faces kts+1 and ktf+1 2nd order, 3rd order between; lid term at ktf+1
+     DO jm = 0, 1
+       jp = k + jm
+       IF ( jp == kts+1 .OR. jp == ktf+1 ) THEN
+         vw = 0.25*(rom(i,jp,j)+rom(i,jp-1,j))*(w(i,jp,j)+w(i,jp-1,j))
+       ELSE IF ( jp >= kts+2 .AND. jp <= ktf ) THEN
+         vel = 0.5*(rom(i,jp,j)+rom(i,jp-1,j))
+         vw = vel*flux3(              &
+                w(i,jp-2,j), w(i,jp-1,j),      &
+                w(i,jp  ,j), w(i,jp+1,j), -vel )
+       ELSE
+         vw = 0.
+       ENDIF
+       IF ( jm == 0 ) THEN
+         ub = vw
+       ELSE
+         vb = vw
+       ENDIF
+     ENDDO
+     IF ( k <= ktf ) THEN
+       uw = uw - rdzu(k)*(vb-ub)
+     ELSE
+       uw = uw + 2.*rdzu(k-1)*(ub)
+     ENDIF
+     tendency(i,k,j) = uw
+   ENDDO
+   ENDDO
+   ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+   RETURN
+   ENDIF
+#endif
 
 !  here is the choice of flux operators
 
