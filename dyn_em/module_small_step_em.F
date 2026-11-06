@@ -544,6 +544,9 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
   INTEGER :: i, j, k
   INTEGER :: i_start, i_end, j_start, j_end, k_start, k_end
   REAL    :: ptmp
+  REAL    :: alr, pr   ! GPU fused p/rho + pm1 (WRF_GPU_PRHOFUSE)
+  INTEGER, SAVE :: prhofuse = -1
+  CHARACTER(LEN=8) :: prv
 
 !<DESCRIPTION>
 !
@@ -570,6 +573,41 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
    k_start = kts
    k_end = min(kte,kde-1)
 
+#ifdef WRF_GPU
+   IF ( prhofuse < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PRHOFUSE', prv )
+      prhofuse = 0
+      IF ( TRIM(prv) == '1' ) prhofuse = 1
+   ENDIF
+   IF ( prhofuse == 1 .AND. non_hydrostatic .AND. wrf_gpu_on ) THEN
+! WRF_GPU_PRHOFUSE=1: al, p and the pm1 save / divergence-damping update in one kernel (same expressions)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+     DO j=j_start, j_end
+     DO k=k_start, k_end
+!$acc loop vector private(alr,pr,ptmp)
+     DO i=i_start, i_end
+      alr=-1./(c1h(k)*Mut(i,j)+c2h(k))*(alt(i,k,j)*(c1h(k)*mu(i,j))  &
+             +rdnw(k)*(ph(i,k+1,j)-ph(i,k,j)))
+      al(i,k,j)=alr
+      pr=c2a(i,k,j)*(alt(i,k,j)*(t_2(i,k,j)-(c1h(k)*mu(i,j))*t_1(i,k,j))  &
+                       /((c1h(k)*Mut(i,j)+c2h(k))*(t0+t_1(i,k,j)))-alr)
+      IF (step == 0) THEN
+        p(i,k,j) = pr
+        pm1(i,k,j) = pr
+      ELSE
+        ptmp = pr
+        p(i,k,j) = pr + smdiv*(pr-pm1(i,k,j))
+        pm1(i,k,j) = ptmp
+      ENDIF
+     ENDDO
+     ENDDO
+     ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait
+      ENDIF
+     RETURN
+   ENDIF
+#endif
    IF (non_hydrostatic) THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
      DO j=j_start, j_end
