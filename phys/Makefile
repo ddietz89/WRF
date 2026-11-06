@@ -439,10 +439,14 @@ include ../configure.wrf
 # (Noah 21.7 -> 8.3 ms/step, Thompson 11.1 -> 9.2 ms; bit-identical results). RRTMG LW/SW: with 64 registers all
 # columns fit one wave of a 32 GB V100, launched as one chunk (WRF_GPU_RACHUNK default 131072): 0.89 -> 0.76 s/call
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
-GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_noahdrv.o module_mp_thompson.o \
-                 module_mp_radar.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o \
+GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_noahdrv.o \
+                 module_mp_radar.o \
                  module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o
 $(GPU_REG64_OBJS): FCFLAGS += -gpu=maxregcount:64
+THOMPSON_REGCAP ?= 128
+module_mp_thompson.o: FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
+COLPHYS_REGCAP ?= 128
+module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
 endif
 
 non_nmm : $(MODULES) $(FIRE_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM) $(NOAHMP_MODULES)
