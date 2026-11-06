@@ -1,4 +1,4 @@
-OBJSL   = c_code.o buf_for_proc.o rsl_malloc.o rsl_bcast.o task_for_point.o period.o swap.o cycle.o f_pack.o f_xpose.o
+OBJSL   = c_code.o buf_for_proc.o rsl_p2p.o rsl_malloc.o rsl_bcast.o task_for_point.o period.o swap.o cycle.o f_pack.o f_xpose.o
 OBJS    = $(OBJSL)
 OPTS    = $(PLUSFLAG)
 FFLAGS  =  $(OPTS)
@@ -30,6 +30,9 @@ all : librsl_lite.a
 librsl_lite.a:          $(OBJS)
 			/bin/rm -f librsl_lite.a
 			$(AR) cr librsl_lite.a $(OBJSL)
+
+rsl_p2p.o:	        rsl_p2p.c
+			$(CC) $(CFLAGS) -c rsl_p2p.c
 
 c_code.o:	        c_code.c
 			$(CC) $(CFLAGS) -c c_code.c

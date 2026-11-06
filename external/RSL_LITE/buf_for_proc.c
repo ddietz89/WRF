@@ -77,6 +77,7 @@ static void rsl_pin ( char * p, int n, int on ) {
   else rsl_cu_unreg( p ) ;
 }
 #include "rsl_lite.h"
+int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
 #ifndef STUBMPI
 #  include "mpi.h"
 #endif
@@ -140,7 +141,8 @@ buffer_for_proc( P, size, code )
   {
 /* fprintf(stderr,"buffer_for_proc freeing buffer %d\n",P) ; */
     { int c_ ; for ( c_ = 0 ; c_ < 2 ; c_++ ) if ( buftab[c_][P].buf != NULL ) {
-        long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; rsl_pin( buftab[c_][P].buf, n_, 0 ) ; } }
+        long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ;
+        if ( !( c_ == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[c_][P].buf, n_, 0 ) ) ) RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; rsl_pin( buftab[c_][P].buf, n_, 0 ) ; } }
     if ( buftab[0][P].buf != NULL ) RSL_FREE( buftab[0][P].buf ) ;
     if ( buftab[1][P].buf != NULL ) RSL_FREE( buftab[1][P].buf ) ;
     buftab[0][P].buf  = NULL ;    
@@ -159,13 +161,15 @@ fprintf(stderr,"buffer_for_proc %s %d : was %d, increasing to %d\n",
 	 P,buftab[code][P].size, size+512) ;
 #endif
       if ( buftab[code][P].buf != NULL ) {
+        if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, buftab[code][P].size, 0 ) ) )
         { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
         rsl_pin( buftab[code][P].buf, buftab[code][P].size, 0 ) ;
         RSL_FREE( buftab[code][P].buf ) ;
       }
       buftab[code][P].buf = RSL_MALLOC(char,size+512) ;
       buftab[code][P].size = size+512 ;
-      { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 1 ; rsl_pin( buftab[code][P].buf, n_, 1 ) ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
+      { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 1 ; rsl_pin( buftab[code][P].buf, n_, 1 ) ;
+        if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, n_, 1 ) ) ) RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
 /* show_tot_size() ; */
     }
     ret = buftab[code][P].buf ;

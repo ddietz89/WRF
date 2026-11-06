@@ -217,15 +217,23 @@ void TASK_FOR_POINT_MESSAGE();
 # define RSL_GPU_BUF_MAP rsl_gpu_buf_map
 # define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush
 # define RSL_GPU_RECV_PUSH rsl_gpu_recv_push
+# define RSL_GPU_SEG_DRAIN rsl_gpu_seg_drain
+# define RSL_GPU_SEG_CLEAR rsl_gpu_seg_clear
 #elif defined(F2CSTYLE)
 # define RSL_GPU_BUF_MAP rsl_gpu_buf_map__
 # define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush__
 # define RSL_GPU_RECV_PUSH rsl_gpu_recv_push__
+# define RSL_GPU_SEG_DRAIN rsl_gpu_seg_drain__
+# define RSL_GPU_SEG_CLEAR rsl_gpu_seg_clear__
 #else
 # define RSL_GPU_BUF_MAP rsl_gpu_buf_map_
 # define RSL_GPU_SEND_FLUSH rsl_gpu_send_flush_
 # define RSL_GPU_RECV_PUSH rsl_gpu_recv_push_
+# define RSL_GPU_SEG_DRAIN rsl_gpu_seg_drain_
+# define RSL_GPU_SEG_CLEAR rsl_gpu_seg_clear_
 #endif
 void RSL_GPU_BUF_MAP ( long long * addr, int * nbytes, int * onoff ) ;
 void RSL_GPU_SEND_FLUSH ( void ) ;
 void RSL_GPU_RECV_PUSH ( long long * addr, int * nbytes ) ;
+void RSL_GPU_SEG_DRAIN ( long long * nbytes ) ;
+void RSL_GPU_SEG_CLEAR ( void ) ;

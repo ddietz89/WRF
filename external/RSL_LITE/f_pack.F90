@@ -100,6 +100,25 @@
         rsl_gpu_q = -1
 #endif
       END FUNCTION rsl_gpu_q
+      ! P2P path: finish the queued device packs, return the device-packed byte count (segments kept)
+      SUBROUTINE rsl_gpu_seg_drain ( nbytes )
+        USE rsl_gpu_ctl
+        IMPLICIT NONE
+        INTEGER*8 nbytes
+        INTEGER n
+        nbytes = 0
+#if defined(_OPENACC) || defined(WRF_GPU)
+        IF ( rsl_gpu_nseg == 0 ) RETURN
+!$acc wait(1)
+        DO n = 1, rsl_gpu_nseg
+          nbytes = nbytes + rsl_gpu_seg_n(n)
+        ENDDO
+#endif
+      END SUBROUTINE rsl_gpu_seg_drain
+      SUBROUTINE rsl_gpu_seg_clear ()
+        USE rsl_gpu_ctl
+        rsl_gpu_nseg = 0
+      END SUBROUTINE rsl_gpu_seg_clear
       ! before MPI send: finish the queued device packs and copy the packed segments to the host
       SUBROUTINE rsl_gpu_send_flush ()
         USE iso_c_binding
