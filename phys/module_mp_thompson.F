@@ -421,7 +421,7 @@
 
 #ifdef WRF_GPU
 !.. GPU port: device copies of all module variables (filled at the end of thompson_init)
-      INTEGER, PARAMETER:: KTGPU = 40   ! max vertical levels (kte) of the device column routine (local memory ~ KTGPU)
+      INTEGER, PARAMETER:: KTGPU = 34   ! max vertical levels (kte) of the device column routine (local memory ~ KTGPU)
 !$acc declare create(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
 !$acc declare create(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
 !$acc declare create(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
