@@ -723,6 +723,38 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
       k_end   = kte-1
       lid_flag=1
       IF(top_lid)lid_flag=0
+#ifdef WRF_GPU_RESIDENT
+      ! GPU: one column per thread (was one gang per row: 190-500 blocks, 156 registers, 16% occupancy); cof is the
+      ! same for every column, and a(k) is assembled in the recurrence pass. Same expressions as the row version.
+      BLOCK
+      REAL :: cofs, b, c
+!$acc parallel loop gang vector collapse(2) private(b,c,cofs) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = j_start, j_end
+      DO i = i_start, i_end
+        cofs = (.5*dts*g*(1.+epssm))**2
+        a(i, 2 ,j) = 0.
+        a(i,kde,j) =-2.*cofs*rdnw(kde-1)**2*c2a(i,kde-1,j)*lid_flag/((c1h(kde-1)*MUT(i,j)+c2h(kde-1))*(c1f(kde-1)*MUT(i,j)+c2f(kde-1)))   ! GPU: k=kde-1 inlined
+        gamma(i,1 ,j) = 0.
+        DO k=2,kde-1
+          IF ( k >= 3 ) THEN
+            kk = k
+            a(i,kk,j) =   -cqw(i,kk,j)*cofs*rdn(kk)* rdnw(kk-1)*c2a(i,kk-1,j)/((c1h(kk-1)*MUT(i,j)+c2h(kk-1))*(c1f(kk-1)*MUT(i,j)+c2f(kk-1)))   ! GPU: k=kk-1 inlined
+          ENDIF
+          b = 1.+cqw(i,k,j)*cofs*rdn(k)*(rdnw(k  )*c2a(i,k,  j)/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k)*MUT(i,j)+c2f(k)))  &
+                                          +rdnw(k-1)*c2a(i,k-1,j)/((c1h(k-1)*MUT(i,j)+c2h(k-1))*(c1f(k)*MUT(i,j)+c2f(k))) )
+          c =   -cqw(i,k,j)*cofs*rdn(k)*rdnw(k  )*c2a(i,k,j  )/((c1h(k)*MUT(i,j)+c2h(k))*(c1f(k+1)*MUT(i,j)+c2f(k+1)))
+          alpha(i,k,j) = 1./(b-a(i,k,j)*gamma(i,k-1,j))
+          gamma(i,k,j) = c*alpha(i,k,j)
+        ENDDO
+        b = 1.+2.*cofs*rdnw(kde-1)**2*c2a(i,kde-1,j)/((c1h(kde-1)*MUT(i,j)+c2h(kde-1))*(c1f(kde)*MUT(i,j)+c2f(kde)))   ! GPU: k=kde inlined
+        c = 0.
+        alpha(i,kde,j) = 1./(b-a(i,kde,j)*gamma(i,kde-1,j))
+        gamma(i,kde,j) = c*alpha(i,kde,j)
+      ENDDO
+      ENDDO
+      END BLOCK
+      IF ( .FALSE. ) THEN   ! row-gang version (host build)
+#endif
 !$acc parallel loop gang private(cof) async(wrf_gpu_q) if(wrf_gpu_on)
      outer_j_loop:  DO j = j_start, j_end
         k = kde-1
@@ -761,6 +793,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
           gamma(i,kde,j) = c*alpha(i,kde,j)
         ENDDO
       ENDDO outer_j_loop
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -1793,6 +1828,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       BLOCK
       INTEGER :: cfg_damp_opt
       INTEGER :: cfg_phi_adv_z
+      REAL :: wk, wprev, wnext
       cfg_damp_opt = config_flags%damp_opt
       cfg_phi_adv_z = config_flags%phi_adv_z
 !$acc parallel loop gang vector collapse(2) private(rhsc,wdwnc) async(wrf_gpu_q)
@@ -1840,8 +1876,11 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
      *(cf1*u(i+1,1,j)+cf2*u(i+1,2,j)+cf3*u(i+1,3,j))    &
                      +(ht(i,j  )-ht(i-1,j))             &
      *(cf1*u(i  ,1,j)+cf2*u(i  ,2,j)+cf3*u(i  ,3,j))  )
+    ! GPU: the rhs assembly and the forward sweep share one pass over the column (was two passes over w);
+    ! element arithmetic unchanged
+    wprev = w(i,1,j)
     DO k=2,k_end
-        w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
+        wk=w(i,k,j)+dts*rw_tend(i,k,j)                       &
                  + msfti*cqw(i,k,j)*(                              &
             +.5*dts*g*rdn(k)*                                      &
              (c2a(i,k  ,j)*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))                         &
@@ -1854,9 +1893,12 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
              (c2a(i,k  ,j)*alt(i,k  ,j)*t_2ave(i,k  ,j)            &
              -c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j))           &
               - (c1f(k)*muave(i,j)))
+        wk=(wk-a(i,k,j)*wprev)*alpha(i,k,j)
+        w(i,k,j)=wk
+        wprev=wk
     ENDDO
     k=k_end+1
-       w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                         &
+       wk=w(i,k,j)+dts*rw_tend(i,k,j)                         &
            +msfti*(                                              &
          -.5*dts*g/(c1h(k-1)*MUT(i,j)+c2h(k-1))*rdnw(k-1)**2*2.*c2a(i,k-1,j)            &
              *((1.+epssm)*(rhsc(k  )-rhsc(k-1  ))                   &
@@ -1864,15 +1906,20 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
          -dts*g*(2.*rdnw(k-1)*                                      &
                    c2a(i,k-1,j)*alt(i,k-1,j)*t_2ave(i,k-1,j)        &
               + (c1f(k)*muave(i,j))) )
-       if(top_lid)w(i,k,j) = 0.
-    DO k=2,k_end+1
-       w(i,k,j)=(w(i,k,j)-a(i,k,j)*w(i,k-1,j))*alpha(i,k,j)
-    ENDDO
-    DO k=k_end,2,-1
-       w (i,k,j)=w (i,k,j)-gamma(i,k,j)*w(i,k+1,j)
-    ENDDO
-    IF (cfg_damp_opt .eq. 3) THEN
-      DO k=k_end+1,2,-1
+       if(top_lid)wk = 0.
+       wk=(wk-a(i,k,j)*wprev)*alpha(i,k,j)
+       w(i,k,j)=wk
+    ! GPU: back substitution, damping and the ph update in one downward pass (was three passes over w);
+    ! the sweep uses the undamped w(k+1) as before
+    wnext = w(i,k_end+1,j)
+    DO k=k_end+1,2,-1
+       IF ( k <= k_end ) THEN
+          wk = w(i,k,j)-gamma(i,k,j)*wnext
+       ELSE
+          wk = w(i,k,j)
+       ENDIF
+       wnext = wk
+       IF (cfg_damp_opt .eq. 3) THEN
           htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
           hk=(ph_1(i,k,j)+phb(i,k,j))/g
           hbot=htop-hdepth
@@ -1880,12 +1927,11 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
           if(hk .ge. hbot)then
             dampk = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
           endif
-          w(i,k,j) = (w(i,k,j) - dampk*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampk)
-      ENDDO
-    ENDIF
-    DO k=k_end+1,2,-1
+          wk = (wk - dampk*(c1f(k)*mut(i,j)+c2f(k))*w_save(i,k,j))/(1.+dampk)
+       ENDIF
+       w(i,k,j) = wk
        ph(i,k,j) = rhsc(k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
-                      *w(i,k,j)/(c1f(k)*muts(i,j)+c2f(k))
+                      *wk/(c1f(k)*muts(i,j)+c2f(k))
     ENDDO
   ENDDO
   ENDDO
