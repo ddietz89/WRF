@@ -424,6 +424,9 @@
       INTEGER, PARAMETER:: KTGPU = 34   ! max vertical levels (kte) of the device column routine (local memory ~ KTGPU)
       INTEGER:: th_probe = 0   ! WRF_GPU_THPROBE=N (timing only, results invalid): return after phase N of mp_thompson
 !$acc declare create(th_probe)
+      ! set by solve_em before each microphysics call (WRF_GPU_RELAZY, default on): the effective radii are not needed
+      ! from this call - no radiation within the next two step starts, no restart write, no solar diagnostics
+      LOGICAL:: mp_re_skip = .FALSE.
 !$acc declare create(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
 !$acc declare create(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
 !$acc declare create(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
@@ -1300,7 +1303,7 @@
       IF ( PRESENT(diagflag) .AND. PRESENT(do_radar_ref) ) gpu_do_refl = diagflag .AND. do_radar_ref == 1
       kediagloc = kte
       IF ( PRESENT(ke_diag) ) kediagloc = ke_diag
-      gpu_do_re = has_reqc.ne.0 .and. has_reqi.ne.0 .and. has_reqs.ne.0
+      gpu_do_re = has_reqc.ne.0 .and. has_reqi.ne.0 .and. has_reqs.ne.0 .and. .not. mp_re_skip
       gpu_aer = 0 ; IF ( PRESENT(aer_init_opt) ) gpu_aer = aer_init_opt
       gpu_wif = 0 ; IF ( PRESENT(wif_input_opt) ) gpu_wif = wif_input_opt
       IF ( mp_compact < 0 ) THEN

@@ -99,6 +99,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_diffusion_em
    USE module_polarfft
    USE module_microphysics_driver
+#ifdef WRF_GPU
+   USE module_mp_thompson, ONLY : mp_re_skip
+#endif
    USE module_microphysics_zero_out
 !   USE module_lightning_driver, ONLY : lightning_driver
    USE module_fddaobs_driver
@@ -308,6 +311,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL :: f_flux  ! flag for computing averaged fluxes in cu_gd
    REAL    :: curr_secs, curr_secs2, curr_mins2
    REAL(8) :: curr_secs_r8, curr_secs2_r8
+#ifdef WRF_GPU
+   INTEGER, SAVE :: relazy_on = -1
+   CHARACTER(8) :: relazy_v
+   LOGICAL :: rad_soon, rst_soon
+#endif
    INTEGER :: num_sound_steps
    INTEGER :: idex, jdex
    REAL    :: max_msft
@@ -4782,6 +4790,32 @@ BENCH_START(micro_driver_tim)
 !     CALL wrf_debug ( 0 , wrf_err_message )
 #ifdef DM_PARALLEL
 #      include "HALO_EM_SBM.inc"
+#endif
+#ifdef WRF_GPU
+     ! WRF_GPU_RELAZY (default 1): Thompson's effective radii (re_cloud/re_ice/re_snow) are read only by radiation,
+     ! restart output and solar diagnostics; skip them unless radiation can run at one of the next two step starts
+     ! (same tests as radiation_driver's run_param, one step of margin) or a restart write is that close
+     IF ( relazy_on < 0 ) THEN
+        CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_RELAZY', relazy_v )
+        relazy_on = 1 ; IF ( relazy_v(1:1) == '0' ) relazy_on = 0
+     ENDIF
+     mp_re_skip = .FALSE.
+     IF ( relazy_on == 1 .AND. grid%itimestep > 1 .AND. config_flags%mp_physics == THOMPSON .AND.            &
+          config_flags%solar_diagnostics == 0 ) THEN
+        rad_soon = ( config_flags%radt == 0. ) .OR. ( grid%stepra == 1 )
+        IF ( .NOT. rad_soon ) THEN
+           IF ( config_flags%use_adaptive_time_step ) THEN
+              rad_soon = curr_secs + 2.*grid%dt .GE. grid%radtacttime
+           ELSE
+              rad_soon = MOD( grid%itimestep+1, grid%stepra ) .EQ. 1 + grid%ra_call_offset .OR.                &
+                         MOD( grid%itimestep+2, grid%stepra ) .EQ. 1 + grid%ra_call_offset
+           ENDIF
+        ENDIF
+        rst_soon = .TRUE.
+        IF ( config_flags%restart_interval > 0 ) rst_soon =                                                   &
+           MOD( curr_secs + 2.*grid%dt, REAL(config_flags%restart_interval)*60. ) < 3.*grid%dt
+        mp_re_skip = .NOT. ( rad_soon .OR. rst_soon )
+     ENDIF
 #endif
 
 
