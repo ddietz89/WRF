@@ -1348,10 +1348,10 @@ CONTAINS
 
 ! Fill the atmospheric w field with smoothly decaying values
       IF (fill_w_flag) THEN
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = jts,min(jte,jde-1)
-!$acc loop vector collapse(2)
         DO k = kts+1,kte
+!$acc loop vector 
         DO i = its,min(ite,ide-1)
           w(i,k,j) = w(i,1,j)*znw(k)*znw(k)
         ENDDO

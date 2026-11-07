@@ -59,6 +59,15 @@ $(LIBTARGET) :  $(MODULES) $(OBJS)
 
 include ../configure.wrf
 
+# BSU_REGCAP: register cap for the big-step utilities kernels (ncu 2026-11-07: horizontal_pressure_gradient 138-158
+# registers, horizontal_diffusion 156-168, calc_ww_cp 136, rhs_ph 102-139, all at ~16% occupancy). 0 = none.
+BSU_REGCAP ?= 0
+ifneq ($(BSU_REGCAP),0)
+ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
+module_big_step_utilities_em.o: FCFLAGS += -gpu=maxregcount:$(BSU_REGCAP)
+endif
+endif
+
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
 
