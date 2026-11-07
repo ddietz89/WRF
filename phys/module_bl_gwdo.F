@@ -275,12 +275,81 @@
  integer:: i,j,k
  real(kind=kind_phys),dimension(1,KTG_GWD+1):: uc,vc,tc,qc,pc,pic,zc,p8c,rub,rvb,dtx,dty
  real(kind=kind_phys),dimension(1):: dxc,varc,occ,sinc,cosc,oa1c,oa2c,oa3c,oa4c,ol1c,ol2c,ol3c,ol4c,omc,dusc,dvsc
-!$acc parallel loop gang vector collapse(2) private(uc,vc,tc,qc,pc,pic,zc,p8c,rub,rvb,dtx,dty) &
+ ! WRF_GPU_GWCOMPACT=1 (default 0: measured no gain on big1000, bit-identical): column list with the orographic columns first (var2d > 0 and elvmax > hmt_min,
+ ! the scheme's static ldrag conditions); flat/ocean columns take the scheme's no-drag path. Per-column arithmetic
+ ! unchanged (bit-identical).
+ integer, save :: gw_compact = -1
+ integer, allocatable, save :: gw_li(:), gw_lj(:), gw_flag(:,:), gw_nact(:), gw_offa(:), gw_offi(:)
+ integer :: nx_, ny_, ncol_, n_, jj_, cnt_, act_, pa_, pi_, tot_, st_
+ character(len=8) :: cv_
+      IF ( gw_compact < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_GWCOMPACT', cv_, STATUS=st_ )
+         gw_compact = 0
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) gw_compact
+         IF ( st_ /= 0 ) gw_compact = 0
+      ENDIF
+      nx_ = ite - its + 1 ; ny_ = jte - jts + 1 ; ncol_ = nx_*ny_
+      IF ( ALLOCATED(gw_li) ) THEN
+         IF ( SIZE(gw_li) /= ncol_ .OR. SIZE(gw_nact) /= ny_ .OR. SIZE(gw_flag,1) /= nx_ ) THEN
+!$acc exit data delete(gw_li, gw_lj, gw_flag, gw_nact, gw_offa, gw_offi)
+            DEALLOCATE( gw_li, gw_lj, gw_flag, gw_nact, gw_offa, gw_offi )
+         ENDIF
+      ENDIF
+      IF ( .NOT. ALLOCATED(gw_li) ) THEN
+         ALLOCATE( gw_li(ncol_), gw_lj(ncol_), gw_flag(nx_,ny_), gw_nact(ny_), gw_offa(ny_), gw_offi(ny_) )
+!$acc enter data create(gw_li, gw_lj, gw_flag, gw_nact, gw_offa, gw_offi)
+      ENDIF
+      IF ( gw_compact == 1 ) THEN
+!$acc parallel loop gang present(gw_flag, gw_nact, var2d, elvmax)
+         do j = jts, jte
+            cnt_ = 0
+!$acc loop vector reduction(+:cnt_) private(act_)
+            do i = its, ite
+               act_ = 0
+               if ( var2d(i,j) .gt. 0. .and. elvmax(i,j) .gt. 50. ) act_ = 1
+               gw_flag(i-its+1, j-jts+1) = act_
+               cnt_ = cnt_ + act_
+            enddo
+            gw_nact(j-jts+1) = cnt_
+         enddo
+!$acc parallel num_gangs(1) num_workers(1) vector_length(1) present(gw_nact, gw_offa, gw_offi)
+         tot_ = 0
+!$acc loop seq
+         do jj_ = 1, ny_
+            gw_offa(jj_) = tot_ ; tot_ = tot_ + gw_nact(jj_)
+         enddo
+!$acc loop seq
+         do jj_ = 1, ny_
+            gw_offi(jj_) = tot_ ; tot_ = tot_ + nx_ - gw_nact(jj_)
+         enddo
+!$acc end parallel
+!$acc parallel loop gang vector_length(1) present(gw_flag, gw_offa, gw_offi, gw_li, gw_lj) private(pa_, pi_)
+         do j = jts, jte
+            pa_ = gw_offa(j-jts+1) ; pi_ = gw_offi(j-jts+1)
+!$acc loop seq
+            do i = its, ite
+               if ( gw_flag(i-its+1, j-jts+1) == 1 ) then
+                  pa_ = pa_ + 1 ; gw_li(pa_) = i ; gw_lj(pa_) = j
+               else
+                  pi_ = pi_ + 1 ; gw_li(pi_) = i ; gw_lj(pi_) = j
+               endif
+            enddo
+         enddo
+      ELSE
+!$acc parallel loop gang present(gw_li, gw_lj)
+         do j = jts, jte
+!$acc loop vector
+         do i = its, ite
+            gw_li((j-jts)*nx_ + i-its+1) = i ; gw_lj((j-jts)*nx_ + i-its+1) = j
+         enddo
+         enddo
+      ENDIF
+!$acc parallel loop gang vector private(uc,vc,tc,qc,pc,pic,zc,p8c,rub,rvb,dtx,dty) &
 !$acc private(dxc,varc,occ,sinc,cosc,oa1c,oa2c,oa3c,oa4c,ol1c,ol2c,ol3c,ol4c,omc,dusc,dvsc) &
 !$acc present(u3d,v3d,t3d,qv3d,p3d,p3di,pi3d,z,rublten,rvblten,dtaux3d,dtauy3d,dusfcg,dvsfcg) &
-!$acc present(var2d,oc12d,oa2d1,oa2d2,oa2d3,oa2d4,ol2d1,ol2d2,ol2d3,ol2d4,elvmax,sina,cosa,dx)
- do j = jts,jte
- do i = its,ite
+!$acc present(var2d,oc12d,oa2d1,oa2d2,oa2d3,oa2d4,ol2d1,ol2d2,ol2d3,ol2d4,elvmax,sina,cosa,dx,gw_li,gw_lj)
+ do n_ = 1, ncol_
+    i = gw_li(n_) ; j = gw_lj(n_)
     do k = kts,kte
        uc(1,k)  = u3d(i,k,j)
        vc(1,k)  = v3d(i,k,j)
@@ -327,7 +396,6 @@
     enddo
     dusfcg(i,j) = dusc(1)
     dvsfcg(i,j) = dvsc(1)
- enddo
  enddo
  end subroutine gwdo_gpu
 #endif
