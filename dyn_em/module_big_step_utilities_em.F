@@ -1013,6 +1013,8 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
    REAL :: qtot(its:ite)
 #endif
       REAL :: qt_   ! GPU: per-point species sum
+      REAL :: qu_, qv_, qw_
+      INTEGER :: itfu, jtfu, itfv, jtfv, itfw, jtfw
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
 #ifdef WRF_GPU
@@ -1048,7 +1050,32 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 !</DESCRIPTION>
 
       ktf=MIN(kte,kde-1)
-
+#ifdef WRF_GPU
+      ! GPU: cqu, cqv and cqw in one pass over the moist species (each was its own kernel re-reading all of
+      ! them); same per-point sums in the same species order, same ranges
+      IF ( wrf_gpu_on .AND. n_moist >= PARAM_FIRST_SCALAR ) THEN
+        itfu = ite ; jtfu = MIN(jte,jde-1)
+        itfv = MIN(ite,ide-1) ; jtfv = jte
+        itfw = MIN(ite,ide-1) ; jtfw = MIN(jte,jde-1)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+        DO j=jts,jte
+          DO k=kts,ktf
+!$acc loop vector private(qu_,qv_,qw_)
+            DO i=its,ite
+              qu_ = 0. ; qv_ = 0. ; qw_ = 0.
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                qu_ = qu_ + moist(i,k,j,ispe) + moist(i-1,k,j,ispe)
+                qv_ = qv_ + moist(i,k,j,ispe) + moist(i,k,j-1,ispe)
+                IF ( k > kts ) qw_ = qw_ + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
+              ENDDO
+              IF ( j <= jtfu ) cqu(i,k,j) = 1./(1.+0.5*qu_)
+              IF ( i <= itfv .AND. j <= jtfv ) cqv(i,k,j) = 1./(1.+0.5*qv_)
+              IF ( k > kts .AND. i <= itfw .AND. j <= jtfw ) cqw(i,k,j) = 0.5*qw_
+            ENDDO
+          ENDDO
+        ENDDO
+      ELSE
+#endif
       IF(  n_moist >= PARAM_FIRST_SCALAR ) THEN
 
         itf=ite
@@ -1138,6 +1165,9 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         ENDDO
 
       END IF
+#ifdef WRF_GPU
+      ENDIF
+#endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
