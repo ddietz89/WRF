@@ -2358,6 +2358,10 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 
   REAL, INTENT(IN   )  ::  epssm
   INTEGER   :: i,j,k
+#ifdef WRF_GPU
+  REAL :: a_u, a_v, a_w
+  LOGICAL :: in_u, in_v, in_w, first_, last_
+#endif
 
 
 !<DESCRIPTION>
@@ -2366,6 +2370,72 @@ SUBROUTINE sumflux ( ru, rv, ww,                             &
 !  are needed for consistent mass-conserving scalar advection.
 !
 !</DESCRIPTION>
+
+#ifdef WRF_GPU
+  IF ( wrf_gpu_on ) THEN
+  ! GPU: one kernel per call - the iteration-1 zeroing, the accumulation (with its i/j/k edge strips) and the
+  ! last-iteration average in registers; same operations in the same order as the separate loops below
+  mini = min(ide-1,ite)
+  minj = min(jde-1,jte)
+  mink = min(kde-1,kte)
+  first_ = iteration == 1
+  last_ = iteration == number_of_small_timesteps
+!$acc parallel loop gang collapse(2) private(a_u,a_v,a_w,in_u,in_v,in_w) async(wrf_gpu_q)
+  DO j = jts, jte
+  DO k = kts, kte
+!$acc loop vector
+  DO i = its, ite
+    in_u = j <= minj .AND. k <= mink
+    in_v = i <= mini .AND. k <= mink
+    in_w = i <= mini .AND. j <= minj
+    IF ( first_ .OR. in_u ) THEN
+      IF ( first_ ) THEN
+        a_u = 0.
+      ELSE
+        a_u = ru_m(i,k,j)
+      ENDIF
+      IF ( in_u ) THEN
+        a_u = a_u + ru(i,k,j)
+        IF ( last_ ) a_u = a_u / number_of_small_timesteps   &
+                     + (c1h(k)*muu(i,j)+c2h(k))*u_lin(i,k,j)/msfuy(i,j)
+      ENDIF
+      ru_m(i,k,j) = a_u
+    ENDIF
+    IF ( first_ .OR. in_v ) THEN
+      IF ( first_ ) THEN
+        a_v = 0.
+      ELSE
+        a_v = rv_m(i,k,j)
+      ENDIF
+      IF ( in_v ) THEN
+        a_v = a_v + rv(i,k,j)
+        IF ( last_ ) a_v = a_v / number_of_small_timesteps   &
+                     + (c1h(k)*muv(i,j)+c2h(k))*v_lin(i,k,j)*msfvx_inv(i,j)
+      ENDIF
+      rv_m(i,k,j) = a_v
+    ENDIF
+    IF ( first_ .OR. in_w ) THEN
+      IF ( first_ ) THEN
+        a_w = 0.
+      ELSE
+        a_w = ww_m(i,k,j)
+      ENDIF
+      IF ( in_w ) THEN
+        a_w = a_w + ww(i,k,j)
+        IF ( last_ ) a_w = a_w / number_of_small_timesteps   &
+                     + ww_lin(i,k,j)
+      ENDIF
+      ww_m(i,k,j) = a_w
+    ENDIF
+  ENDDO
+  ENDDO
+  ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait(1)
+      ENDIF
+  RETURN
+  ENDIF
+#endif
 
     IF (iteration == 1 )THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
