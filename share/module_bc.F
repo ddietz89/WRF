@@ -701,6 +701,8 @@ CONTAINS
                   i_start, i_end
 
       LOGICAL  :: debug, open_bc_copy
+      LOGICAL  :: bc_xfused, bc_ustag
+      INTEGER  :: jlo1, jhi1, jlo2, jhi2
 #ifdef WRF_GPU_RESIDENT
       INTEGER(8), SAVE :: np_seen(60) = 0
       INTEGER, SAVE :: np_n = 0
@@ -739,6 +741,7 @@ CONTAINS
       debug = .false.
 
       open_bc_copy = .false.
+      bc_xfused = .false.
 
       variable = variable_in
       IF ( variable_in .ge. 'A' .and. variable_in .le. 'Z' ) THEN
@@ -913,10 +916,42 @@ CONTAINS
 
 !  set open b.c in X copy into boundary zone here.  WCS, 19 March 2000
 
+#ifdef WRF_GPU
+        ! GPU: west and east copies of the specified/nested case in one launch (pure copies, same values);
+        ! the separate kernels below stay for the host and for the other cases
+        IF ( bc_on .AND. ( config_flags%specified .OR. config_flags%nested ) .AND. open_bc_copy .AND.   &
+             its == ids .AND. ite == ide .AND. .NOT. config_flags%periodic_x .AND.                    &
+             .NOT. config_flags%symmetric_xs .AND. .NOT. config_flags%symmetric_xe ) THEN
+          bc_xfused = .TRUE.
+          jlo1 = jts-bdyzone ; jhi1 = MIN(jte,jde+jstag)+bdyzone
+          jlo2 = MAX(jds,jts-1)-bdyzone ; jhi2 = MIN(jte+1,jde+jstag)+bdyzone
+          bc_ustag = ( variable == 'u' .or. variable == 'x' )
+!$acc parallel loop collapse(2) async(wrf_gpu_q)
+            DO j = MIN(jlo1,jlo2), MAX(jhi1,jhi2)
+            DO k = kts, k_end
+              IF ( j >= jlo1 .AND. j <= jhi1 ) THEN
+                dat(ids-1,k,j) = dat(ids,k,j)
+                dat(ids-2,k,j) = dat(ids,k,j)
+                dat(ids-3,k,j) = dat(ids,k,j)
+                IF ( .NOT. bc_ustag ) THEN
+                  dat(ide  ,k,j) = dat(ide-1,k,j)
+                  dat(ide+1,k,j) = dat(ide-1,k,j)
+                  dat(ide+2,k,j) = dat(ide-1,k,j)
+                ENDIF
+              ENDIF
+              IF ( bc_ustag .AND. j >= jlo2 .AND. j <= jhi2 ) THEN
+                dat(ide+1,k,j) = dat(ide,k,j)
+                dat(ide+2,k,j) = dat(ide,k,j)
+                dat(ide+3,k,j) = dat(ide,k,j)
+              ENDIF
+            ENDDO
+            ENDDO
+        ENDIF
+#endif
         open_xs: IF( ( config_flags%open_xs   .or. &
                        config_flags%specified .or. &
                        config_flags%nested            ) .and.  &
-                         ( its == ids ) .and. open_bc_copy  )  THEN
+                         ( its == ids ) .and. open_bc_copy .and. .not. bc_xfused )  THEN
 
 !$acc parallel loop collapse(2) async(wrf_gpu_q) if(bc_on)
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
@@ -940,7 +975,7 @@ CONTAINS
         open_xe: IF( ( config_flags%open_xe   .or. &
                        config_flags%specified .or. &
                        config_flags%nested            ) .and.  &
-                         ( ite == ide ) .and. open_bc_copy )  THEN
+                         ( ite == ide ) .and. open_bc_copy .and. .not. bc_xfused )  THEN
 
           IF (variable /= 'u' .and. variable /= 'x' ) THEN
 
