@@ -422,6 +422,8 @@
 #ifdef WRF_GPU
 !.. GPU port: device copies of all module variables (filled at the end of thompson_init)
       INTEGER, PARAMETER:: KTGPU = 34   ! max vertical levels (kte) of the device column routine (local memory ~ KTGPU)
+      INTEGER:: th_probe = 0   ! WRF_GPU_THPROBE=N (timing only, results invalid): return after phase N of mp_thompson
+!$acc declare create(th_probe)
 !$acc declare create(is_aerosol_aware,is_hail_aware,rho_s,dimNRHG,mu_c,av_g,bv_g,Sc3)
 !$acc declare create(D0i,xm0s,xm0g,nic1,nic2,nii2,nii3,nir2)
 !$acc declare create(nir3,nis2,nig2,nig3,niIN2,xDx,Dc,dtc)
@@ -1302,6 +1304,11 @@
       gpu_aer = 0 ; IF ( PRESENT(aer_init_opt) ) gpu_aer = aer_init_opt
       gpu_wif = 0 ; IF ( PRESENT(wif_input_opt) ) gpu_wif = wif_input_opt
       IF ( mp_compact < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_THPROBE', cv_, STATUS=st_ )
+         th_probe = 0
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) th_probe
+         IF ( st_ /= 0 ) th_probe = 0
+!$acc update device(th_probe)
          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_MPCOMPACT', cv_, STATUS=st_ )
          mp_compact = 1
          IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) mp_compact
@@ -1465,7 +1472,7 @@
              refl_10cm(i,k,j) = MAX(-35., dBZ(k))
           enddo
          ENDIF
-         IF ( gpu_do_re ) THEN
+         IF ( gpu_do_re .AND. th_probe /= 5 ) THEN
           do k = kts, kte
              re_qc1d(k) = RE_QC_BG
              re_qi1d(k) = RE_QI_BG
@@ -2008,6 +2015,9 @@
       REAL:: a_, b_, loga_, A1, A2, tf
       REAL:: tempc, tc0, r_mvd1, r_mvd2, xkrat
       REAL:: dew_t, Tlcl, The
+#ifdef WRF_GPU
+      REAL:: twet_k
+#endif
       REAL:: xnc, xri, xni, xmi, oxmi, xrc, xrr, xnr, xrg, xng, xrb
       REAL:: xsat, rate_max, sump, ratio
       REAL:: clap, fcd, dfcd
@@ -2052,6 +2062,9 @@
 #endif
       endif
 
+#ifdef WRF_GPU
+      if (th_probe == 6) return
+#endif
       no_micro = .true.
       dtsave = dt
       odt = 1./dt
@@ -2412,6 +2425,7 @@
          twet(k) = temp(k)
       enddo
 
+#ifndef WRF_GPU
       if (k_melting .gt. 0) then
          do k = kts, k_melting
             if (satw(k) .lt. 0.999) then
@@ -2422,6 +2436,7 @@
             endif
       enddo
       endif
+#endif
 
 !+---+-----------------------------------------------------------------+
 !..If no existing hydrometeor species and no chance to initiate ice or
@@ -2429,6 +2444,9 @@
 !+---+-----------------------------------------------------------------+
 
       if (no_micro) return
+#ifdef WRF_GPU
+      if (th_probe == 1) return
+#endif
 #ifdef WRF_GPU
 !.. GPU: zero the tendency/process-rate arrays only for columns that do microphysics (none of them is
 !.. read or written before the no_micro return) - clear columns skip ~90 local-memory array stores
@@ -2610,6 +2628,17 @@
 !.. them is per level). The 59 process rates used only here are scalars (zeroed per level, as the zero loop
 !.. did) instead of KTGPU-long local arrays - same per-level arithmetic, far less local-memory traffic.
       do k = kts, kte
+         ! GPU: wet-bulb temperature (iterative moist-adiabat solver) only where it is used - all its uses are
+         ! in snow/graupel processes; the host computes it for every level up to k_melting before the no_micro exit
+         twet_k = temp(k)
+         if (k .le. k_melting) then
+          if (satw(k) .lt. 0.999 .and. (L_qs(k) .or. L_qg(k))) then
+             dew_t = MIN(temp(k)-0.001, t_dew(pres(k), qv(k)))
+             Tlcl = t_lcl(temp(k), dew_t)
+             The = theta_e(pres(k), temp(k), qv(k), Tlcl)
+             twet_k = MIN(temp(k), compT_fr_The(The, pres(k)))
+          endif
+         endif
          pnc_wau_s = 0.
          pnc_rcw_s = 0.
          pnc_scw_s = 0.
@@ -2934,14 +2963,14 @@
              Ef_gw = 0.77
             endif
 !!! Not sure what to do here - hail increases size rapidly here below melting level.
-            if (twet(k).gt.T_0) Ef_gw = Ef_gw*0.1
+            if (twet_k.gt.T_0) Ef_gw = Ef_gw*0.1
             t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
             prg_gcw(k) = rhof(k)*t1_qg_qc*Ef_gw*rc(k)*N0_g(k) &
                           *ilamg(k)**cge(9,idx_bg(k))
             pnc_gcw_s = rhof(k)*t1_qg_qc*Ef_gw*nc(k)*N0_g(k)           &
                           *ilamg(k)**cge(9,idx_bg(k))                    ! Qc2M
             pnc_gcw_s = MIN(DBLE(nc(k)*odts), pnc_gcw_s)
-            if (twet(k).lt.T_0) pbg_gcw_s = prg_gcw(k)/rime_dens
+            if (twet_k.lt.T_0) pbg_gcw_s = prg_gcw(k)/rime_dens
           endif
          endif
 
@@ -2991,7 +3020,7 @@
 !.. results in lookup table.
          if (rr(k).ge. r_r(1)) then
           if (rs(k).ge. r_s(1)) then
-           if (twet(k).lt.T_0) then
+           if (twet_k.lt.T_0) then
             prr_rcs_s = -(tmr_racs2(idx_s,idx_t,idx_r1,idx_r) &
                            + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r) &
                            + tmr_racs1(idx_s,idx_t,idx_r1,idx_r) &
@@ -3029,7 +3058,7 @@
 !.. or Mizuno (1990) approach so we solve the CE explicitly and store
 !.. results in lookup table.
           if (rg(k).ge. r_g(1)) then
-           if (twet(k).lt.T_0) then
+           if (twet_k.lt.T_0) then
             prg_rcg_s = tmr_racg(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)  &
                          + tcr_gacr(idx_g1,idx_g,idx_bg(k),idx_r1,idx_r)
             prg_rcg_s = MIN(DBLE(rr(k)*odts), prg_rcg_s)
@@ -3290,13 +3319,13 @@
            prr_sml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
                       * (t1_qs_me*smo1(k) + t2_qs_me*rhof2(k)*vsc2(k)*smof(k))
            if (prr_sml(k) .gt. 0.) then
-              prr_sml(k) = prr_sml(k) + 4218.*olfus*(twet(k)-T_0)       &
+              prr_sml(k) = prr_sml(k) + 4218.*olfus*(twet_k-T_0)       &
                                       * (prr_rcs_s+prs_scw(k))
            endif
            prr_sml(k) = MIN(DBLE(rs(k)*odts), MAX(0.D0, prr_sml(k)))
 
            if (prr_sml(k).gt.0.0) then
-              pnr_sml_s = smo0(k)/rs(k)*prr_sml(k) * 10.0**(-0.25*(twet(k)-T_0))
+              pnr_sml_s = smo0(k)/rs(k)*prr_sml(k) * 10.0**(-0.25*(twet_k-T_0))
            elseif (ssati(k).lt. 0.) then
               prs_sde(k) = C_sqrd*t1_subl*diffu(k)*ssati(k)*rvs &
                          * (t1_qs_sd*smo1(k) &
@@ -3316,7 +3345,7 @@
                       * N0_melt*(t1_qg_me*ilamg(k)**cge(10,1)           &
                       + t2_qg_me*rhof2(k)*vsc2(k)*ilamg(k)**cge(11,idx_bg(k)))
 !          if (prr_gml(k) .gt. 0.) then
-!             prr_gml(k) = prr_gml(k) + 4218.*olfus*(twet(k)-T_0)       &
+!             prr_gml(k) = prr_gml(k) + 4218.*olfus*(twet_k-T_0)       &
 !                                     * (prr_rcg_s+prg_gcw(k))
 !          endif
            prr_gml(k) = MIN(DBLE(rg(k)*odts), MAX(0.D0, prr_gml(k)))
@@ -3328,7 +3357,7 @@
             !..1000 is density water, 50 is lower limit (max ice density is 800)
             pbg_gml_s = prr_gml(k) / MAX(MIN(melt_f*rho_g(idx_bg(k)),1000.),50.)
 !-GT        pnr_gml_s = prr_gml(k)*ng(k)/rg(k)
-            pnr_gml_s = prr_gml(k)*ng(k)/rg(k) * 10.0**(-0.33*(twet(k)-T_0))
+            pnr_gml_s = prr_gml(k)*ng(k)/rg(k) * 10.0**(-0.33*(twet_k-T_0))
            elseif (ssati(k).lt. 0.) then
             t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
             prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
@@ -3443,7 +3472,7 @@
          ratio = MIN( ABS(prr_rcg_s), ABS(prg_rcg_s) )
          prr_rcg_s = ratio * SIGN(1.0, SNGL(prr_rcg_s))
          prg_rcg_s = -prr_rcg_s
-         if (twet(k).gt.T_0) then
+         if (twet_k.gt.T_0) then
             ratio = MIN( ABS(prr_rcs_s), ABS(prs_rcs_s) )
             prr_rcs_s = ratio * SIGN(1.0, SNGL(prr_rcs_s))
             prs_rcs_s = -prr_rcs_s
@@ -3690,6 +3719,7 @@
          endif
 
       enddo
+      if (th_probe == 2) return
 #else
       do k = kts, kte
 
@@ -4919,6 +4949,9 @@
               + sb(9)*tc0*tc0*tc0 + sb(10)*cse(14)*cse(14)*cse(14)
          smod(k) = a_ * smo2(k)**b_
       enddo
+#ifdef WRF_GPU
+      if (th_probe == 3) return
+#endif
 
 !+---+-----------------------------------------------------------------+
 !..Calculate y-intercept, slope values for graupel.
@@ -5137,6 +5170,9 @@
                                      pri_rci(k)
         enddo
       endif
+#endif
+#ifdef WRF_GPU
+      if (th_probe == 4) return
 #endif
 
 !+---+-----------------------------------------------------------------+
