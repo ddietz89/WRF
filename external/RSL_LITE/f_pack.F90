@@ -192,6 +192,19 @@
         rsl_gpu_nseg = 0
 #endif
       END SUBROUTINE rsl_gpu_send_flush_sel
+      ! bytes of [a, a+n) covered by device-packed segments (XPIPE: n = fully device-packed send buffer)
+      SUBROUTINE rsl_gpu_seg_cover ( a, n, cov )
+        USE rsl_gpu_ctl
+        IMPLICIT NONE
+        INTEGER*8 a, cov
+        INTEGER n, k
+        INTEGER*8 :: lo, hi
+        cov = 0
+        DO k = 1, rsl_gpu_nseg
+          lo = MAX( rsl_gpu_seg_a(k), a ) ; hi = MIN( rsl_gpu_seg_a(k) + rsl_gpu_seg_n(k), a + n )
+          IF ( hi > lo ) cov = cov + ( hi - lo )
+        ENDDO
+      END SUBROUTINE rsl_gpu_seg_cover
       ! after MPI receive: copy the received buffer to its device mirror (unpacks then run on queue 1);
       ! also re-arms the once-per-exchange queue drain for the next exchange's packs
       SUBROUTINE rsl_gpu_recv_push ( addr, nbytes )

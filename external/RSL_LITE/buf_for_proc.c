@@ -101,6 +101,7 @@ static void rsl_pin ( char * p, int n, int on ) {
   else { int r = rsl_cu_unreg( p ) ; if ( r != 0 ) fprintf(stderr,"RSL unpin: cuMemHostUnregister rc=%d size=%d p=%llx\n",r,n,(unsigned long long)p) ; }
 }
 int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
+void rsl_xpipe_wait ( void ) ;
 #ifndef STUBMPI
 #  include "mpi.h"
 #endif
@@ -164,6 +165,9 @@ buffer_for_proc( P, size, code )
   if ( code == RSL_FREEBUF )
   {
 /* fprintf(stderr,"buffer_for_proc freeing buffer %d\n",P) ; */
+#ifndef STUBMPI
+    rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */
+#endif
     { int c_ ; for ( c_ = 0 ; c_ < 2 ; c_++ ) if ( buftab[c_][P].buf != NULL ) {
         long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ;
         if ( !( c_ == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[c_][P].buf, n_, 0 ) ) ) RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; rsl_pin( buftab[c_][P].buf, n_, 0 ) ; } }
@@ -185,6 +189,9 @@ fprintf(stderr,"buffer_for_proc %s %d : was %d, increasing to %d\n",
 	 P,buftab[code][P].size, size+512) ;
 #endif
       if ( buftab[code][P].buf != NULL ) {
+#ifndef STUBMPI
+        rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */
+#endif
         if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, buftab[code][P].size, 0 ) ) )
         { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
         rsl_pin( buftab[code][P].buf, buftab[code][P].size, 0 ) ;

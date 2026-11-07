@@ -1006,6 +1006,35 @@ int rsl_p2p_enabled ( void ) ;
 void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long long devb, int done[2] ) ;
 #endif
 static void rsl_xt_tick ( int slot, double t ) { rsl_xt[slot] += t ; }
+#ifndef STUBMPI
+int rsl_xpipe_enabled ( void ) ;
+void rsl_xpipe_wait ( void ) ;
+void rsl_xpipe_exch ( MPI_Comm comm, int me, int nbr[2], int use[2], char * sb[2], int sn[2], char * rb[2], int rn[2], int cover[2] ) ;
+/* WRF_GPU_XPIPE data path for the non-P2P neighbours of one axis (index 0 = minus, 1 = plus side); sn/rn are the
+   send/recv byte counts (0 = nothing) */
+static void rsl_xp_path ( MPI_Comm comm, int me, int nm, int np_, int dm, int dp, int sm, int sp, int rm, int rp )
+{
+  int nb[2], use[2], sn[2], rn[2], cov[2], i ; char * sbp[2] = { NULL, NULL }, * rbp[2] = { NULL, NULL } ;
+  long long fa[2] = { 0, 0 } ; int fn[2] = { 0, 0 }, anyhost = 0 ;
+  rsl_xpipe_wait() ;   /* before buffer_for_proc may resize a receive buffer */
+  nb[0] = nm ; nb[1] = np_ ;
+  use[0] = !dm && nm != MPI_PROC_NULL ; use[1] = !dp && np_ != MPI_PROC_NULL ;
+  sn[0] = sm ; sn[1] = sp ; rn[0] = rm ; rn[1] = rp ;
+  for ( i = 0 ; i < 2 ; i++ ) {
+    cov[i] = 1 ;
+    if ( !use[i] ) continue ;
+    if ( rn[i] > 0 ) rbp[i] = buffer_for_proc( nb[i], rn[i], RSL_RECVBUF ) ;
+    if ( sn[i] > 0 ) {
+      long long a_, c_ = 0 ; sbp[i] = buffer_for_proc( nb[i], 0, RSL_SENDBUF ) ; a_ = (long long)sbp[i] ;
+      RSL_GPU_SEG_COVER( &a_, &sn[i], &c_ ) ;
+      if ( c_ != (long long)sn[i] ) { cov[i] = 0 ; fa[i] = a_ ; fn[i] = sn[i] ; anyhost = 1 ; }
+    }
+  }
+  if ( anyhost ) RSL_GPU_SEND_FLUSH_SEL( &fa[0], &fn[0], &fa[1], &fn[1] ) ;   /* partly host-packed: classic flush */
+  rsl_xpipe_exch( comm, me, nb, use, sbp, sn, rbp, rn, cov ) ;
+  RSL_GPU_SEG_CLEAR() ;
+}
+#endif
 static void rsl_xt_done ( int me ) {
   if ( rsl_xt_on < 0 ) { char *e = getenv("RSL_XTIMER") ; rsl_xt_on = ( e && e[0] != '0' ) ; }
   rsl_xn++ ;
@@ -1034,6 +1063,12 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
       if ( rsl_p2p_enabled() ) { RSL_GPU_SEG_DRAIN( &devb ) ; rsl_p2p_exch( comm, nbr, sb, rb, devb, done ) ; }
       rsl_xt_tick(4, MPI_Wtime()-t0_) ; }
     dm = done[0] ; dp = done[1] ;
+    if ( rsl_xpipe_enabled() && ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) ) {
+      double t0_ = MPI_Wtime() ;
+      rsl_xp_path( comm, me, ym, yp, dm, dp, ( *sendw_m > 0 ) ? ym_curs : -1, ( *sendw_p > 0 ) ? yp_curs : -1,
+                   ( *recvw_m > 0 ) ? ym_curs_recv : -1, ( *recvw_p > 0 ) ? yp_curs_recv : -1 ) ;
+      rsl_xt_tick(1, MPI_Wtime()-t0_) ;
+    } else
     if ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) {
       { double t0_ = MPI_Wtime() ;
         if ( dm || dp ) {   /* one neighbour is P2P: D2H only the MPI neighbour's packed send buffer */
@@ -1100,6 +1135,12 @@ RSL_LITE_EXCH_X ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
       if ( rsl_p2p_enabled() ) { RSL_GPU_SEG_DRAIN( &devb ) ; rsl_p2p_exch( comm, nbr, sb, rb, devb, done ) ; }
       rsl_xt_tick(4, MPI_Wtime()-t0_) ; }
     dm = done[0] ; dp = done[1] ;
+    if ( rsl_xpipe_enabled() && ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) ) {
+      double t0_ = MPI_Wtime() ;
+      rsl_xp_path( comm, me, xm, xp, dm, dp, ( *sendw_m > 0 ) ? xm_curs : -1, ( *sendw_p > 0 ) ? xp_curs : -1,
+                   ( *recvw_m > 0 ) ? xm_curs_recv : -1, ( *recvw_p > 0 ) ? xp_curs_recv : -1 ) ;
+      rsl_xt_tick(1, MPI_Wtime()-t0_) ;
+    } else
     if ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) {
       { double t0_ = MPI_Wtime() ;
         if ( dm || dp ) {   /* one neighbour is P2P: D2H only the MPI neighbour's packed send buffer */
