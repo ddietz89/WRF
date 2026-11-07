@@ -82,7 +82,21 @@ int rsl_p2p_recv_map ( int P, char * host, int n, int on )
 }
 
 #ifndef STUBMPI
-typedef struct { int alldev ; int nbytes ; int rexp ; int cap ; ipch_t h ; } tok_t ;
+typedef struct { int alldev ; int nbytes ; int rexp ; int cap ; ipch_t h ; unsigned long long host ; } tok_t ;
+#include <unistd.h>
+/* host id (FNV-1a of the hostname): CUDA IPC only works between processes on the same node, so a neighbour pair
+   on different nodes uses the batched (host-staged MPI) path */
+static unsigned long long rsl_host_id ( void )
+{
+  static unsigned long long hid = 0 ;
+  if ( hid == 0 ) {
+    char hn[256] ; size_t k ; hid = 1469598103934665603ULL ;
+    memset( hn, 0, sizeof(hn) ) ; gethostname( hn, sizeof(hn)-1 ) ;
+    for ( k = 0 ; hn[k] ; k++ ) { hid ^= (unsigned char)hn[k] ; hid *= 1099511628211ULL ; }
+    if ( hid == 0 ) hid = 1 ;
+  }
+  return hid ;
+}
 /* p2p exchange for up to two neighbours (index 0/1) of one axis. sendb/recvb: send/recv byte counts per
    neighbour. devb: device-packed bytes recorded for this exchange. done[i] = 1 where the neighbour pair used
    P2P (decided symmetrically from both tokens); the caller does the MPI data path for the others. */
@@ -97,6 +111,7 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
     memset( &mine[i], 0, sizeof(tok_t) ) ;
     mine[i].alldev = alldev && rdev[nbr[i]] != 0 ; mine[i].nbytes = sendb[i] ; mine[i].rexp = recvb[i] ;
     mine[i].cap = rsize[nbr[i]] ; mine[i].h = rh[nbr[i]] ;
+    mine[i].host = rsl_host_id() ;
     MPI_Irecv( &theirs[i], sizeof(tok_t), MPI_BYTE, nbr[i], 7101, comm, &q[nq++] ) ;
     MPI_Isend( &mine[i],   sizeof(tok_t), MPI_BYTE, nbr[i], 7101, comm, &q[nq++] ) ;
   }
@@ -104,7 +119,7 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
   MPI_Waitall( nq, q, MPI_STATUSES_IGNORE ) ;
   for ( i = 0 ; i < 2 ; i++ ) {
     if ( nbr[i] < 0 ) continue ;
-    done[i] = mine[i].alldev && theirs[i].alldev
+    done[i] = mine[i].alldev && theirs[i].alldev && mine[i].host == theirs[i].host
            && mine[i].nbytes <= theirs[i].cap && theirs[i].nbytes <= mine[i].cap
            && mine[i].nbytes <= theirs[i].rexp && theirs[i].nbytes <= mine[i].rexp ;
     if ( !done[i] ) {
