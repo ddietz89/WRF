@@ -8953,6 +8953,84 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
 !  compute fluxes
 
+#ifdef WRF_GPU_RESIDENT
+! GPU: gangs over (j,k) (ncu 2026-11-07: one gang per row, 381 blocks, 150 registers, 9.5 ms/step on big1000);
+! the boundary-degrade levels are a vector loop over the few boundary i values. Same expressions as the row version.
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = j_start, j_end
+        DO k=kts,ktf
+!$acc loop vector private(cr,dx,mu,vel)
+        DO i = i_start_f, i_end_f
+
+          dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+          mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
+          vel = ru(i,k,j)
+          cr = vel*dt/dx/mu
+          fqxl(i,k,j) = mu*(dx/dt)*flux_upwind(field_old(i-1,k,j), field_old(i,k,j  ), cr)
+
+          fqx( i,k,j ) = vel*flux5( field(i-3,k,j), field(i-2,k,j),  &
+                                         field(i-1,k,j), field(i  ,k,j),  &
+                                         field(i+1,k,j), field(i+2,k,j),  &
+                                         vel                             )
+          fqx(i,k,j) = fqx(i,k,j) - fqxl(i,k,j)
+
+        ENDDO
+        IF( degrade_xs ) THEN
+!$acc loop vector private(cr,dx,mu,vel)
+          DO i=i_start,i_start_f-1
+            IF(i == ids+1) THEN ! second order
+                dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+                mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
+                vel = ru(i,k,j)/mu
+                cr = vel*dt/dx
+                fqxl(i,k,j) = mu*(dx/dt)*flux_upwind(field_old(i-1,k,j), field_old(i,k,j  ), cr)
+                fqx(i,k,j) = 0.5*(ru(i,k,j)) &
+                       *(field(i,k,j)+field(i-1,k,j))
+                fqx(i,k,j) = fqx(i,k,j) - fqxl(i,k,j)
+            ENDIF
+            IF(i == ids+2) THEN  ! third order
+                dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+                mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
+                vel = ru(i,k,j)
+                cr = vel*dt/dx/mu
+                fqxl(i,k,j) = mu*(dx/dt)*flux_upwind(field_old(i-1,k,j), field_old(i,k,j  ), cr)
+                fqx( i,k,j ) = vel*flux3( field(i-2,k,j), field(i-1,k,j),  &
+                                          field(i  ,k,j), field(i+1,k,j),  &
+                                          vel                             )
+                fqx(i,k,j) = fqx(i,k,j) - fqxl(i,k,j)
+            ENDIF
+          ENDDO
+        ENDIF
+        IF( degrade_xe ) THEN
+!$acc loop vector private(cr,dx,mu,vel)
+          DO i = i_end_f+1, i_end+1
+            IF( i == ide-1 ) THEN ! second order flux next to the boundary
+                dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+                mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
+                vel = ru(i,k,j)
+                cr = vel*dt/dx/mu
+                fqxl(i,k,j) = mu*(dx/dt)*flux_upwind(field_old(i-1,k,j), field_old(i,k,j  ), cr)
+                fqx(i,k,j) = 0.5*(ru(i,k,j))      &
+                       *(field(i,k,j)+field(i-1,k,j))
+                fqx(i,k,j) = fqx(i,k,j) - fqxl(i,k,j)
+            ENDIF
+            IF( i == ide-2 ) THEN ! third order flux one in from the boundary
+                dx = 2./(msfty(i,j)+msfty(i-1,j))/rdx  ! ADT eqn 48 d/dx
+                mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
+                vel = ru(i,k,j)
+                cr = vel*dt/dx/mu
+                fqxl(i,k,j) = mu*(dx/dt)*flux_upwind(field_old(i-1,k,j), field_old(i,k,j  ), cr)
+                fqx( i,k,j ) = vel*flux3( field(i-2,k,j), field(i-1,k,j),  &
+                                          field(i  ,k,j), field(i+1,k,j),  &
+                                          vel                             )
+                fqx(i,k,j) = fqx(i,k,j) - fqxl(i,k,j)
+            ENDIF
+          ENDDO
+        ENDIF
+        ENDDO
+      ENDDO
+      IF ( .FALSE. ) THEN   ! row-gang version (host build)
+#endif
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
@@ -9057,6 +9135,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
         ENDIF
 
       ENDDO  ! enddo for outer J loop
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
 
 !--- end of 5th order horizontal flux calculation
 
@@ -10018,6 +10099,44 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
     ELSE IF (vert_order == 3) THEN    
 
+#ifdef WRF_GPU_RESIDENT
+! GPU: gangs over (j,k) with a per-level ladder (zeros at 1 and kde, the kts+1/ktf formula, the interior flux3);
+! each (i,k) is written by exactly one branch with the row version's expressions (8.6 ms/step on big1000 before).
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = j_start, j_end
+        DO k = kts, kde
+!$acc loop vector private(cr,dz,mu,vel)
+         DO i = i_start, i_end
+           IF ( k == 1 .OR. k == kde ) THEN
+             fqz(i,k,j)  = 0.
+             fqzl(i,k,j) = 0.
+           ELSE IF ( k == kts+1 .OR. k == ktf ) THEN
+           dz = 2./(rdzw(k)+rdzw(k-1))
+           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j)+c2(k)))
+           vel = rom(i,k,j)
+           cr = vel*dt/dz/mu
+           fqzl(i,k,j) = mu*(dz/dt)*flux_upwind(field_old(i,k-1,j), field_old(i,k,j  ), cr)
+           fqz(i,k,j)=rom(i,k,j)*(fzm(k)*field(i,k,j)+fzp(k)*field(i,k-1,j))
+           fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
+
+                      ELSE
+
+           dz = 2./(rdzw(k)+rdzw(k-1))
+           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i,j)+c2(k)))
+           vel = rom(i,k,j)
+           cr = vel*dt/dz/mu
+           fqzl(i,k,j) = mu*(dz/dt)*flux_upwind(field_old(i,k-1,j), field_old(i,k,j  ), cr)
+
+           fqz(i,k,j) = vel*flux3(                      &
+                   field(i,k-2,j), field(i,k-1,j),      &
+                   field(i,k  ,j), field(i,k+1,j),  -vel )
+           fqz(i,k,j) = fqz(i,k,j) - fqzl(i,k,j)
+           ENDIF
+         ENDDO
+        ENDDO
+      ENDDO
+      IF ( .FALSE. ) THEN   ! row-gang version (host build)
+#endif
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
 
@@ -10071,6 +10190,9 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
          ENDDO
 
       ENDDO
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
 
    ELSE IF (vert_order == 2) THEN    
 
