@@ -7212,7 +7212,10 @@ END SUBROUTINE gpu_retile
 SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
    ! levels 1-2 of the phy_prep fields and moisture for the host physics of a lean step.
    ! WRF_GPU_LEANMASK (bits 0-13: t_phy th_phy p_phy pi_phy u_phy v_phy p8w t8w dz8w rho z z_at_w p_hyd p_hyd_w;
-   ! bit 14: all moist species, else only QV) selects the fields; default all (16383 + bit 14)
+   ! bit 14: all moist species, else only QV) selects the fields. Default 16383: all 14 fields, QV only - bit-identical
+   ! on big1000 and ~7 ms/step faster than the full set (32767). The host reads levels 1-2 of p_hyd/p_hyd_w on lean
+   ! steps (dropping them changes the dynamics) and z/z_at_w/t8w feed the AFWA low-level turbulence diagnostics
+   ! (dropping them changes AFWA_LLTURB*), so those stay.
    USE module_domain, ONLY : domain
    USE module_state_description, ONLY : P_QV
    IMPLICIT NONE
@@ -7228,9 +7231,9 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
    nf = 14 + num_moist
    IF ( mask < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_LEANMASK', mv, STATUS=st )
-      mask = 32767
+      mask = 16383
       IF ( st == 0 ) READ( mv, *, IOSTAT=st ) mask
-      IF ( st /= 0 ) mask = 32767
+      IF ( st /= 0 ) mask = 16383
       nsel = 0
       DO f = 1, 14
          IF ( BTEST( mask, f-1 ) ) THEN ; nsel = nsel + 1 ; sel(nsel) = f ; ENDIF
