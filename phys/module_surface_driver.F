@@ -27,6 +27,8 @@ MODULE module_surface_driver
   ! WRF_GPU_EARLYDYN=2: solve_em points this at its stage-1 rk_tendency launch (queue 2); fired once, after the
   ! surface-layer pull of a host-Noah lean step, so the GPU runs it while the host does Noah
   PROCEDURE(), POINTER :: wrf_gpu_early_hook => NULL()
+  INTEGER :: sfc_pullmask = -1, sfc_pushmask = 2047, sfc_mst
+  CHARACTER(LEN=16) :: sfc_maskv
 #endif
 CONTAINS
 
@@ -473,8 +475,8 @@ CONTAINS
    LOGICAL, EXTERNAL :: gpu_p8wchk
 #endif
 #ifdef WRF_SEG_TIMERS
-   INTEGER(8) :: sft_c0, sft_c1, sft_cr
-   REAL(8), SAVE :: sft_acc(3) = 0.d0
+   INTEGER(8) :: sft_c0, sft_c1, sft_cr, sft_e0
+   REAL(8), SAVE :: sft_acc(4) = 0.d0
    INTEGER, SAVE :: sft_n = 0
    CHARACTER(LEN=128) :: sft_msg
 #endif
@@ -1633,6 +1635,9 @@ CONTAINS
 #endif
 
   
+#ifdef WRF_SEG_TIMERS
+  CALL SYSTEM_CLOCK( sft_e0 )
+#endif
   ktmp_top = kme
 #ifdef WRF_GPU_RESIDENT
   ! GPU surface layer this call: the host reads only level 1 of the frame-shifted winds
@@ -2104,6 +2109,7 @@ CONTAINS
 
 #ifdef WRF_SEG_TIMERS
      CALL SYSTEM_CLOCK( sft_c0, sft_cr )
+     sft_acc(4) = sft_acc(4) + DBLE(sft_c0-sft_e0)/DBLE(sft_cr)
 #endif
 #ifdef WRF_GPU_RESIDENT
      sfc_gpu_ran = .FALSE.
@@ -2157,7 +2163,88 @@ CONTAINS
        IF ( wrf_gpu_hnsteady .AND. .NOT. wrf_gpu_lsm .AND. wrf_gpu_sfc_lean .AND. gpu_steady ) THEN
          ! host Noah reads these (znt/z0/qz0: it rewrites land points, then pushes whole arrays back; t2/th2/q2:
          ! the host land-surface diagnostics update them after the LSM)
+         ! WRF_GPU_SFCPULLMASK (bits 0-20 in this order) selects which of these the host gets. Default 247806: all but
+         ! br, ust, pblh, rmol, t2, th2, q2 - bit-identical on big1000 (the host land-surface diagnostics recompute
+         ! t2/th2/q2; the rest are not read by host Noah). u10/v10 must stay (U10/V10/WSPD10MAX change without them),
+         ! as must chs/chs2/cqs2/qgh/cpm/hfx/qfx/lh/qsfc/znt/z0/qz0 (Noah inputs).
+         IF ( sfc_pullmask < 0 ) THEN
+            CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_SFCPULLMASK', sfc_maskv, STATUS=sfc_mst )
+            sfc_pullmask = 247806
+            IF ( sfc_mst == 0 ) READ( sfc_maskv, *, IOSTAT=sfc_mst ) sfc_pullmask
+            IF ( sfc_mst /= 0 ) sfc_pullmask = 247806
+            CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_SFCPUSHMASK', sfc_maskv, STATUS=sfc_mst )
+            sfc_pushmask = 2047
+            IF ( sfc_mst == 0 ) READ( sfc_maskv, *, IOSTAT=sfc_mst ) sfc_pushmask
+            IF ( sfc_mst /= 0 ) sfc_pushmask = 2047
+            WRITE(0,'(A,I8,A,I6)') 'WRF_GPU_SFCPULLMASK ', sfc_pullmask, ' SFCPUSHMASK ', sfc_pushmask
+         ENDIF
+         IF ( sfc_pullmask == 2097151 ) THEN
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc,znt,z0,qz0,t2,th2,q2)
+         ELSE
+           IF ( BTEST( sfc_pullmask, 0 ) ) THEN
+!$acc update self(br)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 1 ) ) THEN
+!$acc update self(chs)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 2 ) ) THEN
+!$acc update self(chs2)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 3 ) ) THEN
+!$acc update self(cqs2)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 4 ) ) THEN
+!$acc update self(hfx)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 5 ) ) THEN
+!$acc update self(qfx)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 6 ) ) THEN
+!$acc update self(lh)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 7 ) ) THEN
+!$acc update self(qgh)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 8 ) ) THEN
+!$acc update self(cpm)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 9 ) ) THEN
+!$acc update self(u10)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 10 ) ) THEN
+!$acc update self(v10)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 11 ) ) THEN
+!$acc update self(ust)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 12 ) ) THEN
+!$acc update self(pblh)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 13 ) ) THEN
+!$acc update self(rmol)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 14 ) ) THEN
+!$acc update self(qsfc)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 15 ) ) THEN
+!$acc update self(znt)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 16 ) ) THEN
+!$acc update self(z0)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 17 ) ) THEN
+!$acc update self(qz0)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 18 ) ) THEN
+!$acc update self(t2)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 19 ) ) THEN
+!$acc update self(th2)
+           ENDIF
+           IF ( BTEST( sfc_pullmask, 20 ) ) THEN
+!$acc update self(q2)
+           ENDIF
+         ENDIF
          wrf_gpu_sfc_hoststale_hn = .TRUE.
        ELSE IF ( wrf_gpu_sfc_lean .AND. gpu_steady .AND. IAND(wrf_gpu_sfc_leanmode,1) /= 0 ) THEN
 !$acc update self(br,chs,chs2,cqs2,hfx,qfx,lh,qgh,cpm,u10,v10,ust,pblh,rmol,qsfc)
@@ -4692,7 +4779,43 @@ CONTAINS
      ! cumulus, diagnostics) read from the LSM; the PBL then treats the device surface state as current
      IF ( wrf_gpu_hnsteady .AND. sfc_gpu_ran .AND. .NOT. lsm_gpu_ran .AND. wrf_gpu_sfc_lean .AND.            &
           sf_surface_physics == LSMSCHEME .AND. ISFFLX .NE. 0 .AND. sf_ocean_physics == 0 .AND. LakeModel /= 1 ) THEN
+       IF ( sfc_pushmask == 2047 ) THEN
 !$acc update device(tsk,hfx,qfx,lh,grdflx,qsfc,znt,z0,qz0,chklowq,snow) if_present
+       ELSE
+         IF ( BTEST( sfc_pushmask, 0 ) ) THEN
+!$acc update device(tsk) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 1 ) ) THEN
+!$acc update device(hfx) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 2 ) ) THEN
+!$acc update device(qfx) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 3 ) ) THEN
+!$acc update device(lh) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 4 ) ) THEN
+!$acc update device(grdflx) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 5 ) ) THEN
+!$acc update device(qsfc) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 6 ) ) THEN
+!$acc update device(znt) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 7 ) ) THEN
+!$acc update device(z0) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 8 ) ) THEN
+!$acc update device(qz0) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 9 ) ) THEN
+!$acc update device(chklowq) if_present
+         ENDIF
+         IF ( BTEST( sfc_pushmask, 10 ) ) THEN
+!$acc update device(snow) if_present
+         ENDIF
+       ENDIF
        wrf_gpu_sfcdev_ran = .TRUE.
      ENDIF
 #endif
@@ -4835,7 +4958,7 @@ CONTAINS
      CALL SYSTEM_CLOCK( sft_c1 ) ; sft_acc(3) = sft_acc(3) + DBLE(sft_c1-sft_c0)/DBLE(sft_cr)
      sft_n = sft_n + 1
      IF ( MOD(sft_n,20) == 0 ) THEN
-       WRITE(sft_msg,'(A,I6,3F9.3)') 'SFCTIME sfclay/lsm/rest ', sft_n, sft_acc
+       WRITE(sft_msg,'(A,I6,4F9.3)') 'SFCTIME sfclay/lsm/rest/entry ', sft_n, sft_acc
        CALL wrf_message( sft_msg )
      ENDIF
    ENDIF
