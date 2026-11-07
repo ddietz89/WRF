@@ -816,8 +816,14 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
                         non_hydrostatic, top_lid,      &
                         ids, ide, jds, jde, kds, kde,  &
                         ims, ime, jms, jme, kms, kme,  &
-                        its, ite, jts, jte, kts, kte  )
+                        its, ite, jts, jte, kts, kte, early )
       IMPLICIT NONE  ! religion first
+      ! WRF_GPU_HOVL: early=1 launches the halo-independent part (u kernel, v rows with j-1 inside the tile) on
+      ! OpenACC queue 2 before the next halo exchange; the following plain call does the remaining v row(s) on
+      ! the main queue after waiting for queue 2 (per-point arithmetic unchanged)
+      INTEGER, OPTIONAL, INTENT(IN) :: early
+      INTEGER :: uvmode, qq, ju0, ju1, jv0, jv1
+      LOGICAL, SAVE :: uv_pending = .FALSE.
 ! stuff coming in
       TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
       LOGICAL, INTENT(IN   ) :: non_hydrostatic, top_lid
@@ -960,10 +966,22 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
 #ifdef WRF_GPU
   ! The row kernels below have one gang per j only; on the GPU run one thread per column (same per-point
   ! arithmetic and order: tendency update, then pressure-gradient/divergence-damping update).
+  uvmode = 0 ; IF ( PRESENT(early) ) uvmode = early
+  IF ( uvmode == 1 .AND. .NOT. ( wrf_gpu_on .AND. k_start == 1 .AND. k_end+1 == kde .AND. kde >= 4 ) ) RETURN
   IF ( wrf_gpu_on .AND. k_start == 1 .AND. k_end+1 == kde .AND. kde >= 4 ) THEN
   ! one thread per (i,k,j): dpnc at k and k+1 computed in place from p (no per-column scratch)
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
-  DO j = j_start, j_end
+  qq = wrf_gpu_q ; ju0 = j_start ; ju1 = j_end ; jv0 = j_start_v_tend ; jv1 = j_end_v_tend
+  IF ( uvmode == 1 ) THEN
+     qq = 2 ; jv0 = MAX( j_start_v_tend, jts+1 )
+!$acc wait(wrf_gpu_q) async(2)
+     uv_pending = .TRUE.
+  ELSE IF ( uv_pending ) THEN
+     ju0 = 1 ; ju1 = 0 ; jv1 = MIN( jts, j_end_v_tend )
+!$acc wait(2) async(wrf_gpu_q)
+     uv_pending = .FALSE.
+  ENDIF
+!$acc parallel loop gang collapse(2) async(qq)
+  DO j = ju0, ju1
   DO k = k_start, k_end
 !$acc loop vector private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm)
   DO i = MIN(i_start_u_tend,i_start_up), MAX(i_end_u_tend,i_end_up)
@@ -1008,8 +1026,8 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ENDDO
   ENDDO
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
-  DO j = j_start_v_tend, j_end_v_tend
+!$acc parallel loop gang collapse(2) async(qq)
+  DO j = jv0, jv1
   DO k = k_start, k_end
 !$acc loop vector private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm)
   DO i = i_start, i_end
@@ -1322,7 +1340,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
         ENDDO
      END IF
   END IF
-      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+      IF ( uvmode /= 1 .AND. .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
 END SUBROUTINE advance_uv
@@ -1340,8 +1358,13 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
                          step, config_flags,                  &
                          ids, ide, jds, jde, kds, kde,        &
                          ims, ime, jms, jme, kms, kme,        &
-                         its, ite, jts, jte, kts, kte        )
+                         its, ite, jts, jte, kts, kte, early )
   IMPLICIT NONE  ! religion first
+  ! WRF_GPU_HOVL: early=1 runs rows j_start..j_end-1 (no v(j+1) halo dependence) on OpenACC queue 2 before the
+  ! u/v halo exchange; the following plain call does row j_end on the main queue after waiting for queue 2
+  INTEGER, OPTIONAL, INTENT(IN) :: early
+  INTEGER :: mtmode, qq, jm0, jm1
+  LOGICAL, SAVE :: mt_pending = .FALSE.
 ! stuff coming in
   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
   INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
@@ -1433,9 +1456,21 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 !        CALCULATION OF WW (dETA/dt)
 #ifdef WRF_GPU
   ! row kernels below have one gang per j only: on the GPU one thread per column (same per-point order)
+  mtmode = 0 ; IF ( PRESENT(early) ) mtmode = early
+  IF ( mtmode == 1 .AND. .NOT. ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) ) RETURN
+  qq = wrf_gpu_q ; jm0 = j_start ; jm1 = j_end
+  IF ( mtmode == 1 ) THEN
+     qq = 2 ; jm1 = j_end - 1
+!$acc wait(wrf_gpu_q) async(2)
+     mt_pending = .TRUE.
+  ELSE IF ( mt_pending ) THEN
+     jm0 = j_end
+!$acc wait(2) async(wrf_gpu_q)
+     mt_pending = .FALSE.
+  ENDIF
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
-!$acc parallel loop gang vector collapse(2) private(dvdxic) async(wrf_gpu_q)
-   DO j = j_start, j_end
+!$acc parallel loop gang vector collapse(2) private(dvdxic) async(qq)
+   DO j = jm0, jm1
    DO i = i_start, i_end
      dmdtc = 0.
      DO k=k_start, k_end
@@ -1551,8 +1586,8 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 ! adding previous tendency contribution which was map scale factor coupled
 ! (had been divided by msfty)
 ! need to uncouple before updating uncoupled Theta (by adding)
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
-   DO j=j_start, j_end
+!$acc parallel loop gang collapse(2) async(qq) if(wrf_gpu_on)
+   DO j=jm0, jm1
      DO k=1,k_end
 !$acc loop vector
      DO i=i_start, i_end
@@ -1563,8 +1598,8 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
    ENDDO   
 #ifdef WRF_GPU
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT ) THEN
-!$acc parallel loop gang vector collapse(2) private(wdtnc) async(wrf_gpu_q)
-   DO j=j_start, j_end
+!$acc parallel loop gang vector collapse(2) private(wdtnc) async(qq)
+   DO j=jm0, jm1
    DO i=i_start, i_end
        wdtnc(1  )=0.
        wdtnc(kde)=0.
@@ -1622,7 +1657,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 #ifdef WRF_GPU
   ENDIF
 #endif
-      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+      IF ( mtmode /= 1 .AND. .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
 END SUBROUTINE advance_mu_t

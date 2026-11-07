@@ -289,6 +289,14 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL, SAVE :: gpu_resident_in = .FALSE.
 #endif
    INTEGER :: number_of_small_timesteps, rk_step
+#ifdef WRF_GPU
+   INTEGER(8), SAVE :: sst_c(0:8) = 0, sst_rate = 1
+   REAL(8), SAVE :: sst_acc(8) = 0.d0
+   INTEGER, SAVE :: sst_n = 0
+   INTEGER, SAVE :: hovl = -1     ! WRF_GPU_HOVL=1: halo-independent rows of the next small-step kernel on queue 2 during the exchange
+   CHARACTER(LEN=8) :: hovl_v
+   LOGICAL :: hovl_ok
+#endif
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    ! for prints/plots only
    INTEGER :: idum1, idum2, dynamics_option
 
@@ -1928,17 +1936,35 @@ BENCH_START(set_phys_bc2_tim)
 #endif
 BENCH_END(set_phys_bc2_tim)
      small_steps : DO iteration = 1 , number_of_small_timesteps
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(0) )
+   IF ( hovl < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HOVL', hovl_v )
+      hovl = 0
+      IF ( TRIM(hovl_v) == '1' ) hovl = 1
+   ENDIF
+   hovl_ok = hovl == 1 .AND. wrf_gpu_on .AND. grid%num_tiles == 1 .AND. .NOT. ( config_flags%periodic_x .OR.   &
+             config_flags%periodic_y .OR. config_flags%symmetric_xs .OR. config_flags%symmetric_xe .OR.        &
+             config_flags%symmetric_ys .OR. config_flags%symmetric_ye .OR. config_flags%open_xs .OR.           &
+             config_flags%open_xe .OR. config_flags%open_ys .OR. config_flags%open_ye .OR. config_flags%polar )
+#endif
 
        ! Boundary condition time (or communication time).  
 #ifdef DM_PARALLEL
 #      include "PERIOD_BDY_EM_B.inc"
 #endif
 
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(1) )
+#endif
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
 
        DO ij = 1 , grid%num_tiles
 
+#ifdef WRF_GPU
+   IF ( ij == 1 ) CALL SYSTEM_CLOCK( sst_c(2) )
+#endif
 BENCH_START(advance_uv_tim)
          CALL advance_uv ( grid%u_2, grid%ru_tend, grid%v_2, grid%rv_tend,        &
                            grid%p, grid%pb,                                       &
@@ -1962,6 +1988,9 @@ BENCH_END(advance_uv_tim)
 
        END DO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(3) )
+#endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'k5_advuv', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
@@ -2049,7 +2078,35 @@ BENCH_END(spec_bdy_uv_tim)
 !  u_2               x
 !  v_2                          x
 !
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(4) )
+#endif
+#ifdef WRF_GPU
+   IF ( hovl_ok ) THEN
+         CALL advance_mu_t( grid%ww, ww1, grid%u_2, grid%u_save, grid%v_2, grid%v_save, &
+                          grid%mu_2, grid%mut, muave, grid%muts, grid%muu, grid%muv,    &
+                          grid%mudf,                                                    &
+                          grid%c1h, grid%c2h, grid%c1f, grid%c2f,                       &
+                          grid%c3h, grid%c4h, grid%c3f, grid%c4f,                       &
+                          grid%ru_m, grid%rv_m, grid%ww_m,                              &
+                          grid%t_2, grid%t_save, t_2save, t_tend,                       &
+                          mu_tend,                                                      &
+                          grid%rdx, grid%rdy, dts_rk, grid%epssm,                       &
+                          grid%dnw, grid%fnm, grid%fnp, grid%rdnw,                      &
+                          grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv,            &
+                          grid%msfvy, grid%msftx,grid%msfty,                            &
+                          iteration, config_flags,                                      &
+                          ids, ide, jds, jde, kds, kde,      &
+                          ims, ime, jms, jme, kms, kme,      &
+                          grid%i_start(1), grid%i_end(1),  &
+                          grid%j_start(1), grid%j_end(1),  &
+                          k_start    , k_end                , early=1 )
+   ENDIF
+#endif
 #     include "HALO_EM_C.inc"
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(5) )
+#endif
 #endif
 
        !$OMP PARALLEL DO   &
@@ -2334,8 +2391,36 @@ BENCH_END(cald_p_rho_tim)
 !  muts   x
 !  mudf   x
 
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(6) )
+#endif
+#ifdef WRF_GPU
+   IF ( hovl_ok .AND. iteration < number_of_small_timesteps ) THEN
+         CALL advance_uv ( grid%u_2, grid%ru_tend, grid%v_2, grid%rv_tend,        &
+                           grid%p, grid%pb,                                       &
+                           grid%ph_2, grid%php, grid%alt,  grid%al,               &
+                           grid%mu_2, grid%muu, cqu, grid%muv, cqv, grid%mudf,    &
+                           grid%c1h, grid%c2h, grid%c1f, grid%c2f,                &
+                           grid%c3h, grid%c4h, grid%c3f, grid%c4f,                &
+                           grid%msfux, grid%msfuy, grid%msfvx,                    &
+                           grid%msfvx_inv, grid%msfvy,                            &
+                           grid%rdx, grid%rdy, dts_rk,                            &
+                           grid%cf1, grid%cf2, grid%cf3, grid%fnm, grid%fnp,      &
+                           grid%emdiv,                                            &
+                           grid%rdnw, config_flags,grid%spec_zone,                &
+                           config_flags%non_hydrostatic, config_flags%top_lid,    &
+                           ids, ide, jds, jde, kds, kde,                          &
+                           ims, ime, jms, jme, kms, kme,                          &
+                           grid%i_start(1), grid%i_end(1),                      &
+                           grid%j_start(1), grid%j_end(1),                      &
+                           k_start    , k_end                                     , early=1 )
+   ENDIF
+#endif
 #      include "HALO_EM_C2.inc"
 #      include "PERIOD_BDY_EM_B3.inc"
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(7) )
+#endif
 #endif
 
 BENCH_START(phys_bc_tim)
@@ -2392,6 +2477,22 @@ BENCH_START(phys_bc_tim)
 
        END DO
        !$OMP END PARALLEL DO
+#ifdef WRF_GPU
+   CALL SYSTEM_CLOCK( sst_c(8), sst_rate )
+   sst_acc(1) = sst_acc(1) + DBLE(sst_c(1)-sst_c(0))/DBLE(sst_rate)   ! loop top -> OMP region (PERIOD_BDY)
+   sst_acc(2) = sst_acc(2) + DBLE(sst_c(2)-sst_c(1))/DBLE(sst_rate)   ! OMP region entry
+   sst_acc(3) = sst_acc(3) + DBLE(sst_c(3)-sst_c(2))/DBLE(sst_rate)   ! advance_uv host (launches)
+   sst_acc(4) = sst_acc(4) + DBLE(sst_c(4)-sst_c(3))/DBLE(sst_rate)   ! spec_bdy u/v
+   sst_acc(5) = sst_acc(5) + DBLE(sst_c(5)-sst_c(4))/DBLE(sst_rate)   ! HALO_EM_C
+   sst_acc(6) = sst_acc(6) + DBLE(sst_c(6)-sst_c(5))/DBLE(sst_rate)   ! mu_t .. calc_p_rho host
+   sst_acc(7) = sst_acc(7) + DBLE(sst_c(7)-sst_c(6))/DBLE(sst_rate)   ! HALO_EM_C2
+   sst_acc(8) = sst_acc(8) + DBLE(sst_c(8)-sst_c(7))/DBLE(sst_rate)   ! bc block
+   IF ( rk_step == 3 .AND. iteration == number_of_small_timesteps ) THEN
+      sst_n = sst_n + 1
+      IF ( MOD(sst_n,20) == 0 ) WRITE(0,'(A,I6,A,8F8.2)') 'SSTIME step', sst_n, ' ms/step period/omp/advuv/specuv/haloC/mut-prho/haloC2/bc', 1000.d0*sst_acc/20.d0
+      IF ( MOD(sst_n,20) == 0 ) sst_acc = 0.d0
+   ENDIF
+#endif
 #ifdef WRF_GPU
    CALL gpu_ck( grid, 'k8_ssend', rk_step*100+iteration, ids, ide, jds, jde, kds, kde, &
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
