@@ -1364,6 +1364,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   ! u/v halo exchange; the following plain call does row j_end on the main queue after waiting for queue 2
   INTEGER, OPTIONAL, INTENT(IN) :: early
   INTEGER :: mtmode, qq, jm0, jm1
+  REAL :: tt_, wk_, wk1_
   LOGICAL, SAVE :: mt_pending = .FALSE.
 ! stuff coming in
   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
@@ -1586,6 +1587,41 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 ! adding previous tendency contribution which was map scale factor coupled
 ! (had been divided by msfty)
 ! need to uncouple before updating uncoupled Theta (by adding)
+#ifdef WRF_GPU
+  IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT .AND. k_end+1 == kde ) THEN
+  ! GPU: the t_ave/ft update and the flux-divergence update in one (j,k,i) kernel; the two vertical fluxes of
+  ! each level are formed inline (the wdtnc column array's expression, 0 at levels 1 and kde)
+!$acc parallel loop gang collapse(2) async(qq)
+   DO j=jm0, jm1
+   DO k=1,k_end
+!$acc loop vector private(tt_,wk_,wk1_)
+   DO i=i_start, i_end
+     t_ave(i,k,j) = t(i,k,j)
+     tt_ = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)
+     IF ( k >= 2 ) THEN
+       wk_ = ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
+     ELSE
+       wk_ = 0.
+     ENDIF
+     IF ( k+1 <= k_end ) THEN
+       wk1_ = ww(i,k+1,j)*(fnm(k+1)*t_1(i,k+1,j)+fnp(k+1)*t_1(i,k,j))
+     ELSE
+       wk1_ = 0.
+     ENDIF
+       t(i,k,j) = tt_ - dts*msfty(i,j)*(              &
+                          msftx(i,j)*(                     &
+               .5*rdy*                                     &
+              ( v(i,k,j+1)*(t_1(i,k,j+1)+t_1(i,k, j ))     &
+               -v(i,k,j  )*(t_1(i,k, j )+t_1(i,k,j-1)) )   &
+             + .5*rdx*                                     &
+              ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j))     &
+               -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) &
+             + rdnw(k)*( wk1_-wk_ ) )
+   ENDDO
+   ENDDO
+   ENDDO
+  ELSE
+#endif
 !$acc parallel loop gang collapse(2) async(qq) if(wrf_gpu_on)
    DO j=jm0, jm1
      DO k=1,k_end
@@ -1654,6 +1690,9 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      ENDDO
      ENDDO
    ENDDO
+#ifdef WRF_GPU
+  ENDIF
+#endif
 #ifdef WRF_GPU
   ENDIF
 #endif
