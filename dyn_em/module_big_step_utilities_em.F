@@ -1757,6 +1757,7 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    INTEGER :: i, j, k, itf, jtf, ktf, kz, i_start, j_start
    REAL    :: ur, ul, ub, vr, vl, vb
    REAL, DIMENSION(its:ite,kts:kte) :: wdwn
+   REAL :: rhs_w0, rhs_w1
 
    INTEGER :: advective_order
 
@@ -1801,6 +1802,39 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
       BLOCK
       INTEGER :: cfg_phi_adv_z
       cfg_phi_adv_z = config_flags%phi_adv_z
+#ifdef WRF_GPU_RESIDENT
+   ! GPU: gangs over (j,k) (ncu 2026-11-07: one gang per row at 16% occupancy); wdwn at k and k+1 recomputed per level
+   IF (cfg_phi_adv_z == 2) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jtf
+      DO k = 2, kte-1
+!$acc loop vector private(rhs_w0,rhs_w1)
+      DO i = its, itf
+         rhs_w0 = rdnw(k-1)*(ph(i,k,j)-ph(i,k-1,j)+phb(i,k,j)-phb(i,k-1,j))
+         rhs_w1 = rdnw(k)*(ph(i,k+1,j)-ph(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+         ph_tend(i,k,j) = ph_tend(i,k,j)                           &
+                           - ww(i,k,j)*(fnm(k)*rhs_w1+fnp(k)*rhs_w0)
+      ENDDO
+      ENDDO
+      ENDDO
+   ELSE
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jtf
+      DO k = 2, kte-1
+!$acc loop vector private(rhs_w0,rhs_w1)
+      DO i = its, itf
+         rhs_w0 = .5*(ww(i,k,j)+ww(i,k-1,j))*rdnw(k-1)               &
+                       *(ph(i,k,j)-ph(i,k-1,j)+phb(i,k,j)-phb(i,k-1,j))
+         rhs_w1 = .5*(ww(i,k+1,j)+ww(i,k,j))*rdnw(k)               &
+                       *(ph(i,k+1,j)-ph(i,k,j)+phb(i,k+1,j)-phb(i,k,j))
+         ph_tend(i,k,j) = ph_tend(i,k,j)                           &
+                            - (fnm(k)*rhs_w1+fnp(k)*rhs_w0)
+      ENDDO
+      ENDDO
+      ENDDO
+   ENDIF
+   IF ( .FALSE. ) THEN   ! original row-gang version (host build)
+#endif
 !$acc parallel loop gang private(wdwn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
       IF (cfg_phi_adv_z == 2) THEN
@@ -1842,9 +1876,28 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDIF
 
    ENDDO
+#ifdef WRF_GPU_RESIDENT
+   ENDIF
+#endif
       END BLOCK
 
    IF (non_hydrostatic) THEN  ! add in "gw" term.
+#ifdef WRF_GPU_RESIDENT
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts, jtf
+     DO k = 2, kte
+!$acc loop vector
+     DO i = its, itf
+        IF ( k == kde ) THEN
+           ph_tend(i,k,j) = 0. + (c1f(k)*mut(i,j)+c2f(k))*g*w(i,k,j)/msfty(i,j)
+        ELSE
+           ph_tend(i,k,j) = ph_tend(i,k,j) + (c1f(k)*mut(i,j)+c2f(k))*g*w(i,k,j)/msfty(i,j)
+        ENDIF
+     ENDDO
+     ENDDO
+   ENDDO
+   IF ( .FALSE. ) THEN
+#endif
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf            ! in hydrostatic mode, "gw" will be diagnosed
                               ! after the timestep to give us "w"
@@ -1862,6 +1915,9 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
      ENDDO
 
    ENDDO
+#ifdef WRF_GPU_RESIDENT
+   ENDIF
+#endif
 
    END IF
 
@@ -2637,6 +2693,7 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    INTEGER :: i,j,k, itf, jtf, ktf, i_start, j_start
    REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
    REAL :: dpx, dpy
+   REAL :: hpg_d0, hpg_d1
 #ifdef WRF_GPU
    REAL, DIMENSION( kms:kme ) :: c1   ! GPU: unused copies (kernels read c1h/c2h); automatic = thread-safe
 #else
@@ -2686,6 +2743,49 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( (config_flags%open_ye .or. specified .or. &
          config_flags%nested .or. config_flags%polar ) .and. jte == jde ) jtf = jtf-1
 
+#ifdef WRF_GPU_RESIDENT
+     ! GPU: gangs over (j,k) instead of one gang per row (ncu 2026-11-07: 16% occupancy, two partial waves on
+     ! big1000); dpn at k and k+1 is recomputed per level with the same expressions as the row version
+     IF ( non_hydrostatic ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+       DO j = j_start, jtf
+         DO k = 1, ktf
+!$acc loop vector private(dpy,hpg_d0,hpg_d1)
+           DO i = i_start, itf
+             IF ( k == 1 ) THEN
+               hpg_d0 = .5*( cf1*(p(i,1,j-1)+p(i,1,j))+cf2*(p(i,2,j-1)+p(i,2,j))+cf3*(p(i,3,j-1)+p(i,3,j)) )
+             ELSE
+               hpg_d0 = .5*( fnm(k)*(p(i,k,j-1)+p(i,k,j))+fnp(k)*(p(i,k-1,j-1)+p(i,k-1,j)) )
+             ENDIF
+             IF ( k+1 == kde ) THEN
+               IF ( top_lid ) THEN
+                 hpg_d1 = .5*( cfn *(p(i,kde-1,j-1)+p(i,kde-1,j))+cfn1*(p(i,kde-2,j-1)+p(i,kde-2,j)) )
+               ELSE
+                 hpg_d1 = 0.
+               ENDIF
+             ELSE
+               hpg_d1 = .5*( fnm(k+1)*(p(i,k+1,j-1)+p(i,k+1,j))+fnp(k+1)*(p(i,k,j-1)+p(i,k,j)) )
+             ENDIF
+             dpy = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*( (ph (i,k+1,j)-ph (i,k+1,j-1) + ph(i,k,j)-ph(i,k,j-1)) +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p (i,k,j)-p (i,k,j-1)) +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
+             dpy = dpy + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*(rdnw(k)*(hpg_d1-hpg_d0)-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
+             rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
+           END DO
+         END DO
+       END DO
+     ELSE
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+       DO j = j_start, jtf
+         DO k = 1, ktf
+!$acc loop vector private(dpy)
+           DO i = i_start, itf
+             dpy = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*( (ph (i,k+1,j)-ph (i,k+1,j-1) + ph(i,k,j)-ph(i,k,j-1)) +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p (i,k,j)-p (i,k,j-1)) +(al (i,k  ,j)+al (i,k  ,j-1))*(pb(i,k,j)-pb(i,k,j-1)) )
+             rv_tend(i,k,j) = rv_tend(i,k,j)-dpy
+           END DO
+         END DO
+       END DO
+     END IF
+     IF ( .FALSE. ) THEN   ! original row-gang version kept for the host build
+#endif
 !$acc parallel loop gang private(dpn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
@@ -2752,6 +2852,9 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
      END IF
 
    ENDDO
+#ifdef WRF_GPU_RESIDENT
+     END IF
+#endif
 
 !  now the east-west (x) pressure gradient
 
@@ -2767,6 +2870,49 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    IF ( config_flags%periodic_x ) i_start = its
    IF ( config_flags%periodic_x ) itf=ite
 
+#ifdef WRF_GPU_RESIDENT
+     ! GPU: gangs over (j,k) instead of one gang per row (ncu 2026-11-07: 16% occupancy, two partial waves on
+     ! big1000); dpn at k and k+1 is recomputed per level with the same expressions as the row version
+     IF ( non_hydrostatic ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+       DO j = j_start, jtf
+         DO k = 1, ktf
+!$acc loop vector private(dpx,hpg_d0,hpg_d1)
+           DO i = i_start, itf
+             IF ( k == 1 ) THEN
+               hpg_d0 = .5*( cf1*(p(i-1,1,j)+p(i,1,j))+cf2*(p(i-1,2,j)+p(i,2,j))+cf3*(p(i-1,3,j)+p(i,3,j)) )
+             ELSE
+               hpg_d0 = .5*( fnm(k)*(p(i-1,k,j)+p(i,k,j))+fnp(k)*(p(i-1,k-1,j)+p(i,k-1,j)) )
+             ENDIF
+             IF ( k+1 == kde ) THEN
+               IF ( top_lid ) THEN
+                 hpg_d1 = .5*( cfn *(p(i-1,kde-1,j)+p(i,kde-1,j))+cfn1*(p(i-1,kde-2,j)+p(i,kde-2,j)) )
+               ELSE
+                 hpg_d1 = 0.
+               ENDIF
+             ELSE
+               hpg_d1 = .5*( fnm(k+1)*(p(i-1,k+1,j)+p(i,k+1,j))+fnp(k+1)*(p(i-1,k,j)+p(i,k,j)) )
+             ENDIF
+             dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*( (ph (i,k+1,j)-ph (i-1,k+1,j) + ph(i,k,j)-ph(i-1,k,j)) +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p (i,k,j)-p (i-1,k,j)) +(al (i,k  ,j)+al (i-1,k  ,j))*(pb(i,k,j)-pb(i-1,k,j)) )
+             dpx = dpx + (msfux(i,j)/msfuy(i,j))*rdx*(php(i,k,j)-php(i-1,k,j))*(rdnw(k)*(hpg_d1-hpg_d0)-.5*((c1h(k)*mu(i-1,j))+(c1h(k)*mu(i,j))))
+             ru_tend(i,k,j) = ru_tend(i,k,j)-cqu(i,k,j)*dpx
+           END DO
+         END DO
+       END DO
+     ELSE
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+       DO j = j_start, jtf
+         DO k = 1, ktf
+!$acc loop vector private(dpx)
+           DO i = i_start, itf
+             dpx = (msfux(i,j)/msfuy(i,j))*.5*rdx*(c1h(k)*muu(i,j)+c2h(k))*( (ph (i,k+1,j)-ph (i-1,k+1,j) + ph(i,k,j)-ph(i-1,k,j)) +(alt(i,k  ,j)+alt(i-1,k  ,j))*(p (i,k,j)-p (i-1,k,j)) +(al (i,k  ,j)+al (i-1,k  ,j))*(pb(i,k,j)-pb(i-1,k,j)) )
+             ru_tend(i,k,j) = ru_tend(i,k,j)-dpx
+           END DO
+         END DO
+       END DO
+     END IF
+     IF ( .FALSE. ) THEN   ! original row-gang version kept for the host build
+#endif
 !$acc parallel loop gang private(dpn) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
 
@@ -2833,6 +2979,9 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
      END IF
 
    ENDDO
+#ifdef WRF_GPU_RESIDENT
+     END IF
+#endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
@@ -2872,6 +3021,7 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
 
    INTEGER :: itf, jtf, i, j, k
    REAL    :: cq1, cq2
+   REAL :: pgb_c1, pgb_c2
 
 
 !<DESCRIPTION>
@@ -2896,6 +3046,32 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
    itf=MIN(ite,ide-1)
    jtf=MIN(jte,jde-1)
 
+#ifdef WRF_GPU_RESIDENT
+   ! GPU: gangs over (j,k); the k = kde row needs cqw(i,kde-1,j) before the level loop overwrites it, so the
+   ! k = kde-1 gang (which reads that original value) also does the top row. Same expressions as the row version.
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = jts,jtf
+     DO k = 2, kde-1
+!$acc loop vector private(cq1,cq2,pgb_c1,pgb_c2)
+     DO i = its,itf
+      cq1 = 1./(1.+cqw(i,k,j))
+      cq2 = cqw(i,k,j)*cq1
+      IF ( k == kde-1 ) THEN
+        pgb_c1 = 1./(1.+cqw(i,kde-1,j))
+        pgb_c2 = cqw(i,kde-1,j)*pgb_c1
+        rw_tend(i,kde,j) = rw_tend(i,kde,j)+(1./msfty(i,j))*g*(      &
+                         pgb_c1*2.*rdnw(kde-1)*(  -p(i,kde-1,j))  &
+                         -(c1f(kde)*muf(i,j))-pgb_c2*(c1f(kde)*mubf(i,j)+c2f(kde))            )
+      ENDIF
+      cqw(i,k,j) = cq1
+      rw_tend(i,k,j) = rw_tend(i,k,j)+(1./msfty(i,j))*g*(      &
+                       cq1*rdn(k)*(p(i,k,j)-p(i,k-1,j))  &
+                       -(c1f(k)*muf(i,j))-cq2*(c1f(k)*mubf(i,j)+c2f(k))            )
+     END DO
+     ENDDO
+   ENDDO
+   IF ( .FALSE. ) THEN
+#endif
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts,jtf
 
@@ -2923,6 +3099,9 @@ SUBROUTINE pg_buoy_w( rw_tend, p, cqw, muf, mubf,     &
 
 
    ENDDO
+#ifdef WRF_GPU_RESIDENT
+   ENDIF
+#endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
