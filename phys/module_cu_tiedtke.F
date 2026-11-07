@@ -466,6 +466,13 @@ contains
       real, dimension(ims:ime, jms:jme), intent(in) :: xland, qfx
       real, dimension(ims:ime, jms:jme), intent(inout) :: raincv, pratec
       logical, dimension(ims:ime,jms:jme), intent(inout) :: cu_act_flag
+      ! WRF_GPU_CUCOMPACT=1 (default): run the column kernel over a list with the columns that were convective at the
+      ! previous call first (|rthcuten| > 0 anywhere in the column), stable (j,i) order within each group, so warps are
+      ! not dragged through the cloud model by a few active lanes. Per-column arithmetic unchanged (bit-identical).
+      INTEGER, SAVE :: cu_compact = -1
+      INTEGER, ALLOCATABLE, SAVE :: cu_li(:), cu_lj(:), cu_flag(:,:), cu_nact(:), cu_offa(:), cu_offi(:)
+      INTEGER :: nx_, ny_, ncol_, n_, jj_, cnt_, act_, pa_, pi_, tot_, st_
+      CHARACTER(LEN=8) :: cv_
       real, dimension(ims:ime, kms:kme, jms:jme), intent(in) :: dz8w, p8w, pcps, pi3d, qc3d, qvften, qvpblten, &
                                                                 qi3d, qv3d, rho3d, t3d, u3d, v3d, w
       real, dimension(ims:ime, kms:kme, jms:jme), intent(inout) :: rqccuten, rqicuten, rqvcuten, rthcuten, &
@@ -487,10 +494,74 @@ contains
          zz = kte+1-k
          sig1(zz) = znu(k)
       enddo
-!$acc parallel loop gang vector collapse(2) copyin(sig1) &
+      IF ( cu_compact < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CUCOMPACT', cv_, STATUS=st_ )
+         cu_compact = 1
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) cu_compact
+         IF ( st_ /= 0 ) cu_compact = 1
+      ENDIF
+      nx_ = ite - its + 1 ; ny_ = jte - jts + 1 ; ncol_ = nx_*ny_
+      IF ( ALLOCATED(cu_li) ) THEN
+         IF ( SIZE(cu_li) /= ncol_ .OR. SIZE(cu_nact) /= ny_ .OR. SIZE(cu_flag,1) /= nx_ ) THEN
+!$acc exit data delete(cu_li, cu_lj, cu_flag, cu_nact, cu_offa, cu_offi)
+            DEALLOCATE( cu_li, cu_lj, cu_flag, cu_nact, cu_offa, cu_offi )
+         ENDIF
+      ENDIF
+      IF ( .NOT. ALLOCATED(cu_li) ) THEN
+         ALLOCATE( cu_li(ncol_), cu_lj(ncol_), cu_flag(nx_,ny_), cu_nact(ny_), cu_offa(ny_), cu_offi(ny_) )
+!$acc enter data create(cu_li, cu_lj, cu_flag, cu_nact, cu_offa, cu_offi)
+      ENDIF
+      IF ( cu_compact == 1 ) THEN
+!$acc parallel loop gang present(cu_flag, cu_nact)
+         do j = jts, jte
+            cnt_ = 0
+!$acc loop vector reduction(+:cnt_) private(act_)
+            do i = its, ite
+               act_ = 0
+               do k = kts, kte
+                  if ( rthcuten(i,k,j) .ne. 0. ) act_ = 1
+               enddo
+               cu_flag(i-its+1, j-jts+1) = act_
+               cnt_ = cnt_ + act_
+            enddo
+            cu_nact(j-jts+1) = cnt_
+         enddo
+!$acc parallel num_gangs(1) num_workers(1) vector_length(1) present(cu_nact, cu_offa, cu_offi)
+         tot_ = 0
+!$acc loop seq
+         do jj_ = 1, ny_
+            cu_offa(jj_) = tot_ ; tot_ = tot_ + cu_nact(jj_)
+         enddo
+!$acc loop seq
+         do jj_ = 1, ny_
+            cu_offi(jj_) = tot_ ; tot_ = tot_ + nx_ - cu_nact(jj_)
+         enddo
+!$acc end parallel
+!$acc parallel loop gang vector_length(1) present(cu_flag, cu_offa, cu_offi, cu_li, cu_lj) private(pa_, pi_)
+         do j = jts, jte
+            pa_ = cu_offa(j-jts+1) ; pi_ = cu_offi(j-jts+1)
+!$acc loop seq
+            do i = its, ite
+               if ( cu_flag(i-its+1, j-jts+1) == 1 ) then
+                  pa_ = pa_ + 1 ; cu_li(pa_) = i ; cu_lj(pa_) = j
+               else
+                  pi_ = pi_ + 1 ; cu_li(pi_) = i ; cu_lj(pi_) = j
+               endif
+            enddo
+         enddo
+      ELSE
+!$acc parallel loop gang present(cu_li, cu_lj)
+         do j = jts, jte
+!$acc loop vector
+         do i = its, ite
+            cu_li((j-jts)*nx_ + i-its+1) = i ; cu_lj((j-jts)*nx_ + i-its+1) = j
+         enddo
+         enddo
+      ENDIF
+!$acc parallel loop gang vector copyin(sig1) present(cu_li, cu_lj) &
 !$acc private(rn,evap,slimsk,ktype,prsi,del,dot,phil,prsl,q1,q2,q3,q1b,q1bl,t1,u1,v1,omg,ght,zi,zl)
-   do j=jts,jte
-   do i=its,ite
+   do n_ = 1, ncol_
+      i = cu_li(n_) ; j = cu_lj(n_)
       cu_act_flag(i,j)=.true.
       zi(kts)=0.0
       do k=kts+1,kte
@@ -544,7 +615,6 @@ contains
           rqccuten(i,k,j)=(q2(1,zz)-qc3d(i,k,j))*rdelt
           rqicuten(i,k,j)=(q3(1,zz)-qi3d(i,k,j))*rdelt
       enddo
-   enddo
    enddo
    end subroutine cu_tiedtke_gpu
 #endif

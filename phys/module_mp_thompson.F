@@ -1219,6 +1219,15 @@
 #ifdef WRF_GPU
       LOGICAL:: gpu_do_re, gpu_do_refl
       INTEGER:: gpu_aer, gpu_wif
+      ! WRF_GPU_MPCOMPACT=1 (default): the column kernel runs over a list of columns with the hydrometeor-bearing
+      ! ones first (stable (j,i) order within each group), so warps are not dragged through the full scheme by a
+      ! few active lanes (only ~20% of columns carry condensate on big1000). Per-column arithmetic is unchanged.
+      INTEGER, SAVE :: mp_compact = -1
+      INTEGER, ALLOCATABLE, SAVE :: mp_li(:), mp_lj(:), mp_flag(:,:), mp_nact(:), mp_offa(:), mp_offi(:)
+      INTEGER :: nx_, ny_, ncol_, n_, jj_, cnt_, act_, pa_, pi_, tot_, st_
+      CHARACTER(LEN=8) :: cv_
+      REAL :: tf_, qf_, sf_
+      INTEGER, SAVE :: mp_ncall = 0
 #endif
 
 !+---+
@@ -1292,11 +1301,94 @@
       gpu_do_re = has_reqc.ne.0 .and. has_reqi.ne.0 .and. has_reqs.ne.0
       gpu_aer = 0 ; IF ( PRESENT(aer_init_opt) ) gpu_aer = aer_init_opt
       gpu_wif = 0 ; IF ( PRESENT(wif_input_opt) ) gpu_wif = wif_input_opt
-!$acc parallel loop gang vector collapse(2) &
+      IF ( mp_compact < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_MPCOMPACT', cv_, STATUS=st_ )
+         mp_compact = 1
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) mp_compact
+         IF ( st_ /= 0 ) mp_compact = 1
+      ENDIF
+      nx_ = i_end - i_start + 1 ; ny_ = j_end - j_start + 1 ; ncol_ = nx_*ny_
+      IF ( ALLOCATED(mp_li) ) THEN
+         IF ( SIZE(mp_li) /= ncol_ .OR. SIZE(mp_nact) /= ny_ .OR. SIZE(mp_flag,1) /= nx_ ) THEN
+!$acc exit data delete(mp_li, mp_lj, mp_flag, mp_nact, mp_offa, mp_offi)
+            DEALLOCATE( mp_li, mp_lj, mp_flag, mp_nact, mp_offa, mp_offi )
+         ENDIF
+      ENDIF
+      IF ( .NOT. ALLOCATED(mp_li) ) THEN
+         ALLOCATE( mp_li(ncol_), mp_lj(ncol_), mp_flag(nx_,ny_), mp_nact(ny_), mp_offa(ny_), mp_offi(ny_) )
+!$acc enter data create(mp_li, mp_lj, mp_flag, mp_nact, mp_offa, mp_offi)
+      ENDIF
+      IF ( mp_compact >= 1 ) THEN
+         ! flag and per-row count of columns with any hydrometeor above R1 (the scheme's own no_micro test)
+!$acc parallel loop gang present(mp_flag, mp_nact)
+         do j = j_start, j_end
+            cnt_ = 0
+!$acc loop vector reduction(+:cnt_) private(act_)
+            do i = i_start, i_end
+               act_ = 0
+               do k = kts, kte
+                  if ( qc(i,k,j) .gt. R1 .or. qi(i,k,j) .gt. R1 .or. qr(i,k,j) .gt. R1 .or.     &
+                       qs(i,k,j) .gt. R1 .or. qg(i,k,j) .gt. R1 ) act_ = 1
+                  ! the scheme also leaves no_micro for ice supersaturation anywhere in the column (same formulas)
+                  tf_ = th(i,k,j)*pii(i,k,j)
+                  if ( tf_ - 273.15 .le. 0.0 ) then
+                     qf_ = rsif(p(i,k,j), tf_)
+                  else
+                     qf_ = rslf(p(i,k,j), tf_)
+                  endif
+                  sf_ = qv(i,k,j)/qf_ - 1.
+                  if ( abs(sf_) .lt. eps ) sf_ = 0.0
+                  if ( sf_ .gt. 0.0 ) act_ = 1
+               enddo
+               mp_flag(i-i_start+1, j-j_start+1) = act_
+               cnt_ = cnt_ + act_
+            enddo
+            mp_nact(j-j_start+1) = cnt_
+         enddo
+         mp_ncall = mp_ncall + 1
+         IF ( mp_compact == 2 .AND. MOD(mp_ncall,20) == 1 ) THEN
+!$acc update self(mp_nact)
+            WRITE(0,'(A,I6,A,F6.1,A)') 'MPCOMPACT call', mp_ncall, ': active columns ', 100.*REAL(SUM(mp_nact))/REAL(ncol_), ' %'
+         ENDIF
+         ! row offsets of the two groups (serial scan over the rows)
+!$acc parallel num_gangs(1) num_workers(1) vector_length(1) present(mp_nact, mp_offa, mp_offi)
+         tot_ = 0
+!$acc loop seq
+         do jj_ = 1, ny_
+            mp_offa(jj_) = tot_ ; tot_ = tot_ + mp_nact(jj_)
+         enddo
+!$acc loop seq
+         do jj_ = 1, ny_
+            mp_offi(jj_) = tot_ ; tot_ = tot_ + nx_ - mp_nact(jj_)
+         enddo
+!$acc end parallel
+         ! fill the lists, one gang per row, in i order
+!$acc parallel loop gang vector_length(1) present(mp_flag, mp_offa, mp_offi, mp_li, mp_lj) private(pa_, pi_)
+         do j = j_start, j_end
+            pa_ = mp_offa(j-j_start+1) ; pi_ = mp_offi(j-j_start+1)
+!$acc loop seq
+            do i = i_start, i_end
+               if ( mp_flag(i-i_start+1, j-j_start+1) == 1 ) then
+                  pa_ = pa_ + 1 ; mp_li(pa_) = i ; mp_lj(pa_) = j
+               else
+                  pi_ = pi_ + 1 ; mp_li(pi_) = i ; mp_lj(pi_) = j
+               endif
+            enddo
+         enddo
+      ELSE
+!$acc parallel loop gang present(mp_li, mp_lj)
+         do j = j_start, j_end
+!$acc loop vector
+         do i = i_start, i_end
+            mp_li((j-j_start)*nx_ + i-i_start+1) = i ; mp_lj((j-j_start)*nx_ + i-i_start+1) = j
+         enddo
+         enddo
+      ENDIF
+!$acc parallel loop gang vector present(mp_li, mp_lj) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
 !$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ)
-      do j = j_start, j_end
-      do i = i_start, i_end
+      do n_ = 1, ncol_
+         i = mp_li(n_) ; j = mp_lj(n_)
          pptrain = 0.
          pptsnow = 0.
          pptgraul = 0.
@@ -1387,7 +1479,6 @@
              re_snow(i,k,j)  = MAX(RE_QS_BG, MIN(re_qs1d(k), 999.E-6))
           enddo
          ENDIF
-      enddo
       enddo
       RETURN
       ENDIF
