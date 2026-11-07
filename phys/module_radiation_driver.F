@@ -1003,7 +1003,10 @@ CONTAINS
 
    REAL    ::    next_rad_time, DTaccum
    LOGICAL ::    run_param , doing_adapt_dt , decided
+   LOGICAL ::    cldt_go
 #ifdef WRF_GPU
+   INTEGER, SAVE :: cldt_rad = -1
+   CHARACTER(LEN=8) :: cldt_env
    INTEGER :: ra_isub, ra_nj, ra_ntask
    LOGICAL :: ra_gpu_fast, lw_gpu_go, sw_gpu_go
    INTEGER(8) :: ra_c0, ra_c1, ra_cr, ra_w0, ra_w1, ra_w2, ra_w3
@@ -3423,7 +3426,18 @@ CONTAINS
 
 ! compute cloud diagnosis (random overlapping)
 ! by ZCX
- IF ( PRESENT ( CLDFRA ) .AND. PRESENT ( CLDT ) .AND.        &
+ cldt_go = .TRUE.
+#ifdef WRF_GPU
+ ! WRF_GPU_CLDTRAD (default 1; 0 restores every step): cldfra only changes inside Radiation_step (no other scheme in this configuration writes it), so
+ ! the serial column product (~6 ms/step on big1000) is bit-identical when done only on radiation steps
+ IF ( cldt_rad < 0 ) THEN
+    CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CLDTRAD', cldt_env )
+    cldt_rad = 1
+    IF ( TRIM(cldt_env) == '0' ) cldt_rad = 0
+ ENDIF
+ IF ( cldt_rad == 1 .AND. .NOT. run_param .AND. itimestep > 1 ) cldt_go = .FALSE.
+#endif
+ IF ( cldt_go .AND. PRESENT ( CLDFRA ) .AND. PRESENT ( CLDT ) .AND.        &
       PRESENT ( F_QC ) .AND. PRESENT ( F_QI ) ) THEN
 
    DO ij = 1 , num_tiles

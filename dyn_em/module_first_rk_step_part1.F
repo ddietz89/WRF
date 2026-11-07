@@ -57,7 +57,8 @@ CONTAINS
     USE module_shallowcu_driver, ONLY : shallowcu_driver
     USE module_pbl_driver, ONLY : pbl_driver
 #ifdef WRF_GPU_RESIDENT
-    USE module_surface_driver, ONLY : wrf_gpu_sfcdev_ran, wrf_gpu_chain_last, wrf_gpu_sfc_lean, wrf_gpu_sfc_leanmode
+    USE module_surface_driver, ONLY : wrf_gpu_sfcdev_ran, wrf_gpu_chain_last, wrf_gpu_sfc_lean, wrf_gpu_sfc_leanmode, &
+                                      wrf_gpu_lean_pending
     USE module_pbl_driver, ONLY : wrf_gpu_pbl_sfcdev, wrf_gpu_pbl_ran, wrf_gpu_pbl_lean
 #endif
     USE module_fr_fire_driver_wrf, ONLY : fire_driver_em_step
@@ -86,6 +87,10 @@ CONTAINS
 #endif
 
     IMPLICIT NONE
+#ifdef WRF_GPU_RESIDENT
+    INTEGER, SAVE :: physa_halo = -1
+    CHARACTER(LEN=8) :: physa_env
+#endif
 
     TYPE ( domain ), INTENT(INOUT) :: grid
     TYPE ( grid_config_rec_type ), INTENT(IN) :: config_flags
@@ -194,6 +199,9 @@ CONTAINS
    if (present(f_flux)) l_flux=f_flux
 
     rk_step = 1
+#ifdef WRF_SEG_TIMERS
+    CALL pre_tick(0)
+#endif
 
 BENCH_START(init_zero_tend_tim)
 #ifdef WRF_GPU_RESIDENT
@@ -228,7 +236,24 @@ BENCH_START(init_zero_tend_tim)
 BENCH_END(init_zero_tend_tim)
 
 #ifdef DM_PARALLEL
+#ifdef WRF_GPU_RESIDENT
+      ! lean GPU step: phy_prep ran on the device (solve_em) with the device-current u_2/v_2 halos of the dynamics;
+      ! the host copies are stale and unread, and this host exchange costs ~13 ms/step (PRETIME section 1).
+      ! WRF_GPU_PHYSAHALO=0 skips it on lean steps.
+      IF ( physa_halo < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYSAHALO', physa_env )
+         physa_halo = 1
+         IF ( TRIM(physa_env) == '0' ) physa_halo = 0
+      ENDIF
+      IF ( .NOT. ( wrf_gpu_lean_step .AND. physa_halo == 0 ) ) THEN
+#endif
 #     include "HALO_EM_PHYS_A.inc"
+#ifdef WRF_GPU_RESIDENT
+      ENDIF
+#endif
+#endif
+#ifdef WRF_SEG_TIMERS
+      CALL pre_tick(1)
 #endif
 
 #ifdef WRF_SEG_TIMERS
@@ -277,6 +302,7 @@ BENCH_END(phy_prep_tim)
 ! this driver is only needed to handle non-local shadowing effects
 #ifdef WRF_SEG_TIMERS
       CALL phys_tick(1)
+      CALL pre_tick(2)
 #endif
       CALL pre_radiation_driver ( grid, config_flags                           &
      &        ,itimestep=grid%itimestep, ra_call_offset=grid%ra_call_offset    &
@@ -302,6 +328,9 @@ BENCH_END(phy_prep_tim)
      &        ,kts=k_start, kte=min(k_end,kde-1)                               &
      &        ,num_tiles=grid%num_tiles                                        )
 
+#ifdef WRF_SEG_TIMERS
+      CALL pre_tick(3)
+#endif
       CALL wrf_debug ( 200 , ' call radiation_driver' )
 BENCH_START(rad_driver_tim)
 
@@ -581,6 +610,9 @@ BENCH_START(rad_driver_tim)
                                                       )
 
 BENCH_END(rad_driver_tim)
+#ifdef WRF_SEG_TIMERS
+      CALL pre_tick(4)
+#endif
 
 !********* Surface driver
 ! surface
@@ -642,6 +674,11 @@ BENCH_START(surf_driver_tim)
 
 #ifdef WRF_SEG_TIMERS
       CALL phys_tick(2)
+      CALL pre_tick(5)
+#endif
+#ifdef WRF_GPU_RESIDENT
+      IF ( wrf_gpu_lean_pending ) CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, &
+                                                      ims, ime, jms, jme, kms, kme, 2 )
 #endif
       CALL surface_driver(                                                &
      &        HYDRO_dt=HYDRO_dt,  sfcheadrt=grid%sfcheadrt,               &
@@ -1210,6 +1247,7 @@ BENCH_END(surf_driver_tim)
 BENCH_START(pbl_driver_tim)
 #ifdef WRF_SEG_TIMERS
       CALL phys_tick(3)
+      CALL pre_tick(6)
 #endif
       CALL pbl_driver(                                                              &
      &         AKHS=grid%akhs          ,AKMS=grid%akms                              &
@@ -2100,6 +2138,27 @@ BENCH_END(fdda_driver_tim)
 #ifdef WRF_SEG_TIMERS
 ! PHYSTIME (WRF_SEG_TIMERS): wall seconds in first_rk_step_part1 sections, printed every 20 calls:
 ! 1 phy_prep, 2 radiation, 3 surface, 4 pbl, 5 cumulus, 6 shallow cu, 7 (unused), 8 rest
+! PRETIME: 1 part1 entry->after HALO_EM_PHYS_A, 2 ->before pre_radiation, 3 pre_radiation, 4 radiation_driver,
+! 5 radiation->surface_driver call, 6 surface_driver (whole)
+  SUBROUTINE pre_tick( k )
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: k
+      INTEGER(8), SAVE :: last = 0
+      REAL(8), SAVE :: acc(8) = 0.d0
+      INTEGER, SAVE :: ncall = 0
+      INTEGER(8) :: now, rate
+      CHARACTER(LEN=256) :: msg
+      CALL SYSTEM_CLOCK( now, rate )
+      IF ( k > 0 ) acc(k) = acc(k) + DBLE(now - last) / DBLE(rate)
+      last = now
+      IF ( k == 6 ) THEN
+         ncall = ncall + 1
+         IF ( MOD(ncall, 20) == 0 ) THEN
+            WRITE(msg,'(A,I6,8F9.3)') 'PRETIME ', ncall, acc
+            CALL wrf_message( msg )
+         ENDIF
+      ENDIF
+  END SUBROUTINE pre_tick
   SUBROUTINE phys_tick( k )
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: k

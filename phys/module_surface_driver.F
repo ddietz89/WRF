@@ -27,6 +27,8 @@ MODULE module_surface_driver
   ! WRF_GPU_EARLYDYN=2: solve_em points this at its stage-1 rk_tendency launch (queue 2); fired once, after the
   ! surface-layer pull of a host-Noah lean step, so the GPU runs it while the host does Noah
   PROCEDURE(), POINTER :: wrf_gpu_early_hook => NULL()
+  ! WRF_GPU_LEANASYNC: a lean pull is in flight on queue 1; first_rk_step_part1 completes it before the surface driver
+  LOGICAL :: wrf_gpu_lean_pending = .FALSE.
   INTEGER :: sfc_pullmask = -1, sfc_pushmask = 2047, sfc_mst
   CHARACTER(LEN=16) :: sfc_maskv
 #endif

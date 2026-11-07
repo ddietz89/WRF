@@ -127,7 +127,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_surface_driver, ONLY : wrf_gpu_sfc, wrf_gpu_lsm, wrf_gpu_sfc_lean, wrf_gpu_sfc_hoststale, wrf_gpu_sfc_leanmode, &
                                     wrf_gpu_hnsteady, wrf_gpu_sfc_hoststale_hn
 #ifdef WRF_GPU_RESIDENT
-   USE module_surface_driver, ONLY : wrf_gpu_early_hook
+   USE module_surface_driver, ONLY : wrf_gpu_early_hook, wrf_gpu_lean_pending
 #endif
    USE module_cumulus_driver, ONLY : wrf_gpu_cu_ran, wrf_gpu_cu_pullbl, wrf_gpu_cu, wrf_gpu_cu_dev_ran
    USE module_pbl_driver, ONLY : wrf_gpu_bl_ran, wrf_gpu_pbl, wrf_gpu_pbl_ran
@@ -213,6 +213,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU_RESIDENT
    LOGICAL                        :: early_rkt
    INTEGER, SAVE                  :: earlydyn = -1
+   INTEGER, SAVE                  :: leanasync = -1
    INTEGER                        :: ed_its, ed_ite, ed_jts, ed_jte
    CHARACTER(LEN=8)               :: edv
 #endif
@@ -1187,8 +1188,17 @@ BENCH_START(calc_p_rho_tim)
    ENDIF
    gpu_h1_reuse = IAND( wrf_gpu_xfer(), 128 ) /= 0 .AND. gpu_h3_done
    IF ( wrf_gpu_lean_step ) THEN
+     IF ( leanasync < 0 ) THEN
+        CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_LEANASYNC', edv )
+        leanasync = 0
+        IF ( TRIM(edv) == '1' ) leanasync = 1
+     ENDIF
+     IF ( leanasync == 1 ) THEN
+        CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme, 1 )
+     ELSE
 !$acc wait(1)
-     CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
+        CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme, 0 )
+     ENDIF
    ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 .AND. IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h1.inc"
    ELSE IF ( IAND( wrf_gpu_xfer(), 1 ) /= 0 ) THEN
@@ -1344,6 +1354,8 @@ BENCH_START(calc_p_rho_tim)
 #endif
 #ifdef WRF_GPU_RESIDENT
    wrf_gpu_early_hook => NULL()
+   IF ( wrf_gpu_lean_pending ) CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, &
+                                                   ims, ime, jms, jme, kms, kme, 2 )
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 3 ) == 3 ) THEN
@@ -7209,18 +7221,22 @@ END SUBROUTINE gpu_retile
 
 ! WRF_GPU lean step: levels kms..kms+1 of the GPU phy_prep fields and the moisture species to the host, packed on
 ! the device (one contiguous transfer instead of ~20 full 3-D pulls)
-SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
+SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme, phase )
    ! levels 1-2 of the phy_prep fields and moisture for the host physics of a lean step.
    ! WRF_GPU_LEANMASK (bits 0-13: t_phy th_phy p_phy pi_phy u_phy v_phy p8w t8w dz8w rho z z_at_w p_hyd p_hyd_w;
    ! bit 14: all moist species, else only QV) selects the fields. Default 16383: all 14 fields, QV only - bit-identical
    ! on big1000 and ~7 ms/step faster than the full set (32767). The host reads levels 1-2 of p_hyd/p_hyd_w on lean
    ! steps (dropping them changes the dynamics) and z/z_at_w/t8w feed the AFWA low-level turbulence diagnostics
    ! (dropping them changes AFWA_LLTURB*), so those stay.
+   ! phase: 0 = pack, copy and unpack; 1 = pack and start the copy on queue 1 (WRF_GPU_LEANASYNC: the host goes on
+   ! with the part1 preamble, the lean-step halo and the radiation bookkeeping while the GPU finishes phy_prep and the
+   ! copy); 2 = wait for the copy and unpack (called from first_rk_step_part1 right before the surface driver)
    USE module_domain, ONLY : domain
    USE module_state_description, ONLY : P_QV
+   USE module_surface_driver, ONLY : wrf_gpu_lean_pending
    IMPLICIT NONE
    TYPE(domain), INTENT(INOUT) :: grid
-   INTEGER, INTENT(IN) :: num_moist, ims, ime, jms, jme, kms, kme
+   INTEGER, INTENT(IN) :: num_moist, ims, ime, jms, jme, kms, kme, phase
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy, p_phy, pi_phy, p8w, t8w, dz8w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(INOUT) :: moist
    REAL, ALLOCATABLE, SAVE :: buf(:,:,:,:)
@@ -7255,9 +7271,19 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
       ALLOCATE( buf(ims:ime,2,jms:jme,nf) )
 !$acc enter data create(buf)
    ENDIF
+   IF ( phase /= 2 ) THEN
    CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
                    grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, sel, nsel, ims, ime, jms, jme, kms, kme )
+   IF ( phase == 1 ) THEN
+!$acc update self(buf(:,:,:,1:nsel)) async(1)
+      wrf_gpu_lean_pending = .TRUE.
+      RETURN
+   ENDIF
 !$acc update self(buf(:,:,:,1:nsel))
+   ELSE
+!$acc wait(1)
+      wrf_gpu_lean_pending = .FALSE.
+   ENDIF
    !$OMP PARALLEL DO PRIVATE(i,j,k,n,f)
    DO j = jms, jme
    DO k = 1, 2
