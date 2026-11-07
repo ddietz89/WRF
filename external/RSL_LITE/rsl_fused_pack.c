@@ -15,7 +15,7 @@ static int fused_on = -1 ;
 static long chunk_d_cap = 0 ; static int *chunk_d = NULL ; static long *chunk_s = NULL ;
 
 int rsl_fused_on_ ( void ) {
-  if ( fused_on < 0 ) { char *e = getenv("WRF_GPU_FUSEDPACK") ; fused_on = ( e ) ? ( e[0] == '1' ) : 1 ;   /* default on since 2026-11-07 (bit-identical, -1 ms/step) */ }
+  if ( fused_on < 0 ) { char *e = getenv("WRF_GPU_FUSEDPACK") ; fused_on = ( e && e[0] == '1' ) ;   /* opt-in: measured +2.3 ms/step when really linked (2026-11-07) */ }
   return fused_on ;
 }
 

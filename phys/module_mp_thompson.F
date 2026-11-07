@@ -2017,6 +2017,8 @@
       REAL:: dew_t, Tlcl, The
 #ifdef WRF_GPU
       REAL:: twet_k
+      REAL:: tempc_s, rhof_s, rhof2_s, qvs_s, delQvs_s, qvsi_s, satw_s, sati_s, ssatw_s, ssati_s, &
+             diffu_s, visco_s, ocp_s, vsc2_s, lvap_s, tcond_s
 #endif
       REAL:: xnc, xri, xni, xmi, oxmi, xrc, xrr, xnr, xrg, xng, xrb
       REAL:: xsat, rate_max, sump, ratio
@@ -2392,6 +2394,24 @@
 !.. Flatau et al. 1992; enthalpy (latent heat) of vaporization from
 !.. Bohren & Albrecht 1998; others from Pruppacher & Klett 1978.
 !+---+-----------------------------------------------------------------+
+#ifdef WRF_GPU
+      ! GPU: only what the no_micro test needs; the other per-level properties are evaluated as scalars inside
+      ! the fused rate loop (same expressions) - no per-level arrays written for clear columns
+      k_melting = 0
+      do k = kts, kte
+         tempc = temp(k) - 273.15
+         if (tempc .le. 0.0) then
+          qvsi_s = rsif(pres(k), temp(k))
+         else
+          qvsi_s = rslf(pres(k), temp(k))
+          k_melting = MAX(k, k_melting)
+         endif
+         sati_s = qv(k)/qvsi_s
+         ssati_s = sati_s - 1.
+         if (abs(ssati_s).lt. eps) ssati_s = 0.0
+         if (no_micro .and. ssati_s.gt. 0.0) no_micro = .false.
+      enddo
+#else
       k_melting = 0
       do k = kts, kte
          tempc = temp(k) - 273.15
@@ -2424,6 +2444,7 @@
          tcond(k) = (5.69 + 0.0168*tempc)*1.0E-5 * 418.936
          twet(k) = temp(k)
       enddo
+#endif
 
 #ifndef WRF_GPU
       if (k_melting .gt. 0) then
@@ -2628,11 +2649,38 @@
 !.. them is per level). The 59 process rates used only here are scalars (zeroed per level, as the zero loop
 !.. did) instead of KTGPU-long local arrays - same per-level arithmetic, far less local-memory traffic.
       do k = kts, kte
+         ! GPU: per-level thermodynamic properties as scalars (the setup loop's expressions)
+         tempc_s = temp(k) - 273.15
+         rhof_s = SQRT(RHO_NOT/rho(k))
+         rhof2_s = SQRT(rhof_s)
+         qvs_s = rslf(pres(k), temp(k))
+         delQvs_s = MAX(0.0, rslf(pres(k), 273.15)-qv(k))
+         if (tempc_s .le. 0.0) then
+          qvsi_s = rsif(pres(k), temp(k))
+         else
+          qvsi_s = qvs_s
+         endif
+         satw_s = qv(k)/qvs_s
+         sati_s = qv(k)/qvsi_s
+         ssatw_s = satw_s - 1.
+         ssati_s = sati_s - 1.
+         if (abs(ssatw_s).lt. eps) ssatw_s = 0.0
+         if (abs(ssati_s).lt. eps) ssati_s = 0.0
+         diffu_s = 2.11E-5*(temp(k)/273.15)**1.94 * (101325./pres(k))
+         if (tempc_s .ge. 0.0) then
+            visco_s = (1.718+0.0049*tempc_s)*1.0E-5
+         else
+            visco_s = (1.718+0.0049*tempc_s-1.2E-5*tempc_s*tempc_s)*1.0E-5
+         endif
+         ocp_s = 1./(Cp*(1.+0.887*qv(k)))
+         vsc2_s = SQRT(rho(k)/visco_s)
+         lvap_s = lvap0 + (2106.0 - 4218.0)*tempc_s
+         tcond_s = (5.69 + 0.0168*tempc_s)*1.0E-5 * 418.936
          ! GPU: wet-bulb temperature (iterative moist-adiabat solver) only where it is used - all its uses are
          ! in snow/graupel processes; the host computes it for every level up to k_melting before the no_micro exit
          twet_k = temp(k)
          if (k .le. k_melting) then
-          if (satw(k) .lt. 0.999 .and. (L_qs(k) .or. L_qg(k))) then
+          if (satw_s .lt. 0.999 .and. (L_qs(k) .or. L_qg(k))) then
              dew_t = MIN(temp(k)-0.001, t_dew(pres(k), qv(k)))
              Tlcl = t_lcl(temp(k), dew_t)
              The = theta_e(pres(k), temp(k), qv(k), Tlcl)
@@ -2742,32 +2790,32 @@
           idx = 1 + INT(nbr*DLOG(mvd_r(k)/Dr(1))/DLOG(Dr(nbr)/Dr(1)))
           idx = MIN(idx, nbr)
           Ef_rw = t_Efrw(idx, INT(mvd_c(k)*1.E6))
-          prr_rcw(k) = rhof(k)*t1_qr_qc*Ef_rw*rc(k)*N0_r(k) &
+          prr_rcw(k) = rhof_s*t1_qr_qc*Ef_rw*rc(k)*N0_r(k) &
                          *((lamr+fv_r)**(-cre(9)))
           prr_rcw(k) = MIN(DBLE(rc(k)*odts), prr_rcw(k))
-          pnc_rcw_s = rhof(k)*t1_qr_qc*Ef_rw*nc(k)*N0_r(k)             &
+          pnc_rcw_s = rhof_s*t1_qr_qc*Ef_rw*nc(k)*N0_r(k)             &
                          *((lamr+fv_r)**(-cre(9)))                          ! Qc2M
           pnc_rcw_s = MIN(DBLE(nc(k)*odts), pnc_rcw_s)
          endif
 
 !..Rain collecting aerosols, wet scavenging.
          if (L_qr(k) .and. mvd_r(k).gt. D0r) then
-          Ef_ra = Eff_aero(mvd_r(k),0.04E-6,visco(k),rho(k),temp(k),'r')
+          Ef_ra = Eff_aero(mvd_r(k),0.04E-6,visco_s,rho(k),temp(k),'r')
           lamr = 1./ilamr(k)
-          pna_rca_s = rhof(k)*t1_qr_qc*Ef_ra*nwfa(k)*N0_r(k)           &
+          pna_rca_s = rhof_s*t1_qr_qc*Ef_ra*nwfa(k)*N0_r(k)           &
                          *((lamr+fv_r)**(-cre(9)))
           pna_rca_s = MIN(DBLE(nwfa(k)*odts), pna_rca_s)
 
-          Ef_ra = Eff_aero(mvd_r(k),0.8E-6,visco(k),rho(k),temp(k),'r')
-          pnd_rcd_s = rhof(k)*t1_qr_qc*Ef_ra*nifa(k)*N0_r(k)           &
+          Ef_ra = Eff_aero(mvd_r(k),0.8E-6,visco_s,rho(k),temp(k),'r')
+          pnd_rcd_s = rhof_s*t1_qr_qc*Ef_ra*nifa(k)*N0_r(k)           &
                          *((lamr+fv_r)**(-cre(9)))
           pnd_rcd_s = MIN(DBLE(nifa(k)*odts), pnd_rcd_s)
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
               Ef_ra = Eff_aero(mvd_r(k),0.0236E-6, &
-                                 visco(k),rho(k),temp(k),'r')
-              pnb_rcb_s = rhof(k)*t1_qr_qc*Ef_ra*nbca(k)*N0_r(k)       &
+                                 visco_s,rho(k),temp(k),'r')
+              pnb_rcb_s = rhof_s*t1_qr_qc*Ef_ra*nbca(k)*N0_r(k)       &
                              *((lamr+fv_r)**(-cre(9)))
               pnb_rcb_s = MIN(DBLE(nbca(k)*odts), pnb_rcb_s)
             endif
@@ -2917,17 +2965,17 @@
 
 !..Deposition/sublimation prefactor (from Srivastava & Coen 1992).
          otemp = 1./temp(k)
-         rvs = rho(k)*qvsi(k)
+         rvs = rho(k)*qvsi_s
          rvs_p = rvs*otemp*(lsub*otemp*oRv - 1.)
          rvs_pp = rvs * ( otemp*(lsub*otemp*oRv - 1.) &
                          *otemp*(lsub*otemp*oRv - 1.) &
                          + (-2.*lsub*otemp*otemp*otemp*oRv) &
                          + otemp*otemp)
-         gamsc = lsub*diffu(k)/tcond(k) * rvs_p
+         gamsc = lsub*diffu_s/tcond_s * rvs_p
          alphsc = 0.5*(gamsc/(1.+gamsc))*(gamsc/(1.+gamsc)) &
                     * rvs_pp/rvs_p * rvs/rvs_p
          alphsc = MAX(1.E-9, alphsc)
-         xsat = ssati(k)
+         xsat = ssati_s
          if (abs(xsat).lt. 1.E-9) xsat=0.
          t1_subl = 4.*PI*( 1.0 - alphsc*xsat &
                 + 2.*alphsc*alphsc*xsat*xsat &
@@ -2940,17 +2988,17 @@
            idx = 1 + INT(nbs*DLOG(xDs/Ds(1))/DLOG(Ds(nbs)/Ds(1)))
            idx = MIN(idx, nbs)
            Ef_sw = t_Efsw(idx, INT(mvd_c(k)*1.E6))
-           prs_scw(k) = rhof(k)*t1_qs_qc*Ef_sw*rc(k)*smoe(k)
+           prs_scw(k) = rhof_s*t1_qs_qc*Ef_sw*rc(k)*smoe(k)
            prs_scw(k) = MIN(DBLE(rc(k)*odts), prs_scw(k))
-           pnc_scw_s = rhof(k)*t1_qs_qc*Ef_sw*nc(k)*smoe(k)                ! Qc2M
+           pnc_scw_s = rhof_s*t1_qs_qc*Ef_sw*nc(k)*smoe(k)                ! Qc2M
            pnc_scw_s = MIN(DBLE(nc(k)*odts), pnc_scw_s)
           endif
 
 !..Graupel collecting cloud water.  In CE, assume Dc<<Dg and vtc=~0.
           if (rg(k).ge. r_g(1) .and. mvd_c(k).gt. D0c) then
            xDg = (bm_g + mu_g + 1.) * ilamg(k)
-           vtg = rhof(k)*av_g(idx_bg(k))*cgg(6,idx_bg(k))*ogg3 * ilamg(k)**bv_g(idx_bg(k))
-           stoke_g = mvd_c(k)*mvd_c(k)*vtg*rho_w/(9.*visco(k)*xDg)
+           vtg = rhof_s*av_g(idx_bg(k))*cgg(6,idx_bg(k))*ogg3 * ilamg(k)**bv_g(idx_bg(k))
+           stoke_g = mvd_c(k)*mvd_c(k)*vtg*rho_w/(9.*visco_s*xDg)
 !..Rime density formula of Cober and List (1993) also used by Milbrandt and Morrison (2014).
            const_Ri = -1.*(mvd_c(k)*0.5E6)*vtg/MIN(-0.1,tempc)
            const_Ri = MAX(0.1, MIN(const_Ri, 10.))
@@ -2965,9 +3013,9 @@
 !!! Not sure what to do here - hail increases size rapidly here below melting level.
             if (twet_k.gt.T_0) Ef_gw = Ef_gw*0.1
             t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
-            prg_gcw(k) = rhof(k)*t1_qg_qc*Ef_gw*rc(k)*N0_g(k) &
+            prg_gcw(k) = rhof_s*t1_qg_qc*Ef_gw*rc(k)*N0_g(k) &
                           *ilamg(k)**cge(9,idx_bg(k))
-            pnc_gcw_s = rhof(k)*t1_qg_qc*Ef_gw*nc(k)*N0_g(k)           &
+            pnc_gcw_s = rhof_s*t1_qg_qc*Ef_gw*nc(k)*N0_g(k)           &
                           *ilamg(k)**cge(9,idx_bg(k))                    ! Qc2M
             pnc_gcw_s = MIN(DBLE(nc(k)*odts), pnc_gcw_s)
             if (twet_k.lt.T_0) pbg_gcw_s = prg_gcw(k)/rime_dens
@@ -2976,39 +3024,39 @@
 
 !..Snow and graupel collecting aerosols, wet scavenging.
          if (rs(k) .gt. r_s(1)) then
-          Ef_sa = Eff_aero(xDs,0.04E-6,visco(k),rho(k),temp(k),'s')
-          pna_sca_s = rhof(k)*t1_qs_qc*Ef_sa*nwfa(k)*smoe(k)
+          Ef_sa = Eff_aero(xDs,0.04E-6,visco_s,rho(k),temp(k),'s')
+          pna_sca_s = rhof_s*t1_qs_qc*Ef_sa*nwfa(k)*smoe(k)
           pna_sca_s = MIN(DBLE(nwfa(k)*odts), pna_sca_s)
 
-          Ef_sa = Eff_aero(xDs,0.8E-6,visco(k),rho(k),temp(k),'s')
-          pnd_scd_s = rhof(k)*t1_qs_qc*Ef_sa*nifa(k)*smoe(k)
+          Ef_sa = Eff_aero(xDs,0.8E-6,visco_s,rho(k),temp(k),'s')
+          pnd_scd_s = rhof_s*t1_qs_qc*Ef_sa*nifa(k)*smoe(k)
           pnd_scd_s = MIN(DBLE(nifa(k)*odts), pnd_scd_s)
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
-              Ef_sa = Eff_aero(xDs,0.0236E-6,visco(k),rho(k),temp(k),'s')
-              pnb_scb_s = rhof(k)*t1_qs_qc*Ef_sa*nbca(k)*smoe(k)
+              Ef_sa = Eff_aero(xDs,0.0236E-6,visco_s,rho(k),temp(k),'s')
+              pnb_scb_s = rhof_s*t1_qs_qc*Ef_sa*nbca(k)*smoe(k)
               pnb_scb_s = MIN(DBLE(nbca(k)*odts), pnb_scb_s)
             endif
           endif
          endif
          if (rg(k) .gt. r_g(1)) then
           xDg = (bm_g + mu_g + 1.) * ilamg(k)
-          Ef_ga = Eff_aero(xDg,0.04E-6,visco(k),rho(k),temp(k),'g')
+          Ef_ga = Eff_aero(xDg,0.04E-6,visco_s,rho(k),temp(k),'g')
           t1_qg_qc = PI*.25*av_g(idx_bg(k)) * cgg(9,idx_bg(k))
-          pna_gca_s = rhof(k)*t1_qg_qc*Ef_ga*nwfa(k)*N0_g(k)           &
+          pna_gca_s = rhof_s*t1_qg_qc*Ef_ga*nwfa(k)*N0_g(k)           &
                         *ilamg(k)**cge(9,idx_bg(k))
           pna_gca_s = MIN(DBLE(nwfa(k)*odts), pna_gca_s)
 
-          Ef_ga = Eff_aero(xDg,0.8E-6,visco(k),rho(k),temp(k),'g')
-          pnd_gcd_s = rhof(k)*t1_qg_qc*Ef_ga*nifa(k)*N0_g(k)           &
+          Ef_ga = Eff_aero(xDg,0.8E-6,visco_s,rho(k),temp(k),'g')
+          pnd_gcd_s = rhof_s*t1_qg_qc*Ef_ga*nifa(k)*N0_g(k)           &
                         *ilamg(k)**cge(9,idx_bg(k))
           pnd_gcd_s = MIN(DBLE(nifa(k)*odts), pnd_gcd_s)
 
           if (present(wif_input_opt)) then
             if (wif_input_opt .eq. 2) then
-              Ef_ga = Eff_aero(xDg,0.0236E-6,visco(k),rho(k),temp(k),'g')
-              pnb_gcb_s = rhof(k)*t1_qg_qc*Ef_ga*nbca(k)*N0_g(k)       &
+              Ef_ga = Eff_aero(xDg,0.0236E-6,visco_s,rho(k),temp(k),'g')
+              pnb_gcb_s = rhof_s*t1_qg_qc*Ef_ga*nbca(k)*N0_g(k)       &
                             *ilamg(k)**cge(9,idx_bg(k))
               pnb_gcb_s = MIN(DBLE(nbca(k)*odts), pnb_gcb_s)
             endif
@@ -3089,7 +3137,7 @@
          if (temp(k).lt.T_0) then
 
           vts_boost(k) = 1.0
-          rate_max = (qv(k)-qvsi(k))*rho(k)*odts*0.999
+          rate_max = (qv(k)-qvsi_s)*rho(k)*odts*0.999
 
 !+---+---------------- BEGIN NEW ICE NUCLEATION -----------------------+
 !..Freezing of supercooled water (rain or cloud) is influenced by dust
@@ -3106,7 +3154,7 @@
 !+---+-----------------------------------------------------------------+
 
           if (dustyIce .AND. is_aerosol_aware) then
-           xni = iceDeMott(tempc,qvs(k),qvs(k),qvsi(k),rho(k),nifa(k))
+           xni = iceDeMott(tempc,qvs_s,qvs_s,qvsi_s,rho(k),nifa(k))
           else
            xni = 1.0 *1000.                                               ! Default is 1.0 per Liter
           endif
@@ -3152,10 +3200,10 @@
 
 !..Deposition nucleation of dust/mineral from DeMott et al (2010)
 !.. we may need to relax the temperature and ssati constraints.
-          if ( (ssati(k).ge. 0.25) .or. (ssatw(k).gt. eps &
+          if ( (ssati_s.ge. 0.25) .or. (ssatw_s.gt. eps &
                                 .and. temp(k).lt.253.15) ) then
            if (dustyIce .AND. is_aerosol_aware) then
-            xnc = iceDeMott(tempc,qv(k),qvs(k),qvsi(k),rho(k),nifa(k))
+            xnc = iceDeMott(tempc,qv(k),qvs_s,qvsi_s,rho(k),nifa(k))
            else
             xnc = MIN(250.E3, TNO*EXP(ATO*(T_0-temp(k))))
            endif
@@ -3168,8 +3216,8 @@
 !..Freezing of aqueous aerosols based on Koop et al (2001, Nature)
           xni = ns(k)+ni(k) + (pni_rfz_s+pni_wfz_s+pni_inu_s)*dtsave
           if (is_aerosol_aware .AND. homogIce .AND. (xni.le.999.E3)     &
-     &                .AND.(temp(k).lt.238).AND.(ssati(k).ge.0.4) ) then
-            xnc = iceKoop(temp(k),qv(k),qvs(k),nwfa(k), dtsave)
+     &                .AND.(temp(k).lt.238).AND.(ssati_s.ge.0.4) ) then
+            xnc = iceKoop(temp(k),qv(k),qvs_s,nwfa(k), dtsave)
             pni_iha_s = xnc*odts
             pri_iha_s = MIN(DBLE(rate_max), xm0i*0.1*pni_iha_s)
             pni_iha_s = pri_iha_s/(xm0i*0.1)
@@ -3184,7 +3232,7 @@
            xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
            xmi = am_i*xDi**bm_i
            oxmi = 1./xmi
-           pri_ide_s = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+           pri_ide_s = C_cube*t1_subl*diffu_s*ssati_s*rvs &
                   *oig1*cig(5)*ni(k)*ilami
 
            if (pri_ide_s .lt. 0.0) then
@@ -3218,9 +3266,9 @@
           if (L_qs(k)) then
            C_snow = C_sqrd + (tempc+1.5)*(C_cube-C_sqrd)/(-30.+1.5)
            C_snow = MAX(C_sqrd, MIN(C_snow, C_cube))
-           prs_sde(k) = C_snow*t1_subl*diffu(k)*ssati(k)*rvs &
+           prs_sde(k) = C_snow*t1_subl*diffu_s*ssati_s*rvs &
                         * (t1_qs_sd*smo1(k) &
-                         + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
+                         + t2_qs_sd*rhof2_s*vsc2_s*smof(k))
            if (prs_sde(k).lt. 0.) then
             prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k), DBLE(rate_max))
            else
@@ -3228,11 +3276,11 @@
            endif
           endif
 
-          if (L_qg(k) .and. ssati(k).lt. -eps) then
+          if (L_qg(k) .and. ssati_s.lt. -eps) then
            t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-           prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+           prg_gde(k) = C_cube*t1_subl*diffu_s*ssati_s*rvs &
                * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
-               + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
+               + t2_qg_sd*vsc2_s*rhof2_s*ilamg(k)**cge(11,idx_bg(k)))
            if (prg_gde(k).lt. 0.) then
             prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k), DBLE(rate_max))
             png_gde_s = prg_gde(k) * ng(k)/rg(k)
@@ -3249,20 +3297,20 @@
            xmi = am_i*xDi**bm_i
            oxmi = 1./xmi
            if (rs(k).ge. r_s(1)) then
-            prs_sci(k) = t1_qs_qi*rhof(k)*Ef_si*ri(k)*smoe(k)
+            prs_sci(k) = t1_qs_qi*rhof_s*Ef_si*ri(k)*smoe(k)
             pni_sci_s = prs_sci(k) * oxmi
            endif
 
 !..Rain collecting cloud ice.  In CE, assume Di<<Dr and vti=~0.
            if (rr(k).ge. r_r(1) .and. mvd_r(k).gt. 4.*xDi) then
             lamr = 1./ilamr(k)
-            pri_rci(k) = rhof(k)*t1_qr_qi*Ef_ri*ri(k)*N0_r(k) &
+            pri_rci(k) = rhof_s*t1_qr_qi*Ef_ri*ri(k)*N0_r(k) &
                            *((lamr+fv_r)**(-cre(9)))
-            pnr_rci_s = rhof(k)*t1_qr_qi*Ef_ri*ni(k)*N0_r(k)           &   ! RAIN2M
+            pnr_rci_s = rhof_s*t1_qr_qi*Ef_ri*ni(k)*N0_r(k)           &   ! RAIN2M
                            *((lamr+fv_r)**(-cre(9)))
             pnr_rci_s = MIN(DBLE(nr(k)*odts), pnr_rci_s)
             pni_rci_s = pri_rci(k) * oxmi
-            prr_rci_s = rhof(k)*t2_qr_qi*Ef_ri*ni(k)*N0_r(k) &
+            prr_rci_s = rhof_s*t2_qr_qi*Ef_ri*ni(k)*N0_r(k) &
                            *((lamr+fv_r)**(-cre(8)))
             prr_rci_s = MIN(DBLE(rr(k)*odts), prr_rci_s)
             prg_rci_s = pri_rci(k) + prr_rci_s
@@ -3316,8 +3364,8 @@
 !..Melt snow and graupel and enhance from collisions with liquid.
 !.. We also need to sublimate snow and graupel if subsaturated.
           if (L_qs(k)) then
-           prr_sml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
-                      * (t1_qs_me*smo1(k) + t2_qs_me*rhof2(k)*vsc2(k)*smof(k))
+           prr_sml(k) = (tempc*tcond_s-lvap0*diffu_s*delQvs_s)       &
+                      * (t1_qs_me*smo1(k) + t2_qs_me*rhof2_s*vsc2_s*smof(k))
            if (prr_sml(k) .gt. 0.) then
               prr_sml(k) = prr_sml(k) + 4218.*olfus*(twet_k-T_0)       &
                                       * (prr_rcs_s+prs_scw(k))
@@ -3326,10 +3374,10 @@
 
            if (prr_sml(k).gt.0.0) then
               pnr_sml_s = smo0(k)/rs(k)*prr_sml(k) * 10.0**(-0.25*(twet_k-T_0))
-           elseif (ssati(k).lt. 0.) then
-              prs_sde(k) = C_sqrd*t1_subl*diffu(k)*ssati(k)*rvs &
+           elseif (ssati_s.lt. 0.) then
+              prs_sde(k) = C_sqrd*t1_subl*diffu_s*ssati_s*rvs &
                          * (t1_qs_sd*smo1(k) &
-                          + t2_qs_sd*rhof2(k)*vsc2(k)*smof(k))
+                          + t2_qs_sd*rhof2_s*vsc2_s*smof(k))
             prs_sde(k) = MAX(DBLE(-rs(k)*odts), prs_sde(k))
            endif
           endif
@@ -3341,9 +3389,9 @@
               N0_melt = (1.E-4/rg(k))*ogg2*lamg**cge(2,1)
            endif
            t2_qg_me = PI*4.*C_cube*olfus * 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-           prr_gml(k) = (tempc*tcond(k)-lvap0*diffu(k)*delQvs(k))       &
+           prr_gml(k) = (tempc*tcond_s-lvap0*diffu_s*delQvs_s)       &
                       * N0_melt*(t1_qg_me*ilamg(k)**cge(10,1)           &
-                      + t2_qg_me*rhof2(k)*vsc2(k)*ilamg(k)**cge(11,idx_bg(k)))
+                      + t2_qg_me*rhof2_s*vsc2_s*ilamg(k)**cge(11,idx_bg(k)))
 !          if (prr_gml(k) .gt. 0.) then
 !             prr_gml(k) = prr_gml(k) + 4218.*olfus*(twet_k-T_0)       &
 !                                     * (prr_rcg_s+prg_gcw(k))
@@ -3358,11 +3406,11 @@
             pbg_gml_s = prr_gml(k) / MAX(MIN(melt_f*rho_g(idx_bg(k)),1000.),50.)
 !-GT        pnr_gml_s = prr_gml(k)*ng(k)/rg(k)
             pnr_gml_s = prr_gml(k)*ng(k)/rg(k) * 10.0**(-0.33*(twet_k-T_0))
-           elseif (ssati(k).lt. 0.) then
+           elseif (ssati_s.lt. 0.) then
             t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg(k))) * cgg(11,idx_bg(k))
-            prg_gde(k) = C_cube*t1_subl*diffu(k)*ssati(k)*rvs &
+            prg_gde(k) = C_cube*t1_subl*diffu_s*ssati_s*rvs &
                 * N0_g(k) * (t1_qg_sd*ilamg(k)**cge(10,1) &
-                + t2_qg_sd*vsc2(k)*rhof2(k)*ilamg(k)**cge(11,idx_bg(k)))
+                + t2_qg_sd*vsc2_s*rhof2_s*ilamg(k)**cge(11,idx_bg(k)))
             prg_gde(k) = MAX(DBLE(-rg(k)*odts), prg_gde(k))
             png_gde_s = prg_gde(k) * ng(k)/rg(k)
            endif
@@ -3390,7 +3438,7 @@
 !.. supersat again.
          sump = pri_inu_s + pri_ide_s + prs_ide_s &
               + prs_sde(k) + prg_gde(k) + pri_iha_s
-         rate_max = (qv(k)-qvsi(k))*rho(k)*odts*0.999
+         rate_max = (qv(k)-qvsi_s)*rho(k)*odts*0.999
          if ( (sump.gt. eps .and. sump.gt. rate_max) .or. &
               (sump.lt. -eps .and. sump.lt. rate_max) ) then
           ratio = rate_max/sump
@@ -3479,7 +3527,7 @@
          endif
 
          orho = 1./rho(k)
-         lfus2 = lsub - lvap(k)
+         lfus2 = lsub - lvap_s
 
 !..Aerosol number tendency
          if (is_aerosol_aware) then
@@ -3651,9 +3699,9 @@
       if(debug_flag) then
            xrho_g = MAX(rho_g(1),MIN(rg(k)/rho(k)/rb(k),rho_g(NRHG)))
            afall = a_coeff*((4.0*xrho_g*9.8)/(3.0*rho(k)))**b_coeff
-           afall = afall * visco(k)**(1.0-2.0*b_coeff)
-           vtg1 = rhof(k)*afall*cgg(6,idx_bg(k))*ogg3 / lamg**bfall
-           vtg2 = rhof(k)*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
+           afall = afall * visco_s**(1.0-2.0*b_coeff)
+           vtg1 = rhof_s*afall*cgg(6,idx_bg(k))*ogg3 / lamg**bfall
+           vtg2 = rhof_s*afall*cgg(7,idx_bg(k))/cgg(12,idx_bg(k)) / lamg**bfall
 #ifndef WRF_GPU
          write(mp_debug, *) 'DEBUG: xrg, xng, xrb, ns, idx_bg, rho_g, mvd, vtg: ', k, xrg, xng, xrb, ns(k), idx_bg(k), xrg/rho(k)/xrb, mvd_g(k)*1000., vtg1, vtg2
 #endif
@@ -3701,10 +3749,10 @@
 !..Temperature tendency
          if (temp(k).lt.T_0) then
           tten(k) = tten(k) &
-                    + ( lsub*ocp(k)*(pri_inu_s + pri_ide_s &
+                    + ( lsub*ocp_s*(pri_inu_s + pri_ide_s &
                                      + prs_ide_s + prs_sde(k) &
                                      + prg_gde(k) + pri_iha_s) &
-                     + lfus2*ocp(k)*(pri_wfz_s + pri_rfz_s &
+                     + lfus2*ocp_s*(pri_wfz_s + pri_rfz_s &
                                      + prg_rfz_s + prs_scw(k) &
                                      + prg_scw(k) + prg_gcw(k) &
                                      + prg_rcs_s + prs_rcs_s &
@@ -3712,9 +3760,9 @@
                        )*orho * (1-IFDRY)
          else
           tten(k) = tten(k) &
-                    + ( lfus*ocp(k)*(-prr_sml(k) - prr_gml(k) &
+                    + ( lfus*ocp_s*(-prr_sml(k) - prr_gml(k) &
                                      - prr_rcg_s - prr_rcs_s) &
-                      + lsub*ocp(k)*(prs_sde(k) + prg_gde(k)) &
+                      + lsub*ocp_s*(prs_sde(k) + prg_gde(k)) &
                        )*orho * (1-IFDRY)
          endif
 

@@ -78,8 +78,13 @@ static void rsl_pin_init ( void ) {
 /* pinned RSL buffers come from their own page-exclusive mmap: a registered range must never share a page with
    another heap chunk (see wrf_gpu_pin_addr in solve_em.F) */
 static char * rsl_bufalloc ( int n, int * ismm ) {
+  static int mmap_on = -1 ;
   rsl_pin_init() ;
-  if ( rsl_pin_on ) {
+  /* WRF_GPU_HALOMMAP=1: page-exclusive mmap buffers. Off by default: this path never compiled until 2026-11-07
+     (make -i kept the old object) and, once it did, it cost ~3 ms/step against the malloc'd buffers that every
+     validated run used */
+  if ( mmap_on < 0 ) { char *e = getenv("WRF_GPU_HALOMMAP") ; mmap_on = ( e && e[0] == '1' ) ; }
+  if ( rsl_pin_on && mmap_on ) {
     size_t sz = ( (size_t)n + 4095 ) & ~(size_t)4095 ;
     void *p = mmap( NULL, sz, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 ) ;
     if ( p != MAP_FAILED ) { *ismm = 1 ; return (char*)p ; }
