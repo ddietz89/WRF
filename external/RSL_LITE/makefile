@@ -1,4 +1,4 @@
-OBJSL   = c_code.o buf_for_proc.o rsl_p2p.o rsl_malloc.o rsl_bcast.o task_for_point.o period.o swap.o cycle.o f_pack.o f_xpose.o
+OBJSL   = c_code.o rsl_fused_pack.o buf_for_proc.o rsl_p2p.o rsl_malloc.o rsl_bcast.o task_for_point.o period.o swap.o cycle.o f_pack.o f_xpose.o
 OBJS    = $(OBJSL)
 OPTS    = $(PLUSFLAG)
 FFLAGS  =  $(OPTS)
@@ -54,6 +54,9 @@ rsl_malloc.o:	        rsl_malloc.c
 
 task_for_point.o:	task_for_point.c
 			$(CC) $(CFLAGS) -c task_for_point.c
+
+rsl_fused_pack.o:	        rsl_fused_pack.c
+	$(CC) -c $(CFLAGS) rsl_fused_pack.c
 
 buf_for_proc.o:	        buf_for_proc.c
 			$(CC) $(CFLAGS) -c buf_for_proc.c

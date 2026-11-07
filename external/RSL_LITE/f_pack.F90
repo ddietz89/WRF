@@ -109,6 +109,7 @@
         nbytes = 0
 #if defined(_OPENACC) || defined(WRF_GPU)
         IF ( rsl_gpu_nseg == 0 ) RETURN
+        CALL rsl_fused_flush( 1 )
 !$acc wait(1)
         DO n = 1, rsl_gpu_nseg
           nbytes = nbytes + rsl_gpu_seg_n(n)
@@ -150,6 +151,7 @@
         INTEGER(1), POINTER :: bp(:)
         INTEGER :: n
         IF ( rsl_gpu_nseg == 0 ) RETURN
+        CALL rsl_fused_flush( 1 )
 !$acc wait(1)
         DO n = 1, rsl_gpu_nseg
           CALL c_f_pointer( TRANSFER(rsl_gpu_seg_a(n), c_null_ptr), bp, (/ INT(rsl_gpu_seg_n(n)) /) )
@@ -327,6 +329,9 @@
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER inbuf(ims:ime,kms:kme,jms:jme), outbuf(*)
+        INTEGER(8) :: fp_fld, fp_buf, fp_sk, fp_sj
+        INTEGER :: fp_q, fp_nj, fp_pu
+        INTEGER, EXTERNAL :: rsl_fused_on
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
@@ -337,6 +342,15 @@
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
+          IF ( q_ == 1 .AND. rsl_fused_on() /= 0 ) THEN
+            ! WRF_GPU_FUSEDPACK: record the strip; one kernel for the whole exchange at the drain/send flush
+            fp_fld = TRANSFER( acc_deviceptr( inbuf(is,ks,js) ), fp_fld )
+            fp_buf = TRANSFER( acc_deviceptr( outbuf(1) ), fp_buf )
+            fp_sk = INT(ime-ims+1,8) ; fp_sj = fp_sk*INT(kme-kms+1,8) ; fp_q = 1 ; fp_nj = je-js+1 ; fp_pu = 0
+            CALL rsl_fused_add( fp_fld, fp_buf, ni_, nk_, fp_nj, fp_sk, fp_sj, fp_pu, fp_q )
+            curs = nn_
+            RETURN
+          ENDIF
           IF ( q_ == acc_async_sync ) THEN
 !$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
@@ -442,6 +456,9 @@
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER outbuf(ims:ime,kms:kme,jms:jme), inbuf(*)
+        INTEGER(8) :: fp_fld, fp_buf, fp_s2, fp_s3
+        INTEGER :: fp_q, fp_n3, fp_pu
+        INTEGER, EXTERNAL :: rsl_fused_on
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
@@ -452,6 +469,15 @@
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nk_ = ke-ks+1 ; nn_ = ni_*nk_*(je-js+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
+          IF ( q_ == 1 .AND. rsl_fused_on() /= 0 ) THEN
+            ! WRF_GPU_FUSEDPACK: record the strip; one kernel per exchange at the flush
+            fp_fld = TRANSFER( acc_deviceptr( outbuf(is,ks,js) ), fp_fld )
+            fp_buf = TRANSFER( acc_deviceptr( inbuf(1) ), fp_buf )
+            fp_s2 = INT(ime-ims+1,8) ; fp_s3 = fp_s2*INT(kme-kms+1,8) ; fp_q = 1 ; fp_n3 = je-js+1 ; fp_pu = 1
+            CALL rsl_fused_add( fp_fld, fp_buf, ni_, nk_, fp_n3, fp_s2, fp_s3, fp_pu, fp_q )
+            curs = nn_
+            RETURN
+          ENDIF
           IF ( q_ == acc_async_sync ) THEN
 !$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
@@ -676,6 +702,9 @@
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER inbuf(ims:ime,jms:jme,kms:kme), outbuf(*)
+        INTEGER(8) :: fp_fld, fp_buf, fp_s2, fp_s3
+        INTEGER :: fp_q, fp_n3, fp_pu
+        INTEGER, EXTERNAL :: rsl_fused_on
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
@@ -686,6 +715,15 @@
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(inbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(outbuf), nn_*4, 1 )
+          IF ( q_ == 1 .AND. rsl_fused_on() /= 0 ) THEN
+            ! WRF_GPU_FUSEDPACK: record the strip; one kernel per exchange at the flush
+            fp_fld = TRANSFER( acc_deviceptr( inbuf(is,js,ks) ), fp_fld )
+            fp_buf = TRANSFER( acc_deviceptr( outbuf(1) ), fp_buf )
+            fp_s2 = INT(ime-ims+1,8) ; fp_s3 = fp_s2*INT(jme-jms+1,8) ; fp_q = 1 ; fp_n3 = ke-ks+1 ; fp_pu = 0
+            CALL rsl_fused_add( fp_fld, fp_buf, ni_, nj_, fp_n3, fp_s2, fp_s3, fp_pu, fp_q )
+            curs = nn_
+            RETURN
+          ENDIF
           IF ( q_ == acc_async_sync ) THEN
 !$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
@@ -790,6 +828,9 @@
         IMPLICIT NONE
         INTEGER jms, jme, kms, kme, ims, ime
         INTEGER outbuf(ims:ime,jms:jme,kms:kme), inbuf(*)
+        INTEGER(8) :: fp_fld, fp_buf, fp_s2, fp_s3
+        INTEGER :: fp_q, fp_n3, fp_pu
+        INTEGER, EXTERNAL :: rsl_fused_on
         INTEGER js, je, ks, ke, is, ie, curs
         ! Local
         INTEGER i,j,k,p
@@ -800,6 +841,15 @@
         IF ( rsl_gpu_on .AND. ( rsl_gpu_managed .OR. acc_is_present(outbuf) ) ) THEN
           ni_ = ie-is+1 ; nj_ = je-js+1 ; nn_ = ni_*nj_*(ke-ks+1)
           q_ = rsl_gpu_q( LOC(inbuf), nn_*4, 0 )
+          IF ( q_ == 1 .AND. rsl_fused_on() /= 0 ) THEN
+            ! WRF_GPU_FUSEDPACK: record the strip; one kernel per exchange at the flush
+            fp_fld = TRANSFER( acc_deviceptr( outbuf(is,js,ks) ), fp_fld )
+            fp_buf = TRANSFER( acc_deviceptr( inbuf(1) ), fp_buf )
+            fp_s2 = INT(ime-ims+1,8) ; fp_s3 = fp_s2*INT(jme-jms+1,8) ; fp_q = 1 ; fp_n3 = ke-ks+1 ; fp_pu = 1
+            CALL rsl_fused_add( fp_fld, fp_buf, ni_, nj_, fp_n3, fp_s2, fp_s3, fp_pu, fp_q )
+            curs = nn_
+            RETURN
+          ENDIF
           IF ( q_ == acc_async_sync ) THEN
 !$acc wait(1)   ! async (queue wrf_gpu_q) device work must finish before the strip is gathered/scattered
           ENDIF
@@ -1904,3 +1954,9 @@
         RETURN
       END SUBROUTINE f_unpack_lreal_ad_kji
 #endif
+
+      ! WRF_GPU_FUSEDPACK: called by the generated halo code after the unpacks of each direction
+      SUBROUTINE rsl_fused_unpack_flush ()
+        IMPLICIT NONE
+        CALL rsl_fused_flush( 1 )
+      END SUBROUTINE rsl_fused_unpack_flush

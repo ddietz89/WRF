@@ -616,6 +616,7 @@ fprintf(fp,"CALL wrf_debug(3,'calling RSL_LITE_INIT_EXCH %s for Y %s')\n",maxste
     gen_packs_halo( fp, p, maxstenwidth, 0, 1 , 0, "RSL_LITE_PACK", "local_communicator", always_interp_mp ) ;
 #else
     gen_packs_halo( fp, p, maxstenwidth, 0, 1 , "RSL_LITE_PACK", "local_communicator", always_interp_mp ) ;
+    fprintf(fp,"   CALL rsl_fused_unpack_flush()\n") ;
 #endif
     fprintf(fp,"ENDDO\n") ; 
 
@@ -668,6 +669,7 @@ fprintf(fp,"CALL wrf_debug(3,'calling RSL_LITE_INIT_EXCH %s for Y %s')\n",maxste
     gen_packs_halo( fp, p, maxstenwidth, 1, 1, 0, "RSL_LITE_PACK", "local_communicator", always_interp_mp ) ;
 #else
     gen_packs_halo( fp, p, maxstenwidth, 1, 1, "RSL_LITE_PACK", "local_communicator", always_interp_mp ) ;
+    fprintf(fp,"   CALL rsl_fused_unpack_flush()\n") ;
 #endif
     fprintf(fp,"    ENDDO\n") ; 
     if ( subgrid != 0 ) {
