@@ -59,6 +59,7 @@
 #endif
 #include <stdlib.h>
 #include <dlfcn.h>
+#include "rsl_lite.h"   /* RSL_MALLOC/RSL_FREE are used by the pinned-buffer helpers below */
 /* WRF_GPU_HALOPIN=1: page-lock RSL buffers with the CUDA driver (cuMemHostRegister) so halo D2H/H2D are direct DMA */
 static int rsl_pin_on = -1 ;
 static int (*rsl_cu_reg)(void *, size_t, unsigned int) = NULL ;
@@ -94,7 +95,6 @@ static void rsl_pin ( char * p, int n, int on ) {
   if ( on ) { int r = rsl_cu_reg( p, (size_t)n, 0 ) ; if ( r != 0 ) fprintf(stderr,"RSL pin: cuMemHostRegister rc=%d size=%d p=%llx end=%llx\n",r,n,(unsigned long long)p,(unsigned long long)(p+n)) ; }
   else { int r = rsl_cu_unreg( p ) ; if ( r != 0 ) fprintf(stderr,"RSL unpin: cuMemHostUnregister rc=%d size=%d p=%llx\n",r,n,(unsigned long long)p) ; }
 }
-#include "rsl_lite.h"
 int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
 #ifndef STUBMPI
 #  include "mpi.h"
