@@ -41,6 +41,10 @@ MODULE module_em
 #endif
 
 #ifdef WRF_GPU
+   ! WRF_GPU_DYNFUSE: bit 1 Coriolis terms inside curvature's kernels
+   INTEGER, SAVE :: dyn_fuse_bits = -1
+#endif
+#ifdef WRF_GPU
    ! WW_SPLIT cache: rk_scalar_tend computes the explicit/implicit vertical-velocity split once per RK stage
    ! (identical inputs for every scalar); rk_tendency, which writes wwE/wwI from other inputs, invalidates it
    LOGICAL, SAVE :: wws_valid = .FALSE.
@@ -49,6 +53,18 @@ MODULE module_em
 #endif
 
 CONTAINS
+
+#ifdef WRF_GPU
+SUBROUTINE dyn_fuse_get
+   CHARACTER(LEN=16) :: v
+   INTEGER :: st
+   IF ( dyn_fuse_bits >= 0 ) RETURN
+   dyn_fuse_bits = 1   ! default: bit 1 on (bit-identical, -2.4 ms/step on big1000)
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_DYNFUSE', v, STATUS=st )
+   IF ( st == 0 ) READ( v, *, IOSTAT=st ) dyn_fuse_bits
+   IF ( st /= 0 ) dyn_fuse_bits = 1
+END SUBROUTINE dyn_fuse_get
+#endif
 
 !------------------------------------------------------------------------
 
@@ -235,6 +251,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                          max_vert_cfl, max_horiz_cfl)
 
    IMPLICIT NONE
+#ifdef WRF_GPU
+   LOGICAL :: cor_in_curv
+#endif
 
    !  Input data.
 
@@ -768,6 +787,14 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                     ims, ime, jms, jme, kms, kme,     &
                     its, ite, jts, jte, kts, kte     )
 
+#ifdef WRF_GPU
+   ! WRF_GPU_DYNFUSE bit 1: the Coriolis terms are added inside curvature's kernels (same expressions and order)
+   CALL dyn_fuse_get
+   cor_in_curv = wrf_gpu_on .AND. IAND(dyn_fuse_bits,1) /= 0 .AND. .NOT. config_flags%pert_coriolis .AND.    &
+                 .NOT. config_flags%polar .AND. config_flags%map_proj /= 6 .AND.                          &
+                 ( config_flags%specified .OR. config_flags%nested )   ! the i ranges of both routines coincide then
+   IF ( .NOT. cor_in_curv ) THEN
+#endif
    IF(config_flags%pert_coriolis) THEN
 
         CALL perturbation_coriolis ( ru, rv, rw,                   &
@@ -793,6 +820,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                         its, ite, jts, jte, kts, kte )
 
    END IF
+#ifdef WRF_GPU
+   ENDIF
+#endif
 
    CALL curvature ( ru, rv, rw, u, v, w,            &
                      ru_tend,  rv_tend,  rw_tend,    &
@@ -802,7 +832,13 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                      clat, fnm, fnp, rdx, rdy,       &
                      ids, ide, jds, jde, kds, kde,   &
                      ims, ime, jms, jme, kms, kme,   &
-                     its, ite, jts, jte, kts, kte   )
+                     its, ite, jts, jte, kts, kte,  &
+                     f, e, sina, cosa,              &
+#ifdef WRF_GPU
+                     cor_in_curv )
+#else
+                     .FALSE. )
+#endif
 
 ! Damping option added for Held-Suarez test (also uses lw option HELDSUAREZ)
 

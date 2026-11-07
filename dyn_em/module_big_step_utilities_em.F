@@ -5113,7 +5113,8 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
                         xlat, fzm, fzp, rdx, rdy,                       &
                         ids, ide, jds, jde, kds, kde,                   &
                         ims, ime, jms, jme, kms, kme,                   &
-                        its, ite, jts, jte, kts, kte                   )
+                        its, ite, jts, jte, kts, kte,                  &
+                        cf, ce, csina, ccosa, withcor                  )
 
 
    IMPLICIT NONE
@@ -5147,6 +5148,13 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
                                                                 msfty,    &
                                                                 xlat
 
+   ! WRF_GPU_DYNFUSE bit 1: with the Coriolis inputs present, each tendency kernel adds the Coriolis term (the
+   ! coriolis routine's expression) and then the curvature term - same two additions in the same order, one
+   ! pass over each tendency array instead of two (rk_tendency then skips its coriolis call)
+   REAL , DIMENSION( ims:ime , jms:jme ) , INTENT(IN   ) :: cf, ce, csina, ccosa
+   LOGICAL , INTENT(IN   ) :: withcor
+   LOGICAL :: wcor
+   REAL :: t_
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: fzm,     &
                                                                 fzp
 
@@ -5202,6 +5210,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 
    specified = .false.
    if(config_flags%specified .or. config_flags%nested) specified = .true.
+   wcor = withcor
 
       itf=MIN(ite,ide-1)
       jtf=MIN(jte,jde-1)
@@ -5354,10 +5363,15 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=jts,MIN(jde-1,jte)
       DO k=kts,ktf
-!$acc loop vector
+!$acc loop vector private(t_)
       DO i=i_start,i_end
 
-         ru_tend(i,k,j)=ru_tend(i,k,j) + 0.5*(vxgm(i,k,j)+vxgm(i-1,k,j)) &
+         t_ = ru_tend(i,k,j)
+         IF ( wcor ) t_=t_ + (msfux(i,j)/msfuy(i,j))*0.5*(cf(i,j)+cf(i-1,j)) &
+       *0.25*(rv(i-1,k,j+1)+rv(i,k,j+1)+rv(i-1,k,j)+rv(i,k,j)) &
+           - 0.5*(ce(i,j)+ce(i-1,j))*0.5*(ccosa(i,j)+ccosa(i-1,j)) &
+       *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
+         ru_tend(i,k,j)=t_ + 0.5*(vxgm(i,k,j)+vxgm(i-1,k,j)) &
                  *0.25*(rv(i-1,k,j+1)+rv(i,k,j+1)+rv(i-1,k,j)+rv(i,k,j)) &
                   - u(i,k,j)*reradius &
                  *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
@@ -5411,10 +5425,15 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j=j_start,j_end
       DO k=kts,ktf
-!$acc loop vector
+!$acc loop vector private(t_)
       DO i=its,MIN(ite,ide-1)
 
-         rv_tend(i,k,j)=rv_tend(i,k,j) - 0.5*(vxgm(i,k,j)+vxgm(i,k,j-1)) &
+         t_ = rv_tend(i,k,j)
+         IF ( wcor ) t_=t_ - (msfvy(i,j)/msfvx(i,j))*0.5*(cf(i,j)+cf(i,j-1))    &
+       *0.25*(ru(i,k,j)+ru(i+1,k,j)+ru(i,k,j-1)+ru(i+1,k,j-1)) &
+           + (msfvy(i,j)/msfvx(i,j))*0.5*(ce(i,j)+ce(i,j-1))*0.5*(csina(i,j)+csina(i,j-1)) &
+           *0.25*(rw(i,k+1,j-1)+rw(i,k,j-1)+rw(i,k+1,j)+rw(i,k,j))
+         rv_tend(i,k,j)=t_ - 0.5*(vxgm(i,k,j)+vxgm(i,k,j-1)) &
                  *0.25*(ru(i,k,j)+ru(i+1,k,j)+ru(i,k,j-1)+ru(i+1,k,j-1)) &
                        - (msfvy(i,j)/msfvx(i,j))*v(i,k,j)*reradius       &
                  *0.25*(rw(i,k+1,j-1)+rw(i,k,j-1)+rw(i,k+1,j)+rw(i,k,j))
@@ -5435,10 +5454,17 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=jts,MIN(jte,jde-1)
    DO k=MAX(2,kts),ktf
-!$acc loop vector
+!$acc loop vector private(t_)
    DO i=its,MIN(ite,ide-1)
 
-      rw_tend(i,k,j)=rw_tend(i,k,j) + reradius*                              &
+      t_ = rw_tend(i,k,j)
+      IF ( wcor ) t_=t_ + ce(i,j)*           &
+          (ccosa(i,j)*0.5*(fzm(k)*(ru(i,k,j)+ru(i+1,k,j)) &
+          +fzp(k)*(ru(i,k-1,j)+ru(i+1,k-1,j)))           &
+          -(msftx(i,j)/msfty(i,j))*                      &
+           csina(i,j)*0.5*(fzm(k)*(rv(i,k,j)+rv(i,k,j+1)) &
+          +fzp(k)*(rv(i,k-1,j)+rv(i,k-1,j+1))))
+      rw_tend(i,k,j)=t_ + reradius*                              &
     (0.5*(fzm(k)*(ru(i,k,j)+ru(i+1,k,j))+fzp(k)*(ru(i,k-1,j)+ru(i+1,k-1,j))) &
     *0.5*(fzm(k)*( u(i,k,j) +u(i+1,k,j))+fzp(k)*( u(i,k-1,j) +u(i+1,k-1,j)))     &
     +(msftx(i,j)/msfty(i,j))*0.5*(fzm(k)*(rv(i,k,j)+rv(i,k,j+1))+fzp(k)*(rv(i,k-1,j)+rv(i,k-1,j+1))) &
