@@ -6673,16 +6673,40 @@ MODULE wrf_gpu_pin_list
    INTEGER, PARAMETER :: MAXR = 4000
    INTEGER(8), SAVE :: r0(MAXR), r1(MAXR)
    INTEGER, SAVE :: nr = 0
+   CHARACTER(LEN=40), SAVE :: rname(MAXR) = ''
+CONTAINS
+   SUBROUTINE wrf_gpu_pin_tag( name )
+      ! name for the next collected range (WRF_GPU_PINDBG=1 listing)
+      CHARACTER(LEN=*), INTENT(IN) :: name
+      IF ( nr + 1 <= MAXR ) rname(nr+1) = name
+   END SUBROUTINE wrf_gpu_pin_tag
 END MODULE wrf_gpu_pin_list
 
 SUBROUTINE wrf_gpu_pin_addr( addr, nbytes, nok, nfail, tot )
-   ! collect only: whole-page range of [addr, addr+nbytes)
+   ! collect only: whole-page range of [addr, addr+nbytes).
+   ! Only arrays that own their pages are registered: a glibc mmap'd chunk (user pointer 16 bytes past a page boundary,
+   ! IS_MMAPPED bit in the size word at addr-8, chunk size a page multiple). Arrays packed in the brk heap share their
+   ! first/last page with neighbouring chunks; registering those pages makes a later cuMemcpy of a neighbour that
+   ! starts in such a page fail with CUDA_ERROR_INVALID_VALUE (the rank-0 surface-layer pull crash of 2026-11-06/07,
+   ! and the RSL rc=712 pin failures). Only the size word in the array's own first page is read (malloc_usable_size
+   ! reads the next chunk's header and segfaults on non-heap pointers).
    USE wrf_gpu_pin_list
+   USE ISO_C_BINDING
    IMPLICIT NONE
    INTEGER(8), INTENT(IN) :: addr, nbytes
    INTEGER, INTENT(INOUT) :: nok, nfail
    INTEGER(8), INTENT(INOUT) :: tot
+   INTEGER(8), POINTER :: hdr
+   INTEGER(8) :: csz
+   TYPE(C_PTR) :: hp
    IF ( nbytes <= 0 ) RETURN
+   IF ( MOD( addr - 16_8, 4096_8 ) /= 0 ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
+   hp = TRANSFER( addr - 8_8, hp )
+   CALL C_F_POINTER( hp, hdr )
+   csz = IAND( hdr, NOT( 7_8 ) )
+   IF ( IAND( hdr, 2_8 ) == 0 .OR. MOD( csz, 4096_8 ) /= 0 .OR. csz < nbytes + 16_8 ) THEN
+      nfail = nfail + 1 ; RETURN
+   ENDIF
    IF ( nr >= MAXR ) THEN ; nfail = nfail + 1 ; RETURN ; ENDIF
    nr = nr + 1
    r0(nr) = ( addr / 4096_8 ) * 4096_8
@@ -6721,10 +6745,17 @@ SUBROUTINE wrf_gpu_pin_flush()
    INTEGER :: i, j, nm, nok, nbad
    INTEGER(8) :: t0, t1, tot
    INTEGER(C_INT) :: rc
+   CHARACTER(LEN=8) :: pdbg
    cu_reg => NULL()
    h = dlopen( 'libcuda.so.1'//C_NULL_CHAR, 2 )
    IF ( C_ASSOCIATED(h) ) CALL C_F_PROCPOINTER( dlsym( h, 'cuMemHostRegister_v2'//C_NULL_CHAR ), cu_reg )
    IF ( .NOT. ASSOCIATED(cu_reg) .OR. nr == 0 ) RETURN
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PINDBG', pdbg )
+   IF ( TRIM(pdbg) == '1' ) THEN
+      DO i = 1, nr
+         WRITE(0,'(A,I5,1X,A,1X,Z16,1X,Z16)') 'PINRAW ', i, TRIM(rname(i)), r0(i), r1(i)
+      ENDDO
+   ENDIF
    DO i = 2, nr                                   ! insertion sort by start
       t0 = r0(i) ; t1 = r1(i) ; j = i - 1
       DO WHILE ( j >= 1 )
@@ -6745,6 +6776,7 @@ SUBROUTINE wrf_gpu_pin_flush()
    DO i = 1, nm
       rc = cu_reg( INT(r0(i),C_LONG_LONG), INT(r1(i)-r0(i),C_SIZE_T), 0_C_INT )
       IF ( rc == 0 ) THEN ; nok = nok + 1 ; tot = tot + (r1(i)-r0(i)) ; ELSE ; nbad = nbad + 1 ; ENDIF
+      IF ( TRIM(pdbg) == '1' ) WRITE(0,'(A,I5,1X,Z16,1X,Z16,1X,I6)') 'PINMRG ', i, r0(i), r1(i), rc
    ENDDO
    WRITE(0,'(A,I6,A,I6,A,I6,A,F9.1,A)') 'WRF_GPU_PIN: ', nr, ' arrays -> ', nm, ' merged intervals, ', nbad, &
         ' failed, ', DBLE(tot)/1.d6, ' MB registered'
@@ -6753,6 +6785,7 @@ END SUBROUTINE wrf_gpu_pin_flush
 
 SUBROUTINE wrf_gpu_pin_grid( grid )
    USE module_domain, ONLY : domain, fieldlist
+   USE wrf_gpu_pin_list, ONLY : wrf_gpu_pin_tag
    IMPLICIT NONE
    TYPE(domain), INTENT(IN) :: grid
    TYPE(fieldlist), POINTER :: p
@@ -6762,6 +6795,7 @@ SUBROUTINE wrf_gpu_pin_grid( grid )
    p => grid%head_statevars
    DO WHILE ( ASSOCIATED(p) )
       IF ( p%Type == 'r' ) THEN
+         CALL wrf_gpu_pin_tag( p%VarName )
          IF ( p%Ndim == 2 ) THEN
             IF ( ASSOCIATED(p%rfield_2d) ) THEN
                IF ( SIZE(p%rfield_2d) > 1 ) CALL wrf_gpu_pin_addr( LOC(p%rfield_2d(LBOUND(p%rfield_2d,1),LBOUND(p%rfield_2d,2))), &
@@ -7176,15 +7210,38 @@ END SUBROUTINE gpu_retile
 ! WRF_GPU lean step: levels kms..kms+1 of the GPU phy_prep fields and the moisture species to the host, packed on
 ! the device (one contiguous transfer instead of ~20 full 3-D pulls)
 SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme )
+   ! levels 1-2 of the phy_prep fields and moisture for the host physics of a lean step.
+   ! WRF_GPU_LEANMASK (bits 0-13: t_phy th_phy p_phy pi_phy u_phy v_phy p8w t8w dz8w rho z z_at_w p_hyd p_hyd_w;
+   ! bit 14: all moist species, else only QV) selects the fields; default all (16383 + bit 14)
    USE module_domain, ONLY : domain
+   USE module_state_description, ONLY : P_QV
    IMPLICIT NONE
    TYPE(domain), INTENT(INOUT) :: grid
    INTEGER, INTENT(IN) :: num_moist, ims, ime, jms, jme, kms, kme
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy, p_phy, pi_phy, p8w, t8w, dz8w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(INOUT) :: moist
    REAL, ALLOCATABLE, SAVE :: buf(:,:,:,:)
-   INTEGER :: i, j, k, n, nf
+   INTEGER, SAVE :: mask = -1, nsel = 0
+   INTEGER, SAVE :: sel(64)
+   CHARACTER(LEN=16) :: mv
+   INTEGER :: i, j, k, n, nf, st, f
    nf = 14 + num_moist
+   IF ( mask < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_LEANMASK', mv, STATUS=st )
+      mask = 32767
+      IF ( st == 0 ) READ( mv, *, IOSTAT=st ) mask
+      IF ( st /= 0 ) mask = 32767
+      nsel = 0
+      DO f = 1, 14
+         IF ( BTEST( mask, f-1 ) ) THEN ; nsel = nsel + 1 ; sel(nsel) = f ; ENDIF
+      ENDDO
+      IF ( BTEST( mask, 14 ) ) THEN
+         DO n = 1, num_moist ; nsel = nsel + 1 ; sel(nsel) = 14 + n ; ENDDO
+      ELSE
+         nsel = nsel + 1 ; sel(nsel) = 14 + P_QV
+      ENDIF
+      WRITE(0,'(A,I6,A,I3,A,I3)') 'WRF_GPU_LEANMASK ', mask, ': ', nsel, ' of ', nf
+   ENDIF
    IF ( ALLOCATED(buf) ) THEN
       IF ( SIZE(buf,4) /= nf .OR. SIZE(buf,1) /= ime-ims+1 .OR. SIZE(buf,3) /= jme-jms+1 ) THEN
 !$acc exit data delete(buf)
@@ -7196,29 +7253,30 @@ SUBROUTINE gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, nu
 !$acc enter data create(buf)
    ENDIF
    CALL lean_pack( buf, grid%t_phy, th_phy, p_phy, pi_phy, grid%u_phy, grid%v_phy, p8w, t8w, dz8w, grid%rho, &
-                   grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, ims, ime, jms, jme, kms, kme )
-!$acc update self(buf)
-   !$OMP PARALLEL DO PRIVATE(i,j,k,n)
+                   grid%z, grid%z_at_w, grid%p_hyd, grid%p_hyd_w, moist, num_moist, nf, sel, nsel, ims, ime, jms, jme, kms, kme )
+!$acc update self(buf(:,:,:,1:nsel))
+   !$OMP PARALLEL DO PRIVATE(i,j,k,n,f)
    DO j = jms, jme
    DO k = 1, 2
-   DO i = ims, ime
-      grid%t_phy(i,kms+k-1,j) = buf(i,k,j,1)
-      th_phy(i,kms+k-1,j) = buf(i,k,j,2)
-      p_phy(i,kms+k-1,j) = buf(i,k,j,3)
-      pi_phy(i,kms+k-1,j) = buf(i,k,j,4)
-      grid%u_phy(i,kms+k-1,j) = buf(i,k,j,5)
-      grid%v_phy(i,kms+k-1,j) = buf(i,k,j,6)
-      p8w(i,kms+k-1,j) = buf(i,k,j,7)
-      t8w(i,kms+k-1,j) = buf(i,k,j,8)
-      dz8w(i,kms+k-1,j) = buf(i,k,j,9)
-      grid%rho(i,kms+k-1,j) = buf(i,k,j,10)
-      grid%z(i,kms+k-1,j) = buf(i,k,j,11)
-      grid%z_at_w(i,kms+k-1,j) = buf(i,k,j,12)
-      grid%p_hyd(i,kms+k-1,j) = buf(i,k,j,13)
-      grid%p_hyd_w(i,kms+k-1,j) = buf(i,k,j,14)
-      DO n = 1, num_moist
-         moist(i,kms+k-1,j,n) = buf(i,k,j,14+n)
-      ENDDO
+   DO n = 1, nsel
+      f = sel(n)
+      SELECT CASE ( f )
+      CASE (1)  ; DO i = ims, ime ; grid%t_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (2)  ; DO i = ims, ime ; th_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (3)  ; DO i = ims, ime ; p_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (4)  ; DO i = ims, ime ; pi_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (5)  ; DO i = ims, ime ; grid%u_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (6)  ; DO i = ims, ime ; grid%v_phy(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (7)  ; DO i = ims, ime ; p8w(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (8)  ; DO i = ims, ime ; t8w(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (9)  ; DO i = ims, ime ; dz8w(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (10) ; DO i = ims, ime ; grid%rho(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (11) ; DO i = ims, ime ; grid%z(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (12) ; DO i = ims, ime ; grid%z_at_w(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (13) ; DO i = ims, ime ; grid%p_hyd(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE (14) ; DO i = ims, ime ; grid%p_hyd_w(i,kms+k-1,j) = buf(i,k,j,n) ; ENDDO
+      CASE DEFAULT ; DO i = ims, ime ; moist(i,kms+k-1,j,f-14) = buf(i,k,j,n) ; ENDDO
+      END SELECT
    ENDDO
    ENDDO
    ENDDO
@@ -7309,35 +7367,39 @@ SUBROUTINE gpu_lean_check( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, n
 END SUBROUTINE gpu_lean_check
 
 SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, dz8w, rho, z, z_at_w, p_hyd, p_hyd_w, moist, &
-                      num_moist, nf, ims, ime, jms, jme, kms, kme )
+                      num_moist, nf, sel, nsel, ims, ime, jms, jme, kms, kme )
    IMPLICIT NONE
-   INTEGER, INTENT(IN) :: num_moist, nf, ims, ime, jms, jme, kms, kme
+   INTEGER, INTENT(IN) :: num_moist, nf, nsel, ims, ime, jms, jme, kms, kme
+   INTEGER, INTENT(IN) :: sel(nsel)
    REAL, DIMENSION(ims:ime,2,jms:jme,nf), INTENT(INOUT) :: buf
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w, &
                                                           dz8w, rho, z, z_at_w, p_hyd, p_hyd_w
    REAL, DIMENSION(ims:ime,kms:kme,jms:jme,num_moist), INTENT(IN) :: moist
-   INTEGER :: i, j, k, n
-!$acc parallel loop gang collapse(2) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,p_hyd,p_hyd_w,moist)
+   INTEGER :: i, j, k, n, f
+!$acc parallel loop gang collapse(2) present(buf,t_phy,th_phy,p_phy,pi_phy,u_phy,v_phy,p8w,t8w,dz8w,rho,z,z_at_w,p_hyd,p_hyd_w,moist) copyin(sel)
    DO j = jms, jme
    DO k = 1, 2
 !$acc loop vector
    DO i = ims, ime
-      buf(i,k,j,1) = t_phy(i,kms+k-1,j)
-      buf(i,k,j,2) = th_phy(i,kms+k-1,j)
-      buf(i,k,j,3) = p_phy(i,kms+k-1,j)
-      buf(i,k,j,4) = pi_phy(i,kms+k-1,j)
-      buf(i,k,j,5) = u_phy(i,kms+k-1,j)
-      buf(i,k,j,6) = v_phy(i,kms+k-1,j)
-      buf(i,k,j,7) = p8w(i,kms+k-1,j)
-      buf(i,k,j,8) = t8w(i,kms+k-1,j)
-      buf(i,k,j,9) = dz8w(i,kms+k-1,j)
-      buf(i,k,j,10) = rho(i,kms+k-1,j)
-      buf(i,k,j,11) = z(i,kms+k-1,j)
-      buf(i,k,j,12) = z_at_w(i,kms+k-1,j)
-      buf(i,k,j,13) = p_hyd(i,kms+k-1,j)
-      buf(i,k,j,14) = p_hyd_w(i,kms+k-1,j)
-      DO n = 1, num_moist
-         buf(i,k,j,14+n) = moist(i,kms+k-1,j,n)
+      DO n = 1, nsel
+         f = sel(n)
+         SELECT CASE ( f )
+         CASE (1)  ; buf(i,k,j,n) = t_phy(i,kms+k-1,j)
+         CASE (2)  ; buf(i,k,j,n) = th_phy(i,kms+k-1,j)
+         CASE (3)  ; buf(i,k,j,n) = p_phy(i,kms+k-1,j)
+         CASE (4)  ; buf(i,k,j,n) = pi_phy(i,kms+k-1,j)
+         CASE (5)  ; buf(i,k,j,n) = u_phy(i,kms+k-1,j)
+         CASE (6)  ; buf(i,k,j,n) = v_phy(i,kms+k-1,j)
+         CASE (7)  ; buf(i,k,j,n) = p8w(i,kms+k-1,j)
+         CASE (8)  ; buf(i,k,j,n) = t8w(i,kms+k-1,j)
+         CASE (9)  ; buf(i,k,j,n) = dz8w(i,kms+k-1,j)
+         CASE (10) ; buf(i,k,j,n) = rho(i,kms+k-1,j)
+         CASE (11) ; buf(i,k,j,n) = z(i,kms+k-1,j)
+         CASE (12) ; buf(i,k,j,n) = z_at_w(i,kms+k-1,j)
+         CASE (13) ; buf(i,k,j,n) = p_hyd(i,kms+k-1,j)
+         CASE (14) ; buf(i,k,j,n) = p_hyd_w(i,kms+k-1,j)
+         CASE DEFAULT ; buf(i,k,j,n) = moist(i,kms+k-1,j,f-14)
+         END SELECT
       ENDDO
    ENDDO
    ENDDO

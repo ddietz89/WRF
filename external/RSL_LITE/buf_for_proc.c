@@ -63,7 +63,8 @@
 static int rsl_pin_on = -1 ;
 static int (*rsl_cu_reg)(void *, size_t, unsigned int) = NULL ;
 static int (*rsl_cu_unreg)(void *) = NULL ;
-static void rsl_pin ( char * p, int n, int on ) {
+#include <sys/mman.h>
+static void rsl_pin_init ( void ) {
   if ( rsl_pin_on < 0 ) {
     char *e = getenv("WRF_GPU_HALOPIN") ; rsl_pin_on = ( e && e[0] != '0' ) ;
     if ( rsl_pin_on ) {
@@ -72,9 +73,26 @@ static void rsl_pin ( char * p, int n, int on ) {
       if ( !rsl_cu_reg || !rsl_cu_unreg ) rsl_pin_on = 0 ;
     }
   }
+}
+/* pinned RSL buffers come from their own page-exclusive mmap: a registered range must never share a page with
+   another heap chunk (see wrf_gpu_pin_addr in solve_em.F) */
+static char * rsl_bufalloc ( int n, int * ismm ) {
+  rsl_pin_init() ;
+  if ( rsl_pin_on ) {
+    size_t sz = ( (size_t)n + 4095 ) & ~(size_t)4095 ;
+    void *p = mmap( NULL, sz, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 ) ;
+    if ( p != MAP_FAILED ) { *ismm = 1 ; return (char*)p ; }
+  }
+  *ismm = 0 ; return RSL_MALLOC(char,n) ;
+}
+static void rsl_buffree ( char * p, int n, int ismm ) {
+  if ( ismm ) munmap( p, ( (size_t)n + 4095 ) & ~(size_t)4095 ) ; else RSL_FREE( p ) ;
+}
+static void rsl_pin ( char * p, int n, int on ) {
+  rsl_pin_init() ;
   if ( !rsl_pin_on || p == NULL || n <= 0 ) return ;
-  if ( on ) { int r = rsl_cu_reg( p, (size_t)n, 0 ) ; if ( r != 0 ) fprintf(stderr,"RSL pin: cuMemHostRegister rc=%d size=%d\n",r,n) ; }
-  else rsl_cu_unreg( p ) ;
+  if ( on ) { int r = rsl_cu_reg( p, (size_t)n, 0 ) ; if ( r != 0 ) fprintf(stderr,"RSL pin: cuMemHostRegister rc=%d size=%d p=%llx end=%llx\n",r,n,(unsigned long long)p,(unsigned long long)(p+n)) ; }
+  else { int r = rsl_cu_unreg( p ) ; if ( r != 0 ) fprintf(stderr,"RSL unpin: cuMemHostUnregister rc=%d size=%d p=%llx\n",r,n,(unsigned long long)p) ; }
 }
 #include "rsl_lite.h"
 int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
@@ -85,6 +103,7 @@ int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
 typedef struct bufdesc {
   char * buf ;
   int size ;
+  int mm ;      /* 1: page-exclusive mmap (pinned buffers) */
 } bufdesc_t ;
 
 /* buftab[RSL_SENDBUF] is send buffer descriptor,
@@ -143,8 +162,8 @@ buffer_for_proc( P, size, code )
     { int c_ ; for ( c_ = 0 ; c_ < 2 ; c_++ ) if ( buftab[c_][P].buf != NULL ) {
         long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ;
         if ( !( c_ == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[c_][P].buf, n_, 0 ) ) ) RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; rsl_pin( buftab[c_][P].buf, n_, 0 ) ; } }
-    if ( buftab[0][P].buf != NULL ) RSL_FREE( buftab[0][P].buf ) ;
-    if ( buftab[1][P].buf != NULL ) RSL_FREE( buftab[1][P].buf ) ;
+    if ( buftab[0][P].buf != NULL ) rsl_buffree( buftab[0][P].buf, buftab[0][P].size, buftab[0][P].mm ) ;
+    if ( buftab[1][P].buf != NULL ) rsl_buffree( buftab[1][P].buf, buftab[1][P].size, buftab[1][P].mm ) ;
     buftab[0][P].buf  = NULL ;    
     buftab[1][P].buf  = NULL ;    
     buftab[0][P].size = 0 ;    
@@ -164,9 +183,9 @@ fprintf(stderr,"buffer_for_proc %s %d : was %d, increasing to %d\n",
         if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, buftab[code][P].size, 0 ) ) )
         { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
         rsl_pin( buftab[code][P].buf, buftab[code][P].size, 0 ) ;
-        RSL_FREE( buftab[code][P].buf ) ;
+        rsl_buffree( buftab[code][P].buf, buftab[code][P].size, buftab[code][P].mm ) ;
       }
-      buftab[code][P].buf = RSL_MALLOC(char,size+512) ;
+      buftab[code][P].buf = rsl_bufalloc( size+512, &buftab[code][P].mm ) ;
       buftab[code][P].size = size+512 ;
       { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 1 ; rsl_pin( buftab[code][P].buf, n_, 1 ) ;
         if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, n_, 1 ) ) ) RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }
