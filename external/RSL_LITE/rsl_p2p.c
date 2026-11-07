@@ -214,31 +214,21 @@ static void xp_chunk ( int n, int c, int * off, int * len )
 }
 void rsl_xpipe_exch ( MPI_Comm comm, int me, int nbr[2], int use[2], char * sb[2], int sn[2], char * rb[2], int rn[2], int cover[2] )
 {
-  MPI_Request rr[2*XP_MAXCH], sr[2*XP_MAXCH] ; int ri[2*XP_MAXCH], rc[2*XP_MAXCH] ; int nr = 0, ns = 0, i, c, off, len ;
+  MPI_Request rr[2*XP_MAXCH], sr[2*XP_MAXCH], hq[4] ; int ri[2*XP_MAXCH], rc[2*XP_MAXCH] ; int nr = 0, ns = 0, nh = 0, i, c, off, len ;
+  static int hs[2], hr[2] ;
   void * st = acc_stream( 1 ) ;
   rsl_xpipe_wait() ;
   /* size headers: the receive count rn is only an upper bound of what the neighbour sends (staggered rows), and
-     both sides must cut the message at the same chunk boundaries, so each side first sends its exact byte count */
-  { MPI_Request hq[4] ; static int hs[2], hr[2] ; int nh = 0 ;
-    for ( i = 0 ; i < 2 ; i++ ) {
-      if ( !use[i] ) continue ;
-      hr[i] = 0 ; hs[i] = sn[i] > 0 ? sn[i] : 0 ;
-      /* sn/rn < 0: no message in that direction (sendw/recvw off); 0: an empty message is still exchanged */
-      if ( rn[i] >= 0 ) MPI_Irecv( &hr[i], 1, MPI_INT, nbr[i], XP_TAG0 - 1, comm, &hq[nh++] ) ;
-      if ( sn[i] >= 0 ) MPI_Isend( &hs[i], 1, MPI_INT, nbr[i], XP_TAG0 - 1, comm, &hq[nh++] ) ;
-    }
-    if ( nh > 0 ) MPI_Waitall( nh, hq, MPI_STATUSES_IGNORE ) ;
-    for ( i = 0 ; i < 2 ; i++ ) if ( use[i] && rn[i] >= 0 ) {
-      if ( hr[i] > rn[i] ) { fprintf(stderr,"RSL XPIPE: neighbour %d sends %d > expected %d\n", nbr[i], hr[i], rn[i]) ; MPI_Abort(MPI_COMM_WORLD, 96) ; }
-      rn[i] = hr[i] ;
-    } }
+     both sides must cut the message at the same chunk boundaries, so each side first sends its exact byte count.
+     Order (2026-11-07): headers posted, then our D2H chunks and data sends - none of it depends on the neighbour -
+     and only then the wait for the neighbour's header, so a rank that arrives early has its data on the wire
+     before its partner shows up (the partner's arrival no longer waits for our D2H). */
   for ( i = 0 ; i < 2 ; i++ ) {
-    if ( !use[i] || rn[i] <= 0 ) continue ;
-    for ( c = 0 ; c < xp_nch( rn[i] ) ; c++ ) {
-      xp_chunk( rn[i], c, &off, &len ) ; if ( len <= 0 ) continue ;
-      ri[nr] = i ; rc[nr] = c ;
-      MPI_Irecv( rb[i] + off, len, MPI_CHAR, nbr[i], XP_TAG0 + me * XP_MAXCH + c, comm, &rr[nr++] ) ;
-    }
+    if ( !use[i] ) continue ;
+    hr[i] = 0 ; hs[i] = sn[i] > 0 ? sn[i] : 0 ;
+    /* sn/rn < 0: no message in that direction (sendw/recvw off); 0: an empty message is still exchanged */
+    if ( rn[i] >= 0 ) MPI_Irecv( &hr[i], 1, MPI_INT, nbr[i], XP_TAG0 - 1, comm, &hq[nh++] ) ;
+    if ( sn[i] >= 0 ) MPI_Isend( &hs[i], 1, MPI_INT, nbr[i], XP_TAG0 - 1, comm, &hq[nh++] ) ;
   }
   for ( i = 0 ; i < 2 ; i++ ) {
     if ( !use[i] || sn[i] <= 0 || !cover[i] ) continue ;
@@ -254,6 +244,19 @@ void rsl_xpipe_exch ( MPI_Comm comm, int me, int nbr[2], int use[2], char * sb[2
       xp_chunk( sn[i], c, &off, &len ) ; if ( len <= 0 ) continue ;
       if ( cover[i] ) cu_ev_sync( xp_ev[i][c] ) ;
       MPI_Isend( sb[i] + off, len, MPI_CHAR, nbr[i], XP_TAG0 + nbr[i] * XP_MAXCH + c, comm, &sr[ns++] ) ;
+    }
+  }
+  if ( nh > 0 ) MPI_Waitall( nh, hq, MPI_STATUSES_IGNORE ) ;
+  for ( i = 0 ; i < 2 ; i++ ) if ( use[i] && rn[i] >= 0 ) {
+    if ( hr[i] > rn[i] ) { fprintf(stderr,"RSL XPIPE: neighbour %d sends %d > expected %d\n", nbr[i], hr[i], rn[i]) ; MPI_Abort(MPI_COMM_WORLD, 96) ; }
+    rn[i] = hr[i] ;
+  }
+  for ( i = 0 ; i < 2 ; i++ ) {
+    if ( !use[i] || rn[i] <= 0 ) continue ;
+    for ( c = 0 ; c < xp_nch( rn[i] ) ; c++ ) {
+      xp_chunk( rn[i], c, &off, &len ) ; if ( len <= 0 ) continue ;
+      ri[nr] = i ; rc[nr] = c ;
+      MPI_Irecv( rb[i] + off, len, MPI_CHAR, nbr[i], XP_TAG0 + me * XP_MAXCH + c, comm, &rr[nr++] ) ;
     }
   }
   if ( nr > 0 ) {
