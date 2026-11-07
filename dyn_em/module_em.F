@@ -40,6 +40,14 @@ MODULE module_em
    INTEGER :: rkt_part = 0
 #endif
 
+#ifdef WRF_GPU
+   ! WW_SPLIT cache: rk_scalar_tend computes the explicit/implicit vertical-velocity split once per RK stage
+   ! (identical inputs for every scalar); rk_tendency, which writes wwE/wwI from other inputs, invalidates it
+   LOGICAL, SAVE :: wws_valid = .FALSE.
+   INTEGER(8), SAVE :: wws_key(5) = 0
+   REAL, SAVE :: wws_dt = 0.
+#endif
+
 CONTAINS
 
 !------------------------------------------------------------------------
@@ -458,6 +466,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                  ids, ide, jds, jde, kds, kde,     &
                  ims, ime, jms, jme, kms, kme,     &
                  its, ite, jts, jte, kts, kte )              
+#ifdef WRF_GPU
+   wws_valid = .FALSE.
+#endif
 
 ! IEVA ON/OFF
    
@@ -1223,6 +1234,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
    INTEGER :: im, i,j,k
    INTEGER :: time_step
    INTEGER :: rk_order
+#ifdef WRF_GPU
+   INTEGER(8) :: wws_now(5)
+   INTEGER(8), SAVE :: wws_e = 0
+#endif
    REAL    :: dt         ! This is the large time step computed below
 
    REAL    :: khdq, kvdq, tendency
@@ -1251,6 +1266,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 
 ! Code for splitting vertical velocity into ex/im parts
 
+#ifdef WRF_GPU
+   wws_now = (/ INT(rk_step,8), LOC(u_old), LOC(v_old), LOC(ww), LOC(mut) /)
+   IF ( .NOT. ( wws_valid .AND. ALL( wws_now == wws_key ) .AND. dt == wws_dt .AND. LOC(wwE) == wws_e ) ) THEN
+#endif
    CALL WW_SPLIT(wwE, wwI,                         &
                  u_old,   v_old,    ww,            &
                  mut, rdnw, msfty,                 &
@@ -1261,6 +1280,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
                  ids, ide, jds, jde, kds, kde,     &
                  ims, ime, jms, jme, kms, kme,     &
                  its, ite, jts, jte, kts, kte )
+#ifdef WRF_GPU
+     wws_valid = .TRUE. ; wws_key = wws_now ; wws_dt = dt ; wws_e = LOC(wwE)
+   ENDIF
+#endif
                  
                  
    IF( ieva ) THEN
