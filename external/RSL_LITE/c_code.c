@@ -1035,7 +1035,14 @@ RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
       rsl_xt_tick(4, MPI_Wtime()-t0_) ; }
     dm = done[0] ; dp = done[1] ;
     if ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) {
-      { double t0_ = MPI_Wtime() ; RSL_GPU_SEND_FLUSH() ; rsl_xt_tick(0, MPI_Wtime()-t0_) ; }
+      { double t0_ = MPI_Wtime() ;
+        if ( dm || dp ) {   /* one neighbour is P2P: D2H only the MPI neighbour's packed send buffer */
+          long long a1_ = 0, a2_ = 0 ; int n1_ = 0, n2_ = 0 ;
+          if ( !dp && yp != MPI_PROC_NULL && *sendw_p > 0 ) { a1_ = (long long)buffer_for_proc( yp, 0, RSL_SENDBUF ) ; n1_ = yp_curs ; }
+          if ( !dm && ym != MPI_PROC_NULL && *sendw_m > 0 ) { a2_ = (long long)buffer_for_proc( ym, 0, RSL_SENDBUF ) ; n2_ = ym_curs ; }
+          RSL_GPU_SEND_FLUSH_SEL( &a1_, &n1_, &a2_, &n2_ ) ;
+        } else RSL_GPU_SEND_FLUSH() ;
+        rsl_xt_tick(0, MPI_Wtime()-t0_) ; }
       t1_ = MPI_Wtime() ;
       if ( !dp && yp != MPI_PROC_NULL && *recvw_p > 0 ) {
         ierr=MPI_Irecv ( buffer_for_proc( yp, yp_curs_recv, RSL_RECVBUF ), yp_curs_recv, MPI_CHAR, yp, me, comm, &yp_recv ) ;
@@ -1094,7 +1101,14 @@ RSL_LITE_EXCH_X ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 
       rsl_xt_tick(4, MPI_Wtime()-t0_) ; }
     dm = done[0] ; dp = done[1] ;
     if ( ( nbr[0] >= 0 && !dm ) || ( nbr[1] >= 0 && !dp ) ) {
-      { double t0_ = MPI_Wtime() ; RSL_GPU_SEND_FLUSH() ; rsl_xt_tick(0, MPI_Wtime()-t0_) ; }
+      { double t0_ = MPI_Wtime() ;
+        if ( dm || dp ) {   /* one neighbour is P2P: D2H only the MPI neighbour's packed send buffer */
+          long long a1_ = 0, a2_ = 0 ; int n1_ = 0, n2_ = 0 ;
+          if ( !dp && xp != MPI_PROC_NULL && *sendw_p > 0 ) { a1_ = (long long)buffer_for_proc( xp, 0, RSL_SENDBUF ) ; n1_ = xp_curs ; }
+          if ( !dm && xm != MPI_PROC_NULL && *sendw_m > 0 ) { a2_ = (long long)buffer_for_proc( xm, 0, RSL_SENDBUF ) ; n2_ = xm_curs ; }
+          RSL_GPU_SEND_FLUSH_SEL( &a1_, &n1_, &a2_, &n2_ ) ;
+        } else RSL_GPU_SEND_FLUSH() ;
+        rsl_xt_tick(0, MPI_Wtime()-t0_) ; }
       t1_ = MPI_Wtime() ;
       if ( !dp && xp != MPI_PROC_NULL && *recvw_p > 0 ) {
         ierr=MPI_Irecv ( buffer_for_proc( xp, xp_curs_recv, RSL_RECVBUF ), xp_curs_recv, MPI_CHAR, xp, me, comm, &xp_recv ) ;

@@ -73,6 +73,7 @@
         INTEGER nbytes, ispack
 #if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER(1), POINTER :: bp(:)
+        INTEGER :: l
         LOGICAL, EXTERNAL :: rsl_gpu_batch_on
         rsl_gpu_q = acc_async_sync
         IF ( .NOT. rsl_gpu_batch_on() ) RETURN
@@ -84,12 +85,14 @@
 !$acc wait(1)
             rsl_gpu_need_wait = .FALSE.
           ENDIF
-          IF ( rsl_gpu_nseg > 0 ) THEN
-            IF ( rsl_gpu_seg_a(rsl_gpu_nseg) + rsl_gpu_seg_n(rsl_gpu_nseg) == addr ) THEN
-              rsl_gpu_seg_n(rsl_gpu_nseg) = rsl_gpu_seg_n(rsl_gpu_nseg) + nbytes
+          ! extend a recent segment that ends at addr (packs alternate between the two neighbours' buffers
+          ! field by field, so the segment to extend is usually the one before last)
+          DO l = rsl_gpu_nseg, MAX(1, rsl_gpu_nseg-3), -1
+            IF ( rsl_gpu_seg_a(l) + rsl_gpu_seg_n(l) == addr ) THEN
+              rsl_gpu_seg_n(l) = rsl_gpu_seg_n(l) + nbytes
               RETURN
             ENDIF
-          ENDIF
+          ENDDO
           IF ( rsl_gpu_nseg >= rsl_gpu_maxseg ) THEN
             CALL rsl_gpu_send_flush()
           ENDIF
@@ -160,6 +163,35 @@
         rsl_gpu_nseg = 0
 #endif
       END SUBROUTINE rsl_gpu_send_flush
+      ! mixed P2P/MPI exchange: copy to the host only the packed bytes that lie in the send buffers of the
+      ! neighbours going through MPI ([a1,a1+n1) and [a2,a2+n2); n<=0 = unused); the P2P neighbour's packed
+      ! buffer is read device-to-device and needs no D2H. Segments are clipped to the ranges.
+      SUBROUTINE rsl_gpu_send_flush_sel ( a1, n1, a2, n2 )
+        USE iso_c_binding
+        USE rsl_gpu_ctl
+        IMPLICIT NONE
+        INTEGER*8 a1, a2
+        INTEGER n1, n2
+#if defined(_OPENACC) || defined(WRF_GPU)
+        INTEGER(1), POINTER :: bp(:)
+        INTEGER :: n, r
+        INTEGER*8 :: ra, rn, lo, hi
+        IF ( rsl_gpu_nseg == 0 ) RETURN
+        CALL rsl_fused_flush( 1 )
+!$acc wait(1)
+        DO n = 1, rsl_gpu_nseg
+          DO r = 1, 2
+            IF ( r == 1 ) THEN ; ra = a1 ; rn = n1 ; ELSE ; ra = a2 ; rn = n2 ; ENDIF
+            IF ( rn <= 0 ) CYCLE
+            lo = MAX( rsl_gpu_seg_a(n), ra ) ; hi = MIN( rsl_gpu_seg_a(n) + rsl_gpu_seg_n(n), ra + rn )
+            IF ( hi <= lo ) CYCLE
+            CALL c_f_pointer( TRANSFER(lo, c_null_ptr), bp, (/ INT(hi - lo) /) )
+!$acc update self(bp)
+          ENDDO
+        ENDDO
+        rsl_gpu_nseg = 0
+#endif
+      END SUBROUTINE rsl_gpu_send_flush_sel
       ! after MPI receive: copy the received buffer to its device mirror (unpacks then run on queue 1);
       ! also re-arms the once-per-exchange queue drain for the next exchange's packs
       SUBROUTINE rsl_gpu_recv_push ( addr, nbytes )
