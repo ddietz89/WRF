@@ -3365,40 +3365,11 @@
          pptsnow = 0.
          pptgraul = 0.
          pptice = 0.
+         ! only p1d and dz1d survive: every other column array is overwritten from the level kernel's hand-off
+         ! below (the loads of th/pii/w/qv..nr and the rho/ng1d/qb1d computation were dead, 2026-11-08)
          do k = kts, kte
-            t1d(k) = th(i,k,j)*pii(i,k,j)
             p1d(k) = p(i,k,j)
-            w1d(k) = w(i,k,j)
             dz1d(k) = dz(i,k,j)
-            qv1d(k) = qv(i,k,j)
-            qc1d(k) = qc(i,k,j)
-            qi1d(k) = qi(i,k,j)
-            qr1d(k) = qr(i,k,j)
-            qs1d(k) = qs(i,k,j)
-            qg1d(k) = qg(i,k,j)
-            ni1d(k) = ni(i,k,j)
-            nr1d(k) = nr(i,k,j)
-            rho(k) = 0.622*p1d(k)/(R*t1d(k)*(qv1d(k)+0.622))
-            nc1d(k) = Nt_c/rho(k)
-            nwfa1d(k) = 11.1E6/rho(k)
-            nifa1d(k) = naIN1*0.01/rho(k)
-            nbca1d(k) = 5.55E6/rho(k)
-         enddo
-         do k = kte, kts, -1
-            if (qg1d(k).gt.R1) then
-               ygra1 = alog10(max(1.E-9, qg1d(k)*rho(k)))
-               zans1 = 3.0 + 2./7.*(ygra1+8.)
-               zans1 = MAX(2., MIN(zans1, 6.))
-               N0_exp = 10.**(zans1)
-               lam_exp = (N0_exp*am_g(idx_bg1)*cgg(1,1)/(rho(k)*qg1d(k)))**oge1
-               lamg = lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
-               ng1d(k) = cgg(2,1)*ogg3*rho(k)*qg1d(k)*lamg**bm_g / am_g(idx_bg1)
-               ng1d(k) = MAX(R2, ng1d(k)/rho(k))
-               qb1d(k) = qg1d(k)/rho_g(idx_bg1)
-            else
-               ng1d(k) = 0
-               qb1d(k) = 0
-            endif
          enddo
          do k = kts, kte
             qv1d(k) = thb_qv1d(n_-thb0+1,k-kts+1,thjj)
