@@ -442,6 +442,75 @@
 !$acc declare create(t1_qr_qi,t2_qr_qi,t1_qg_qc,t1_qs_qc,t1_qs_qi,t1_qr_ev,t2_qr_ev,t1_qs_sd)
 !$acc declare create(t2_qs_sd,t1_qg_sd,t2_qg_sd,t1_qs_me,t2_qs_me,t1_qg_me,t2_qg_me)
 #endif
+#ifdef WRF_GPU
+!.. WRF_GPU_THLEV band scratch (module, device-resident; allocated by thlev_alloc)
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_tten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qvten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qcten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qiten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qrten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qsten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qgten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qbten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_niten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nrten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ncten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ngten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nwfaten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nifaten
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nbcaten
+      DOUBLE PRECISION, DIMENSION(:,:,:), ALLOCATABLE:: thb_prr_sml
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_temp
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rc
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ri
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rr
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rs
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rg
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rb
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ni
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nr
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nc
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ng
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rho
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_rhof
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_visco
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_lvap
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ocp
+      DOUBLE PRECISION, DIMENSION(:,:,:), ALLOCATABLE:: thb_ilamg
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_mvd_r
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_mvd_g
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_smob
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_smoc
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_vts_boost
+      INTEGER, DIMENSION(:,:,:), ALLOCATABLE:: thb_idx_bg
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_l_qc
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_l_qi
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_l_qr
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_l_qs
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_l_qg
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qv1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qc1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qi1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qr1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qs1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qg1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_qb1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ni1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nr1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nc1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_ng1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nwfa1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nifa1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nbca1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_t1d
+      REAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_w1d
+      LOGICAL, DIMENSION(:,:,:), ALLOCATABLE:: thb_nm
+      INTEGER, DIMENSION(:,:,:), ALLOCATABLE:: thb_km
+      LOGICAL, DIMENSION(:,:), ALLOCATABLE:: thb_nmc
+      INTEGER, DIMENSION(:,:), ALLOCATABLE:: thb_kmc
+!$acc declare create(thb_tten,thb_qvten,thb_qcten,thb_qiten,thb_qrten,thb_qsten,thb_qgten,thb_qbten,thb_niten,thb_nrten,thb_ncten,thb_ngten,thb_nwfaten,thb_nifaten,thb_nbcaten,thb_prr_sml,thb_temp,thb_rc,thb_ri,thb_rr,thb_rs,thb_rg,thb_rb,thb_ni,thb_nr,thb_nc,thb_ng,thb_rho,thb_rhof,thb_visco,thb_lvap,thb_ocp,thb_ilamg,thb_mvd_r,thb_mvd_g,thb_smob,thb_smoc,thb_vts_boost,thb_idx_bg,thb_l_qc,thb_l_qi,thb_l_qr,thb_l_qs,thb_l_qg,thb_qv1d,thb_qc1d,thb_qi1d,thb_qr1d,thb_qs1d,thb_qg1d,thb_qb1d,thb_ni1d,thb_nr1d,thb_nc1d,thb_ng1d,thb_nwfa1d,thb_nifa1d,thb_nbca1d,thb_t1d,thb_w1d,thb_nm,thb_km,thb_nmc,thb_kmc)
+      INTEGER, SAVE:: thlev_on = -1, thbsz_ni = 0, thbsz_nk = 0, thbsz_nj = 0
+#endif
       CONTAINS
 
       SUBROUTINE thompson_init(hgt, orho, nwfa2d, nbca2d, ng,           &
@@ -1224,6 +1293,349 @@
 #ifdef WRF_GPU
       LOGICAL:: gpu_do_re, gpu_do_refl
       INTEGER:: gpu_aer, gpu_wif
+      REAL:: sv_dzq
+      INTEGER:: sv_idx_bg
+      DOUBLE PRECISION:: sv_ilamg
+      LOGICAL:: sv_l_qc
+      LOGICAL:: sv_l_qg
+      LOGICAL:: sv_l_qi
+      LOGICAL:: sv_l_qr
+      LOGICAL:: sv_l_qs
+      REAL:: sv_lvap
+      REAL:: sv_mvd_g
+      REAL:: sv_mvd_r
+      REAL:: sv_nbca1d
+      REAL:: sv_nbcaten
+      REAL:: sv_nc
+      REAL:: sv_nc1d
+      REAL:: sv_ncten
+      REAL:: sv_ng
+      REAL:: sv_ng1d
+      REAL:: sv_ngten
+      REAL:: sv_ni
+      REAL:: sv_ni1d
+      REAL:: sv_nifa1d
+      REAL:: sv_nifaten
+      REAL:: sv_niten
+      REAL:: sv_nr
+      REAL:: sv_nr1d
+      REAL:: sv_nrten
+      REAL:: sv_nwfa1d
+      REAL:: sv_nwfaten
+      REAL:: sv_ocp
+      REAL:: sv_p1d
+      DOUBLE PRECISION:: sv_prr_sml
+      REAL:: sv_qb1d
+      REAL:: sv_qbten
+      REAL:: sv_qc1d
+      REAL:: sv_qcten
+      REAL:: sv_qg1d
+      REAL:: sv_qgten
+      REAL:: sv_qi1d
+      REAL:: sv_qiten
+      REAL:: sv_qr1d
+      REAL:: sv_qrten
+      REAL:: sv_qs1d
+      REAL:: sv_qsten
+      REAL:: sv_qv1d
+      REAL:: sv_qvten
+      REAL:: sv_rb
+      REAL:: sv_rc
+      REAL:: sv_rg
+      REAL:: sv_rho
+      REAL:: sv_rhof
+      REAL:: sv_ri
+      REAL:: sv_rr
+      REAL:: sv_rs
+      REAL:: sv_smob
+      REAL:: sv_smoc
+      REAL:: sv_t1d
+      REAL:: sv_temp
+      REAL:: sv_tten
+      REAL:: sv_visco
+      REAL:: sv_vts_boost
+      REAL:: sv_w1d
+      REAL:: sv_rhod, sv_ygra1, sv_zans1, sv_N0_exp, sv_lam_exp, sv_lamg
+      LOGICAL:: sv_nm
+      INTEGER:: sv_km
+      INTEGER:: thjb, thje, thjj, thnb
+      REAL:: lv_tten
+      REAL:: lv_qvten
+      REAL:: lv_qcten
+      REAL:: lv_qiten
+      REAL:: lv_qrten
+      REAL:: lv_qsten
+      REAL:: lv_qgten
+      REAL:: lv_qbten
+      REAL:: lv_niten
+      REAL:: lv_nrten
+      REAL:: lv_ncten
+      REAL:: lv_ngten
+      REAL:: lv_nwfaten
+      REAL:: lv_nifaten
+      REAL:: lv_nbcaten
+      DOUBLE PRECISION:: lv_prw_vcd
+      DOUBLE PRECISION:: lv_pnc_wcd
+      DOUBLE PRECISION:: lv_prr_wau
+      DOUBLE PRECISION:: lv_prr_rcw
+      DOUBLE PRECISION:: lv_prr_sml
+      DOUBLE PRECISION:: lv_prr_gml
+      DOUBLE PRECISION:: lv_prv_rev
+      DOUBLE PRECISION:: lv_pnr_rev
+      DOUBLE PRECISION:: lv_pri_rci
+      DOUBLE PRECISION:: lv_prs_iau
+      DOUBLE PRECISION:: lv_prs_sci
+      DOUBLE PRECISION:: lv_prs_scw
+      DOUBLE PRECISION:: lv_prs_sde
+      DOUBLE PRECISION:: lv_prg_scw
+      DOUBLE PRECISION:: lv_prg_gde
+      DOUBLE PRECISION:: lv_prg_gcw
+      DOUBLE PRECISION:: lv_pnc_wau_s
+      DOUBLE PRECISION:: lv_pnc_rcw_s
+      DOUBLE PRECISION:: lv_pnc_scw_s
+      DOUBLE PRECISION:: lv_pnc_gcw_s
+      DOUBLE PRECISION:: lv_prr_rcs_s
+      DOUBLE PRECISION:: lv_prr_rcg_s
+      DOUBLE PRECISION:: lv_prr_rci_s
+      DOUBLE PRECISION:: lv_pnr_wau_s
+      DOUBLE PRECISION:: lv_pnr_rcs_s
+      DOUBLE PRECISION:: lv_pnr_rcg_s
+      DOUBLE PRECISION:: lv_pnr_rci_s
+      DOUBLE PRECISION:: lv_pnr_sml_s
+      DOUBLE PRECISION:: lv_pnr_gml_s
+      DOUBLE PRECISION:: lv_pnr_rcr_s
+      DOUBLE PRECISION:: lv_pnr_rfz_s
+      DOUBLE PRECISION:: lv_pri_inu_s
+      DOUBLE PRECISION:: lv_pni_inu_s
+      DOUBLE PRECISION:: lv_pri_ihm_s
+      DOUBLE PRECISION:: lv_pni_ihm_s
+      DOUBLE PRECISION:: lv_pri_wfz_s
+      DOUBLE PRECISION:: lv_pni_wfz_s
+      DOUBLE PRECISION:: lv_pri_rfz_s
+      DOUBLE PRECISION:: lv_pni_rfz_s
+      DOUBLE PRECISION:: lv_pri_ide_s
+      DOUBLE PRECISION:: lv_pni_ide_s
+      DOUBLE PRECISION:: lv_pni_rci_s
+      DOUBLE PRECISION:: lv_pni_sci_s
+      DOUBLE PRECISION:: lv_pni_iau_s
+      DOUBLE PRECISION:: lv_pri_iha_s
+      DOUBLE PRECISION:: lv_pni_iha_s
+      DOUBLE PRECISION:: lv_prs_rcs_s
+      DOUBLE PRECISION:: lv_prs_ihm_s
+      DOUBLE PRECISION:: lv_prs_ide_s
+      DOUBLE PRECISION:: lv_prg_rfz_s
+      DOUBLE PRECISION:: lv_prg_rci_s
+      DOUBLE PRECISION:: lv_prg_rcs_s
+      DOUBLE PRECISION:: lv_prg_rcg_s
+      DOUBLE PRECISION:: lv_prg_ihm_s
+      DOUBLE PRECISION:: lv_png_scw_s
+      DOUBLE PRECISION:: lv_png_rcs_s
+      DOUBLE PRECISION:: lv_png_rcg_s
+      DOUBLE PRECISION:: lv_png_gde_s
+      DOUBLE PRECISION:: lv_pbg_scw_s
+      DOUBLE PRECISION:: lv_pbg_rfz_s
+      DOUBLE PRECISION:: lv_pbg_gcw_s
+      DOUBLE PRECISION:: lv_pbg_rci_s
+      DOUBLE PRECISION:: lv_pbg_rcs_s
+      DOUBLE PRECISION:: lv_pbg_rcg_s
+      DOUBLE PRECISION:: lv_pbg_sml_s
+      DOUBLE PRECISION:: lv_pbg_gml_s
+      DOUBLE PRECISION:: lv_pna_rca_s
+      DOUBLE PRECISION:: lv_pna_sca_s
+      DOUBLE PRECISION:: lv_pna_gca_s
+      DOUBLE PRECISION:: lv_pnd_rcd_s
+      DOUBLE PRECISION:: lv_pnd_scd_s
+      DOUBLE PRECISION:: lv_pnd_gcd_s
+      DOUBLE PRECISION:: lv_pnb_rcb_s
+      DOUBLE PRECISION:: lv_pnb_scb_s
+      DOUBLE PRECISION:: lv_pnb_gcb_s
+      REAL:: lv_temp
+      REAL:: lv_pres
+      REAL:: lv_qv
+      REAL:: lv_rc
+      REAL:: lv_ri
+      REAL:: lv_rr
+      REAL:: lv_rs
+      REAL:: lv_rg
+      REAL:: lv_rb
+      REAL:: lv_ni
+      REAL:: lv_nr
+      REAL:: lv_nc
+      REAL:: lv_ns
+      REAL:: lv_ng
+      REAL:: lv_nwfa
+      REAL:: lv_nifa
+      REAL:: lv_nbca
+      REAL:: lv_rho
+      REAL:: lv_rhof
+      REAL:: lv_rhof2
+      REAL:: lv_qvs
+      REAL:: lv_ssatw
+      REAL:: lv_diffu
+      REAL:: lv_visco
+      REAL:: lv_vsc2
+      REAL:: lv_tcond
+      REAL:: lv_lvap
+      REAL:: lv_ocp
+      REAL:: lv_lvt2
+      DOUBLE PRECISION:: lv_ilamr
+      DOUBLE PRECISION:: lv_ilamg
+      DOUBLE PRECISION:: lv_n0_r
+      DOUBLE PRECISION:: lv_n0_g
+      DOUBLE PRECISION:: lv_n0_melt
+      REAL:: lv_mvd_r
+      REAL:: lv_mvd_c
+      REAL:: lv_mvd_g
+      REAL:: lv_smob
+      REAL:: lv_smo2
+      REAL:: lv_smo1
+      REAL:: lv_smo0
+      REAL:: lv_smoc
+      REAL:: lv_smod
+      REAL:: lv_smoe
+      REAL:: lv_smof
+      REAL:: lv_smog
+      REAL:: lv_orho
+      REAL:: lv_lfus2
+      DOUBLE PRECISION:: lv_n0_exp
+      DOUBLE PRECISION:: lv_lam_exp
+      DOUBLE PRECISION:: lv_lamc
+      DOUBLE PRECISION:: lv_lamr
+      DOUBLE PRECISION:: lv_lamg
+      DOUBLE PRECISION:: lv_lami
+      DOUBLE PRECISION:: lv_ilami
+      REAL:: lv_xdc
+      REAL:: lv_dc_b
+      REAL:: lv_dc_g
+      REAL:: lv_xdi
+      REAL:: lv_xds
+      REAL:: lv_xdg
+      DOUBLE PRECISION:: lv_dc_star
+      REAL:: lv_zeta1
+      REAL:: lv_zeta
+      REAL:: lv_taud
+      REAL:: lv_tau
+      REAL:: lv_stoke_g
+      REAL:: lv_vts
+      REAL:: lv_vtg
+      REAL:: lv_xrho_g
+      REAL:: lv_afall
+      REAL:: lv_vtg1
+      REAL:: lv_vtg2
+      REAL:: lv_bfall
+      REAL:: lv_vts_boost
+      REAL:: lv_m0
+      REAL:: lv_slam1
+      REAL:: lv_slam2
+      REAL:: lv_mrat
+      REAL:: lv_c_snow
+      REAL:: lv_a_
+      REAL:: lv_b_
+      REAL:: lv_loga_
+      REAL:: lv_tf
+      REAL:: lv_tempc
+      REAL:: lv_tc0
+      REAL:: lv_dew_t
+      REAL:: lv_tlcl
+      REAL:: lv_the
+      REAL:: lv_twet_k
+      REAL:: lv_tempc_s
+      REAL:: lv_rhof_s
+      REAL:: lv_rhof2_s
+      REAL:: lv_qvs_s
+      REAL:: lv_delqvs_s
+      REAL:: lv_qvsi_s
+      REAL:: lv_satw_s
+      REAL:: lv_sati_s
+      REAL:: lv_ssatw_s
+      REAL:: lv_ssati_s
+      REAL:: lv_diffu_s
+      REAL:: lv_visco_s
+      REAL:: lv_ocp_s
+      REAL:: lv_vsc2_s
+      REAL:: lv_lvap_s
+      REAL:: lv_tcond_s
+      REAL:: lv_xnc
+      REAL:: lv_xri
+      REAL:: lv_xni
+      REAL:: lv_xmi
+      REAL:: lv_oxmi
+      REAL:: lv_xrc
+      REAL:: lv_xrr
+      REAL:: lv_xnr
+      REAL:: lv_xrg
+      REAL:: lv_xng
+      REAL:: lv_xrb
+      REAL:: lv_xsat
+      REAL:: lv_rate_max
+      REAL:: lv_sump
+      REAL:: lv_ratio
+      REAL:: lv_clap
+      REAL:: lv_fcd
+      REAL:: lv_dfcd
+      REAL:: lv_otemp
+      REAL:: lv_rvs
+      REAL:: lv_rvs_p
+      REAL:: lv_rvs_pp
+      REAL:: lv_gamsc
+      REAL:: lv_alphsc
+      REAL:: lv_t1_evap
+      REAL:: lv_t1_subl
+      REAL:: lv_r_frac
+      REAL:: lv_g_frac
+      REAL:: lv_const_ri
+      REAL:: lv_rime_dens
+      REAL:: lv_ef_rw
+      REAL:: lv_ef_sw
+      REAL:: lv_ef_gw
+      REAL:: lv_ef_rr
+      REAL:: lv_ef_ra
+      REAL:: lv_ef_sa
+      REAL:: lv_ef_ga
+      REAL:: lv_dtsave
+      REAL:: lv_odts
+      REAL:: lv_odt
+      REAL:: lv_ygra1
+      REAL:: lv_zans1
+      REAL:: lv_eva_factor
+      REAL:: lv_melt_f
+      INTEGER:: lv_n
+      INTEGER:: lv_nn
+      INTEGER:: lv_it
+      INTEGER:: lv_iexfrq
+      INTEGER:: lv_k_melting
+      INTEGER:: lv_nir
+      INTEGER:: lv_nis
+      INTEGER:: lv_nig
+      INTEGER:: lv_nii
+      INTEGER:: lv_nic
+      INTEGER:: lv_niin
+      INTEGER:: lv_idx_tc
+      INTEGER:: lv_idx_t
+      INTEGER:: lv_idx_s
+      INTEGER:: lv_idx_g1
+      INTEGER:: lv_idx_g
+      INTEGER:: lv_idx_r1
+      INTEGER:: lv_idx_r
+      INTEGER:: lv_idx_i1
+      INTEGER:: lv_idx_i
+      INTEGER:: lv_idx_c
+      INTEGER:: lv_idx
+      INTEGER:: lv_idx_d
+      INTEGER:: lv_idx_n
+      INTEGER:: lv_idx_in
+      INTEGER:: lv_idx_bg
+      LOGICAL:: lv_no_micro
+      LOGICAL:: lv_l_qc
+      LOGICAL:: lv_l_qi
+      LOGICAL:: lv_l_qr
+      LOGICAL:: lv_l_qs
+      LOGICAL:: lv_l_qg
+      LOGICAL:: lv_debug_flag
+      INTEGER:: lv_nu_c
+      INTEGER:: lvonce, thonce
+      CHARACTER(LEN=8):: thlev_env
+      INTEGER:: thlev_st
       ! WRF_GPU_MPCOMPACT=1 (default): the column kernel runs over a list of columns with the hydrometeor-bearing
       ! ones first (stable (j,i) order within each group), so warps are not dragged through the full scheme by a
       ! few active lanes (only ~20% of columns carry condensate on big1000). Per-column arithmetic is unchanged.
@@ -1394,6 +1806,1611 @@
          enddo
          enddo
       ENDIF
+      IF ( thlev_on < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_THLEV', thlev_env )
+         thlev_on = 0
+         IF ( TRIM(thlev_env) == '1' ) thlev_on = 1
+      ENDIF
+      IF ( thlev_on == 1 ) THEN
+!.. WRF_GPU_THLEV=1: level-parallel Thompson (see thom_lev / thom_tail); j bands bound the scratch
+      thnb = j_end - j_start + 1
+      CALL thlev_alloc( i_end - i_start + 1, kte - kts + 1, thnb )
+      thjb = j_start ; thje = j_end
+!$acc parallel loop gang vector collapse(3) &
+!$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
+!$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
+!$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
+!$acc private(sv_p1d,sv_prr_sml,sv_qb1d,sv_qbten,sv_qc1d,sv_qcten,sv_qg1d,sv_qgten,sv_qi1d,sv_qiten) &
+!$acc private(sv_qr1d,sv_qrten,sv_qs1d,sv_qsten,sv_qv1d,sv_qvten,sv_rb,sv_rc,sv_rg,sv_rho) &
+!$acc private(sv_rhof,sv_ri,sv_rr,sv_rs,sv_smob,sv_smoc,sv_t1d,sv_temp,sv_tten,sv_visco) &
+!$acc private(sv_vts_boost,sv_w1d,sv_rhod,sv_ygra1,sv_zans1,sv_N0_exp,sv_lam_exp,sv_lamg,sv_nm,sv_km)
+      do j = thjb, thje
+      do k = kts, kte
+      do i = i_start, i_end
+            sv_t1d = th(i,k,j)*pii(i,k,j)
+            sv_p1d = p(i,k,j)
+            sv_w1d = w(i,k,j)
+            sv_dzq = dz(i,k,j)
+            sv_qv1d = qv(i,k,j)
+            sv_qc1d = qc(i,k,j)
+            sv_qi1d = qi(i,k,j)
+            sv_qr1d = qr(i,k,j)
+            sv_qs1d = qs(i,k,j)
+            sv_qg1d = qg(i,k,j)
+            sv_ni1d = ni(i,k,j)
+            sv_nr1d = nr(i,k,j)
+            sv_rhod = 0.622*sv_p1d/(R*sv_t1d*(sv_qv1d+0.622))
+            sv_nc1d = Nt_c/sv_rhod
+            sv_nwfa1d = 11.1E6/sv_rhod
+            sv_nifa1d = naIN1*0.01/sv_rhod
+            sv_nbca1d = 5.55E6/sv_rhod
+            if (sv_qg1d.gt.R1) then
+               sv_ygra1 = alog10(max(1.E-9, sv_qg1d*sv_rhod))
+               sv_zans1 = 3.0 + 2./7.*(sv_ygra1+8.)
+               sv_zans1 = MAX(2., MIN(sv_zans1, 6.))
+               sv_N0_exp = 10.**(sv_zans1)
+               sv_lam_exp = (sv_N0_exp*am_g(idx_bg1)*cgg(1,1)/(sv_rhod*sv_qg1d))**oge1
+               sv_lamg = sv_lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+               sv_ng1d = cgg(2,1)*ogg3*sv_rhod*sv_qg1d*sv_lamg**bm_g / am_g(idx_bg1)
+               sv_ng1d = MAX(R2, sv_ng1d/sv_rhod)
+               sv_qb1d = sv_qg1d/rho_g(idx_bg1)
+            else
+               sv_ng1d = 0
+               sv_qb1d = 0
+            endif
+            CALL thom_lev(1, k, .true., 0, sv_nm, sv_km, gpu_aer, gpu_wif, sv_qv1d, sv_qc1d, sv_qi1d, sv_qr1d, sv_qs1d, sv_qg1d, sv_qb1d, sv_ni1d, sv_nr1d, sv_nc1d, sv_ng1d, sv_nwfa1d, sv_nifa1d, sv_nbca1d, sv_t1d, sv_p1d, sv_w1d, dt, sv_tten, sv_qvten, sv_qcten, sv_qiten, sv_qrten, sv_qsten, sv_qgten, sv_qbten, sv_niten, sv_nrten, sv_ncten, sv_ngten, sv_nwfaten, sv_nifaten, sv_nbcaten, sv_prr_sml, sv_temp, sv_rc, sv_ri, sv_rr, sv_rs, sv_rg, sv_rb, sv_ni, sv_nr, sv_nc, sv_ng, sv_rho, sv_rhof, sv_visco, sv_lvap, sv_ocp, sv_ilamg, sv_mvd_r, sv_mvd_g, sv_smob, sv_smoc, sv_vts_boost, sv_idx_bg, sv_l_qc, sv_l_qi, sv_l_qr, sv_l_qs, sv_l_qg)
+            thb_nm(i-i_start+1,k-kts+1,j-thjb+1) = sv_nm
+            thb_km(i-i_start+1,k-kts+1,j-thjb+1) = sv_km
+      enddo
+      enddo
+      enddo
+!$acc parallel loop gang vector collapse(2)
+      do j = thjb, thje
+      do i = i_start, i_end
+         thb_nmc(i-i_start+1,j-thjb+1) = .true.
+         thb_kmc(i-i_start+1,j-thjb+1) = 0
+         do k = kts, kte
+            IF ( .NOT. thb_nm(i-i_start+1,k-kts+1,j-thjb+1) ) thb_nmc(i-i_start+1,j-thjb+1) = .false.
+            thb_kmc(i-i_start+1,j-thjb+1) = MAX( thb_kmc(i-i_start+1,j-thjb+1), thb_km(i-i_start+1,k-kts+1,j-thjb+1) )
+         enddo
+      enddo
+      enddo
+!$acc parallel loop gang vector collapse(3) &
+!$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
+!$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
+!$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
+!$acc private(sv_p1d,sv_prr_sml,sv_qb1d,sv_qbten,sv_qc1d,sv_qcten,sv_qg1d,sv_qgten,sv_qi1d,sv_qiten) &
+!$acc private(sv_qr1d,sv_qrten,sv_qs1d,sv_qsten,sv_qv1d,sv_qvten,sv_rb,sv_rc,sv_rg,sv_rho) &
+!$acc private(sv_rhof,sv_ri,sv_rr,sv_rs,sv_smob,sv_smoc,sv_t1d,sv_temp,sv_tten,sv_visco) &
+!$acc private(sv_vts_boost,sv_w1d,sv_rhod,sv_ygra1,sv_zans1,sv_N0_exp,sv_lam_exp,sv_lamg,sv_nm,sv_km) &
+!$acc private(lv_tten,lv_qvten,lv_qcten,lv_qiten,lv_qrten,lv_qsten,lv_qgten,lv_qbten,lv_niten,lv_nrten) &
+!$acc private(lv_ncten,lv_ngten,lv_nwfaten,lv_nifaten,lv_nbcaten,lv_prw_vcd,lv_pnc_wcd,lv_prr_wau,lv_prr_rcw,lv_prr_sml) &
+!$acc private(lv_prr_gml,lv_prv_rev,lv_pnr_rev,lv_pri_rci,lv_prs_iau,lv_prs_sci,lv_prs_scw,lv_prs_sde,lv_prg_scw,lv_prg_gde) &
+!$acc private(lv_prg_gcw,lv_pnc_wau_s,lv_pnc_rcw_s,lv_pnc_scw_s,lv_pnc_gcw_s,lv_prr_rcs_s,lv_prr_rcg_s,lv_prr_rci_s,lv_pnr_wau_s,lv_pnr_rcs_s) &
+!$acc private(lv_pnr_rcg_s,lv_pnr_rci_s,lv_pnr_sml_s,lv_pnr_gml_s,lv_pnr_rcr_s,lv_pnr_rfz_s,lv_pri_inu_s,lv_pni_inu_s,lv_pri_ihm_s,lv_pni_ihm_s) &
+!$acc private(lv_pri_wfz_s,lv_pni_wfz_s,lv_pri_rfz_s,lv_pni_rfz_s,lv_pri_ide_s,lv_pni_ide_s,lv_pni_rci_s,lv_pni_sci_s,lv_pni_iau_s,lv_pri_iha_s) &
+!$acc private(lv_pni_iha_s,lv_prs_rcs_s,lv_prs_ihm_s,lv_prs_ide_s,lv_prg_rfz_s,lv_prg_rci_s,lv_prg_rcs_s,lv_prg_rcg_s,lv_prg_ihm_s,lv_png_scw_s) &
+!$acc private(lv_png_rcs_s,lv_png_rcg_s,lv_png_gde_s,lv_pbg_scw_s,lv_pbg_rfz_s,lv_pbg_gcw_s,lv_pbg_rci_s,lv_pbg_rcs_s,lv_pbg_rcg_s,lv_pbg_sml_s) &
+!$acc private(lv_pbg_gml_s,lv_pna_rca_s,lv_pna_sca_s,lv_pna_gca_s,lv_pnd_rcd_s,lv_pnd_scd_s,lv_pnd_gcd_s,lv_pnb_rcb_s,lv_pnb_scb_s,lv_pnb_gcb_s) &
+!$acc private(lv_temp,lv_pres,lv_qv,lv_rc,lv_ri,lv_rr,lv_rs,lv_rg,lv_rb,lv_ni) &
+!$acc private(lv_nr,lv_nc,lv_ns,lv_ng,lv_nwfa,lv_nifa,lv_nbca,lv_rho,lv_rhof,lv_rhof2) &
+!$acc private(lv_qvs,lv_ssatw,lv_diffu,lv_visco,lv_vsc2,lv_tcond,lv_lvap,lv_ocp,lv_lvt2,lv_ilamr) &
+!$acc private(lv_ilamg,lv_n0_r,lv_n0_g,lv_n0_melt,lv_mvd_r,lv_mvd_c,lv_mvd_g,lv_smob,lv_smo2,lv_smo1) &
+!$acc private(lv_smo0,lv_smoc,lv_smod,lv_smoe,lv_smof,lv_smog,lv_orho,lv_lfus2,lv_n0_exp,lv_lam_exp) &
+!$acc private(lv_lamc,lv_lamr,lv_lamg,lv_lami,lv_ilami,lv_xdc,lv_dc_b,lv_dc_g,lv_xdi,lv_xds) &
+!$acc private(lv_xdg,lv_dc_star,lv_zeta1,lv_zeta,lv_taud,lv_tau,lv_stoke_g,lv_vts,lv_vtg,lv_xrho_g) &
+!$acc private(lv_afall,lv_vtg1,lv_vtg2,lv_bfall,lv_vts_boost,lv_m0,lv_slam1,lv_slam2,lv_mrat,lv_c_snow) &
+!$acc private(lv_a_,lv_b_,lv_loga_,lv_tf,lv_tempc,lv_tc0,lv_dew_t,lv_tlcl,lv_the,lv_twet_k) &
+!$acc private(lv_tempc_s,lv_rhof_s,lv_rhof2_s,lv_qvs_s,lv_delqvs_s,lv_qvsi_s,lv_satw_s,lv_sati_s,lv_ssatw_s,lv_ssati_s) &
+!$acc private(lv_diffu_s,lv_visco_s,lv_ocp_s,lv_vsc2_s,lv_lvap_s,lv_tcond_s,lv_xnc,lv_xri,lv_xni,lv_xmi) &
+!$acc private(lv_oxmi,lv_xrc,lv_xrr,lv_xnr,lv_xrg,lv_xng,lv_xrb,lv_xsat,lv_rate_max,lv_sump) &
+!$acc private(lv_ratio,lv_clap,lv_fcd,lv_dfcd,lv_otemp,lv_rvs,lv_rvs_p,lv_rvs_pp,lv_gamsc,lv_alphsc) &
+!$acc private(lv_t1_evap,lv_t1_subl,lv_r_frac,lv_g_frac,lv_const_ri,lv_rime_dens,lv_ef_rw,lv_ef_sw,lv_ef_gw,lv_ef_rr) &
+!$acc private(lv_ef_ra,lv_ef_sa,lv_ef_ga,lv_dtsave,lv_odts,lv_odt,lv_ygra1,lv_zans1,lv_eva_factor,lv_melt_f) &
+!$acc private(lv_n,lv_nn,lv_it,lv_iexfrq,lv_k_melting,lv_nir,lv_nis,lv_nig,lv_nii,lv_nic) &
+!$acc private(lv_niin,lv_idx_tc,lv_idx_t,lv_idx_s,lv_idx_g1,lv_idx_g,lv_idx_r1,lv_idx_r,lv_idx_i1,lv_idx_i) &
+!$acc private(lv_idx_c,lv_idx,lv_idx_d,lv_idx_n,lv_idx_in,lv_idx_bg,lv_no_micro,lv_l_qc,lv_l_qi,lv_l_qr) &
+!$acc private(lv_l_qs,lv_l_qg,lv_debug_flag,lv_nu_c,lvonce,thonce)
+      do j = thjb, thje
+      do k = kts, kte
+      do i = i_start, i_end
+            sv_t1d = th(i,k,j)*pii(i,k,j)
+            sv_p1d = p(i,k,j)
+            sv_w1d = w(i,k,j)
+            sv_dzq = dz(i,k,j)
+            sv_qv1d = qv(i,k,j)
+            sv_qc1d = qc(i,k,j)
+            sv_qi1d = qi(i,k,j)
+            sv_qr1d = qr(i,k,j)
+            sv_qs1d = qs(i,k,j)
+            sv_qg1d = qg(i,k,j)
+            sv_ni1d = ni(i,k,j)
+            sv_nr1d = nr(i,k,j)
+            sv_rhod = 0.622*sv_p1d/(R*sv_t1d*(sv_qv1d+0.622))
+            sv_nc1d = Nt_c/sv_rhod
+            sv_nwfa1d = 11.1E6/sv_rhod
+            sv_nifa1d = naIN1*0.01/sv_rhod
+            sv_nbca1d = 5.55E6/sv_rhod
+            if (sv_qg1d.gt.R1) then
+               sv_ygra1 = alog10(max(1.E-9, sv_qg1d*sv_rhod))
+               sv_zans1 = 3.0 + 2./7.*(sv_ygra1+8.)
+               sv_zans1 = MAX(2., MIN(sv_zans1, 6.))
+               sv_N0_exp = 10.**(sv_zans1)
+               sv_lam_exp = (sv_N0_exp*am_g(idx_bg1)*cgg(1,1)/(sv_rhod*sv_qg1d))**oge1
+               sv_lamg = sv_lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+               sv_ng1d = cgg(2,1)*ogg3*sv_rhod*sv_qg1d*sv_lamg**bm_g / am_g(idx_bg1)
+               sv_ng1d = MAX(R2, sv_ng1d/sv_rhod)
+               sv_qb1d = sv_qg1d/rho_g(idx_bg1)
+            else
+               sv_ng1d = 0
+               sv_qb1d = 0
+            endif
+            lvblk: do lvonce = 1, 1
+            lv_debug_flag = .false.
+            if(lv_debug_flag) then
+            endif
+            if (th_probe == 6) exit lvblk
+            lv_no_micro = .true.
+            lv_dtsave = dt
+            lv_odt = 1./dt
+            lv_odts = 1./lv_dtsave
+            lv_iexfrq = 1
+            lv_smo0 = 0.
+            lv_smo1 = 0.
+            lv_smo2 = 0.
+            lv_smob = 0.
+            lv_smoc = 0.
+            lv_smod = 0.
+            lv_smoe = 0.
+            lv_smof = 0.
+            lv_smog = 0.
+            lv_ns   = 0.
+            lv_mvd_r = 0.
+            lv_mvd_c = 0.
+            lv_temp = sv_t1d
+            lv_qv = MAX(1.E-10, sv_qv1d)
+            lv_pres = sv_p1d
+            lv_rho = 0.622*lv_pres/(R*lv_temp*(lv_qv+0.622))
+            if (is_aerosol_aware) then
+            if (gpu_aer .lt. 2) then
+            lv_nwfa = MAX(11.1E6, MIN(9999.E6, sv_nwfa1d*lv_rho))
+            lv_nifa = MAX(naIN1*0.01, MIN(9999.E6, sv_nifa1d*lv_rho))
+            if (gpu_wif .eq. 2) then
+            lv_nbca = MAX(5.55E6, MIN(9999.E6, sv_nbca1d*lv_rho))
+            else
+            lv_nbca = 0.0
+            endif
+            else
+            lv_nwfa = MAX(0.0, sv_nwfa1d*lv_rho)
+            lv_nifa = MAX(0.0, sv_nifa1d*lv_rho)
+            if (gpu_wif .eq. 2) then
+            lv_nbca = MAX(0.0, sv_nbca1d*lv_rho)
+            else
+            lv_nbca = 0.0
+            endif
+            endif
+            else
+            lv_nwfa = MAX(11.1E6, MIN(9999.E6, sv_nwfa1d*lv_rho))
+            lv_nifa = MAX(naIN1*0.01, MIN(9999.E6, sv_nifa1d*lv_rho))
+            lv_nbca = MAX(5.55E6, MIN(9999.E6, sv_nbca1d*lv_rho))
+            endif
+            if (sv_qc1d .gt. R1) then
+            lv_no_micro = .false.
+            lv_rc = sv_qc1d*lv_rho
+            lv_nc = MAX(2., MIN(sv_nc1d*lv_rho, Nt_c_max))
+            lv_l_qc = .true.
+            lv_nu_c = MIN(15, NINT(1000.E6/lv_nc) + 2)
+            lv_lamc = (lv_nc*am_r*ccg(2,lv_nu_c)*ocg1(lv_nu_c)/lv_rc)**obmr
+            lv_xdc = (bm_r + lv_nu_c + 1.) / lv_lamc
+            if (lv_xdc.lt. D0c) then
+            lv_lamc = cce(2,lv_nu_c)/D0c
+            elseif (lv_xdc.gt. D0r*2.) then
+            lv_lamc = cce(2,lv_nu_c)/(D0r*2.)
+            endif
+            lv_nc = MIN( DBLE(Nt_c_max), ccg(1,lv_nu_c)*ocg2(lv_nu_c)*lv_rc    / am_r*lv_lamc**bm_r)
+            if (.NOT. is_aerosol_aware) lv_nc = Nt_c
+            else
+            sv_qc1d = 0.0
+            sv_nc1d = 0.0
+            lv_rc = R1
+            lv_nc = 2.
+            lv_l_qc = .false.
+            endif
+            if (sv_qi1d .gt. R1) then
+            lv_no_micro = .false.
+            lv_ri = sv_qi1d*lv_rho
+            lv_ni = MAX(R2, sv_ni1d*lv_rho)
+            if (lv_ni.le. R2) then
+            lv_lami = cie(2)/5.E-6
+            lv_ni = MIN(999.D3, cig(1)*oig2*lv_ri/am_i*lv_lami**bm_i)
+            endif
+            lv_l_qi = .true.
+            lv_lami = (am_i*cig(2)*oig1*lv_ni/lv_ri)**obmi
+            lv_ilami = 1./lv_lami
+            lv_xdi = (bm_i + mu_i + 1.) * lv_ilami
+            if (lv_xdi.lt. 5.E-6) then
+            lv_lami = cie(2)/5.E-6
+            lv_ni = MIN(999.D3, cig(1)*oig2*lv_ri/am_i*lv_lami**bm_i)
+            elseif (lv_xdi.gt. 300.E-6) then
+            lv_lami = cie(2)/300.E-6
+            lv_ni = cig(1)*oig2*lv_ri/am_i*lv_lami**bm_i
+            endif
+            else
+            sv_qi1d = 0.0
+            sv_ni1d = 0.0
+            lv_ri = R1
+            lv_ni = R2
+            lv_l_qi = .false.
+            endif
+            if (sv_qr1d .gt. R1) then
+            lv_no_micro = .false.
+            lv_rr = sv_qr1d*lv_rho
+            lv_nr = MAX(R2, sv_nr1d*lv_rho)
+            if (lv_nr.le. R2) then
+            lv_mvd_r = 1.0E-3
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_nr = crg(2)*org3*lv_rr*lv_lamr**bm_r / am_r
+            endif
+            lv_l_qr = .true.
+            lv_lamr = (am_r*crg(3)*org2*lv_nr/lv_rr)**obmr
+            lv_mvd_r = (3.0 + mu_r + 0.672) / lv_lamr
+            if (lv_mvd_r .gt. 2.5E-3) then
+            lv_mvd_r = 2.5E-3
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_nr = crg(2)*org3*lv_rr*lv_lamr**bm_r / am_r
+            elseif (lv_mvd_r .lt. D0r*0.75) then
+            lv_mvd_r = D0r*0.75
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_nr = crg(2)*org3*lv_rr*lv_lamr**bm_r / am_r
+            endif
+            else
+            sv_qr1d = 0.0
+            sv_nr1d = 0.0
+            lv_rr = R1
+            lv_nr = R2
+            lv_l_qr = .false.
+            endif
+            if (sv_qs1d .gt. R1) then
+            lv_no_micro = .false.
+            lv_rs = sv_qs1d*lv_rho
+            lv_l_qs = .true.
+            else
+            sv_qs1d = 0.0
+            lv_rs = R1
+            lv_l_qs = .false.
+            endif
+            if (sv_qg1d .gt. R1) then
+            lv_no_micro = .false.
+            lv_l_qg = .true.
+            lv_rg = sv_qg1d*lv_rho
+            lv_ng = MAX(R2, sv_ng1d*lv_rho)
+            lv_rb = MAX(sv_qg1d/rho_g(NRHG), sv_qb1d)
+            lv_rb = MIN(sv_qg1d/rho_g(1), lv_rb)
+            sv_qb1d = lv_rb
+            lv_idx_bg = MAX(1,MIN(NINT(sv_qg1d/lv_rb *0.01)+1,NRHG))
+            if (lv_ng.le. R2) then
+            lv_mvd_g = 1.5E-3
+            lv_lamg = (3.0 + mu_g + 0.672) / lv_mvd_g
+            lv_ng = cgg(2,1)*ogg3*lv_rg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            endif
+            lv_lamg = (am_g(lv_idx_bg)*cgg(3,1)*ogg2*lv_ng/lv_rg)**obmg
+            lv_mvd_g = (3.0 + mu_g + 0.672) / lv_lamg
+            if (lv_mvd_g .gt. 25.4E-3) then
+            lv_mvd_g = 25.4E-3
+            lv_lamg = (3.0 + mu_g + 0.672) / lv_mvd_g
+            lv_ng = cgg(2,1)*ogg3*lv_rg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            elseif (lv_mvd_g .lt. D0r) then
+            lv_mvd_g = D0r
+            lv_lamg = (3.0 + mu_g + 0.672) / lv_mvd_g
+            lv_ng = cgg(2,1)*ogg3*lv_rg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            endif
+            else
+            sv_qg1d = 0.0
+            sv_ng1d = 0.0
+            sv_qb1d = 0.0
+            lv_idx_bg = idx_bg1
+            lv_rg = R1
+            lv_ng = R2
+            lv_rb = R1/lv_rho/rho_g(NRHG)
+            lv_l_qg = .false.
+            endif
+            if (.not. is_hail_aware) lv_idx_bg = idx_bg1
+            lv_k_melting = 0
+            lv_tempc = lv_temp - 273.15
+            if (lv_tempc .le. 0.0) then
+            lv_qvsi_s = rsif(lv_pres, lv_temp)
+            else
+            lv_qvsi_s = rslf(lv_pres, lv_temp)
+            lv_k_melting = MAX(k, lv_k_melting)
+            endif
+            lv_sati_s = lv_qv/lv_qvsi_s
+            lv_ssati_s = lv_sati_s - 1.
+            if (abs(lv_ssati_s).lt. eps) lv_ssati_s = 0.0
+            if (lv_no_micro .and. lv_ssati_s.gt. 0.0) lv_no_micro = .false.
+            lv_no_micro = thb_nmc(i-i_start+1,j-thjb+1)
+            lv_k_melting = thb_kmc(i-i_start+1,j-thjb+1)
+            if (lv_no_micro) exit lvblk
+            if (th_probe == 1) exit lvblk
+            lv_tten = 0.
+            lv_qvten = 0.
+            lv_qcten = 0.
+            lv_qiten = 0.
+            lv_qrten = 0.
+            lv_qsten = 0.
+            lv_qgten = 0.
+            lv_ngten = 0.
+            lv_qbten = 0.
+            lv_niten = 0.
+            lv_nrten = 0.
+            lv_ncten = 0.
+            lv_nwfaten = 0.
+            lv_nifaten = 0.
+            lv_nbcaten = 0.
+            lv_prw_vcd = 0.
+            lv_pnc_wcd = 0.
+            lv_prv_rev = 0.
+            lv_prr_wau = 0.
+            lv_prr_rcw = 0.
+            lv_prr_sml = 0.
+            lv_prr_gml = 0.
+            lv_pnr_rev = 0.
+            lv_pri_rci = 0.
+            lv_prs_iau = 0.
+            lv_prs_sci = 0.
+            lv_prs_scw = 0.
+            lv_prs_sde = 0.
+            lv_prg_scw = 0.
+            lv_prg_gde = 0.
+            lv_prg_gcw = 0.
+            if (.not. iiwarm) then
+            do thonce = 1, 1
+            if (.not. lv_l_qs) CYCLE
+            lv_tc0 = MIN(-0.1, lv_temp-273.15)
+            lv_smob = lv_rs*oams
+            if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
+            lv_smo2 = lv_smob
+            else
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*bm_s  + sa(4)*lv_tc0*bm_s + sa(5)*lv_tc0*lv_tc0  + sa(6)*bm_s*bm_s + sa(7)*lv_tc0*lv_tc0*bm_s  + sa(8)*lv_tc0*bm_s*bm_s + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*bm_s*bm_s*bm_s
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1) + sb(2)*lv_tc0 + sb(3)*bm_s  + sb(4)*lv_tc0*bm_s + sb(5)*lv_tc0*lv_tc0  + sb(6)*bm_s*bm_s + sb(7)*lv_tc0*lv_tc0*bm_s  + sb(8)*lv_tc0*bm_s*bm_s + sb(9)*lv_tc0*lv_tc0*lv_tc0  + sb(10)*bm_s*bm_s*bm_s
+            lv_smo2 = (lv_smob/lv_a_)**(1./lv_b_)
+            endif
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(5)*lv_tc0*lv_tc0 + sa(9)*lv_tc0*lv_tc0*lv_tc0
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1) + sb(2)*lv_tc0 + sb(5)*lv_tc0*lv_tc0 + sb(9)*lv_tc0*lv_tc0*lv_tc0
+            lv_smo0 = lv_a_ * lv_smo2**lv_b_
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)  + sa(4)*lv_tc0 + sa(5)*lv_tc0*lv_tc0  + sa(6) + sa(7)*lv_tc0*lv_tc0  + sa(8)*lv_tc0 + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3) + sb(4)*lv_tc0  + sb(5)*lv_tc0*lv_tc0 + sb(6)  + sb(7)*lv_tc0*lv_tc0 + sb(8)*lv_tc0  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)
+            lv_smo1 = lv_a_ * lv_smo2**lv_b_
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(1)  + sa(4)*lv_tc0*cse(1) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(1)*cse(1) + sa(7)*lv_tc0*lv_tc0*cse(1)  + sa(8)*lv_tc0*cse(1)*cse(1) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(1)*cse(1)*cse(1)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(1) + sb(4)*lv_tc0*cse(1)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(1)*cse(1)  + sb(7)*lv_tc0*lv_tc0*cse(1) + sb(8)*lv_tc0*cse(1)*cse(1)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(1)*cse(1)*cse(1)
+            lv_smoc = lv_a_ * lv_smo2**lv_b_
+            lv_m0 = lv_smob/lv_smoc
+            lv_mrat = lv_smob*lv_m0*lv_m0*lv_m0
+            lv_slam1 = lv_m0 * Lam0
+            lv_slam2 = lv_m0 * Lam1
+            lv_ns = lv_mrat*Kap0/lv_slam1                                         + lv_mrat*Kap1*lv_m0**mu_s*csg(15)/lv_slam2**cse(15)
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(13)  + sa(4)*lv_tc0*cse(13) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(13)*cse(13) + sa(7)*lv_tc0*lv_tc0*cse(13)  + sa(8)*lv_tc0*cse(13)*cse(13) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(13)*cse(13)*cse(13)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(13) + sb(4)*lv_tc0*cse(13)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(13)*cse(13)  + sb(7)*lv_tc0*lv_tc0*cse(13) + sb(8)*lv_tc0*cse(13)*cse(13)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(13)*cse(13)*cse(13)
+            lv_smoe = lv_a_ * lv_smo2**lv_b_
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(16)  + sa(4)*lv_tc0*cse(16) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(16)*cse(16) + sa(7)*lv_tc0*lv_tc0*cse(16)  + sa(8)*lv_tc0*cse(16)*cse(16) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(16)*cse(16)*cse(16)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(16) + sb(4)*lv_tc0*cse(16)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(16)*cse(16)  + sb(7)*lv_tc0*lv_tc0*cse(16) + sb(8)*lv_tc0*cse(16)*cse(16)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(16)*cse(16)*cse(16)
+            lv_smof = lv_a_ * lv_smo2**lv_b_
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(17)  + sa(4)*lv_tc0*cse(17) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(17)*cse(17) + sa(7)*lv_tc0*lv_tc0*cse(17)  + sa(8)*lv_tc0*cse(17)*cse(17) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(17)*cse(17)*cse(17)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(17) + sb(4)*lv_tc0*cse(17)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(17)*cse(17)  + sb(7)*lv_tc0*lv_tc0*cse(17) + sb(8)*lv_tc0*cse(17)*cse(17)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(17)*cse(17)*cse(17)
+            lv_smog = lv_a_ * lv_smo2**lv_b_
+            enddo
+            lv_lamg = (am_g(lv_idx_bg)*cgg(3,1)*ogg2*lv_ng/lv_rg)**obmg
+            lv_ilamg = 1./lv_lamg
+            lv_n0_g = lv_ng*ogg2*lv_lamg**cge(2,1)
+            endif
+            lv_lamr = (am_r*crg(3)*org2*lv_nr/lv_rr)**obmr
+            lv_ilamr = 1./lv_lamr
+            lv_mvd_r = (3.0 + mu_r + 0.672) / lv_lamr
+            lv_n0_r = lv_nr*org2*lv_lamr**cre(2)
+            lv_tempc_s = lv_temp - 273.15
+            lv_rhof_s = SQRT(RHO_NOT/lv_rho)
+            lv_rhof2_s = SQRT(lv_rhof_s)
+            lv_qvs_s = rslf(lv_pres, lv_temp)
+            lv_delqvs_s = MAX(0.0, rslf(lv_pres, 273.15)-lv_qv)
+            if (lv_tempc_s .le. 0.0) then
+            lv_qvsi_s = rsif(lv_pres, lv_temp)
+            else
+            lv_qvsi_s = lv_qvs_s
+            endif
+            lv_satw_s = lv_qv/lv_qvs_s
+            lv_sati_s = lv_qv/lv_qvsi_s
+            lv_ssatw_s = lv_satw_s - 1.
+            lv_ssati_s = lv_sati_s - 1.
+            if (abs(lv_ssatw_s).lt. eps) lv_ssatw_s = 0.0
+            if (abs(lv_ssati_s).lt. eps) lv_ssati_s = 0.0
+            lv_diffu_s = 2.11E-5*(lv_temp/273.15)**1.94 * (101325./lv_pres)
+            if (lv_tempc_s .ge. 0.0) then
+            lv_visco_s = (1.718+0.0049*lv_tempc_s)*1.0E-5
+            else
+            lv_visco_s = (1.718+0.0049*lv_tempc_s-1.2E-5*lv_tempc_s*lv_tempc_s)*1.0E-5
+            endif
+            lv_ocp_s = 1./(Cp*(1.+0.887*lv_qv))
+            lv_vsc2_s = SQRT(lv_rho/lv_visco_s)
+            lv_lvap_s = lvap0 + (2106.0 - 4218.0)*lv_tempc_s
+            lv_tcond_s = (5.69 + 0.0168*lv_tempc_s)*1.0E-5 * 418.936
+            lv_twet_k = lv_temp
+            if (k .le. lv_k_melting) then
+            if (lv_satw_s .lt. 0.999 .and. (lv_l_qs .or. lv_l_qg)) then
+            lv_dew_t = MIN(lv_temp-0.001, t_dew(lv_pres, lv_qv))
+            lv_tlcl = t_lcl(lv_temp, lv_dew_t)
+            lv_the = theta_e(lv_pres, lv_temp, lv_qv, lv_tlcl)
+            lv_twet_k = MIN(lv_temp, compT_fr_The(lv_the, lv_pres))
+            endif
+            endif
+            lv_pnc_wau_s = 0.
+            lv_pnc_rcw_s = 0.
+            lv_pnc_scw_s = 0.
+            lv_pnc_gcw_s = 0.
+            lv_prr_rcs_s = 0.
+            lv_prr_rcg_s = 0.
+            lv_prr_rci_s = 0.
+            lv_pnr_wau_s = 0.
+            lv_pnr_rcs_s = 0.
+            lv_pnr_rcg_s = 0.
+            lv_pnr_rci_s = 0.
+            lv_pnr_sml_s = 0.
+            lv_pnr_gml_s = 0.
+            lv_pnr_rcr_s = 0.
+            lv_pnr_rfz_s = 0.
+            lv_pri_inu_s = 0.
+            lv_pni_inu_s = 0.
+            lv_pri_ihm_s = 0.
+            lv_pni_ihm_s = 0.
+            lv_pri_wfz_s = 0.
+            lv_pni_wfz_s = 0.
+            lv_pri_rfz_s = 0.
+            lv_pni_rfz_s = 0.
+            lv_pri_ide_s = 0.
+            lv_pni_ide_s = 0.
+            lv_pni_rci_s = 0.
+            lv_pni_sci_s = 0.
+            lv_pni_iau_s = 0.
+            lv_pri_iha_s = 0.
+            lv_pni_iha_s = 0.
+            lv_prs_rcs_s = 0.
+            lv_prs_ihm_s = 0.
+            lv_prs_ide_s = 0.
+            lv_prg_rfz_s = 0.
+            lv_prg_rci_s = 0.
+            lv_prg_rcs_s = 0.
+            lv_prg_rcg_s = 0.
+            lv_prg_ihm_s = 0.
+            lv_png_scw_s = 0.
+            lv_png_rcs_s = 0.
+            lv_png_rcg_s = 0.
+            lv_png_gde_s = 0.
+            lv_pbg_scw_s = 0.
+            lv_pbg_rfz_s = 0.
+            lv_pbg_gcw_s = 0.
+            lv_pbg_rci_s = 0.
+            lv_pbg_rcs_s = 0.
+            lv_pbg_rcg_s = 0.
+            lv_pbg_sml_s = 0.
+            lv_pbg_gml_s = 0.
+            lv_pna_rca_s = 0.
+            lv_pna_sca_s = 0.
+            lv_pna_gca_s = 0.
+            lv_pnd_rcd_s = 0.
+            lv_pnd_scd_s = 0.
+            lv_pnd_gcd_s = 0.
+            lv_pnb_rcb_s = 0.
+            lv_pnb_scb_s = 0.
+            lv_pnb_gcb_s = 0.
+            if (lv_l_qr .and. lv_mvd_r.gt. D0r) then
+            lv_ef_rr = 1.0 - EXP(2300.0*(lv_mvd_r-1950.0E-6))
+            lv_pnr_rcr_s = lv_ef_rr * 2.0*lv_nr*lv_rr
+            endif
+            lv_mvd_c = D0c
+            if (lv_l_qc) then
+            lv_nu_c = MIN(15, NINT(1000.E6/lv_nc) + 2)
+            lv_xdc = MAX(D0c*1.E6, ((lv_rc/(am_r*lv_nc))**obmr) * 1.E6)
+            lv_lamc = (lv_nc*am_r* ccg(2,lv_nu_c) * ocg1(lv_nu_c) / lv_rc)**obmr
+            lv_mvd_c = (3.0+lv_nu_c+0.672) / lv_lamc
+            lv_mvd_c = MAX(D0c, MIN(lv_mvd_c, D0r))
+            endif
+            if (lv_rc.gt. 0.01e-3) then
+            lv_dc_g = ((ccg(3,lv_nu_c)*ocg2(lv_nu_c))**obmr / lv_lamc) * 1.E6
+            lv_dc_b = (lv_xdc*lv_xdc*lv_xdc*lv_dc_g*lv_dc_g*lv_dc_g - lv_xdc*lv_xdc*lv_xdc*lv_xdc*lv_xdc*lv_xdc)  **(1./6.)
+            lv_zeta1 = 0.5*((6.25E-6*lv_xdc*lv_dc_b*lv_dc_b*lv_dc_b - 0.4)  + abs(6.25E-6*lv_xdc*lv_dc_b*lv_dc_b*lv_dc_b - 0.4))
+            lv_zeta = 0.027*lv_rc*lv_zeta1
+            lv_taud = 0.5*((0.5*lv_dc_b - 7.5) + abs(0.5*lv_dc_b - 7.5)) + R1
+            lv_tau  = 3.72/(lv_rc*lv_taud)
+            lv_prr_wau = lv_zeta/lv_tau
+            lv_prr_wau = MIN(DBLE(lv_rc*lv_odts), lv_prr_wau)
+            lv_pnr_wau_s = lv_prr_wau / (am_r*lv_nu_c*10.*D0r*D0r*D0r)
+            lv_pnc_wau_s = MIN(DBLE(lv_nc*lv_odts), lv_prr_wau                  / (am_r*lv_mvd_c*lv_mvd_c*lv_mvd_c))
+            endif
+            if (lv_l_qr .and. lv_mvd_r.gt. D0r .and. lv_mvd_c.gt. D0c) then
+            lv_lamr = 1./lv_ilamr
+            lv_idx = 1 + INT(nbr*DLOG(lv_mvd_r/Dr(1))/DLOG(Dr(nbr)/Dr(1)))
+            lv_idx = MIN(lv_idx, nbr)
+            lv_ef_rw = t_Efrw(lv_idx, INT(lv_mvd_c*1.E6))
+            lv_prr_rcw = lv_rhof_s*t1_qr_qc*lv_ef_rw*lv_rc*lv_n0_r  *((lv_lamr+fv_r)**(-cre(9)))
+            lv_prr_rcw = MIN(DBLE(lv_rc*lv_odts), lv_prr_rcw)
+            lv_pnc_rcw_s = lv_rhof_s*t1_qr_qc*lv_ef_rw*lv_nc*lv_n0_r              *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pnc_rcw_s = MIN(DBLE(lv_nc*lv_odts), lv_pnc_rcw_s)
+            endif
+            if (lv_l_qr .and. lv_mvd_r.gt. D0r) then
+            lv_ef_ra = Eff_aero(lv_mvd_r,0.04E-6,lv_visco_s,lv_rho,lv_temp,'r')
+            lv_lamr = 1./lv_ilamr
+            lv_pna_rca_s = lv_rhof_s*t1_qr_qc*lv_ef_ra*lv_nwfa*lv_n0_r            *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pna_rca_s = MIN(DBLE(lv_nwfa*lv_odts), lv_pna_rca_s)
+            lv_ef_ra = Eff_aero(lv_mvd_r,0.8E-6,lv_visco_s,lv_rho,lv_temp,'r')
+            lv_pnd_rcd_s = lv_rhof_s*t1_qr_qc*lv_ef_ra*lv_nifa*lv_n0_r            *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pnd_rcd_s = MIN(DBLE(lv_nifa*lv_odts), lv_pnd_rcd_s)
+            if (.true.) then
+            if (gpu_wif .eq. 2) then
+            lv_ef_ra = Eff_aero(lv_mvd_r,0.0236E-6,  lv_visco_s,lv_rho,lv_temp,'r')
+            lv_pnb_rcb_s = lv_rhof_s*t1_qr_qc*lv_ef_ra*lv_nbca*lv_n0_r        *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pnb_rcb_s = MIN(DBLE(lv_nbca*lv_odts), lv_pnb_rcb_s)
+            endif
+            endif
+            endif
+            if (.not. iiwarm) then
+            lv_vts_boost = 1.0
+            lv_orho = 1./lv_rho
+            if (lv_l_qs) then
+            lv_xds = lv_smoc / lv_smob
+            rho_s = MAX(rho_g(1), MIN(0.13/lv_xds, rho_i-100.))
+            else
+            lv_xds = 0.
+            rho_s = 100.
+            endif
+            lv_tempc = lv_temp - 273.15
+            lv_idx_tc = MAX(1, MIN(NINT(-lv_tempc), 45) )
+            lv_idx_t = INT( (lv_tempc-2.5)/5. ) - 1
+            lv_idx_t = MAX(1, -lv_idx_t)
+            lv_idx_t = MIN(lv_idx_t, ntb_t)
+            lv_it = MAX(1, MIN(NINT(-lv_tempc), 31) )
+            if (lv_rc.gt. r_c(1)) then
+            lv_nic = NINT(ALOG10(lv_rc))
+            do lv_nn = lv_nic-1, lv_nic+1
+            lv_n = lv_nn
+            if ( (lv_rc/10.**lv_nn).ge.1.0 .and.  (lv_rc/10.**lv_nn).lt.10.0) goto 141
+            enddo
+            141      continue
+            lv_idx_c = INT(lv_rc/10.**lv_n) + 10*(lv_n-nic2) - (lv_n-nic2)
+            lv_idx_c = MAX(1, MIN(lv_idx_c, ntb_c))
+            else
+            lv_idx_c = 1
+            endif
+            lv_idx_n = NINT(1.0 + FLOAT(nbc) * DLOG(lv_nc/t_Nc(1)) / nic1)
+            lv_idx_n = MAX(1, MIN(lv_idx_n, nbc))
+            if (lv_ri.gt. r_i(1)) then
+            lv_nii = NINT(ALOG10(lv_ri))
+            do lv_nn = lv_nii-1, lv_nii+1
+            lv_n = lv_nn
+            if ( (lv_ri/10.**lv_nn).ge.1.0 .and.  (lv_ri/10.**lv_nn).lt.10.0) goto 142
+            enddo
+            142      continue
+            lv_idx_i = INT(lv_ri/10.**lv_n) + 10*(lv_n-nii2) - (lv_n-nii2)
+            lv_idx_i = MAX(1, MIN(lv_idx_i, ntb_i))
+            else
+            lv_idx_i = 1
+            endif
+            if (lv_ni.gt. Nt_i(1)) then
+            lv_nii = NINT(ALOG10(lv_ni))
+            do lv_nn = lv_nii-1, lv_nii+1
+            lv_n = lv_nn
+            if ( (lv_ni/10.**lv_nn).ge.1.0 .and.  (lv_ni/10.**lv_nn).lt.10.0) goto 143
+            enddo
+            143      continue
+            lv_idx_i1 = INT(lv_ni/10.**lv_n) + 10*(lv_n-nii3) - (lv_n-nii3)
+            lv_idx_i1 = MAX(1, MIN(lv_idx_i1, ntb_i1))
+            else
+            lv_idx_i1 = 1
+            endif
+            if (lv_rr.gt. r_r(1)) then
+            lv_nir = NINT(ALOG10(lv_rr))
+            do lv_nn = lv_nir-1, lv_nir+1
+            lv_n = lv_nn
+            if ( (lv_rr/10.**lv_nn).ge.1.0 .and.  (lv_rr/10.**lv_nn).lt.10.0) goto 144
+            enddo
+            144      continue
+            lv_idx_r = INT(lv_rr/10.**lv_n) + 10*(lv_n-nir2) - (lv_n-nir2)
+            lv_idx_r = MAX(1, MIN(lv_idx_r, ntb_r))
+            lv_lamr = 1./lv_ilamr
+            lv_lam_exp = lv_lamr * (crg(3)*org2*org1)**bm_r
+            lv_n0_exp = org1*lv_rr/am_r * lv_lam_exp**cre(1)
+            lv_nir = NINT(DLOG10(lv_n0_exp))
+            do lv_nn = lv_nir-1, lv_nir+1
+            lv_n = lv_nn
+            if ( (lv_n0_exp/10.**lv_nn).ge.1.0 .and.  (lv_n0_exp/10.**lv_nn).lt.10.0) goto 145
+            enddo
+            145      continue
+            lv_idx_r1 = INT(lv_n0_exp/10.**lv_n) + 10*(lv_n-nir3) - (lv_n-nir3)
+            lv_idx_r1 = MAX(1, MIN(lv_idx_r1, ntb_r1))
+            else
+            lv_idx_r = 1
+            lv_idx_r1 = ntb_r1
+            endif
+            if (lv_rs.gt. r_s(1)) then
+            lv_nis = NINT(ALOG10(lv_rs))
+            do lv_nn = lv_nis-1, lv_nis+1
+            lv_n = lv_nn
+            if ( (lv_rs/10.**lv_nn).ge.1.0 .and.  (lv_rs/10.**lv_nn).lt.10.0) goto 146
+            enddo
+            146      continue
+            lv_idx_s = INT(lv_rs/10.**lv_n) + 10*(lv_n-nis2) - (lv_n-nis2)
+            lv_idx_s = MAX(1, MIN(lv_idx_s, ntb_s))
+            else
+            lv_idx_s = 1
+            endif
+            if (lv_rg.gt. r_g(1)) then
+            lv_nig = NINT(ALOG10(lv_rg))
+            do lv_nn = lv_nig-1, lv_nig+1
+            lv_n = lv_nn
+            if ( (lv_rg/10.**lv_nn).ge.1.0 .and.  (lv_rg/10.**lv_nn).lt.10.0) goto 147
+            enddo
+            147      continue
+            lv_idx_g = INT(lv_rg/10.**lv_n) + 10*(lv_n-nig2) - (lv_n-nig2)
+            lv_idx_g = MAX(1, MIN(lv_idx_g, ntb_g))
+            lv_lamg = 1./lv_ilamg
+            lv_lam_exp = lv_lamg * (cgg(3,1)*ogg2*ogg1)**bm_g
+            lv_n0_exp = ogg1*lv_rg/am_g(lv_idx_bg) * lv_lam_exp**cge(1,1)
+            lv_nig = NINT(DLOG10(lv_n0_exp))
+            do lv_nn = lv_nig-1, lv_nig+1
+            lv_n = lv_nn
+            if ( (lv_n0_exp/10.**lv_nn).ge.1.0 .and.  (lv_n0_exp/10.**lv_nn).lt.10.0) goto 148
+            enddo
+            148      continue
+            lv_idx_g1 = INT(lv_n0_exp/10.**lv_n) + 10*(lv_n-nig3) - (lv_n-nig3)
+            lv_idx_g1 = MAX(1, MIN(lv_idx_g1, ntb_g1))
+            else
+            lv_idx_g = 1
+            lv_idx_g1 = ntb_g1
+            endif
+            lv_otemp = 1./lv_temp
+            lv_rvs = lv_rho*lv_qvsi_s
+            lv_rvs_p = lv_rvs*lv_otemp*(lsub*lv_otemp*oRv - 1.)
+            lv_rvs_pp = lv_rvs * ( lv_otemp*(lsub*lv_otemp*oRv - 1.)  *lv_otemp*(lsub*lv_otemp*oRv - 1.)  + (-2.*lsub*lv_otemp*lv_otemp*lv_otemp*oRv)  + lv_otemp*lv_otemp)
+            lv_gamsc = lsub*lv_diffu_s/lv_tcond_s * lv_rvs_p
+            lv_alphsc = 0.5*(lv_gamsc/(1.+lv_gamsc))*(lv_gamsc/(1.+lv_gamsc))  * lv_rvs_pp/lv_rvs_p * lv_rvs/lv_rvs_p
+            lv_alphsc = MAX(1.E-9, lv_alphsc)
+            lv_xsat = lv_ssati_s
+            if (abs(lv_xsat).lt. 1.E-9) lv_xsat=0.
+            lv_t1_subl = 4.*PI*( 1.0 - lv_alphsc*lv_xsat  + 2.*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat  - 5.*lv_alphsc*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat*lv_xsat )  / (1.+lv_gamsc)
+            if (lv_l_qc .and. lv_mvd_c.gt. D0c) then
+            if (lv_xds .gt. D0s) then
+            lv_idx = 1 + INT(nbs*DLOG(lv_xds/Ds(1))/DLOG(Ds(nbs)/Ds(1)))
+            lv_idx = MIN(lv_idx, nbs)
+            lv_ef_sw = t_Efsw(lv_idx, INT(lv_mvd_c*1.E6))
+            lv_prs_scw = lv_rhof_s*t1_qs_qc*lv_ef_sw*lv_rc*lv_smoe
+            lv_prs_scw = MIN(DBLE(lv_rc*lv_odts), lv_prs_scw)
+            lv_pnc_scw_s = lv_rhof_s*t1_qs_qc*lv_ef_sw*lv_nc*lv_smoe
+            lv_pnc_scw_s = MIN(DBLE(lv_nc*lv_odts), lv_pnc_scw_s)
+            endif
+            if (lv_rg.ge. r_g(1) .and. lv_mvd_c.gt. D0c) then
+            lv_xdg = (bm_g + mu_g + 1.) * lv_ilamg
+            lv_vtg = lv_rhof_s*av_g(lv_idx_bg)*cgg(6,lv_idx_bg)*ogg3 * lv_ilamg**bv_g(lv_idx_bg)
+            lv_stoke_g = lv_mvd_c*lv_mvd_c*lv_vtg*rho_w/(9.*lv_visco_s*lv_xdg)
+            lv_const_ri = -1.*(lv_mvd_c*0.5E6)*lv_vtg/MIN(-0.1,lv_tempc)
+            lv_const_ri = MAX(0.1, MIN(lv_const_ri, 10.))
+            lv_rime_dens = (0.051 + 0.114*lv_const_ri - 0.0055*lv_const_ri*lv_const_ri)*1000.
+            if (lv_stoke_g.ge.0.4 .and. lv_stoke_g.le.10.) then
+            lv_ef_gw = 0.55*ALOG10(2.51*lv_stoke_g)
+            elseif (lv_stoke_g.lt.0.4) then
+            lv_ef_gw = 0.0
+            elseif (lv_stoke_g.gt.10) then
+            lv_ef_gw = 0.77
+            endif
+            if (lv_twet_k.gt.T_0) lv_ef_gw = lv_ef_gw*0.1
+            t1_qg_qc = PI*.25*av_g(lv_idx_bg) * cgg(9,lv_idx_bg)
+            lv_prg_gcw = lv_rhof_s*t1_qg_qc*lv_ef_gw*lv_rc*lv_n0_g  *lv_ilamg**cge(9,lv_idx_bg)
+            lv_pnc_gcw_s = lv_rhof_s*t1_qg_qc*lv_ef_gw*lv_nc*lv_n0_g            *lv_ilamg**cge(9,lv_idx_bg)
+            lv_pnc_gcw_s = MIN(DBLE(lv_nc*lv_odts), lv_pnc_gcw_s)
+            if (lv_twet_k.lt.T_0) lv_pbg_gcw_s = lv_prg_gcw/lv_rime_dens
+            endif
+            endif
+            if (lv_rs .gt. r_s(1)) then
+            lv_ef_sa = Eff_aero(lv_xds,0.04E-6,lv_visco_s,lv_rho,lv_temp,'s')
+            lv_pna_sca_s = lv_rhof_s*t1_qs_qc*lv_ef_sa*lv_nwfa*lv_smoe
+            lv_pna_sca_s = MIN(DBLE(lv_nwfa*lv_odts), lv_pna_sca_s)
+            lv_ef_sa = Eff_aero(lv_xds,0.8E-6,lv_visco_s,lv_rho,lv_temp,'s')
+            lv_pnd_scd_s = lv_rhof_s*t1_qs_qc*lv_ef_sa*lv_nifa*lv_smoe
+            lv_pnd_scd_s = MIN(DBLE(lv_nifa*lv_odts), lv_pnd_scd_s)
+            if (.true.) then
+            if (gpu_wif .eq. 2) then
+            lv_ef_sa = Eff_aero(lv_xds,0.0236E-6,lv_visco_s,lv_rho,lv_temp,'s')
+            lv_pnb_scb_s = lv_rhof_s*t1_qs_qc*lv_ef_sa*lv_nbca*lv_smoe
+            lv_pnb_scb_s = MIN(DBLE(lv_nbca*lv_odts), lv_pnb_scb_s)
+            endif
+            endif
+            endif
+            if (lv_rg .gt. r_g(1)) then
+            lv_xdg = (bm_g + mu_g + 1.) * lv_ilamg
+            lv_ef_ga = Eff_aero(lv_xdg,0.04E-6,lv_visco_s,lv_rho,lv_temp,'g')
+            t1_qg_qc = PI*.25*av_g(lv_idx_bg) * cgg(9,lv_idx_bg)
+            lv_pna_gca_s = lv_rhof_s*t1_qg_qc*lv_ef_ga*lv_nwfa*lv_n0_g            *lv_ilamg**cge(9,lv_idx_bg)
+            lv_pna_gca_s = MIN(DBLE(lv_nwfa*lv_odts), lv_pna_gca_s)
+            lv_ef_ga = Eff_aero(lv_xdg,0.8E-6,lv_visco_s,lv_rho,lv_temp,'g')
+            lv_pnd_gcd_s = lv_rhof_s*t1_qg_qc*lv_ef_ga*lv_nifa*lv_n0_g            *lv_ilamg**cge(9,lv_idx_bg)
+            lv_pnd_gcd_s = MIN(DBLE(lv_nifa*lv_odts), lv_pnd_gcd_s)
+            if (.true.) then
+            if (gpu_wif .eq. 2) then
+            lv_ef_ga = Eff_aero(lv_xdg,0.0236E-6,lv_visco_s,lv_rho,lv_temp,'g')
+            lv_pnb_gcb_s = lv_rhof_s*t1_qg_qc*lv_ef_ga*lv_nbca*lv_n0_g        *lv_ilamg**cge(9,lv_idx_bg)
+            lv_pnb_gcb_s = MIN(DBLE(lv_nbca*lv_odts), lv_pnb_gcb_s)
+            endif
+            endif
+            endif
+            if (lv_rr.ge. r_r(1)) then
+            if (lv_rs.ge. r_s(1)) then
+            if (lv_twet_k.lt.T_0) then
+            lv_prr_rcs_s = -(tmr_racs2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tcr_sacr2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tmr_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tcr_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r))
+            lv_prs_rcs_s = tmr_racs2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tcr_sacr2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  - tcs_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  - tms_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)
+            lv_prg_rcs_s = tmr_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tcr_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tcs_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)  + tms_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)
+            lv_prr_rcs_s = MAX(DBLE(-lv_rr*lv_odts), lv_prr_rcs_s)
+            lv_prs_rcs_s = MAX(DBLE(-lv_rs*lv_odts), lv_prs_rcs_s)
+            lv_prg_rcs_s = MIN(DBLE((lv_rr+lv_rs)*lv_odts), lv_prg_rcs_s)
+            lv_pnr_rcs_s = tnr_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)             + tnr_racs2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)           + tnr_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)           + tnr_sacr2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)
+            lv_pnr_rcs_s = MIN(DBLE(lv_nr*lv_odts), lv_pnr_rcs_s)
+            lv_png_rcs_s = lv_pnr_rcs_s
+            lv_pbg_rcs_s = lv_prg_rcs_s/rho_i
+            else
+            lv_prs_rcs_s = -tcs_racs1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)            - tms_sacr1(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)           + tmr_racs2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)           + tcr_sacr2(lv_idx_s,lv_idx_t,lv_idx_r1,lv_idx_r)
+            lv_prs_rcs_s = MAX(DBLE(-lv_rs*lv_odts), lv_prs_rcs_s)
+            lv_prr_rcs_s = -lv_prs_rcs_s
+            endif
+            endif
+            if (lv_rg.ge. r_g(1)) then
+            if (lv_twet_k.lt.T_0) then
+            lv_prg_rcg_s = tmr_racg(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)   + tcr_gacr(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)
+            lv_prg_rcg_s = MIN(DBLE(lv_rr*lv_odts), lv_prg_rcg_s)
+            lv_prr_rcg_s = -lv_prg_rcg_s
+            lv_pnr_rcg_s = tnr_racg(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)   + tnr_gacr(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)
+            lv_pnr_rcg_s = MIN(DBLE(lv_nr*lv_odts), lv_pnr_rcg_s)
+            lv_pbg_rcg_s = lv_prg_rcg_s/rho_i
+            else
+            lv_prr_rcg_s = tcg_racg(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)
+            lv_prr_rcg_s = MIN(DBLE(lv_rg*lv_odts), lv_prr_rcg_s)
+            lv_prg_rcg_s = -lv_prr_rcg_s
+            lv_png_rcg_s = tnr_racg(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)
+            lv_png_rcg_s = MIN(DBLE(lv_ng*lv_odts), lv_png_rcg_s)
+            lv_pbg_rcg_s = lv_prg_rcg_s/rho_g(lv_idx_bg)
+            lv_pnr_rcg_s = -1.5*tnr_gacr(lv_idx_g1,lv_idx_g,lv_idx_bg,lv_idx_r1,lv_idx_r)
+            endif
+            endif
+            endif
+            if (lv_temp.lt.T_0) then
+            lv_vts_boost = 1.0
+            lv_rate_max = (lv_qv-lv_qvsi_s)*lv_rho*lv_odts*0.999
+            if (dustyIce .AND. is_aerosol_aware) then
+            lv_xni = iceDeMott(lv_tempc,lv_qvs_s,lv_qvs_s,lv_qvsi_s,lv_rho,lv_nifa)
+            else
+            lv_xni = 1.0 *1000.
+            endif
+            if (lv_xni.gt. Nt_IN(1)) then
+            lv_niin = NINT(ALOG10(lv_xni))
+            do lv_nn = lv_niin-1, lv_niin+1
+            lv_n = lv_nn
+            if ( (lv_xni/10.**lv_nn).ge.1.0 .and.  (lv_xni/10.**lv_nn).lt.10.0) goto 149
+            enddo
+            149       continue
+            lv_idx_in = INT(lv_xni/10.**lv_n) + 10*(lv_n-niin2) - (lv_n-niin2)
+            lv_idx_in = MAX(1, MIN(lv_idx_in, ntb_IN))
+            else
+            lv_idx_in = 1
+            endif
+            if (lv_rr.gt. r_r(1)) then
+            lv_prg_rfz_s = tpg_qrfz(lv_idx_r,lv_idx_r1,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pri_rfz_s = tpi_qrfz(lv_idx_r,lv_idx_r1,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pni_rfz_s = tni_qrfz(lv_idx_r,lv_idx_r1,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pnr_rfz_s = tnr_qrfz(lv_idx_r,lv_idx_r1,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pnr_rfz_s = MIN(DBLE(lv_nr*lv_odts), lv_pnr_rfz_s)
+            elseif (lv_rr.gt. R1 .and. lv_temp.lt.HGFR) then
+            lv_pri_rfz_s = lv_rr*lv_odts
+            lv_pni_rfz_s = lv_nr*lv_odts
+            endif
+            lv_pbg_rfz_s = lv_prg_rfz_s/rho_i
+            if (lv_rc.gt. r_c(1)) then
+            lv_pri_wfz_s = tpi_qcfz(lv_idx_c,lv_idx_n,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pri_wfz_s = MIN(DBLE(lv_rc*lv_odts), lv_pri_wfz_s)
+            lv_pni_wfz_s = tni_qcfz(lv_idx_c,lv_idx_n,lv_idx_tc,lv_idx_in)*lv_odts
+            lv_pni_wfz_s = MIN(DBLE(lv_nc*lv_odts), lv_pri_wfz_s/(2.*xm0i),      lv_pni_wfz_s)
+            elseif (lv_rc.gt. R1 .and. lv_temp.lt.HGFR) then
+            lv_pri_wfz_s = lv_rc*lv_odts
+            lv_pni_wfz_s = lv_nc*lv_odts
+            endif
+            if ( (lv_ssati_s.ge. 0.25) .or. (lv_ssatw_s.gt. eps  .and. lv_temp.lt.253.15) ) then
+            if (dustyIce .AND. is_aerosol_aware) then
+            lv_xnc = iceDeMott(lv_tempc,lv_qv,lv_qvs_s,lv_qvsi_s,lv_rho,lv_nifa)
+            else
+            lv_xnc = MIN(250.E3, TNO*EXP(ATO*(T_0-lv_temp)))
+            endif
+            lv_xni = lv_ni + (lv_pni_rfz_s+lv_pni_wfz_s)*lv_dtsave
+            lv_pni_inu_s = 0.5*(lv_xnc-lv_xni + abs(lv_xnc-lv_xni))*lv_odts
+            lv_pri_inu_s = MIN(DBLE(lv_rate_max), xm0i*lv_pni_inu_s)
+            lv_pni_inu_s = lv_pri_inu_s/xm0i
+            endif
+            lv_xni = lv_ns+lv_ni + (lv_pni_rfz_s+lv_pni_wfz_s+lv_pni_inu_s)*lv_dtsave
+            if (is_aerosol_aware .AND. homogIce .AND. (lv_xni.le.999.E3)      .AND.(lv_temp.lt.238).AND.(lv_ssati_s.ge.0.4) ) then
+            lv_xnc = iceKoop(lv_temp,lv_qv,lv_qvs_s,lv_nwfa, lv_dtsave)
+            lv_pni_iha_s = lv_xnc*lv_odts
+            lv_pri_iha_s = MIN(DBLE(lv_rate_max), xm0i*0.1*lv_pni_iha_s)
+            lv_pni_iha_s = lv_pri_iha_s/(xm0i*0.1)
+            endif
+            if (lv_l_qi) then
+            lv_lami = (am_i*cig(2)*oig1*lv_ni/lv_ri)**obmi
+            lv_ilami = 1./lv_lami
+            lv_xdi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * lv_ilami)
+            lv_xmi = am_i*lv_xdi**bm_i
+            lv_oxmi = 1./lv_xmi
+            lv_pri_ide_s = C_cube*lv_t1_subl*lv_diffu_s*lv_ssati_s*lv_rvs  *oig1*cig(5)*lv_ni*lv_ilami
+            if (lv_pri_ide_s .lt. 0.0) then
+            lv_pri_ide_s = MAX(DBLE(-lv_ri*lv_odts), lv_pri_ide_s, DBLE(lv_rate_max))
+            lv_pni_ide_s = lv_pri_ide_s*lv_oxmi
+            lv_pni_ide_s = MAX(DBLE(-lv_ni*lv_odts), lv_pni_ide_s)
+            else
+            lv_pri_ide_s = MIN(lv_pri_ide_s, DBLE(lv_rate_max))
+            lv_prs_ide_s = (1.0D0-tpi_ide(lv_idx_i,lv_idx_i1))*lv_pri_ide_s
+            lv_pri_ide_s = tpi_ide(lv_idx_i,lv_idx_i1)*lv_pri_ide_s
+            endif
+            if ( (lv_idx_i.eq. ntb_i) .or. (lv_xdi.gt. 5.0*D0s) ) then
+            lv_prs_iau = lv_ri*.99*lv_odts
+            lv_pni_iau_s = lv_ni*.95*lv_odts
+            elseif (lv_xdi.lt. 0.1*D0s) then
+            lv_prs_iau = 0.
+            lv_pni_iau_s = 0.
+            else
+            lv_prs_iau = tps_iaus(lv_idx_i,lv_idx_i1)*lv_odts
+            lv_prs_iau = MIN(DBLE(lv_ri*.99*lv_odts), lv_prs_iau)
+            lv_pni_iau_s = tni_iaus(lv_idx_i,lv_idx_i1)*lv_odts
+            lv_pni_iau_s = MIN(DBLE(lv_ni*.95*lv_odts), lv_pni_iau_s)
+            endif
+            endif
+            if (lv_l_qs) then
+            lv_c_snow = C_sqrd + (lv_tempc+1.5)*(C_cube-C_sqrd)/(-30.+1.5)
+            lv_c_snow = MAX(C_sqrd, MIN(lv_c_snow, C_cube))
+            lv_prs_sde = lv_c_snow*lv_t1_subl*lv_diffu_s*lv_ssati_s*lv_rvs  * (t1_qs_sd*lv_smo1  + t2_qs_sd*lv_rhof2_s*lv_vsc2_s*lv_smof)
+            if (lv_prs_sde.lt. 0.) then
+            lv_prs_sde = MAX(DBLE(-lv_rs*lv_odts), lv_prs_sde, DBLE(lv_rate_max))
+            else
+            lv_prs_sde = MIN(lv_prs_sde, DBLE(lv_rate_max))
+            endif
+            endif
+            if (lv_l_qg .and. lv_ssati_s.lt. -eps) then
+            t2_qg_sd = 0.28*Sc3*SQRT(av_g(lv_idx_bg)) * cgg(11,lv_idx_bg)
+            lv_prg_gde = C_cube*lv_t1_subl*lv_diffu_s*lv_ssati_s*lv_rvs  * lv_n0_g * (t1_qg_sd*lv_ilamg**cge(10,1)  + t2_qg_sd*lv_vsc2_s*lv_rhof2_s*lv_ilamg**cge(11,lv_idx_bg))
+            if (lv_prg_gde.lt. 0.) then
+            lv_prg_gde = MAX(DBLE(-lv_rg*lv_odts), lv_prg_gde, DBLE(lv_rate_max))
+            lv_png_gde_s = lv_prg_gde * lv_ng/lv_rg
+            else
+            lv_prg_gde = MIN(lv_prg_gde, DBLE(lv_rate_max))
+            endif
+            endif
+            if (lv_l_qi) then
+            lv_lami = (am_i*cig(2)*oig1*lv_ni/lv_ri)**obmi
+            lv_ilami = 1./lv_lami
+            lv_xdi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * lv_ilami)
+            lv_xmi = am_i*lv_xdi**bm_i
+            lv_oxmi = 1./lv_xmi
+            if (lv_rs.ge. r_s(1)) then
+            lv_prs_sci = t1_qs_qi*lv_rhof_s*Ef_si*lv_ri*lv_smoe
+            lv_pni_sci_s = lv_prs_sci * lv_oxmi
+            endif
+            if (lv_rr.ge. r_r(1) .and. lv_mvd_r.gt. 4.*lv_xdi) then
+            lv_lamr = 1./lv_ilamr
+            lv_pri_rci = lv_rhof_s*t1_qr_qi*Ef_ri*lv_ri*lv_n0_r  *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pnr_rci_s = lv_rhof_s*t1_qr_qi*Ef_ri*lv_ni*lv_n0_r            *((lv_lamr+fv_r)**(-cre(9)))
+            lv_pnr_rci_s = MIN(DBLE(lv_nr*lv_odts), lv_pnr_rci_s)
+            lv_pni_rci_s = lv_pri_rci * lv_oxmi
+            lv_prr_rci_s = lv_rhof_s*t2_qr_qi*Ef_ri*lv_ni*lv_n0_r  *((lv_lamr+fv_r)**(-cre(8)))
+            lv_prr_rci_s = MIN(DBLE(lv_rr*lv_odts), lv_prr_rci_s)
+            lv_prg_rci_s = lv_pri_rci + lv_prr_rci_s
+            lv_pbg_rci_s = lv_prg_rci_s/rho_i
+            endif
+            endif
+            if (lv_prg_gcw.gt. eps .and. lv_tempc.gt.-8.0) then
+            lv_tf = 0.
+            if (lv_tempc.ge.-5.0 .and. lv_tempc.lt.-3.0) then
+            lv_tf = 0.5*(-3.0 - lv_tempc)
+            elseif (lv_tempc.gt.-8.0 .and. lv_tempc.lt.-5.0) then
+            lv_tf = 0.33333333*(8.0 + lv_tempc)
+            endif
+            lv_pni_ihm_s = 3.5E8*lv_tf*lv_prg_gcw
+            lv_pri_ihm_s = xm0i*lv_pni_ihm_s
+            lv_prs_ihm_s = lv_prs_scw/(lv_prs_scw+lv_prg_gcw)  * lv_pri_ihm_s
+            lv_prg_ihm_s = lv_prg_gcw/(lv_prs_scw+lv_prg_gcw)  * lv_pri_ihm_s
+            endif
+            if (lv_prs_scw.gt.2.0*lv_prs_sde .and.  lv_prs_sde.gt.eps) then
+            lv_r_frac = MIN(30.0D0, lv_prs_scw/lv_prs_sde)
+            lv_g_frac = MIN(0.95, 0.15 + (lv_r_frac-2.)*.028)
+            lv_vts_boost = MIN(1.5, 1.1 + (lv_r_frac-2.)*.014)
+            lv_prg_scw = lv_g_frac*lv_prs_scw
+            lv_png_scw_s = lv_prg_scw*lv_smo0/lv_rs
+            lv_vts = av_s*lv_xds**bv_s * EXP(-fv_s*lv_xds)
+            lv_const_ri = -1.*(lv_mvd_c*0.5E6)*lv_vts/MIN(-0.1,lv_tempc)
+            lv_const_ri = MAX(0.1, MIN(lv_const_ri, 10.))
+            lv_rime_dens = (0.051 + 0.114*lv_const_ri - 0.0055*lv_const_ri*lv_const_ri)*1000.
+            if(lv_rime_dens .lt. 150.) then
+            lv_g_frac = 0.
+            lv_prg_scw=0.
+            lv_png_scw_s=0.
+            endif
+            lv_pbg_scw_s = lv_prg_scw/(0.5*(lv_rime_dens+rho_s))
+            lv_prs_scw = (1. - lv_g_frac)*lv_prs_scw
+            endif
+            else
+            if (lv_l_qs) then
+            lv_prr_sml = (lv_tempc*lv_tcond_s-lvap0*lv_diffu_s*lv_delqvs_s)        * (t1_qs_me*lv_smo1 + t2_qs_me*lv_rhof2_s*lv_vsc2_s*lv_smof)
+            if (lv_prr_sml .gt. 0.) then
+            lv_prr_sml = lv_prr_sml + 4218.*olfus*(lv_twet_k-T_0)        * (lv_prr_rcs_s+lv_prs_scw)
+            endif
+            lv_prr_sml = MIN(DBLE(lv_rs*lv_odts), MAX(0.D0, lv_prr_sml))
+            if (lv_prr_sml.gt.0.0) then
+            lv_pnr_sml_s = lv_smo0/lv_rs*lv_prr_sml * 10.0**(-0.25*(lv_twet_k-T_0))
+            elseif (lv_ssati_s.lt. 0.) then
+            lv_prs_sde = C_sqrd*lv_t1_subl*lv_diffu_s*lv_ssati_s*lv_rvs  * (t1_qs_sd*lv_smo1  + t2_qs_sd*lv_rhof2_s*lv_vsc2_s*lv_smof)
+            lv_prs_sde = MAX(DBLE(-lv_rs*lv_odts), lv_prs_sde)
+            endif
+            endif
+            if (lv_l_qg) then
+            lv_n0_melt = lv_n0_g
+            if ((lv_rg*lv_ng) .lt. 1.E-4) then
+            lv_lamg = 1./lv_ilamg
+            lv_n0_melt = (1.E-4/lv_rg)*ogg2*lv_lamg**cge(2,1)
+            endif
+            t2_qg_me = PI*4.*C_cube*olfus * 0.28*Sc3*SQRT(av_g(lv_idx_bg)) * cgg(11,lv_idx_bg)
+            lv_prr_gml = (lv_tempc*lv_tcond_s-lvap0*lv_diffu_s*lv_delqvs_s)        * lv_n0_melt*(t1_qg_me*lv_ilamg**cge(10,1)            + t2_qg_me*lv_rhof2_s*lv_vsc2_s*lv_ilamg**cge(11,lv_idx_bg))
+            lv_prr_gml = MIN(DBLE(lv_rg*lv_odts), MAX(0.D0, lv_prr_gml))
+            if (lv_prr_gml .gt. 0.0) then
+            lv_melt_f = MAX(0.05, MIN(lv_prr_gml*dt/lv_rg,1.0))
+            lv_pbg_gml_s = lv_prr_gml / MAX(MIN(lv_melt_f*rho_g(lv_idx_bg),1000.),50.)
+            lv_pnr_gml_s = lv_prr_gml*lv_ng/lv_rg * 10.0**(-0.33*(lv_twet_k-T_0))
+            elseif (lv_ssati_s.lt. 0.) then
+            t2_qg_sd = 0.28*Sc3*SQRT(av_g(lv_idx_bg)) * cgg(11,lv_idx_bg)
+            lv_prg_gde = C_cube*lv_t1_subl*lv_diffu_s*lv_ssati_s*lv_rvs  * lv_n0_g * (t1_qg_sd*lv_ilamg**cge(10,1)  + t2_qg_sd*lv_vsc2_s*lv_rhof2_s*lv_ilamg**cge(11,lv_idx_bg))
+            lv_prg_gde = MAX(DBLE(-lv_rg*lv_odts), lv_prg_gde)
+            lv_png_gde_s = lv_prg_gde * lv_ng/lv_rg
+            endif
+            endif
+            if (dt .gt. 120.) then
+            lv_prr_rcw=lv_prr_rcw+lv_prs_scw+lv_prg_gcw
+            lv_prs_scw=0.
+            lv_prg_gcw=0.
+            endif
+            endif
+            if (.not. is_hail_aware) lv_idx_bg = idx_bg1
+            endif
+            lv_sump = lv_pri_inu_s + lv_pri_ide_s + lv_prs_ide_s  + lv_prs_sde + lv_prg_gde + lv_pri_iha_s
+            lv_rate_max = (lv_qv-lv_qvsi_s)*lv_rho*lv_odts*0.999
+            if ( (lv_sump.gt. eps .and. lv_sump.gt. lv_rate_max) .or.  (lv_sump.lt. -eps .and. lv_sump.lt. lv_rate_max) ) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_pri_inu_s = lv_pri_inu_s * lv_ratio
+            lv_pri_ide_s = lv_pri_ide_s * lv_ratio
+            lv_pni_ide_s = lv_pni_ide_s * lv_ratio
+            lv_prs_ide_s = lv_prs_ide_s * lv_ratio
+            lv_prs_sde = lv_prs_sde * lv_ratio
+            lv_prg_gde = lv_prg_gde * lv_ratio
+            lv_pri_iha_s = lv_pri_iha_s * lv_ratio
+            endif
+            lv_sump = -lv_prr_wau - lv_pri_wfz_s - lv_prr_rcw  - lv_prs_scw - lv_prg_scw - lv_prg_gcw
+            lv_rate_max = -lv_rc*lv_odts
+            if (lv_sump.lt. lv_rate_max .and. lv_l_qc) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_prr_wau = lv_prr_wau * lv_ratio
+            lv_pri_wfz_s = lv_pri_wfz_s * lv_ratio
+            lv_prr_rcw = lv_prr_rcw * lv_ratio
+            lv_prs_scw = lv_prs_scw * lv_ratio
+            lv_prg_scw = lv_prg_scw * lv_ratio
+            lv_prg_gcw = lv_prg_gcw * lv_ratio
+            endif
+            lv_sump = lv_pri_ide_s - lv_prs_iau - lv_prs_sci  - lv_pri_rci
+            lv_rate_max = -lv_ri*lv_odts
+            if (lv_sump.lt. lv_rate_max .and. lv_l_qi) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_pri_ide_s = lv_pri_ide_s * lv_ratio
+            lv_prs_iau = lv_prs_iau * lv_ratio
+            lv_prs_sci = lv_prs_sci * lv_ratio
+            lv_pri_rci = lv_pri_rci * lv_ratio
+            endif
+            lv_sump = -lv_prg_rfz_s - lv_pri_rfz_s - lv_prr_rci_s  + lv_prr_rcs_s + lv_prr_rcg_s
+            lv_rate_max = -lv_rr*lv_odts
+            if (lv_sump.lt. lv_rate_max .and. lv_l_qr) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_prg_rfz_s = lv_prg_rfz_s * lv_ratio
+            lv_pri_rfz_s = lv_pri_rfz_s * lv_ratio
+            lv_prr_rci_s = lv_prr_rci_s * lv_ratio
+            lv_prr_rcs_s = lv_prr_rcs_s * lv_ratio
+            lv_prr_rcg_s = lv_prr_rcg_s * lv_ratio
+            endif
+            lv_sump = lv_prs_sde - lv_prs_ihm_s - lv_prr_sml  + lv_prs_rcs_s
+            lv_rate_max = -lv_rs*lv_odts
+            if (lv_sump.lt. lv_rate_max .and. lv_l_qs) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_prs_sde = lv_prs_sde * lv_ratio
+            lv_prs_ihm_s = lv_prs_ihm_s * lv_ratio
+            lv_prr_sml = lv_prr_sml * lv_ratio
+            lv_prs_rcs_s = lv_prs_rcs_s * lv_ratio
+            endif
+            lv_sump = lv_prg_gde - lv_prg_ihm_s - lv_prr_gml  + lv_prg_rcg_s
+            lv_rate_max = -lv_rg*lv_odts
+            if (lv_sump.lt. lv_rate_max .and. lv_l_qg) then
+            lv_ratio = lv_rate_max/lv_sump
+            lv_prg_gde = lv_prg_gde * lv_ratio
+            lv_prg_ihm_s = lv_prg_ihm_s * lv_ratio
+            lv_prr_gml = lv_prr_gml * lv_ratio
+            lv_prg_rcg_s = lv_prg_rcg_s * lv_ratio
+            endif
+            lv_pri_ihm_s = lv_prs_ihm_s + lv_prg_ihm_s
+            lv_ratio = MIN( ABS(lv_prr_rcg_s), ABS(lv_prg_rcg_s) )
+            lv_prr_rcg_s = lv_ratio * SIGN(1.0, SNGL(lv_prr_rcg_s))
+            lv_prg_rcg_s = -lv_prr_rcg_s
+            if (lv_twet_k.gt.T_0) then
+            lv_ratio = MIN( ABS(lv_prr_rcs_s), ABS(lv_prs_rcs_s) )
+            lv_prr_rcs_s = lv_ratio * SIGN(1.0, SNGL(lv_prr_rcs_s))
+            lv_prs_rcs_s = -lv_prr_rcs_s
+            endif
+            lv_orho = 1./lv_rho
+            lv_lfus2 = lsub - lv_lvap_s
+            if (is_aerosol_aware) then
+            lv_nwfaten = lv_nwfaten - (lv_pna_rca_s + lv_pna_sca_s           + lv_pna_gca_s + lv_pni_iha_s) * lv_orho
+            lv_nifaten = lv_nifaten - (lv_pnd_rcd_s + lv_pnd_scd_s           + lv_pnd_gcd_s) * lv_orho
+            if (gpu_wif .eq. 2) then
+            lv_nbcaten = lv_nbcaten - (lv_pnb_rcb_s + lv_pnb_scb_s        + lv_pnb_gcb_s) * lv_orho
+            else
+            lv_nbcaten = 0.0
+            endif
+            if (dustyIce) then
+            lv_nifaten = lv_nifaten - lv_pni_inu_s*lv_orho
+            else
+            lv_nifaten = 0.
+            endif
+            endif
+            lv_qvten = lv_qvten + (-lv_pri_inu_s - lv_pri_iha_s - lv_pri_ide_s    - lv_prs_ide_s - lv_prs_sde - lv_prg_gde)  * lv_orho
+            lv_qcten = lv_qcten + (-lv_prr_wau - lv_pri_wfz_s  - lv_prr_rcw - lv_prs_scw - lv_prg_scw  - lv_prg_gcw)  * lv_orho
+            lv_ncten = lv_ncten + (-lv_pnc_wau_s - lv_pnc_rcw_s  - lv_pni_wfz_s - lv_pnc_scw_s - lv_pnc_gcw_s)  * lv_orho
+            lv_xrc=MAX(R1, (sv_qc1d + lv_qcten*lv_dtsave)*lv_rho)
+            lv_xnc=MAX(2., (sv_nc1d + lv_ncten*lv_dtsave)*lv_rho)
+            if (lv_xrc .gt. R1) then
+            lv_nu_c = MIN(15, NINT(1000.E6/lv_xnc) + 2)
+            lv_lamc = (lv_xnc*am_r*ccg(2,lv_nu_c)*ocg1(lv_nu_c)/lv_rc)**obmr
+            lv_xdc = (bm_r + lv_nu_c + 1.) / lv_lamc
+            if (lv_xdc.lt. D0c) then
+            lv_lamc = cce(2,lv_nu_c)/D0c
+            lv_xnc = ccg(1,lv_nu_c)*ocg2(lv_nu_c)*lv_xrc/am_r*lv_lamc**bm_r
+            lv_ncten = (lv_xnc-sv_nc1d*lv_rho)*lv_odts*lv_orho
+            elseif (lv_xdc.gt. D0r*2.) then
+            lv_lamc = cce(2,lv_nu_c)/(D0r*2.)
+            lv_xnc = ccg(1,lv_nu_c)*ocg2(lv_nu_c)*lv_xrc/am_r*lv_lamc**bm_r
+            lv_ncten = (lv_xnc-sv_nc1d*lv_rho)*lv_odts*lv_orho
+            endif
+            else
+            lv_ncten = -sv_nc1d*lv_odts
+            endif
+            lv_xnc=MAX(0.,(sv_nc1d + lv_ncten*lv_dtsave)*lv_rho)
+            if (lv_xnc.gt.Nt_c_max)  lv_ncten = (Nt_c_max-sv_nc1d*lv_rho)*lv_odts*lv_orho
+            lv_qiten = lv_qiten + (lv_pri_inu_s + lv_pri_iha_s + lv_pri_ihm_s     + lv_pri_wfz_s + lv_pri_rfz_s + lv_pri_ide_s  - lv_prs_iau - lv_prs_sci - lv_pri_rci)  * lv_orho
+            lv_niten = lv_niten + (lv_pni_inu_s + lv_pni_iha_s + lv_pni_ihm_s     + lv_pni_wfz_s + lv_pni_rfz_s + lv_pni_ide_s  - lv_pni_iau_s - lv_pni_sci_s - lv_pni_rci_s)  * lv_orho
+            lv_xri=MAX(R1,(sv_qi1d + lv_qiten*lv_dtsave)*lv_rho)
+            lv_xni=MAX(R2,(sv_ni1d + lv_niten*lv_dtsave)*lv_rho)
+            if (lv_xri.gt. R1) then
+            lv_lami = (am_i*cig(2)*oig1*lv_xni/lv_xri)**obmi
+            lv_ilami = 1./lv_lami
+            lv_xdi = (bm_i + mu_i + 1.) * lv_ilami
+            if (lv_xdi.lt. 5.E-6) then
+            lv_lami = cie(2)/5.E-6
+            lv_xni = MIN(999.D3, cig(1)*oig2*lv_xri/am_i*lv_lami**bm_i)
+            lv_niten = (lv_xni-sv_ni1d*lv_rho)*lv_odts*lv_orho
+            elseif (lv_xdi.gt. 300.E-6) then
+            lv_lami = cie(2)/300.E-6
+            lv_xni = cig(1)*oig2*lv_xri/am_i*lv_lami**bm_i
+            lv_niten = (lv_xni-sv_ni1d*lv_rho)*lv_odts*lv_orho
+            endif
+            else
+            lv_niten = -sv_ni1d*lv_odts
+            endif
+            lv_xni=MAX(0.,(sv_ni1d + lv_niten*lv_dtsave)*lv_rho)
+            if (lv_xni.gt.999.E3)  lv_niten = (999.E3-sv_ni1d*lv_rho)*lv_odts*lv_orho
+            lv_qrten = lv_qrten + (lv_prr_wau + lv_prr_rcw  + lv_prr_sml + lv_prr_gml + lv_prr_rcs_s  + lv_prr_rcg_s - lv_prg_rfz_s  - lv_pri_rfz_s - lv_prr_rci_s)  * lv_orho
+            lv_nrten = lv_nrten + (lv_pnr_wau_s + lv_pnr_sml_s + lv_pnr_gml_s     - (lv_pnr_rfz_s + lv_pnr_rcr_s + lv_pnr_rcg_s            + lv_pnr_rcs_s + lv_pnr_rci_s + lv_pni_rfz_s) )          * lv_orho
+            lv_xrr=MAX(R1,(sv_qr1d + lv_qrten*lv_dtsave)*lv_rho)
+            lv_xnr=MAX(R2,(sv_nr1d + lv_nrten*lv_dtsave)*lv_rho)
+            if (lv_xrr.gt. R1) then
+            lv_lamr = (am_r*crg(3)*org2*lv_xnr/lv_xrr)**obmr
+            lv_mvd_r = (3.0 + mu_r + 0.672) / lv_lamr
+            if (lv_mvd_r .gt. 2.5E-3) then
+            lv_mvd_r = 2.5E-3
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_xnr = crg(2)*org3*lv_xrr*lv_lamr**bm_r / am_r
+            lv_nrten = (lv_xnr-sv_nr1d*lv_rho)*lv_odts*lv_orho
+            elseif (lv_mvd_r .lt. D0r*0.75) then
+            lv_mvd_r = D0r*0.75
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_xnr = crg(2)*org3*lv_xrr*lv_lamr**bm_r / am_r
+            lv_nrten = (lv_xnr-sv_nr1d*lv_rho)*lv_odts*lv_orho
+            endif
+            else
+            lv_qrten = -sv_qr1d*lv_odts
+            lv_nrten = -sv_nr1d*lv_odts
+            endif
+            lv_qsten = lv_qsten + (lv_prs_iau + lv_prs_sde + lv_prs_sci     + lv_prs_scw + lv_prs_rcs_s + lv_prs_ide_s             - lv_prs_ihm_s - lv_prr_sml)                         * lv_orho
+            lv_qgten = lv_qgten + (lv_prg_scw + lv_prg_rfz_s  + lv_prg_gde + lv_prg_rcg_s + lv_prg_gcw  + lv_prg_rci_s + lv_prg_rcs_s - lv_prg_ihm_s  - lv_prr_gml)                           * lv_orho
+            lv_ngten = lv_ngten + (lv_png_scw_s + lv_pnr_rfz_s - lv_png_rcg_s     + lv_pnr_rci_s + lv_png_rcs_s + lv_png_gde_s             - lv_pnr_gml_s) * lv_orho
+            lv_qbten = lv_qbten + (lv_pbg_scw_s + lv_pbg_rfz_s                  + lv_pbg_gcw_s + lv_pbg_rci_s + lv_pbg_rcs_s             + lv_pbg_rcg_s + lv_pbg_sml_s - lv_pbg_gml_s             + (lv_prg_gde - lv_prg_ihm_s) /rho_g(lv_idx_bg) )    * lv_orho
+            lv_xrg=MAX(R1,(sv_qg1d + lv_qgten*lv_dtsave)*lv_rho)
+            lv_xng=MAX(R2,(sv_ng1d + lv_ngten*lv_dtsave)*lv_rho)
+            lv_xrb=MAX(lv_xrg/lv_rho/rho_g(NRHG),(sv_qb1d + lv_qbten*lv_dtsave))
+            lv_xrb=MIN(lv_xrg/lv_rho/rho_g(1), lv_xrb)
+            if (lv_xrg .gt. R1) then
+            lv_lamg = (am_g(lv_idx_bg)*cgg(3,1)*ogg2*lv_xng/lv_xrg)**obmg
+            lv_mvd_g = (3.0 + mu_g + 0.672) / lv_lamg
+            if(lv_debug_flag) then
+            lv_xrho_g = MAX(rho_g(1),MIN(lv_rg/lv_rho/lv_rb,rho_g(NRHG)))
+            lv_afall = a_coeff*((4.0*lv_xrho_g*9.8)/(3.0*lv_rho))**b_coeff
+            lv_afall = lv_afall * lv_visco_s**(1.0-2.0*b_coeff)
+            lv_vtg1 = lv_rhof_s*lv_afall*cgg(6,lv_idx_bg)*ogg3 / lv_lamg**lv_bfall
+            lv_vtg2 = lv_rhof_s*lv_afall*cgg(7,lv_idx_bg)/cgg(12,lv_idx_bg) / lv_lamg**lv_bfall
+            endif
+            if (lv_mvd_g .gt. 25.4E-3) then
+            lv_mvd_g = 25.4E-3
+            lv_lamg = (3.0 + mu_g + 0.672) / lv_mvd_g
+            lv_xng = cgg(2,1)*ogg3*lv_xrg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            lv_ngten = (lv_xng-sv_ng1d*lv_rho)*lv_odts*lv_orho
+            elseif (lv_mvd_g .lt. D0r) then
+            lv_mvd_g = D0r
+            lv_lamg = (3.0 + mu_g + 0.672) / lv_mvd_g
+            lv_xng = cgg(2,1)*ogg3*lv_xrg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            lv_ngten = (lv_xng-sv_ng1d*lv_rho)*lv_odts*lv_orho
+            endif
+            else
+            lv_qgten = -sv_qg1d*lv_odts
+            lv_ngten = -sv_ng1d*lv_odts
+            lv_qbten = -sv_qb1d*lv_odts
+            endif
+            if (lv_temp.lt.T_0) then
+            lv_tten = lv_tten  + ( lsub*lv_ocp_s*(lv_pri_inu_s + lv_pri_ide_s  + lv_prs_ide_s + lv_prs_sde  + lv_prg_gde + lv_pri_iha_s)  + lv_lfus2*lv_ocp_s*(lv_pri_wfz_s + lv_pri_rfz_s  + lv_prg_rfz_s + lv_prs_scw  + lv_prg_scw + lv_prg_gcw  + lv_prg_rcs_s + lv_prs_rcs_s  + lv_prr_rci_s + lv_prg_rcg_s)  )*lv_orho * (1-IFDRY)
+            else
+            lv_tten = lv_tten  + ( lfus*lv_ocp_s*(-lv_prr_sml - lv_prr_gml  - lv_prr_rcg_s - lv_prr_rcs_s)  + lsub*lv_ocp_s*(lv_prs_sde + lv_prg_gde)  )*lv_orho * (1-IFDRY)
+            endif
+            if (th_probe == 2) exit lvblk
+            lv_temp = sv_t1d + dt*lv_tten
+            lv_otemp = 1./lv_temp
+            lv_tempc = lv_temp - 273.15
+            lv_qv = MAX(1.E-10, sv_qv1d + dt*lv_qvten)
+            lv_rho = 0.622*lv_pres/(R*lv_temp*(lv_qv+0.622))
+            lv_rhof = SQRT(RHO_NOT/lv_rho)
+            lv_rhof2 = SQRT(lv_rhof)
+            lv_qvs = rslf(lv_pres, lv_temp)
+            lv_ssatw = lv_qv/lv_qvs - 1.
+            if (abs(lv_ssatw).lt. eps) lv_ssatw = 0.0
+            lv_diffu = 2.11E-5*(lv_temp/273.15)**1.94 * (101325./lv_pres)
+            if (lv_tempc .ge. 0.0) then
+            lv_visco = (1.718+0.0049*lv_tempc)*1.0E-5
+            else
+            lv_visco = (1.718+0.0049*lv_tempc-1.2E-5*lv_tempc*lv_tempc)*1.0E-5
+            endif
+            lv_vsc2 = SQRT(lv_rho/lv_visco)
+            lv_lvap = lvap0 + (2106.0 - 4218.0)*lv_tempc
+            lv_tcond = (5.69 + 0.0168*lv_tempc)*1.0E-5 * 418.936
+            lv_ocp = 1./(Cp*(1.+0.887*lv_qv))
+            lv_lvt2=lv_lvap*lv_lvap*lv_ocp*oRv*lv_otemp*lv_otemp
+            lv_nwfa = MAX(11.1E6, (sv_nwfa1d + lv_nwfaten*dt)*lv_rho)
+            if ((sv_qc1d + lv_qcten*dt) .gt. R1) then
+            lv_rc = (sv_qc1d + lv_qcten*dt)*lv_rho
+            lv_nc = MAX(2., MIN((sv_nc1d+lv_ncten*dt)*lv_rho, Nt_c_max))
+            if (.NOT. is_aerosol_aware) lv_nc = Nt_c
+            lv_l_qc = .true.
+            else
+            lv_rc = R1
+            lv_nc = 2.
+            lv_l_qc = .false.
+            endif
+            if ((sv_qi1d + lv_qiten*dt) .gt. R1) then
+            lv_ri = (sv_qi1d + lv_qiten*dt)*lv_rho
+            lv_ni = MAX(R2, (sv_ni1d + lv_niten*dt)*lv_rho)
+            lv_l_qi = .true.
+            else
+            lv_ri = R1
+            lv_ni = R2
+            lv_l_qi = .false.
+            endif
+            if ((sv_qr1d + lv_qrten*dt) .gt. R1) then
+            lv_rr = (sv_qr1d + lv_qrten*dt)*lv_rho
+            lv_nr = MAX(R2, (sv_nr1d + lv_nrten*dt)*lv_rho)
+            lv_l_qr = .true.
+            lv_lamr = (am_r*crg(3)*org2*lv_nr/lv_rr)**obmr
+            lv_mvd_r = (3.0 + mu_r + 0.672) / lv_lamr
+            if (lv_mvd_r .gt. 2.5E-3) then
+            lv_mvd_r = 2.5E-3
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_nr = crg(2)*org3*lv_rr*lv_lamr**bm_r / am_r
+            elseif (lv_mvd_r .lt. D0r*0.75) then
+            lv_mvd_r = D0r*0.75
+            lv_lamr = (3.0 + mu_r + 0.672) / lv_mvd_r
+            lv_nr = crg(2)*org3*lv_rr*lv_lamr**bm_r / am_r
+            endif
+            else
+            lv_rr = R1
+            lv_nr = R2
+            lv_l_qr = .false.
+            endif
+            if ((sv_qs1d + lv_qsten*dt) .gt. R1) then
+            lv_rs = (sv_qs1d + lv_qsten*dt)*lv_rho
+            lv_l_qs = .true.
+            else
+            lv_rs = R1
+            lv_l_qs = .false.
+            endif
+            if (is_hail_aware) then
+            if ((sv_qg1d + lv_qgten*dt) .gt. R1) then
+            lv_l_qg = .true.
+            lv_rg = (sv_qg1d + lv_qgten*dt)*lv_rho
+            lv_ng = MAX(R2, (sv_ng1d + lv_ngten*dt)*lv_rho)
+            lv_rb = MAX(lv_rg/lv_rho/rho_g(NRHG), sv_qb1d + lv_qbten*dt)
+            lv_rb = MIN(lv_rg/lv_rho/rho_g(1), lv_rb)
+            lv_idx_bg = MAX(1,MIN(NINT(lv_rg/lv_rho/lv_rb *0.01)+1,NRHG))
+            else
+            lv_rg = R1
+            lv_ng = R2
+            lv_rb = R1/lv_rho/rho_g(NRHG)
+            lv_idx_bg = idx_bg1
+            lv_l_qg = .false.
+            endif
+            else
+            lv_idx_bg = idx_bg1
+            if ((sv_qg1d + lv_qgten*dt) .gt. R1) then
+            lv_rg = (sv_qg1d + lv_qgten*dt)*lv_rho
+            lv_ygra1 = alog10(max(1.E-9, lv_rg))
+            lv_zans1 = 3.0 + 2./7.*(lv_ygra1+8.)
+            lv_zans1 = MAX(2., MIN(lv_zans1, 6.))
+            lv_n0_exp = 10.**(lv_zans1)
+            lv_lam_exp = (lv_n0_exp*am_g(lv_idx_bg)*cgg(1,1)/lv_rg)**oge1
+            lv_lamg = lv_lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+            lv_ng = cgg(2,1)*ogg3*lv_rg*lv_lamg**bm_g / am_g(lv_idx_bg)
+            lv_rb = lv_rg/lv_rho/rho_g(lv_idx_bg)
+            else
+            lv_rg = R1
+            lv_ng = R2
+            lv_rb = R1/lv_rho/rho_g(NRHG)
+            lv_l_qg = .false.
+            endif
+            endif
+            if (.not. iiwarm) then
+            lv_smo2 = 0.
+            lv_smob = 0.
+            lv_smoc = 0.
+            lv_smod = 0.
+            do thonce = 1, 1
+            if (.not. lv_l_qs) CYCLE
+            lv_tc0 = MIN(-0.1, lv_temp-273.15)
+            lv_smob = lv_rs*oams
+            if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
+            lv_smo2 = lv_smob
+            else
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*bm_s  + sa(4)*lv_tc0*bm_s + sa(5)*lv_tc0*lv_tc0  + sa(6)*bm_s*bm_s + sa(7)*lv_tc0*lv_tc0*bm_s  + sa(8)*lv_tc0*bm_s*bm_s + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*bm_s*bm_s*bm_s
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1) + sb(2)*lv_tc0 + sb(3)*bm_s  + sb(4)*lv_tc0*bm_s + sb(5)*lv_tc0*lv_tc0  + sb(6)*bm_s*bm_s + sb(7)*lv_tc0*lv_tc0*bm_s  + sb(8)*lv_tc0*bm_s*bm_s + sb(9)*lv_tc0*lv_tc0*lv_tc0  + sb(10)*bm_s*bm_s*bm_s
+            lv_smo2 = (lv_smob/lv_a_)**(1./lv_b_)
+            endif
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(1)  + sa(4)*lv_tc0*cse(1) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(1)*cse(1) + sa(7)*lv_tc0*lv_tc0*cse(1)  + sa(8)*lv_tc0*cse(1)*cse(1) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(1)*cse(1)*cse(1)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(1) + sb(4)*lv_tc0*cse(1)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(1)*cse(1)  + sb(7)*lv_tc0*lv_tc0*cse(1) + sb(8)*lv_tc0*cse(1)*cse(1)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(1)*cse(1)*cse(1)
+            lv_smoc = lv_a_ * lv_smo2**lv_b_
+            lv_loga_ = sa(1) + sa(2)*lv_tc0 + sa(3)*cse(14)  + sa(4)*lv_tc0*cse(14) + sa(5)*lv_tc0*lv_tc0  + sa(6)*cse(14)*cse(14) + sa(7)*lv_tc0*lv_tc0*cse(14)  + sa(8)*lv_tc0*cse(14)*cse(14) + sa(9)*lv_tc0*lv_tc0*lv_tc0  + sa(10)*cse(14)*cse(14)*cse(14)
+            lv_a_ = 10.0**lv_loga_
+            lv_b_ = sb(1)+ sb(2)*lv_tc0 + sb(3)*cse(14) + sb(4)*lv_tc0*cse(14)  + sb(5)*lv_tc0*lv_tc0 + sb(6)*cse(14)*cse(14)  + sb(7)*lv_tc0*lv_tc0*cse(14) + sb(8)*lv_tc0*cse(14)*cse(14)  + sb(9)*lv_tc0*lv_tc0*lv_tc0 + sb(10)*cse(14)*cse(14)*cse(14)
+            lv_smod = lv_a_ * lv_smo2**lv_b_
+            enddo
+            if (th_probe == 3) exit lvblk
+            lv_lamg = (am_g(lv_idx_bg)*cgg(3,1)*ogg2*lv_ng/lv_rg)**obmg
+            lv_ilamg = 1./lv_lamg
+            lv_n0_g = lv_ng*ogg2*lv_lamg**cge(2,1)
+            endif
+            lv_lamr = (am_r*crg(3)*org2*lv_nr/lv_rr)**obmr
+            lv_ilamr = 1./lv_lamr
+            lv_mvd_r = (3.0 + mu_r + 0.672) / lv_lamr
+            lv_n0_r = lv_nr*org2*lv_lamr**cre(2)
+            lv_orho = 1./lv_rho
+            if ( (lv_ssatw.gt. eps) .or. (lv_ssatw.lt. -eps .and.  lv_l_qc) ) then
+            lv_clap = (lv_qv-lv_qvs)/(1. + lv_lvt2*lv_qvs)
+            do lv_n = 1, 3
+            lv_fcd = lv_qvs* EXP(lv_lvt2*lv_clap) - lv_qv + lv_clap
+            lv_dfcd = lv_qvs*lv_lvt2* EXP(lv_lvt2*lv_clap) + 1.
+            lv_clap = lv_clap - lv_fcd/lv_dfcd
+            enddo
+            lv_xrc = lv_rc + lv_clap*lv_rho
+            lv_xnc = 0.
+            if (lv_xrc.gt. R1) then
+            lv_prw_vcd = lv_clap*lv_odt
+            if (lv_clap .gt. eps) then
+            if (is_aerosol_aware) then
+            lv_xnc = MAX(2., activ_ncloud(lv_temp, sv_w1d, lv_nwfa))
+            else
+            lv_xnc = Nt_c
+            endif
+            lv_pnc_wcd = 0.5*(lv_xnc-lv_nc + abs(lv_xnc-lv_nc))*lv_odts*lv_orho
+            elseif (lv_clap .lt. -eps .AND. lv_ssatw.lt.-1.E-6 .AND. is_aerosol_aware) then
+            lv_tempc = lv_temp - 273.15
+            lv_otemp = 1./lv_temp
+            lv_rvs = lv_rho*lv_qvs
+            lv_rvs_p = lv_rvs*lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)
+            lv_rvs_pp = lv_rvs * ( lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)  *lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)  + (-2.*lv_lvap*lv_otemp*lv_otemp*lv_otemp*oRv)  + lv_otemp*lv_otemp)
+            lv_gamsc = lv_lvap*lv_diffu/lv_tcond * lv_rvs_p
+            lv_alphsc = 0.5*(lv_gamsc/(1.+lv_gamsc))*(lv_gamsc/(1.+lv_gamsc))  * lv_rvs_pp/lv_rvs_p * lv_rvs/lv_rvs_p
+            lv_alphsc = MAX(1.E-9, lv_alphsc)
+            lv_xsat = lv_ssatw
+            if (abs(lv_xsat).lt. 1.E-9) lv_xsat=0.
+            lv_t1_evap = 2.*PI*( 1.0 - lv_alphsc*lv_xsat   + 2.*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat   - 5.*lv_alphsc*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat*lv_xsat )  / (1.+lv_gamsc)
+            lv_dc_star = DSQRT(-2.D0*dt * lv_t1_evap/(2.*PI)  * 4.*lv_diffu*lv_ssatw*lv_rvs/rho_w)
+            lv_idx_d = MAX(1, MIN(INT(1.E6*lv_dc_star), nbc))
+            lv_idx_n = NINT(1.0 + FLOAT(nbc) * DLOG(lv_nc/t_Nc(1)) / nic1)
+            lv_idx_n = MAX(1, MIN(lv_idx_n, nbc))
+            if (lv_rc.gt. r_c(1)) then
+            lv_nic = NINT(ALOG10(lv_rc))
+            do lv_nn = lv_nic-1, lv_nic+1
+            lv_n = lv_nn
+            if ( (lv_rc/10.**lv_nn).ge.1.0 .and.  (lv_rc/10.**lv_nn).lt.10.0) goto 159
+            enddo
+            159         continue
+            lv_idx_c = INT(lv_rc/10.**lv_n) + 10*(lv_n-nic2) - (lv_n-nic2)
+            lv_idx_c = MAX(1, MIN(lv_idx_c, ntb_c))
+            else
+            lv_idx_c = 1
+            endif
+            lv_prw_vcd = MAX(DBLE(-lv_rc*0.99*lv_orho*lv_odt), lv_prw_vcd)
+            lv_pnc_wcd = MAX(DBLE(-lv_nc*0.99*lv_orho*lv_odt),                 DBLE(-tnc_wev(lv_idx_d, lv_idx_c, lv_idx_n)*lv_orho*lv_odt))
+            endif
+            else
+            lv_prw_vcd = -lv_rc*lv_orho*lv_odt
+            lv_pnc_wcd = -lv_nc*lv_orho*lv_odt
+            endif
+            lv_qvten = lv_qvten - lv_prw_vcd
+            lv_qcten = lv_qcten + lv_prw_vcd
+            lv_ncten = lv_ncten + lv_pnc_wcd
+            lv_nwfaten = lv_nwfaten - lv_pnc_wcd
+            lv_tten = lv_tten + lv_lvap*lv_ocp*lv_prw_vcd*(1-IFDRY)
+            lv_rc = MAX(R1, (sv_qc1d + dt*lv_qcten)*lv_rho)
+            if (lv_rc.eq.R1) lv_l_qc = .false.
+            lv_nc = MAX(2., MIN((sv_nc1d+lv_ncten*dt)*lv_rho, Nt_c_max))
+            if (.NOT. is_aerosol_aware) lv_nc = Nt_c
+            lv_qv = MAX(1.E-10, sv_qv1d + dt*lv_qvten)
+            lv_temp = sv_t1d + dt*lv_tten
+            lv_rho = 0.622*lv_pres/(R*lv_temp*(lv_qv+0.622))
+            lv_qvs = rslf(lv_pres, lv_temp)
+            lv_ssatw = lv_qv/lv_qvs - 1.
+            endif
+            if ( (lv_ssatw.lt. -eps) .and. lv_l_qr  .and. (.not.(lv_prw_vcd.gt. 0.)) ) then
+            lv_tempc = lv_temp - 273.15
+            lv_otemp = 1./lv_temp
+            lv_orho = 1./lv_rho
+            lv_rhof = SQRT(RHO_NOT*lv_orho)
+            lv_rhof2 = SQRT(lv_rhof)
+            lv_diffu = 2.11E-5*(lv_temp/273.15)**1.94 * (101325./lv_pres)
+            if (lv_tempc .ge. 0.0) then
+            lv_visco = (1.718+0.0049*lv_tempc)*1.0E-5
+            else
+            lv_visco = (1.718+0.0049*lv_tempc-1.2E-5*lv_tempc*lv_tempc)*1.0E-5
+            endif
+            lv_vsc2 = SQRT(lv_rho/lv_visco)
+            lv_lvap = lvap0 + (2106.0 - 4218.0)*lv_tempc
+            lv_tcond = (5.69 + 0.0168*lv_tempc)*1.0E-5 * 418.936
+            lv_ocp = 1./(Cp*(1.+0.887*lv_qv))
+            lv_rvs = lv_rho*lv_qvs
+            lv_rvs_p = lv_rvs*lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)
+            lv_rvs_pp = lv_rvs * ( lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)  *lv_otemp*(lv_lvap*lv_otemp*oRv - 1.)  + (-2.*lv_lvap*lv_otemp*lv_otemp*lv_otemp*oRv)  + lv_otemp*lv_otemp)
+            lv_gamsc = lv_lvap*lv_diffu/lv_tcond * lv_rvs_p
+            lv_alphsc = 0.5*(lv_gamsc/(1.+lv_gamsc))*(lv_gamsc/(1.+lv_gamsc))  * lv_rvs_pp/lv_rvs_p * lv_rvs/lv_rvs_p
+            lv_alphsc = MAX(1.E-9, lv_alphsc)
+            lv_xsat   = MIN(-1.E-9, lv_ssatw)
+            lv_t1_evap = 2.*PI*( 1.0 - lv_alphsc*lv_xsat   + 2.*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat   - 5.*lv_alphsc*lv_alphsc*lv_alphsc*lv_xsat*lv_xsat*lv_xsat )  / (1.+lv_gamsc)
+            lv_lamr = 1./lv_ilamr
+            if (lv_qv/lv_qvs .lt. 0.95 .AND. lv_rr*lv_orho.le.1.E-8) then
+            lv_prv_rev = lv_rr*lv_orho*lv_odts
+            else
+            lv_prv_rev = lv_t1_evap*lv_diffu*(-lv_ssatw)*lv_n0_r*lv_rvs  * (t1_qr_ev*lv_ilamr**cre(10)  + t2_qr_ev*lv_vsc2*lv_rhof2*((lv_lamr+0.5*fv_r)**(-cre(11))))
+            lv_rate_max = MIN((lv_rr*lv_orho*lv_odts), (lv_qvs-lv_qv)*lv_odts)
+            lv_prv_rev = MIN(DBLE(lv_rate_max), lv_prv_rev*lv_orho)
+            IF (lv_prr_gml.gt.0.0) THEN
+            lv_eva_factor = MIN(1.0, 0.01+(0.99-0.01)*(lv_tempc/20.0))
+            lv_prv_rev = lv_prv_rev*lv_eva_factor
+            ENDIF
+            endif
+            lv_pnr_rev = MIN(DBLE(lv_nr*0.99*lv_orho*lv_odts),                   lv_prv_rev * lv_nr/lv_rr)
+            lv_qrten = lv_qrten - lv_prv_rev
+            lv_qvten = lv_qvten + lv_prv_rev
+            lv_nrten = lv_nrten - lv_pnr_rev
+            lv_nwfaten = lv_nwfaten + lv_pnr_rev
+            lv_tten = lv_tten - lv_lvap*lv_ocp*lv_prv_rev*(1-IFDRY)
+            lv_rr = MAX(R1, (sv_qr1d + dt*lv_qrten)*lv_rho)
+            lv_qv = MAX(1.E-10, sv_qv1d + dt*lv_qvten)
+            lv_nr = MAX(R2, (sv_nr1d + dt*lv_nrten)*lv_rho)
+            lv_temp = sv_t1d + dt*lv_tten
+            lv_rho = 0.622*lv_pres/(R*lv_temp*(lv_qv+0.622))
+            endif
+            if (th_probe == 4) exit lvblk
+            enddo lvblk
+            thb_tten(i-i_start+1,k-kts+1,j-thjb+1) = lv_tten
+            thb_qvten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qvten
+            thb_qcten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qcten
+            thb_qiten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qiten
+            thb_qrten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qrten
+            thb_qsten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qsten
+            thb_qgten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qgten
+            thb_qbten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qbten
+            thb_niten(i-i_start+1,k-kts+1,j-thjb+1) = lv_niten
+            thb_nrten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nrten
+            thb_ncten(i-i_start+1,k-kts+1,j-thjb+1) = lv_ncten
+            thb_ngten(i-i_start+1,k-kts+1,j-thjb+1) = lv_ngten
+            thb_nwfaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nwfaten
+            thb_nifaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nifaten
+            thb_nbcaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nbcaten
+            thb_prr_sml(i-i_start+1,k-kts+1,j-thjb+1) = lv_prr_sml
+            thb_temp(i-i_start+1,k-kts+1,j-thjb+1) = lv_temp
+            thb_rc(i-i_start+1,k-kts+1,j-thjb+1) = lv_rc
+            thb_ri(i-i_start+1,k-kts+1,j-thjb+1) = lv_ri
+            thb_rr(i-i_start+1,k-kts+1,j-thjb+1) = lv_rr
+            thb_rs(i-i_start+1,k-kts+1,j-thjb+1) = lv_rs
+            thb_rg(i-i_start+1,k-kts+1,j-thjb+1) = lv_rg
+            thb_rb(i-i_start+1,k-kts+1,j-thjb+1) = lv_rb
+            thb_ni(i-i_start+1,k-kts+1,j-thjb+1) = lv_ni
+            thb_nr(i-i_start+1,k-kts+1,j-thjb+1) = lv_nr
+            thb_nc(i-i_start+1,k-kts+1,j-thjb+1) = lv_nc
+            thb_ng(i-i_start+1,k-kts+1,j-thjb+1) = lv_ng
+            thb_rho(i-i_start+1,k-kts+1,j-thjb+1) = lv_rho
+            thb_rhof(i-i_start+1,k-kts+1,j-thjb+1) = lv_rhof
+            thb_visco(i-i_start+1,k-kts+1,j-thjb+1) = lv_visco
+            thb_lvap(i-i_start+1,k-kts+1,j-thjb+1) = lv_lvap
+            thb_ocp(i-i_start+1,k-kts+1,j-thjb+1) = lv_ocp
+            thb_ilamg(i-i_start+1,k-kts+1,j-thjb+1) = lv_ilamg
+            thb_mvd_r(i-i_start+1,k-kts+1,j-thjb+1) = lv_mvd_r
+            thb_mvd_g(i-i_start+1,k-kts+1,j-thjb+1) = lv_mvd_g
+            thb_smob(i-i_start+1,k-kts+1,j-thjb+1) = lv_smob
+            thb_smoc(i-i_start+1,k-kts+1,j-thjb+1) = lv_smoc
+            thb_vts_boost(i-i_start+1,k-kts+1,j-thjb+1) = lv_vts_boost
+            thb_idx_bg(i-i_start+1,k-kts+1,j-thjb+1) = lv_idx_bg
+            thb_l_qc(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qc
+            thb_l_qi(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qi
+            thb_l_qr(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qr
+            thb_l_qs(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qs
+            thb_l_qg(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qg
+            thb_qv1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qv1d
+            thb_qc1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qc1d
+            thb_qi1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qi1d
+            thb_qr1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qr1d
+            thb_qs1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qs1d
+            thb_qg1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qg1d
+            thb_qb1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qb1d
+            thb_ni1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_ni1d
+            thb_nr1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nr1d
+            thb_nc1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nc1d
+            thb_ng1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_ng1d
+            thb_nwfa1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nwfa1d
+            thb_nifa1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nifa1d
+            thb_nbca1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nbca1d
+            thb_t1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_t1d
+            thb_w1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_w1d
+      enddo
+      enddo
+      enddo
+!$acc parallel loop gang vector present(mp_li, mp_lj) &
+!$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
+!$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ,thjj)
+      do n_ = 1, ncol_
+         i = mp_li(n_) ; j = mp_lj(n_)
+         thjj = j - thjb + 1
+         pptrain = 0.
+         pptsnow = 0.
+         pptgraul = 0.
+         pptice = 0.
+         do k = kts, kte
+            t1d(k) = th(i,k,j)*pii(i,k,j)
+            p1d(k) = p(i,k,j)
+            w1d(k) = w(i,k,j)
+            dz1d(k) = dz(i,k,j)
+            qv1d(k) = qv(i,k,j)
+            qc1d(k) = qc(i,k,j)
+            qi1d(k) = qi(i,k,j)
+            qr1d(k) = qr(i,k,j)
+            qs1d(k) = qs(i,k,j)
+            qg1d(k) = qg(i,k,j)
+            ni1d(k) = ni(i,k,j)
+            nr1d(k) = nr(i,k,j)
+            rho(k) = 0.622*p1d(k)/(R*t1d(k)*(qv1d(k)+0.622))
+            nc1d(k) = Nt_c/rho(k)
+            nwfa1d(k) = 11.1E6/rho(k)
+            nifa1d(k) = naIN1*0.01/rho(k)
+            nbca1d(k) = 5.55E6/rho(k)
+         enddo
+         do k = kte, kts, -1
+            if (qg1d(k).gt.R1) then
+               ygra1 = alog10(max(1.E-9, qg1d(k)*rho(k)))
+               zans1 = 3.0 + 2./7.*(ygra1+8.)
+               zans1 = MAX(2., MIN(zans1, 6.))
+               N0_exp = 10.**(zans1)
+               lam_exp = (N0_exp*am_g(idx_bg1)*cgg(1,1)/(rho(k)*qg1d(k)))**oge1
+               lamg = lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+               ng1d(k) = cgg(2,1)*ogg3*rho(k)*qg1d(k)*lamg**bm_g / am_g(idx_bg1)
+               ng1d(k) = MAX(R2, ng1d(k)/rho(k))
+               qb1d(k) = qg1d(k)/rho_g(idx_bg1)
+            else
+               ng1d(k) = 0
+               qb1d(k) = 0
+            endif
+         enddo
+         do k = kts, kte
+            qv1d(k) = thb_qv1d(i-i_start+1,k-kts+1,thjj)
+            qc1d(k) = thb_qc1d(i-i_start+1,k-kts+1,thjj)
+            qi1d(k) = thb_qi1d(i-i_start+1,k-kts+1,thjj)
+            qr1d(k) = thb_qr1d(i-i_start+1,k-kts+1,thjj)
+            qs1d(k) = thb_qs1d(i-i_start+1,k-kts+1,thjj)
+            qg1d(k) = thb_qg1d(i-i_start+1,k-kts+1,thjj)
+            qb1d(k) = thb_qb1d(i-i_start+1,k-kts+1,thjj)
+            ni1d(k) = thb_ni1d(i-i_start+1,k-kts+1,thjj)
+            nr1d(k) = thb_nr1d(i-i_start+1,k-kts+1,thjj)
+            nc1d(k) = thb_nc1d(i-i_start+1,k-kts+1,thjj)
+            ng1d(k) = thb_ng1d(i-i_start+1,k-kts+1,thjj)
+            nwfa1d(k) = thb_nwfa1d(i-i_start+1,k-kts+1,thjj)
+            nifa1d(k) = thb_nifa1d(i-i_start+1,k-kts+1,thjj)
+            nbca1d(k) = thb_nbca1d(i-i_start+1,k-kts+1,thjj)
+            t1d(k) = thb_t1d(i-i_start+1,k-kts+1,thjj)
+            w1d(k) = thb_w1d(i-i_start+1,k-kts+1,thjj)
+         enddo
+         IF ( .NOT. thb_nmc(i-i_start+1,thjj) ) CALL thom_tail(gpu_aer, gpu_wif, &
+                          qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d, ni1d,     &
+                          nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, w1d, dz1d,  &
+                      pptrain, pptsnow, pptgraul, pptice, &
+                      kts, kte, dt, i, j, i-i_start+1, thjj)
+         RAINNCV(i,j) = pptrain + pptsnow + pptgraul + pptice
+         RAINNC(i,j) = RAINNC(i,j) + pptrain + pptsnow + pptgraul + pptice
+         SNOWNCV(i,j) = pptsnow + pptice
+         SNOWNC(i,j) = SNOWNC(i,j) + pptsnow + pptice
+         GRAUPELNCV(i,j) = pptgraul
+         GRAUPELNC(i,j) = GRAUPELNC(i,j) + pptgraul
+         SR(i,j) = (pptsnow + pptgraul + pptice)/(RAINNCV(i,j)+1.e-12)
+         do k = kts, kte
+            qv(i,k,j) = qv1d(k)
+            qc(i,k,j) = qc1d(k)
+            qi(i,k,j) = qi1d(k)
+            qr(i,k,j) = qr1d(k)
+            qs(i,k,j) = qs1d(k)
+            qg(i,k,j) = qg1d(k)
+            ni(i,k,j) = ni1d(k)
+            nr(i,k,j) = nr1d(k)
+            th(i,k,j) = t1d(k)/pii(i,k,j)
+            if (qv1d(k) .lt. 0.0) then
+             if (k.lt.kte-2 .and. k.gt.kts+1) then
+                qv(i,k,j) = MAX(1.E-7, 0.5*(qv(i,k-1,j) + qv(i,k+1,j)))
+             else
+                qv(i,k,j) = 1.E-7
+             endif
+            endif
+         enddo
+         IF ( gpu_do_refl ) THEN
+          call calc_refl10cm (qv1d, qc1d, qr1d, nr1d, qs1d, qg1d,       &
+                      ng1d, qb1d, t1d, p1d, dBZ, kts, kte, i, j, kediagloc)
+          do k = kts, kte
+             refl_10cm(i,k,j) = MAX(-35., dBZ(k))
+          enddo
+         ENDIF
+         IF ( gpu_do_re .AND. th_probe /= 5 ) THEN
+          do k = kts, kte
+             re_qc1d(k) = RE_QC_BG
+             re_qi1d(k) = RE_QI_BG
+             re_qs1d(k) = RE_QS_BG
+          enddo
+          call calc_effectRad (t1d, p1d, qv1d, qc1d, nc1d, qi1d, ni1d, qs1d,  &
+                      re_qc1d, re_qi1d, re_qs1d, kts, kte)
+          do k = kts, kte
+             re_cloud(i,k,j) = MAX(RE_QC_BG, MIN(re_qc1d(k), 50.E-6))
+             re_ice(i,k,j)   = MAX(RE_QI_BG, MIN(re_qi1d(k), 125.E-6))
+             re_snow(i,k,j)  = MAX(RE_QS_BG, MIN(re_qs1d(k), 999.E-6))
+          enddo
+         ENDIF
+      enddo
+      ELSE
 !$acc parallel loop gang vector present(mp_li, mp_lj) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
 !$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ)
@@ -1490,6 +3507,7 @@
           enddo
          ENDIF
       enddo
+      ENDIF
       RETURN
       ENDIF
 #endif
@@ -5721,6 +7739,2636 @@
       enddo
 
       end subroutine mp_thompson
+#ifdef WRF_GPU
+      subroutine thlev_alloc(ni, nk, nj)
+      implicit none
+      INTEGER, INTENT(IN):: ni, nk, nj
+      IF ( ni == thbsz_ni .AND. nk == thbsz_nk .AND. nj == thbsz_nj ) RETURN
+!$acc wait
+      IF ( ALLOCATED(thb_tten) ) DEALLOCATE(thb_tten)
+      IF ( ALLOCATED(thb_qvten) ) DEALLOCATE(thb_qvten)
+      IF ( ALLOCATED(thb_qcten) ) DEALLOCATE(thb_qcten)
+      IF ( ALLOCATED(thb_qiten) ) DEALLOCATE(thb_qiten)
+      IF ( ALLOCATED(thb_qrten) ) DEALLOCATE(thb_qrten)
+      IF ( ALLOCATED(thb_qsten) ) DEALLOCATE(thb_qsten)
+      IF ( ALLOCATED(thb_qgten) ) DEALLOCATE(thb_qgten)
+      IF ( ALLOCATED(thb_qbten) ) DEALLOCATE(thb_qbten)
+      IF ( ALLOCATED(thb_niten) ) DEALLOCATE(thb_niten)
+      IF ( ALLOCATED(thb_nrten) ) DEALLOCATE(thb_nrten)
+      IF ( ALLOCATED(thb_ncten) ) DEALLOCATE(thb_ncten)
+      IF ( ALLOCATED(thb_ngten) ) DEALLOCATE(thb_ngten)
+      IF ( ALLOCATED(thb_nwfaten) ) DEALLOCATE(thb_nwfaten)
+      IF ( ALLOCATED(thb_nifaten) ) DEALLOCATE(thb_nifaten)
+      IF ( ALLOCATED(thb_nbcaten) ) DEALLOCATE(thb_nbcaten)
+      IF ( ALLOCATED(thb_prr_sml) ) DEALLOCATE(thb_prr_sml)
+      IF ( ALLOCATED(thb_temp) ) DEALLOCATE(thb_temp)
+      IF ( ALLOCATED(thb_rc) ) DEALLOCATE(thb_rc)
+      IF ( ALLOCATED(thb_ri) ) DEALLOCATE(thb_ri)
+      IF ( ALLOCATED(thb_rr) ) DEALLOCATE(thb_rr)
+      IF ( ALLOCATED(thb_rs) ) DEALLOCATE(thb_rs)
+      IF ( ALLOCATED(thb_rg) ) DEALLOCATE(thb_rg)
+      IF ( ALLOCATED(thb_rb) ) DEALLOCATE(thb_rb)
+      IF ( ALLOCATED(thb_ni) ) DEALLOCATE(thb_ni)
+      IF ( ALLOCATED(thb_nr) ) DEALLOCATE(thb_nr)
+      IF ( ALLOCATED(thb_nc) ) DEALLOCATE(thb_nc)
+      IF ( ALLOCATED(thb_ng) ) DEALLOCATE(thb_ng)
+      IF ( ALLOCATED(thb_rho) ) DEALLOCATE(thb_rho)
+      IF ( ALLOCATED(thb_rhof) ) DEALLOCATE(thb_rhof)
+      IF ( ALLOCATED(thb_visco) ) DEALLOCATE(thb_visco)
+      IF ( ALLOCATED(thb_lvap) ) DEALLOCATE(thb_lvap)
+      IF ( ALLOCATED(thb_ocp) ) DEALLOCATE(thb_ocp)
+      IF ( ALLOCATED(thb_ilamg) ) DEALLOCATE(thb_ilamg)
+      IF ( ALLOCATED(thb_mvd_r) ) DEALLOCATE(thb_mvd_r)
+      IF ( ALLOCATED(thb_mvd_g) ) DEALLOCATE(thb_mvd_g)
+      IF ( ALLOCATED(thb_smob) ) DEALLOCATE(thb_smob)
+      IF ( ALLOCATED(thb_smoc) ) DEALLOCATE(thb_smoc)
+      IF ( ALLOCATED(thb_vts_boost) ) DEALLOCATE(thb_vts_boost)
+      IF ( ALLOCATED(thb_idx_bg) ) DEALLOCATE(thb_idx_bg)
+      IF ( ALLOCATED(thb_l_qc) ) DEALLOCATE(thb_l_qc)
+      IF ( ALLOCATED(thb_l_qi) ) DEALLOCATE(thb_l_qi)
+      IF ( ALLOCATED(thb_l_qr) ) DEALLOCATE(thb_l_qr)
+      IF ( ALLOCATED(thb_l_qs) ) DEALLOCATE(thb_l_qs)
+      IF ( ALLOCATED(thb_l_qg) ) DEALLOCATE(thb_l_qg)
+      IF ( ALLOCATED(thb_qv1d) ) DEALLOCATE(thb_qv1d)
+      IF ( ALLOCATED(thb_qc1d) ) DEALLOCATE(thb_qc1d)
+      IF ( ALLOCATED(thb_qi1d) ) DEALLOCATE(thb_qi1d)
+      IF ( ALLOCATED(thb_qr1d) ) DEALLOCATE(thb_qr1d)
+      IF ( ALLOCATED(thb_qs1d) ) DEALLOCATE(thb_qs1d)
+      IF ( ALLOCATED(thb_qg1d) ) DEALLOCATE(thb_qg1d)
+      IF ( ALLOCATED(thb_qb1d) ) DEALLOCATE(thb_qb1d)
+      IF ( ALLOCATED(thb_ni1d) ) DEALLOCATE(thb_ni1d)
+      IF ( ALLOCATED(thb_nr1d) ) DEALLOCATE(thb_nr1d)
+      IF ( ALLOCATED(thb_nc1d) ) DEALLOCATE(thb_nc1d)
+      IF ( ALLOCATED(thb_ng1d) ) DEALLOCATE(thb_ng1d)
+      IF ( ALLOCATED(thb_nwfa1d) ) DEALLOCATE(thb_nwfa1d)
+      IF ( ALLOCATED(thb_nifa1d) ) DEALLOCATE(thb_nifa1d)
+      IF ( ALLOCATED(thb_nbca1d) ) DEALLOCATE(thb_nbca1d)
+      IF ( ALLOCATED(thb_t1d) ) DEALLOCATE(thb_t1d)
+      IF ( ALLOCATED(thb_w1d) ) DEALLOCATE(thb_w1d)
+      IF ( ALLOCATED(thb_nm) ) DEALLOCATE(thb_nm)
+      IF ( ALLOCATED(thb_km) ) DEALLOCATE(thb_km)
+      IF ( ALLOCATED(thb_nmc) ) DEALLOCATE(thb_nmc)
+      IF ( ALLOCATED(thb_kmc) ) DEALLOCATE(thb_kmc)
+      ALLOCATE( thb_tten(ni,nk,nj) )
+      ALLOCATE( thb_qvten(ni,nk,nj) )
+      ALLOCATE( thb_qcten(ni,nk,nj) )
+      ALLOCATE( thb_qiten(ni,nk,nj) )
+      ALLOCATE( thb_qrten(ni,nk,nj) )
+      ALLOCATE( thb_qsten(ni,nk,nj) )
+      ALLOCATE( thb_qgten(ni,nk,nj) )
+      ALLOCATE( thb_qbten(ni,nk,nj) )
+      ALLOCATE( thb_niten(ni,nk,nj) )
+      ALLOCATE( thb_nrten(ni,nk,nj) )
+      ALLOCATE( thb_ncten(ni,nk,nj) )
+      ALLOCATE( thb_ngten(ni,nk,nj) )
+      ALLOCATE( thb_nwfaten(ni,nk,nj) )
+      ALLOCATE( thb_nifaten(ni,nk,nj) )
+      ALLOCATE( thb_nbcaten(ni,nk,nj) )
+      ALLOCATE( thb_prr_sml(ni,nk,nj) )
+      ALLOCATE( thb_temp(ni,nk,nj) )
+      ALLOCATE( thb_rc(ni,nk,nj) )
+      ALLOCATE( thb_ri(ni,nk,nj) )
+      ALLOCATE( thb_rr(ni,nk,nj) )
+      ALLOCATE( thb_rs(ni,nk,nj) )
+      ALLOCATE( thb_rg(ni,nk,nj) )
+      ALLOCATE( thb_rb(ni,nk,nj) )
+      ALLOCATE( thb_ni(ni,nk,nj) )
+      ALLOCATE( thb_nr(ni,nk,nj) )
+      ALLOCATE( thb_nc(ni,nk,nj) )
+      ALLOCATE( thb_ng(ni,nk,nj) )
+      ALLOCATE( thb_rho(ni,nk,nj) )
+      ALLOCATE( thb_rhof(ni,nk,nj) )
+      ALLOCATE( thb_visco(ni,nk,nj) )
+      ALLOCATE( thb_lvap(ni,nk,nj) )
+      ALLOCATE( thb_ocp(ni,nk,nj) )
+      ALLOCATE( thb_ilamg(ni,nk,nj) )
+      ALLOCATE( thb_mvd_r(ni,nk,nj) )
+      ALLOCATE( thb_mvd_g(ni,nk,nj) )
+      ALLOCATE( thb_smob(ni,nk,nj) )
+      ALLOCATE( thb_smoc(ni,nk,nj) )
+      ALLOCATE( thb_vts_boost(ni,nk,nj) )
+      ALLOCATE( thb_idx_bg(ni,nk,nj) )
+      ALLOCATE( thb_l_qc(ni,nk,nj) )
+      ALLOCATE( thb_l_qi(ni,nk,nj) )
+      ALLOCATE( thb_l_qr(ni,nk,nj) )
+      ALLOCATE( thb_l_qs(ni,nk,nj) )
+      ALLOCATE( thb_l_qg(ni,nk,nj) )
+      ALLOCATE( thb_qv1d(ni,nk,nj) )
+      ALLOCATE( thb_qc1d(ni,nk,nj) )
+      ALLOCATE( thb_qi1d(ni,nk,nj) )
+      ALLOCATE( thb_qr1d(ni,nk,nj) )
+      ALLOCATE( thb_qs1d(ni,nk,nj) )
+      ALLOCATE( thb_qg1d(ni,nk,nj) )
+      ALLOCATE( thb_qb1d(ni,nk,nj) )
+      ALLOCATE( thb_ni1d(ni,nk,nj) )
+      ALLOCATE( thb_nr1d(ni,nk,nj) )
+      ALLOCATE( thb_nc1d(ni,nk,nj) )
+      ALLOCATE( thb_ng1d(ni,nk,nj) )
+      ALLOCATE( thb_nwfa1d(ni,nk,nj) )
+      ALLOCATE( thb_nifa1d(ni,nk,nj) )
+      ALLOCATE( thb_nbca1d(ni,nk,nj) )
+      ALLOCATE( thb_t1d(ni,nk,nj) )
+      ALLOCATE( thb_w1d(ni,nk,nj) )
+      ALLOCATE( thb_nm(ni,nk,nj) )
+      ALLOCATE( thb_km(ni,nk,nj) )
+      ALLOCATE( thb_nmc(ni,nj), thb_kmc(ni,nj) )
+      thbsz_ni = ni ; thbsz_nk = nk ; thbsz_nj = nj
+      end subroutine thlev_alloc
+
+!.. GPU (WRF_GPU_THLEV): one level of mp_thompson's per-level phase (generated by thgen.py from the
+!.. loop bodies above; arrays indexed by k are scalars here). mode 1: prologue only -> no_micro and
+!.. k_melting contributions; mode 2: whole phase with the column values no_micro_col / kmelt_col.
+      subroutine thom_lev(mode, k, no_micro_col, kmelt_col, nm_out, km_out, &
+                          aer_init_opt, wif_input_opt, qv1d, qc1d, qi1d, qr1d, &
+                          qs1d, qg1d, qb1d, ni1d, nr1d, nc1d, &
+                          ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, &
+                          w1d, dt, tten, qvten, qcten, qiten, &
+                          qrten, qsten, qgten, qbten, niten, nrten, &
+                          ncten, ngten, nwfaten, nifaten, nbcaten, prr_sml, &
+                          temp, rc, ri, rr, rs, rg, &
+                          rb, ni, nr, nc, ng, rho, &
+                          rhof, visco, lvap, ocp, ilamg, mvd_r, &
+                          mvd_g, smob, smoc, vts_boost, idx_bg, l_qc, &
+                          l_qi, l_qr, l_qs, l_qg)
+!$acc routine seq
+      implicit none
+      INTEGER, INTENT(IN):: mode, k, kmelt_col
+      LOGICAL, INTENT(IN):: no_micro_col
+      LOGICAL, INTENT(OUT):: nm_out
+      INTEGER, INTENT(OUT):: km_out
+      INTEGER:: thonce
+      INTEGER, INTENT(IN):: aer_init_opt
+      INTEGER, INTENT(IN):: wif_input_opt
+      REAL, INTENT(INOUT):: qv1d
+      REAL, INTENT(INOUT):: qc1d
+      REAL, INTENT(INOUT):: qi1d
+      REAL, INTENT(INOUT):: qr1d
+      REAL, INTENT(INOUT):: qs1d
+      REAL, INTENT(INOUT):: qg1d
+      REAL, INTENT(INOUT):: qb1d
+      REAL, INTENT(INOUT):: ni1d
+      REAL, INTENT(INOUT):: nr1d
+      REAL, INTENT(INOUT):: nc1d
+      REAL, INTENT(INOUT):: ng1d
+      REAL, INTENT(INOUT):: nwfa1d
+      REAL, INTENT(INOUT):: nifa1d
+      REAL, INTENT(INOUT):: nbca1d
+      REAL, INTENT(INOUT):: t1d
+      REAL, INTENT(INOUT):: p1d
+      REAL, INTENT(INOUT):: w1d
+      REAL, INTENT(IN):: dt
+      REAL, INTENT(INOUT):: tten
+      REAL, INTENT(INOUT):: qvten
+      REAL, INTENT(INOUT):: qcten
+      REAL, INTENT(INOUT):: qiten
+      REAL, INTENT(INOUT):: qrten
+      REAL, INTENT(INOUT):: qsten
+      REAL, INTENT(INOUT):: qgten
+      REAL, INTENT(INOUT):: qbten
+      REAL, INTENT(INOUT):: niten
+      REAL, INTENT(INOUT):: nrten
+      REAL, INTENT(INOUT):: ncten
+      REAL, INTENT(INOUT):: ngten
+      REAL, INTENT(INOUT):: nwfaten
+      REAL, INTENT(INOUT):: nifaten
+      REAL, INTENT(INOUT):: nbcaten
+      DOUBLE PRECISION, INTENT(INOUT):: prr_sml
+      REAL, INTENT(INOUT):: temp
+      REAL, INTENT(INOUT):: rc
+      REAL, INTENT(INOUT):: ri
+      REAL, INTENT(INOUT):: rr
+      REAL, INTENT(INOUT):: rs
+      REAL, INTENT(INOUT):: rg
+      REAL, INTENT(INOUT):: rb
+      REAL, INTENT(INOUT):: ni
+      REAL, INTENT(INOUT):: nr
+      REAL, INTENT(INOUT):: nc
+      REAL, INTENT(INOUT):: ng
+      REAL, INTENT(INOUT):: rho
+      REAL, INTENT(INOUT):: rhof
+      REAL, INTENT(INOUT):: visco
+      REAL, INTENT(INOUT):: lvap
+      REAL, INTENT(INOUT):: ocp
+      DOUBLE PRECISION, INTENT(INOUT):: ilamg
+      REAL, INTENT(INOUT):: mvd_r
+      REAL, INTENT(INOUT):: mvd_g
+      REAL, INTENT(INOUT):: smob
+      REAL, INTENT(INOUT):: smoc
+      REAL, INTENT(INOUT):: vts_boost
+      INTEGER, INTENT(INOUT):: idx_bg
+      LOGICAL, INTENT(INOUT):: l_qc
+      LOGICAL, INTENT(INOUT):: l_qi
+      LOGICAL, INTENT(INOUT):: l_qr
+      LOGICAL, INTENT(INOUT):: l_qs
+      LOGICAL, INTENT(INOUT):: l_qg
+      DOUBLE PRECISION:: prw_vcd
+      DOUBLE PRECISION:: pnc_wcd
+      DOUBLE PRECISION:: prr_wau
+      DOUBLE PRECISION:: prr_rcw
+      DOUBLE PRECISION:: prr_gml
+      DOUBLE PRECISION:: prv_rev
+      DOUBLE PRECISION:: pnr_rev
+      DOUBLE PRECISION:: pri_rci
+      DOUBLE PRECISION:: prs_iau
+      DOUBLE PRECISION:: prs_sci
+      DOUBLE PRECISION:: prs_scw
+      DOUBLE PRECISION:: prs_sde
+      DOUBLE PRECISION:: prg_scw
+      DOUBLE PRECISION:: prg_gde
+      DOUBLE PRECISION:: prg_gcw
+      DOUBLE PRECISION:: pnc_wau_s
+      DOUBLE PRECISION:: pnc_rcw_s
+      DOUBLE PRECISION:: pnc_scw_s
+      DOUBLE PRECISION:: pnc_gcw_s
+      DOUBLE PRECISION:: prr_rcs_s
+      DOUBLE PRECISION:: prr_rcg_s
+      DOUBLE PRECISION:: prr_rci_s
+      DOUBLE PRECISION:: pnr_wau_s
+      DOUBLE PRECISION:: pnr_rcs_s
+      DOUBLE PRECISION:: pnr_rcg_s
+      DOUBLE PRECISION:: pnr_rci_s
+      DOUBLE PRECISION:: pnr_sml_s
+      DOUBLE PRECISION:: pnr_gml_s
+      DOUBLE PRECISION:: pnr_rcr_s
+      DOUBLE PRECISION:: pnr_rfz_s
+      DOUBLE PRECISION:: pri_inu_s
+      DOUBLE PRECISION:: pni_inu_s
+      DOUBLE PRECISION:: pri_ihm_s
+      DOUBLE PRECISION:: pni_ihm_s
+      DOUBLE PRECISION:: pri_wfz_s
+      DOUBLE PRECISION:: pni_wfz_s
+      DOUBLE PRECISION:: pri_rfz_s
+      DOUBLE PRECISION:: pni_rfz_s
+      DOUBLE PRECISION:: pri_ide_s
+      DOUBLE PRECISION:: pni_ide_s
+      DOUBLE PRECISION:: pni_rci_s
+      DOUBLE PRECISION:: pni_sci_s
+      DOUBLE PRECISION:: pni_iau_s
+      DOUBLE PRECISION:: pri_iha_s
+      DOUBLE PRECISION:: pni_iha_s
+      DOUBLE PRECISION:: prs_rcs_s
+      DOUBLE PRECISION:: prs_ihm_s
+      DOUBLE PRECISION:: prs_ide_s
+      DOUBLE PRECISION:: prg_rfz_s
+      DOUBLE PRECISION:: prg_rci_s
+      DOUBLE PRECISION:: prg_rcs_s
+      DOUBLE PRECISION:: prg_rcg_s
+      DOUBLE PRECISION:: prg_ihm_s
+      DOUBLE PRECISION:: png_scw_s
+      DOUBLE PRECISION:: png_rcs_s
+      DOUBLE PRECISION:: png_rcg_s
+      DOUBLE PRECISION:: png_gde_s
+      DOUBLE PRECISION:: pbg_scw_s
+      DOUBLE PRECISION:: pbg_rfz_s
+      DOUBLE PRECISION:: pbg_gcw_s
+      DOUBLE PRECISION:: pbg_rci_s
+      DOUBLE PRECISION:: pbg_rcs_s
+      DOUBLE PRECISION:: pbg_rcg_s
+      DOUBLE PRECISION:: pbg_sml_s
+      DOUBLE PRECISION:: pbg_gml_s
+      DOUBLE PRECISION:: pna_rca_s
+      DOUBLE PRECISION:: pna_sca_s
+      DOUBLE PRECISION:: pna_gca_s
+      DOUBLE PRECISION:: pnd_rcd_s
+      DOUBLE PRECISION:: pnd_scd_s
+      DOUBLE PRECISION:: pnd_gcd_s
+      DOUBLE PRECISION:: pnb_rcb_s
+      DOUBLE PRECISION:: pnb_scb_s
+      DOUBLE PRECISION:: pnb_gcb_s
+      REAL:: pres
+      REAL:: qv
+      REAL:: ns
+      REAL:: nwfa
+      REAL:: nifa
+      REAL:: nbca
+      REAL:: rhof2
+      REAL:: qvs
+      REAL:: ssatw
+      REAL:: diffu
+      REAL:: vsc2
+      REAL:: tcond
+      REAL:: lvt2
+      DOUBLE PRECISION:: ilamr
+      DOUBLE PRECISION:: n0_r
+      DOUBLE PRECISION:: n0_g
+      DOUBLE PRECISION:: n0_melt
+      REAL:: mvd_c
+      REAL:: smo2
+      REAL:: smo1
+      REAL:: smo0
+      REAL:: smod
+      REAL:: smoe
+      REAL:: smof
+      REAL:: smog
+      REAL:: orho
+      REAL:: lfus2
+      DOUBLE PRECISION:: n0_exp
+      DOUBLE PRECISION:: lam_exp
+      DOUBLE PRECISION:: lamc
+      DOUBLE PRECISION:: lamr
+      DOUBLE PRECISION:: lamg
+      DOUBLE PRECISION:: lami
+      DOUBLE PRECISION:: ilami
+      REAL:: xdc
+      REAL:: dc_b
+      REAL:: dc_g
+      REAL:: xdi
+      REAL:: xds
+      REAL:: xdg
+      DOUBLE PRECISION:: dc_star
+      REAL:: zeta1
+      REAL:: zeta
+      REAL:: taud
+      REAL:: tau
+      REAL:: stoke_g
+      REAL:: vts
+      REAL:: vtg
+      REAL:: xrho_g
+      REAL:: afall
+      REAL:: vtg1
+      REAL:: vtg2
+      REAL:: bfall
+      REAL:: m0
+      REAL:: slam1
+      REAL:: slam2
+      REAL:: mrat
+      REAL:: c_snow
+      REAL:: a_
+      REAL:: b_
+      REAL:: loga_
+      REAL:: tf
+      REAL:: tempc
+      REAL:: tc0
+      REAL:: dew_t
+      REAL:: tlcl
+      REAL:: the
+      REAL:: twet_k
+      REAL:: tempc_s
+      REAL:: rhof_s
+      REAL:: rhof2_s
+      REAL:: qvs_s
+      REAL:: delqvs_s
+      REAL:: qvsi_s
+      REAL:: satw_s
+      REAL:: sati_s
+      REAL:: ssatw_s
+      REAL:: ssati_s
+      REAL:: diffu_s
+      REAL:: visco_s
+      REAL:: ocp_s
+      REAL:: vsc2_s
+      REAL:: lvap_s
+      REAL:: tcond_s
+      REAL:: xnc
+      REAL:: xri
+      REAL:: xni
+      REAL:: xmi
+      REAL:: oxmi
+      REAL:: xrc
+      REAL:: xrr
+      REAL:: xnr
+      REAL:: xrg
+      REAL:: xng
+      REAL:: xrb
+      REAL:: xsat
+      REAL:: rate_max
+      REAL:: sump
+      REAL:: ratio
+      REAL:: clap
+      REAL:: fcd
+      REAL:: dfcd
+      REAL:: otemp
+      REAL:: rvs
+      REAL:: rvs_p
+      REAL:: rvs_pp
+      REAL:: gamsc
+      REAL:: alphsc
+      REAL:: t1_evap
+      REAL:: t1_subl
+      REAL:: r_frac
+      REAL:: g_frac
+      REAL:: const_ri
+      REAL:: rime_dens
+      REAL:: ef_rw
+      REAL:: ef_sw
+      REAL:: ef_gw
+      REAL:: ef_rr
+      REAL:: ef_ra
+      REAL:: ef_sa
+      REAL:: ef_ga
+      REAL:: dtsave
+      REAL:: odts
+      REAL:: odt
+      REAL:: ygra1
+      REAL:: zans1
+      REAL:: eva_factor
+      REAL:: melt_f
+      INTEGER:: n
+      INTEGER:: nn
+      INTEGER:: it
+      INTEGER:: iexfrq
+      INTEGER:: k_melting
+      INTEGER:: nir
+      INTEGER:: nis
+      INTEGER:: nig
+      INTEGER:: nii
+      INTEGER:: nic
+      INTEGER:: niin
+      INTEGER:: idx_tc
+      INTEGER:: idx_t
+      INTEGER:: idx_s
+      INTEGER:: idx_g1
+      INTEGER:: idx_g
+      INTEGER:: idx_r1
+      INTEGER:: idx_r
+      INTEGER:: idx_i1
+      INTEGER:: idx_i
+      INTEGER:: idx_c
+      INTEGER:: idx
+      INTEGER:: idx_d
+      INTEGER:: idx_n
+      INTEGER:: idx_in
+      LOGICAL:: no_micro
+      LOGICAL:: debug_flag
+      INTEGER:: nu_c
+      nm_out = .true.
+      km_out = 0
+      debug_flag = .false.
+      if(debug_flag) then
+      endif
+      if (th_probe == 6) return
+      no_micro = .true.
+      dtsave = dt
+      odt = 1./dt
+      odts = 1./dtsave
+      iexfrq = 1
+      smo0 = 0.
+      smo1 = 0.
+      smo2 = 0.
+      smob = 0.
+      smoc = 0.
+      smod = 0.
+      smoe = 0.
+      smof = 0.
+      smog = 0.
+      ns   = 0.
+      mvd_r = 0.
+      mvd_c = 0.
+      temp = t1d
+      qv = MAX(1.E-10, qv1d)
+      pres = p1d
+      rho = 0.622*pres/(R*temp*(qv+0.622))
+      if (is_aerosol_aware) then
+      if (aer_init_opt .lt. 2) then
+      nwfa = MAX(11.1E6, MIN(9999.E6, nwfa1d*rho))
+      nifa = MAX(naIN1*0.01, MIN(9999.E6, nifa1d*rho))
+      if (wif_input_opt .eq. 2) then
+      nbca = MAX(5.55E6, MIN(9999.E6, nbca1d*rho))
+      else
+      nbca = 0.0
+      endif
+      else
+      nwfa = MAX(0.0, nwfa1d*rho)
+      nifa = MAX(0.0, nifa1d*rho)
+      if (wif_input_opt .eq. 2) then
+      nbca = MAX(0.0, nbca1d*rho)
+      else
+      nbca = 0.0
+      endif
+      endif
+      else
+      nwfa = MAX(11.1E6, MIN(9999.E6, nwfa1d*rho))
+      nifa = MAX(naIN1*0.01, MIN(9999.E6, nifa1d*rho))
+      nbca = MAX(5.55E6, MIN(9999.E6, nbca1d*rho))
+      endif
+      if (qc1d .gt. R1) then
+      no_micro = .false.
+      rc = qc1d*rho
+      nc = MAX(2., MIN(nc1d*rho, Nt_c_max))
+      L_qc = .true.
+      nu_c = MIN(15, NINT(1000.E6/nc) + 2)
+      lamc = (nc*am_r*ccg(2,nu_c)*ocg1(nu_c)/rc)**obmr
+      xDc = (bm_r + nu_c + 1.) / lamc
+      if (xDc.lt. D0c) then
+      lamc = cce(2,nu_c)/D0c
+      elseif (xDc.gt. D0r*2.) then
+      lamc = cce(2,nu_c)/(D0r*2.)
+      endif
+      nc = MIN( DBLE(Nt_c_max), ccg(1,nu_c)*ocg2(nu_c)*rc    / am_r*lamc**bm_r)
+      if (.NOT. is_aerosol_aware) nc = Nt_c
+      else
+      qc1d = 0.0
+      nc1d = 0.0
+      rc = R1
+      nc = 2.
+      L_qc = .false.
+      endif
+      if (qi1d .gt. R1) then
+      no_micro = .false.
+      ri = qi1d*rho
+      ni = MAX(R2, ni1d*rho)
+      if (ni.le. R2) then
+      lami = cie(2)/5.E-6
+      ni = MIN(999.D3, cig(1)*oig2*ri/am_i*lami**bm_i)
+      endif
+      L_qi = .true.
+      lami = (am_i*cig(2)*oig1*ni/ri)**obmi
+      ilami = 1./lami
+      xDi = (bm_i + mu_i + 1.) * ilami
+      if (xDi.lt. 5.E-6) then
+      lami = cie(2)/5.E-6
+      ni = MIN(999.D3, cig(1)*oig2*ri/am_i*lami**bm_i)
+      elseif (xDi.gt. 300.E-6) then
+      lami = cie(2)/300.E-6
+      ni = cig(1)*oig2*ri/am_i*lami**bm_i
+      endif
+      else
+      qi1d = 0.0
+      ni1d = 0.0
+      ri = R1
+      ni = R2
+      L_qi = .false.
+      endif
+      if (qr1d .gt. R1) then
+      no_micro = .false.
+      rr = qr1d*rho
+      nr = MAX(R2, nr1d*rho)
+      if (nr.le. R2) then
+      mvd_r = 1.0E-3
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      nr = crg(2)*org3*rr*lamr**bm_r / am_r
+      endif
+      L_qr = .true.
+      lamr = (am_r*crg(3)*org2*nr/rr)**obmr
+      mvd_r = (3.0 + mu_r + 0.672) / lamr
+      if (mvd_r .gt. 2.5E-3) then
+      mvd_r = 2.5E-3
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      nr = crg(2)*org3*rr*lamr**bm_r / am_r
+      elseif (mvd_r .lt. D0r*0.75) then
+      mvd_r = D0r*0.75
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      nr = crg(2)*org3*rr*lamr**bm_r / am_r
+      endif
+      else
+      qr1d = 0.0
+      nr1d = 0.0
+      rr = R1
+      nr = R2
+      L_qr = .false.
+      endif
+      if (qs1d .gt. R1) then
+      no_micro = .false.
+      rs = qs1d*rho
+      L_qs = .true.
+      else
+      qs1d = 0.0
+      rs = R1
+      L_qs = .false.
+      endif
+      if (qg1d .gt. R1) then
+      no_micro = .false.
+      L_qg = .true.
+      rg = qg1d*rho
+      ng = MAX(R2, ng1d*rho)
+      rb = MAX(qg1d/rho_g(NRHG), qb1d)
+      rb = MIN(qg1d/rho_g(1), rb)
+      qb1d = rb
+      idx_bg = MAX(1,MIN(NINT(qg1d/rb *0.01)+1,NRHG))
+      if (ng.le. R2) then
+      mvd_g = 1.5E-3
+      lamg = (3.0 + mu_g + 0.672) / mvd_g
+      ng = cgg(2,1)*ogg3*rg*lamg**bm_g / am_g(idx_bg)
+      endif
+      lamg = (am_g(idx_bg)*cgg(3,1)*ogg2*ng/rg)**obmg
+      mvd_g = (3.0 + mu_g + 0.672) / lamg
+      if (mvd_g .gt. 25.4E-3) then
+      mvd_g = 25.4E-3
+      lamg = (3.0 + mu_g + 0.672) / mvd_g
+      ng = cgg(2,1)*ogg3*rg*lamg**bm_g / am_g(idx_bg)
+      elseif (mvd_g .lt. D0r) then
+      mvd_g = D0r
+      lamg = (3.0 + mu_g + 0.672) / mvd_g
+      ng = cgg(2,1)*ogg3*rg*lamg**bm_g / am_g(idx_bg)
+      endif
+      else
+      qg1d = 0.0
+      ng1d = 0.0
+      qb1d = 0.0
+      idx_bg = idx_bg1
+      rg = R1
+      ng = R2
+      rb = R1/rho/rho_g(NRHG)
+      L_qg = .false.
+      endif
+      if (.not. is_hail_aware) idx_bg = idx_bg1
+      k_melting = 0
+      tempc = temp - 273.15
+      if (tempc .le. 0.0) then
+      qvsi_s = rsif(pres, temp)
+      else
+      qvsi_s = rslf(pres, temp)
+      k_melting = MAX(k, k_melting)
+      endif
+      sati_s = qv/qvsi_s
+      ssati_s = sati_s - 1.
+      if (abs(ssati_s).lt. eps) ssati_s = 0.0
+      if (no_micro .and. ssati_s.gt. 0.0) no_micro = .false.
+      if (mode == 1) then
+      nm_out = no_micro
+      km_out = k_melting
+      return
+      endif
+      no_micro = no_micro_col
+      k_melting = kmelt_col
+      if (no_micro) return
+      if (th_probe == 1) return
+      tten = 0.
+      qvten = 0.
+      qcten = 0.
+      qiten = 0.
+      qrten = 0.
+      qsten = 0.
+      qgten = 0.
+      ngten = 0.
+      qbten = 0.
+      niten = 0.
+      nrten = 0.
+      ncten = 0.
+      nwfaten = 0.
+      nifaten = 0.
+      nbcaten = 0.
+      prw_vcd = 0.
+      pnc_wcd = 0.
+      prv_rev = 0.
+      prr_wau = 0.
+      prr_rcw = 0.
+      prr_sml = 0.
+      prr_gml = 0.
+      pnr_rev = 0.
+      pri_rci = 0.
+      prs_iau = 0.
+      prs_sci = 0.
+      prs_scw = 0.
+      prs_sde = 0.
+      prg_scw = 0.
+      prg_gde = 0.
+      prg_gcw = 0.
+      if (.not. iiwarm) then
+      do thonce = 1, 1
+      if (.not. L_qs) CYCLE
+      tc0 = MIN(-0.1, temp-273.15)
+      smob = rs*oams
+      if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
+      smo2 = smob
+      else
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*bm_s  + sa(4)*tc0*bm_s + sa(5)*tc0*tc0  + sa(6)*bm_s*bm_s + sa(7)*tc0*tc0*bm_s  + sa(8)*tc0*bm_s*bm_s + sa(9)*tc0*tc0*tc0  + sa(10)*bm_s*bm_s*bm_s
+      a_ = 10.0**loga_
+      b_ = sb(1) + sb(2)*tc0 + sb(3)*bm_s  + sb(4)*tc0*bm_s + sb(5)*tc0*tc0  + sb(6)*bm_s*bm_s + sb(7)*tc0*tc0*bm_s  + sb(8)*tc0*bm_s*bm_s + sb(9)*tc0*tc0*tc0  + sb(10)*bm_s*bm_s*bm_s
+      smo2 = (smob/a_)**(1./b_)
+      endif
+      loga_ = sa(1) + sa(2)*tc0 + sa(5)*tc0*tc0 + sa(9)*tc0*tc0*tc0
+      a_ = 10.0**loga_
+      b_ = sb(1) + sb(2)*tc0 + sb(5)*tc0*tc0 + sb(9)*tc0*tc0*tc0
+      smo0 = a_ * smo2**b_
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)  + sa(4)*tc0 + sa(5)*tc0*tc0  + sa(6) + sa(7)*tc0*tc0  + sa(8)*tc0 + sa(9)*tc0*tc0*tc0  + sa(10)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3) + sb(4)*tc0  + sb(5)*tc0*tc0 + sb(6)  + sb(7)*tc0*tc0 + sb(8)*tc0  + sb(9)*tc0*tc0*tc0 + sb(10)
+      smo1 = a_ * smo2**b_
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(1)  + sa(4)*tc0*cse(1) + sa(5)*tc0*tc0  + sa(6)*cse(1)*cse(1) + sa(7)*tc0*tc0*cse(1)  + sa(8)*tc0*cse(1)*cse(1) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(1)*cse(1)*cse(1)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(1) + sb(4)*tc0*cse(1)  + sb(5)*tc0*tc0 + sb(6)*cse(1)*cse(1)  + sb(7)*tc0*tc0*cse(1) + sb(8)*tc0*cse(1)*cse(1)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(1)*cse(1)*cse(1)
+      smoc = a_ * smo2**b_
+      M0 = smob/smoc
+      Mrat = smob*M0*M0*M0
+      slam1 = M0 * Lam0
+      slam2 = M0 * Lam1
+      ns = Mrat*Kap0/slam1                                         + Mrat*Kap1*M0**mu_s*csg(15)/slam2**cse(15)
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(13)  + sa(4)*tc0*cse(13) + sa(5)*tc0*tc0  + sa(6)*cse(13)*cse(13) + sa(7)*tc0*tc0*cse(13)  + sa(8)*tc0*cse(13)*cse(13) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(13)*cse(13)*cse(13)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(13) + sb(4)*tc0*cse(13)  + sb(5)*tc0*tc0 + sb(6)*cse(13)*cse(13)  + sb(7)*tc0*tc0*cse(13) + sb(8)*tc0*cse(13)*cse(13)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(13)*cse(13)*cse(13)
+      smoe = a_ * smo2**b_
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(16)  + sa(4)*tc0*cse(16) + sa(5)*tc0*tc0  + sa(6)*cse(16)*cse(16) + sa(7)*tc0*tc0*cse(16)  + sa(8)*tc0*cse(16)*cse(16) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(16)*cse(16)*cse(16)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(16) + sb(4)*tc0*cse(16)  + sb(5)*tc0*tc0 + sb(6)*cse(16)*cse(16)  + sb(7)*tc0*tc0*cse(16) + sb(8)*tc0*cse(16)*cse(16)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(16)*cse(16)*cse(16)
+      smof = a_ * smo2**b_
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(17)  + sa(4)*tc0*cse(17) + sa(5)*tc0*tc0  + sa(6)*cse(17)*cse(17) + sa(7)*tc0*tc0*cse(17)  + sa(8)*tc0*cse(17)*cse(17) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(17)*cse(17)*cse(17)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(17) + sb(4)*tc0*cse(17)  + sb(5)*tc0*tc0 + sb(6)*cse(17)*cse(17)  + sb(7)*tc0*tc0*cse(17) + sb(8)*tc0*cse(17)*cse(17)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(17)*cse(17)*cse(17)
+      smog = a_ * smo2**b_
+      enddo
+      lamg = (am_g(idx_bg)*cgg(3,1)*ogg2*ng/rg)**obmg
+      ilamg = 1./lamg
+      N0_g = ng*ogg2*lamg**cge(2,1)
+      endif
+      lamr = (am_r*crg(3)*org2*nr/rr)**obmr
+      ilamr = 1./lamr
+      mvd_r = (3.0 + mu_r + 0.672) / lamr
+      N0_r = nr*org2*lamr**cre(2)
+      tempc_s = temp - 273.15
+      rhof_s = SQRT(RHO_NOT/rho)
+      rhof2_s = SQRT(rhof_s)
+      qvs_s = rslf(pres, temp)
+      delQvs_s = MAX(0.0, rslf(pres, 273.15)-qv)
+      if (tempc_s .le. 0.0) then
+      qvsi_s = rsif(pres, temp)
+      else
+      qvsi_s = qvs_s
+      endif
+      satw_s = qv/qvs_s
+      sati_s = qv/qvsi_s
+      ssatw_s = satw_s - 1.
+      ssati_s = sati_s - 1.
+      if (abs(ssatw_s).lt. eps) ssatw_s = 0.0
+      if (abs(ssati_s).lt. eps) ssati_s = 0.0
+      diffu_s = 2.11E-5*(temp/273.15)**1.94 * (101325./pres)
+      if (tempc_s .ge. 0.0) then
+      visco_s = (1.718+0.0049*tempc_s)*1.0E-5
+      else
+      visco_s = (1.718+0.0049*tempc_s-1.2E-5*tempc_s*tempc_s)*1.0E-5
+      endif
+      ocp_s = 1./(Cp*(1.+0.887*qv))
+      vsc2_s = SQRT(rho/visco_s)
+      lvap_s = lvap0 + (2106.0 - 4218.0)*tempc_s
+      tcond_s = (5.69 + 0.0168*tempc_s)*1.0E-5 * 418.936
+      twet_k = temp
+      if (k .le. k_melting) then
+      if (satw_s .lt. 0.999 .and. (L_qs .or. L_qg)) then
+      dew_t = MIN(temp-0.001, t_dew(pres, qv))
+      Tlcl = t_lcl(temp, dew_t)
+      The = theta_e(pres, temp, qv, Tlcl)
+      twet_k = MIN(temp, compT_fr_The(The, pres))
+      endif
+      endif
+      pnc_wau_s = 0.
+      pnc_rcw_s = 0.
+      pnc_scw_s = 0.
+      pnc_gcw_s = 0.
+      prr_rcs_s = 0.
+      prr_rcg_s = 0.
+      prr_rci_s = 0.
+      pnr_wau_s = 0.
+      pnr_rcs_s = 0.
+      pnr_rcg_s = 0.
+      pnr_rci_s = 0.
+      pnr_sml_s = 0.
+      pnr_gml_s = 0.
+      pnr_rcr_s = 0.
+      pnr_rfz_s = 0.
+      pri_inu_s = 0.
+      pni_inu_s = 0.
+      pri_ihm_s = 0.
+      pni_ihm_s = 0.
+      pri_wfz_s = 0.
+      pni_wfz_s = 0.
+      pri_rfz_s = 0.
+      pni_rfz_s = 0.
+      pri_ide_s = 0.
+      pni_ide_s = 0.
+      pni_rci_s = 0.
+      pni_sci_s = 0.
+      pni_iau_s = 0.
+      pri_iha_s = 0.
+      pni_iha_s = 0.
+      prs_rcs_s = 0.
+      prs_ihm_s = 0.
+      prs_ide_s = 0.
+      prg_rfz_s = 0.
+      prg_rci_s = 0.
+      prg_rcs_s = 0.
+      prg_rcg_s = 0.
+      prg_ihm_s = 0.
+      png_scw_s = 0.
+      png_rcs_s = 0.
+      png_rcg_s = 0.
+      png_gde_s = 0.
+      pbg_scw_s = 0.
+      pbg_rfz_s = 0.
+      pbg_gcw_s = 0.
+      pbg_rci_s = 0.
+      pbg_rcs_s = 0.
+      pbg_rcg_s = 0.
+      pbg_sml_s = 0.
+      pbg_gml_s = 0.
+      pna_rca_s = 0.
+      pna_sca_s = 0.
+      pna_gca_s = 0.
+      pnd_rcd_s = 0.
+      pnd_scd_s = 0.
+      pnd_gcd_s = 0.
+      pnb_rcb_s = 0.
+      pnb_scb_s = 0.
+      pnb_gcb_s = 0.
+      if (L_qr .and. mvd_r.gt. D0r) then
+      Ef_rr = 1.0 - EXP(2300.0*(mvd_r-1950.0E-6))
+      pnr_rcr_s = Ef_rr * 2.0*nr*rr
+      endif
+      mvd_c = D0c
+      if (L_qc) then
+      nu_c = MIN(15, NINT(1000.E6/nc) + 2)
+      xDc = MAX(D0c*1.E6, ((rc/(am_r*nc))**obmr) * 1.E6)
+      lamc = (nc*am_r* ccg(2,nu_c) * ocg1(nu_c) / rc)**obmr
+      mvd_c = (3.0+nu_c+0.672) / lamc
+      mvd_c = MAX(D0c, MIN(mvd_c, D0r))
+      endif
+      if (rc.gt. 0.01e-3) then
+      Dc_g = ((ccg(3,nu_c)*ocg2(nu_c))**obmr / lamc) * 1.E6
+      Dc_b = (xDc*xDc*xDc*Dc_g*Dc_g*Dc_g - xDc*xDc*xDc*xDc*xDc*xDc)  **(1./6.)
+      zeta1 = 0.5*((6.25E-6*xDc*Dc_b*Dc_b*Dc_b - 0.4)  + abs(6.25E-6*xDc*Dc_b*Dc_b*Dc_b - 0.4))
+      zeta = 0.027*rc*zeta1
+      taud = 0.5*((0.5*Dc_b - 7.5) + abs(0.5*Dc_b - 7.5)) + R1
+      tau  = 3.72/(rc*taud)
+      prr_wau = zeta/tau
+      prr_wau = MIN(DBLE(rc*odts), prr_wau)
+      pnr_wau_s = prr_wau / (am_r*nu_c*10.*D0r*D0r*D0r)
+      pnc_wau_s = MIN(DBLE(nc*odts), prr_wau                  / (am_r*mvd_c*mvd_c*mvd_c))
+      endif
+      if (L_qr .and. mvd_r.gt. D0r .and. mvd_c.gt. D0c) then
+      lamr = 1./ilamr
+      idx = 1 + INT(nbr*DLOG(mvd_r/Dr(1))/DLOG(Dr(nbr)/Dr(1)))
+      idx = MIN(idx, nbr)
+      Ef_rw = t_Efrw(idx, INT(mvd_c*1.E6))
+      prr_rcw = rhof_s*t1_qr_qc*Ef_rw*rc*N0_r  *((lamr+fv_r)**(-cre(9)))
+      prr_rcw = MIN(DBLE(rc*odts), prr_rcw)
+      pnc_rcw_s = rhof_s*t1_qr_qc*Ef_rw*nc*N0_r              *((lamr+fv_r)**(-cre(9)))
+      pnc_rcw_s = MIN(DBLE(nc*odts), pnc_rcw_s)
+      endif
+      if (L_qr .and. mvd_r.gt. D0r) then
+      Ef_ra = Eff_aero(mvd_r,0.04E-6,visco_s,rho,temp,'r')
+      lamr = 1./ilamr
+      pna_rca_s = rhof_s*t1_qr_qc*Ef_ra*nwfa*N0_r            *((lamr+fv_r)**(-cre(9)))
+      pna_rca_s = MIN(DBLE(nwfa*odts), pna_rca_s)
+      Ef_ra = Eff_aero(mvd_r,0.8E-6,visco_s,rho,temp,'r')
+      pnd_rcd_s = rhof_s*t1_qr_qc*Ef_ra*nifa*N0_r            *((lamr+fv_r)**(-cre(9)))
+      pnd_rcd_s = MIN(DBLE(nifa*odts), pnd_rcd_s)
+      if (.true.) then
+      if (wif_input_opt .eq. 2) then
+      Ef_ra = Eff_aero(mvd_r,0.0236E-6,  visco_s,rho,temp,'r')
+      pnb_rcb_s = rhof_s*t1_qr_qc*Ef_ra*nbca*N0_r        *((lamr+fv_r)**(-cre(9)))
+      pnb_rcb_s = MIN(DBLE(nbca*odts), pnb_rcb_s)
+      endif
+      endif
+      endif
+      if (.not. iiwarm) then
+      vts_boost = 1.0
+      orho = 1./rho
+      if (L_qs) then
+      xDs = smoc / smob
+      rho_s = MAX(rho_g(1), MIN(0.13/xDs, rho_i-100.))
+      else
+      xDs = 0.
+      rho_s = 100.
+      endif
+      tempc = temp - 273.15
+      idx_tc = MAX(1, MIN(NINT(-tempc), 45) )
+      idx_t = INT( (tempc-2.5)/5. ) - 1
+      idx_t = MAX(1, -idx_t)
+      idx_t = MIN(idx_t, ntb_t)
+      IT = MAX(1, MIN(NINT(-tempc), 31) )
+      if (rc.gt. r_c(1)) then
+      nic = NINT(ALOG10(rc))
+      do nn = nic-1, nic+1
+      n = nn
+      if ( (rc/10.**nn).ge.1.0 .and.  (rc/10.**nn).lt.10.0) goto 141
+      enddo
+      141      continue
+      idx_c = INT(rc/10.**n) + 10*(n-nic2) - (n-nic2)
+      idx_c = MAX(1, MIN(idx_c, ntb_c))
+      else
+      idx_c = 1
+      endif
+      idx_n = NINT(1.0 + FLOAT(nbc) * DLOG(nc/t_Nc(1)) / nic1)
+      idx_n = MAX(1, MIN(idx_n, nbc))
+      if (ri.gt. r_i(1)) then
+      nii = NINT(ALOG10(ri))
+      do nn = nii-1, nii+1
+      n = nn
+      if ( (ri/10.**nn).ge.1.0 .and.  (ri/10.**nn).lt.10.0) goto 142
+      enddo
+      142      continue
+      idx_i = INT(ri/10.**n) + 10*(n-nii2) - (n-nii2)
+      idx_i = MAX(1, MIN(idx_i, ntb_i))
+      else
+      idx_i = 1
+      endif
+      if (ni.gt. Nt_i(1)) then
+      nii = NINT(ALOG10(ni))
+      do nn = nii-1, nii+1
+      n = nn
+      if ( (ni/10.**nn).ge.1.0 .and.  (ni/10.**nn).lt.10.0) goto 143
+      enddo
+      143      continue
+      idx_i1 = INT(ni/10.**n) + 10*(n-nii3) - (n-nii3)
+      idx_i1 = MAX(1, MIN(idx_i1, ntb_i1))
+      else
+      idx_i1 = 1
+      endif
+      if (rr.gt. r_r(1)) then
+      nir = NINT(ALOG10(rr))
+      do nn = nir-1, nir+1
+      n = nn
+      if ( (rr/10.**nn).ge.1.0 .and.  (rr/10.**nn).lt.10.0) goto 144
+      enddo
+      144      continue
+      idx_r = INT(rr/10.**n) + 10*(n-nir2) - (n-nir2)
+      idx_r = MAX(1, MIN(idx_r, ntb_r))
+      lamr = 1./ilamr
+      lam_exp = lamr * (crg(3)*org2*org1)**bm_r
+      N0_exp = org1*rr/am_r * lam_exp**cre(1)
+      nir = NINT(DLOG10(N0_exp))
+      do nn = nir-1, nir+1
+      n = nn
+      if ( (N0_exp/10.**nn).ge.1.0 .and.  (N0_exp/10.**nn).lt.10.0) goto 145
+      enddo
+      145      continue
+      idx_r1 = INT(N0_exp/10.**n) + 10*(n-nir3) - (n-nir3)
+      idx_r1 = MAX(1, MIN(idx_r1, ntb_r1))
+      else
+      idx_r = 1
+      idx_r1 = ntb_r1
+      endif
+      if (rs.gt. r_s(1)) then
+      nis = NINT(ALOG10(rs))
+      do nn = nis-1, nis+1
+      n = nn
+      if ( (rs/10.**nn).ge.1.0 .and.  (rs/10.**nn).lt.10.0) goto 146
+      enddo
+      146      continue
+      idx_s = INT(rs/10.**n) + 10*(n-nis2) - (n-nis2)
+      idx_s = MAX(1, MIN(idx_s, ntb_s))
+      else
+      idx_s = 1
+      endif
+      if (rg.gt. r_g(1)) then
+      nig = NINT(ALOG10(rg))
+      do nn = nig-1, nig+1
+      n = nn
+      if ( (rg/10.**nn).ge.1.0 .and.  (rg/10.**nn).lt.10.0) goto 147
+      enddo
+      147      continue
+      idx_g = INT(rg/10.**n) + 10*(n-nig2) - (n-nig2)
+      idx_g = MAX(1, MIN(idx_g, ntb_g))
+      lamg = 1./ilamg
+      lam_exp = lamg * (cgg(3,1)*ogg2*ogg1)**bm_g
+      N0_exp = ogg1*rg/am_g(idx_bg) * lam_exp**cge(1,1)
+      nig = NINT(DLOG10(N0_exp))
+      do nn = nig-1, nig+1
+      n = nn
+      if ( (N0_exp/10.**nn).ge.1.0 .and.  (N0_exp/10.**nn).lt.10.0) goto 148
+      enddo
+      148      continue
+      idx_g1 = INT(N0_exp/10.**n) + 10*(n-nig3) - (n-nig3)
+      idx_g1 = MAX(1, MIN(idx_g1, ntb_g1))
+      else
+      idx_g = 1
+      idx_g1 = ntb_g1
+      endif
+      otemp = 1./temp
+      rvs = rho*qvsi_s
+      rvs_p = rvs*otemp*(lsub*otemp*oRv - 1.)
+      rvs_pp = rvs * ( otemp*(lsub*otemp*oRv - 1.)  *otemp*(lsub*otemp*oRv - 1.)  + (-2.*lsub*otemp*otemp*otemp*oRv)  + otemp*otemp)
+      gamsc = lsub*diffu_s/tcond_s * rvs_p
+      alphsc = 0.5*(gamsc/(1.+gamsc))*(gamsc/(1.+gamsc))  * rvs_pp/rvs_p * rvs/rvs_p
+      alphsc = MAX(1.E-9, alphsc)
+      xsat = ssati_s
+      if (abs(xsat).lt. 1.E-9) xsat=0.
+      t1_subl = 4.*PI*( 1.0 - alphsc*xsat  + 2.*alphsc*alphsc*xsat*xsat  - 5.*alphsc*alphsc*alphsc*xsat*xsat*xsat )  / (1.+gamsc)
+      if (L_qc .and. mvd_c.gt. D0c) then
+      if (xDs .gt. D0s) then
+      idx = 1 + INT(nbs*DLOG(xDs/Ds(1))/DLOG(Ds(nbs)/Ds(1)))
+      idx = MIN(idx, nbs)
+      Ef_sw = t_Efsw(idx, INT(mvd_c*1.E6))
+      prs_scw = rhof_s*t1_qs_qc*Ef_sw*rc*smoe
+      prs_scw = MIN(DBLE(rc*odts), prs_scw)
+      pnc_scw_s = rhof_s*t1_qs_qc*Ef_sw*nc*smoe
+      pnc_scw_s = MIN(DBLE(nc*odts), pnc_scw_s)
+      endif
+      if (rg.ge. r_g(1) .and. mvd_c.gt. D0c) then
+      xDg = (bm_g + mu_g + 1.) * ilamg
+      vtg = rhof_s*av_g(idx_bg)*cgg(6,idx_bg)*ogg3 * ilamg**bv_g(idx_bg)
+      stoke_g = mvd_c*mvd_c*vtg*rho_w/(9.*visco_s*xDg)
+      const_Ri = -1.*(mvd_c*0.5E6)*vtg/MIN(-0.1,tempc)
+      const_Ri = MAX(0.1, MIN(const_Ri, 10.))
+      rime_dens = (0.051 + 0.114*const_Ri - 0.0055*const_Ri*const_Ri)*1000.
+      if (stoke_g.ge.0.4 .and. stoke_g.le.10.) then
+      Ef_gw = 0.55*ALOG10(2.51*stoke_g)
+      elseif (stoke_g.lt.0.4) then
+      Ef_gw = 0.0
+      elseif (stoke_g.gt.10) then
+      Ef_gw = 0.77
+      endif
+      if (twet_k.gt.T_0) Ef_gw = Ef_gw*0.1
+      t1_qg_qc = PI*.25*av_g(idx_bg) * cgg(9,idx_bg)
+      prg_gcw = rhof_s*t1_qg_qc*Ef_gw*rc*N0_g  *ilamg**cge(9,idx_bg)
+      pnc_gcw_s = rhof_s*t1_qg_qc*Ef_gw*nc*N0_g            *ilamg**cge(9,idx_bg)
+      pnc_gcw_s = MIN(DBLE(nc*odts), pnc_gcw_s)
+      if (twet_k.lt.T_0) pbg_gcw_s = prg_gcw/rime_dens
+      endif
+      endif
+      if (rs .gt. r_s(1)) then
+      Ef_sa = Eff_aero(xDs,0.04E-6,visco_s,rho,temp,'s')
+      pna_sca_s = rhof_s*t1_qs_qc*Ef_sa*nwfa*smoe
+      pna_sca_s = MIN(DBLE(nwfa*odts), pna_sca_s)
+      Ef_sa = Eff_aero(xDs,0.8E-6,visco_s,rho,temp,'s')
+      pnd_scd_s = rhof_s*t1_qs_qc*Ef_sa*nifa*smoe
+      pnd_scd_s = MIN(DBLE(nifa*odts), pnd_scd_s)
+      if (.true.) then
+      if (wif_input_opt .eq. 2) then
+      Ef_sa = Eff_aero(xDs,0.0236E-6,visco_s,rho,temp,'s')
+      pnb_scb_s = rhof_s*t1_qs_qc*Ef_sa*nbca*smoe
+      pnb_scb_s = MIN(DBLE(nbca*odts), pnb_scb_s)
+      endif
+      endif
+      endif
+      if (rg .gt. r_g(1)) then
+      xDg = (bm_g + mu_g + 1.) * ilamg
+      Ef_ga = Eff_aero(xDg,0.04E-6,visco_s,rho,temp,'g')
+      t1_qg_qc = PI*.25*av_g(idx_bg) * cgg(9,idx_bg)
+      pna_gca_s = rhof_s*t1_qg_qc*Ef_ga*nwfa*N0_g            *ilamg**cge(9,idx_bg)
+      pna_gca_s = MIN(DBLE(nwfa*odts), pna_gca_s)
+      Ef_ga = Eff_aero(xDg,0.8E-6,visco_s,rho,temp,'g')
+      pnd_gcd_s = rhof_s*t1_qg_qc*Ef_ga*nifa*N0_g            *ilamg**cge(9,idx_bg)
+      pnd_gcd_s = MIN(DBLE(nifa*odts), pnd_gcd_s)
+      if (.true.) then
+      if (wif_input_opt .eq. 2) then
+      Ef_ga = Eff_aero(xDg,0.0236E-6,visco_s,rho,temp,'g')
+      pnb_gcb_s = rhof_s*t1_qg_qc*Ef_ga*nbca*N0_g        *ilamg**cge(9,idx_bg)
+      pnb_gcb_s = MIN(DBLE(nbca*odts), pnb_gcb_s)
+      endif
+      endif
+      endif
+      if (rr.ge. r_r(1)) then
+      if (rs.ge. r_s(1)) then
+      if (twet_k.lt.T_0) then
+      prr_rcs_s = -(tmr_racs2(idx_s,idx_t,idx_r1,idx_r)  + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r)  + tmr_racs1(idx_s,idx_t,idx_r1,idx_r)  + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r))
+      prs_rcs_s = tmr_racs2(idx_s,idx_t,idx_r1,idx_r)  + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r)  - tcs_racs1(idx_s,idx_t,idx_r1,idx_r)  - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
+      prg_rcs_s = tmr_racs1(idx_s,idx_t,idx_r1,idx_r)  + tcr_sacr1(idx_s,idx_t,idx_r1,idx_r)  + tcs_racs1(idx_s,idx_t,idx_r1,idx_r)  + tms_sacr1(idx_s,idx_t,idx_r1,idx_r)
+      prr_rcs_s = MAX(DBLE(-rr*odts), prr_rcs_s)
+      prs_rcs_s = MAX(DBLE(-rs*odts), prs_rcs_s)
+      prg_rcs_s = MIN(DBLE((rr+rs)*odts), prg_rcs_s)
+      pnr_rcs_s = tnr_racs1(idx_s,idx_t,idx_r1,idx_r)             + tnr_racs2(idx_s,idx_t,idx_r1,idx_r)           + tnr_sacr1(idx_s,idx_t,idx_r1,idx_r)           + tnr_sacr2(idx_s,idx_t,idx_r1,idx_r)
+      pnr_rcs_s = MIN(DBLE(nr*odts), pnr_rcs_s)
+      png_rcs_s = pnr_rcs_s
+      pbg_rcs_s = prg_rcs_s/rho_i
+      else
+      prs_rcs_s = -tcs_racs1(idx_s,idx_t,idx_r1,idx_r)            - tms_sacr1(idx_s,idx_t,idx_r1,idx_r)           + tmr_racs2(idx_s,idx_t,idx_r1,idx_r)           + tcr_sacr2(idx_s,idx_t,idx_r1,idx_r)
+      prs_rcs_s = MAX(DBLE(-rs*odts), prs_rcs_s)
+      prr_rcs_s = -prs_rcs_s
+      endif
+      endif
+      if (rg.ge. r_g(1)) then
+      if (twet_k.lt.T_0) then
+      prg_rcg_s = tmr_racg(idx_g1,idx_g,idx_bg,idx_r1,idx_r)   + tcr_gacr(idx_g1,idx_g,idx_bg,idx_r1,idx_r)
+      prg_rcg_s = MIN(DBLE(rr*odts), prg_rcg_s)
+      prr_rcg_s = -prg_rcg_s
+      pnr_rcg_s = tnr_racg(idx_g1,idx_g,idx_bg,idx_r1,idx_r)   + tnr_gacr(idx_g1,idx_g,idx_bg,idx_r1,idx_r)
+      pnr_rcg_s = MIN(DBLE(nr*odts), pnr_rcg_s)
+      pbg_rcg_s = prg_rcg_s/rho_i
+      else
+      prr_rcg_s = tcg_racg(idx_g1,idx_g,idx_bg,idx_r1,idx_r)
+      prr_rcg_s = MIN(DBLE(rg*odts), prr_rcg_s)
+      prg_rcg_s = -prr_rcg_s
+      png_rcg_s = tnr_racg(idx_g1,idx_g,idx_bg,idx_r1,idx_r)
+      png_rcg_s = MIN(DBLE(ng*odts), png_rcg_s)
+      pbg_rcg_s = prg_rcg_s/rho_g(idx_bg)
+      pnr_rcg_s = -1.5*tnr_gacr(idx_g1,idx_g,idx_bg,idx_r1,idx_r)
+      endif
+      endif
+      endif
+      if (temp.lt.T_0) then
+      vts_boost = 1.0
+      rate_max = (qv-qvsi_s)*rho*odts*0.999
+      if (dustyIce .AND. is_aerosol_aware) then
+      xni = iceDeMott(tempc,qvs_s,qvs_s,qvsi_s,rho,nifa)
+      else
+      xni = 1.0 *1000.
+      endif
+      if (xni.gt. Nt_IN(1)) then
+      niin = NINT(ALOG10(xni))
+      do nn = niin-1, niin+1
+      n = nn
+      if ( (xni/10.**nn).ge.1.0 .and.  (xni/10.**nn).lt.10.0) goto 149
+      enddo
+      149       continue
+      idx_IN = INT(xni/10.**n) + 10*(n-niin2) - (n-niin2)
+      idx_IN = MAX(1, MIN(idx_IN, ntb_IN))
+      else
+      idx_IN = 1
+      endif
+      if (rr.gt. r_r(1)) then
+      prg_rfz_s = tpg_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+      pri_rfz_s = tpi_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+      pni_rfz_s = tni_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+      pnr_rfz_s = tnr_qrfz(idx_r,idx_r1,idx_tc,idx_IN)*odts
+      pnr_rfz_s = MIN(DBLE(nr*odts), pnr_rfz_s)
+      elseif (rr.gt. R1 .and. temp.lt.HGFR) then
+      pri_rfz_s = rr*odts
+      pni_rfz_s = nr*odts
+      endif
+      pbg_rfz_s = prg_rfz_s/rho_i
+      if (rc.gt. r_c(1)) then
+      pri_wfz_s = tpi_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+      pri_wfz_s = MIN(DBLE(rc*odts), pri_wfz_s)
+      pni_wfz_s = tni_qcfz(idx_c,idx_n,idx_tc,idx_IN)*odts
+      pni_wfz_s = MIN(DBLE(nc*odts), pri_wfz_s/(2.*xm0i),      pni_wfz_s)
+      elseif (rc.gt. R1 .and. temp.lt.HGFR) then
+      pri_wfz_s = rc*odts
+      pni_wfz_s = nc*odts
+      endif
+      if ( (ssati_s.ge. 0.25) .or. (ssatw_s.gt. eps  .and. temp.lt.253.15) ) then
+      if (dustyIce .AND. is_aerosol_aware) then
+      xnc = iceDeMott(tempc,qv,qvs_s,qvsi_s,rho,nifa)
+      else
+      xnc = MIN(250.E3, TNO*EXP(ATO*(T_0-temp)))
+      endif
+      xni = ni + (pni_rfz_s+pni_wfz_s)*dtsave
+      pni_inu_s = 0.5*(xnc-xni + abs(xnc-xni))*odts
+      pri_inu_s = MIN(DBLE(rate_max), xm0i*pni_inu_s)
+      pni_inu_s = pri_inu_s/xm0i
+      endif
+      xni = ns+ni + (pni_rfz_s+pni_wfz_s+pni_inu_s)*dtsave
+      if (is_aerosol_aware .AND. homogIce .AND. (xni.le.999.E3)      .AND.(temp.lt.238).AND.(ssati_s.ge.0.4) ) then
+      xnc = iceKoop(temp,qv,qvs_s,nwfa, dtsave)
+      pni_iha_s = xnc*odts
+      pri_iha_s = MIN(DBLE(rate_max), xm0i*0.1*pni_iha_s)
+      pni_iha_s = pri_iha_s/(xm0i*0.1)
+      endif
+      if (L_qi) then
+      lami = (am_i*cig(2)*oig1*ni/ri)**obmi
+      ilami = 1./lami
+      xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
+      xmi = am_i*xDi**bm_i
+      oxmi = 1./xmi
+      pri_ide_s = C_cube*t1_subl*diffu_s*ssati_s*rvs  *oig1*cig(5)*ni*ilami
+      if (pri_ide_s .lt. 0.0) then
+      pri_ide_s = MAX(DBLE(-ri*odts), pri_ide_s, DBLE(rate_max))
+      pni_ide_s = pri_ide_s*oxmi
+      pni_ide_s = MAX(DBLE(-ni*odts), pni_ide_s)
+      else
+      pri_ide_s = MIN(pri_ide_s, DBLE(rate_max))
+      prs_ide_s = (1.0D0-tpi_ide(idx_i,idx_i1))*pri_ide_s
+      pri_ide_s = tpi_ide(idx_i,idx_i1)*pri_ide_s
+      endif
+      if ( (idx_i.eq. ntb_i) .or. (xDi.gt. 5.0*D0s) ) then
+      prs_iau = ri*.99*odts
+      pni_iau_s = ni*.95*odts
+      elseif (xDi.lt. 0.1*D0s) then
+      prs_iau = 0.
+      pni_iau_s = 0.
+      else
+      prs_iau = tps_iaus(idx_i,idx_i1)*odts
+      prs_iau = MIN(DBLE(ri*.99*odts), prs_iau)
+      pni_iau_s = tni_iaus(idx_i,idx_i1)*odts
+      pni_iau_s = MIN(DBLE(ni*.95*odts), pni_iau_s)
+      endif
+      endif
+      if (L_qs) then
+      C_snow = C_sqrd + (tempc+1.5)*(C_cube-C_sqrd)/(-30.+1.5)
+      C_snow = MAX(C_sqrd, MIN(C_snow, C_cube))
+      prs_sde = C_snow*t1_subl*diffu_s*ssati_s*rvs  * (t1_qs_sd*smo1  + t2_qs_sd*rhof2_s*vsc2_s*smof)
+      if (prs_sde.lt. 0.) then
+      prs_sde = MAX(DBLE(-rs*odts), prs_sde, DBLE(rate_max))
+      else
+      prs_sde = MIN(prs_sde, DBLE(rate_max))
+      endif
+      endif
+      if (L_qg .and. ssati_s.lt. -eps) then
+      t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg)) * cgg(11,idx_bg)
+      prg_gde = C_cube*t1_subl*diffu_s*ssati_s*rvs  * N0_g * (t1_qg_sd*ilamg**cge(10,1)  + t2_qg_sd*vsc2_s*rhof2_s*ilamg**cge(11,idx_bg))
+      if (prg_gde.lt. 0.) then
+      prg_gde = MAX(DBLE(-rg*odts), prg_gde, DBLE(rate_max))
+      png_gde_s = prg_gde * ng/rg
+      else
+      prg_gde = MIN(prg_gde, DBLE(rate_max))
+      endif
+      endif
+      if (L_qi) then
+      lami = (am_i*cig(2)*oig1*ni/ri)**obmi
+      ilami = 1./lami
+      xDi = MAX(DBLE(D0i), (bm_i + mu_i + 1.) * ilami)
+      xmi = am_i*xDi**bm_i
+      oxmi = 1./xmi
+      if (rs.ge. r_s(1)) then
+      prs_sci = t1_qs_qi*rhof_s*Ef_si*ri*smoe
+      pni_sci_s = prs_sci * oxmi
+      endif
+      if (rr.ge. r_r(1) .and. mvd_r.gt. 4.*xDi) then
+      lamr = 1./ilamr
+      pri_rci = rhof_s*t1_qr_qi*Ef_ri*ri*N0_r  *((lamr+fv_r)**(-cre(9)))
+      pnr_rci_s = rhof_s*t1_qr_qi*Ef_ri*ni*N0_r            *((lamr+fv_r)**(-cre(9)))
+      pnr_rci_s = MIN(DBLE(nr*odts), pnr_rci_s)
+      pni_rci_s = pri_rci * oxmi
+      prr_rci_s = rhof_s*t2_qr_qi*Ef_ri*ni*N0_r  *((lamr+fv_r)**(-cre(8)))
+      prr_rci_s = MIN(DBLE(rr*odts), prr_rci_s)
+      prg_rci_s = pri_rci + prr_rci_s
+      pbg_rci_s = prg_rci_s/rho_i
+      endif
+      endif
+      if (prg_gcw.gt. eps .and. tempc.gt.-8.0) then
+      tf = 0.
+      if (tempc.ge.-5.0 .and. tempc.lt.-3.0) then
+      tf = 0.5*(-3.0 - tempc)
+      elseif (tempc.gt.-8.0 .and. tempc.lt.-5.0) then
+      tf = 0.33333333*(8.0 + tempc)
+      endif
+      pni_ihm_s = 3.5E8*tf*prg_gcw
+      pri_ihm_s = xm0i*pni_ihm_s
+      prs_ihm_s = prs_scw/(prs_scw+prg_gcw)  * pri_ihm_s
+      prg_ihm_s = prg_gcw/(prs_scw+prg_gcw)  * pri_ihm_s
+      endif
+      if (prs_scw.gt.2.0*prs_sde .and.  prs_sde.gt.eps) then
+      r_frac = MIN(30.0D0, prs_scw/prs_sde)
+      g_frac = MIN(0.95, 0.15 + (r_frac-2.)*.028)
+      vts_boost = MIN(1.5, 1.1 + (r_frac-2.)*.014)
+      prg_scw = g_frac*prs_scw
+      png_scw_s = prg_scw*smo0/rs
+      vts = av_s*xDs**bv_s * EXP(-fv_s*xDs)
+      const_Ri = -1.*(mvd_c*0.5E6)*vts/MIN(-0.1,tempc)
+      const_Ri = MAX(0.1, MIN(const_Ri, 10.))
+      rime_dens = (0.051 + 0.114*const_Ri - 0.0055*const_Ri*const_Ri)*1000.
+      if(rime_dens .lt. 150.) then
+      g_frac = 0.
+      prg_scw=0.
+      png_scw_s=0.
+      endif
+      pbg_scw_s = prg_scw/(0.5*(rime_dens+rho_s))
+      prs_scw = (1. - g_frac)*prs_scw
+      endif
+      else
+      if (L_qs) then
+      prr_sml = (tempc*tcond_s-lvap0*diffu_s*delQvs_s)        * (t1_qs_me*smo1 + t2_qs_me*rhof2_s*vsc2_s*smof)
+      if (prr_sml .gt. 0.) then
+      prr_sml = prr_sml + 4218.*olfus*(twet_k-T_0)        * (prr_rcs_s+prs_scw)
+      endif
+      prr_sml = MIN(DBLE(rs*odts), MAX(0.D0, prr_sml))
+      if (prr_sml.gt.0.0) then
+      pnr_sml_s = smo0/rs*prr_sml * 10.0**(-0.25*(twet_k-T_0))
+      elseif (ssati_s.lt. 0.) then
+      prs_sde = C_sqrd*t1_subl*diffu_s*ssati_s*rvs  * (t1_qs_sd*smo1  + t2_qs_sd*rhof2_s*vsc2_s*smof)
+      prs_sde = MAX(DBLE(-rs*odts), prs_sde)
+      endif
+      endif
+      if (L_qg) then
+      N0_melt = N0_g
+      if ((rg*ng) .lt. 1.E-4) then
+      lamg = 1./ilamg
+      N0_melt = (1.E-4/rg)*ogg2*lamg**cge(2,1)
+      endif
+      t2_qg_me = PI*4.*C_cube*olfus * 0.28*Sc3*SQRT(av_g(idx_bg)) * cgg(11,idx_bg)
+      prr_gml = (tempc*tcond_s-lvap0*diffu_s*delQvs_s)        * N0_melt*(t1_qg_me*ilamg**cge(10,1)            + t2_qg_me*rhof2_s*vsc2_s*ilamg**cge(11,idx_bg))
+      prr_gml = MIN(DBLE(rg*odts), MAX(0.D0, prr_gml))
+      if (prr_gml .gt. 0.0) then
+      melt_f = MAX(0.05, MIN(prr_gml*dt/rg,1.0))
+      pbg_gml_s = prr_gml / MAX(MIN(melt_f*rho_g(idx_bg),1000.),50.)
+      pnr_gml_s = prr_gml*ng/rg * 10.0**(-0.33*(twet_k-T_0))
+      elseif (ssati_s.lt. 0.) then
+      t2_qg_sd = 0.28*Sc3*SQRT(av_g(idx_bg)) * cgg(11,idx_bg)
+      prg_gde = C_cube*t1_subl*diffu_s*ssati_s*rvs  * N0_g * (t1_qg_sd*ilamg**cge(10,1)  + t2_qg_sd*vsc2_s*rhof2_s*ilamg**cge(11,idx_bg))
+      prg_gde = MAX(DBLE(-rg*odts), prg_gde)
+      png_gde_s = prg_gde * ng/rg
+      endif
+      endif
+      if (dt .gt. 120.) then
+      prr_rcw=prr_rcw+prs_scw+prg_gcw
+      prs_scw=0.
+      prg_gcw=0.
+      endif
+      endif
+      if (.not. is_hail_aware) idx_bg = idx_bg1
+      endif
+      sump = pri_inu_s + pri_ide_s + prs_ide_s  + prs_sde + prg_gde + pri_iha_s
+      rate_max = (qv-qvsi_s)*rho*odts*0.999
+      if ( (sump.gt. eps .and. sump.gt. rate_max) .or.  (sump.lt. -eps .and. sump.lt. rate_max) ) then
+      ratio = rate_max/sump
+      pri_inu_s = pri_inu_s * ratio
+      pri_ide_s = pri_ide_s * ratio
+      pni_ide_s = pni_ide_s * ratio
+      prs_ide_s = prs_ide_s * ratio
+      prs_sde = prs_sde * ratio
+      prg_gde = prg_gde * ratio
+      pri_iha_s = pri_iha_s * ratio
+      endif
+      sump = -prr_wau - pri_wfz_s - prr_rcw  - prs_scw - prg_scw - prg_gcw
+      rate_max = -rc*odts
+      if (sump.lt. rate_max .and. L_qc) then
+      ratio = rate_max/sump
+      prr_wau = prr_wau * ratio
+      pri_wfz_s = pri_wfz_s * ratio
+      prr_rcw = prr_rcw * ratio
+      prs_scw = prs_scw * ratio
+      prg_scw = prg_scw * ratio
+      prg_gcw = prg_gcw * ratio
+      endif
+      sump = pri_ide_s - prs_iau - prs_sci  - pri_rci
+      rate_max = -ri*odts
+      if (sump.lt. rate_max .and. L_qi) then
+      ratio = rate_max/sump
+      pri_ide_s = pri_ide_s * ratio
+      prs_iau = prs_iau * ratio
+      prs_sci = prs_sci * ratio
+      pri_rci = pri_rci * ratio
+      endif
+      sump = -prg_rfz_s - pri_rfz_s - prr_rci_s  + prr_rcs_s + prr_rcg_s
+      rate_max = -rr*odts
+      if (sump.lt. rate_max .and. L_qr) then
+      ratio = rate_max/sump
+      prg_rfz_s = prg_rfz_s * ratio
+      pri_rfz_s = pri_rfz_s * ratio
+      prr_rci_s = prr_rci_s * ratio
+      prr_rcs_s = prr_rcs_s * ratio
+      prr_rcg_s = prr_rcg_s * ratio
+      endif
+      sump = prs_sde - prs_ihm_s - prr_sml  + prs_rcs_s
+      rate_max = -rs*odts
+      if (sump.lt. rate_max .and. L_qs) then
+      ratio = rate_max/sump
+      prs_sde = prs_sde * ratio
+      prs_ihm_s = prs_ihm_s * ratio
+      prr_sml = prr_sml * ratio
+      prs_rcs_s = prs_rcs_s * ratio
+      endif
+      sump = prg_gde - prg_ihm_s - prr_gml  + prg_rcg_s
+      rate_max = -rg*odts
+      if (sump.lt. rate_max .and. L_qg) then
+      ratio = rate_max/sump
+      prg_gde = prg_gde * ratio
+      prg_ihm_s = prg_ihm_s * ratio
+      prr_gml = prr_gml * ratio
+      prg_rcg_s = prg_rcg_s * ratio
+      endif
+      pri_ihm_s = prs_ihm_s + prg_ihm_s
+      ratio = MIN( ABS(prr_rcg_s), ABS(prg_rcg_s) )
+      prr_rcg_s = ratio * SIGN(1.0, SNGL(prr_rcg_s))
+      prg_rcg_s = -prr_rcg_s
+      if (twet_k.gt.T_0) then
+      ratio = MIN( ABS(prr_rcs_s), ABS(prs_rcs_s) )
+      prr_rcs_s = ratio * SIGN(1.0, SNGL(prr_rcs_s))
+      prs_rcs_s = -prr_rcs_s
+      endif
+      orho = 1./rho
+      lfus2 = lsub - lvap_s
+      if (is_aerosol_aware) then
+      nwfaten = nwfaten - (pna_rca_s + pna_sca_s           + pna_gca_s + pni_iha_s) * orho
+      nifaten = nifaten - (pnd_rcd_s + pnd_scd_s           + pnd_gcd_s) * orho
+      if (wif_input_opt .eq. 2) then
+      nbcaten = nbcaten - (pnb_rcb_s + pnb_scb_s        + pnb_gcb_s) * orho
+      else
+      nbcaten = 0.0
+      endif
+      if (dustyIce) then
+      nifaten = nifaten - pni_inu_s*orho
+      else
+      nifaten = 0.
+      endif
+      endif
+      qvten = qvten + (-pri_inu_s - pri_iha_s - pri_ide_s    - prs_ide_s - prs_sde - prg_gde)  * orho
+      qcten = qcten + (-prr_wau - pri_wfz_s  - prr_rcw - prs_scw - prg_scw  - prg_gcw)  * orho
+      ncten = ncten + (-pnc_wau_s - pnc_rcw_s  - pni_wfz_s - pnc_scw_s - pnc_gcw_s)  * orho
+      xrc=MAX(R1, (qc1d + qcten*dtsave)*rho)
+      xnc=MAX(2., (nc1d + ncten*dtsave)*rho)
+      if (xrc .gt. R1) then
+      nu_c = MIN(15, NINT(1000.E6/xnc) + 2)
+      lamc = (xnc*am_r*ccg(2,nu_c)*ocg1(nu_c)/rc)**obmr
+      xDc = (bm_r + nu_c + 1.) / lamc
+      if (xDc.lt. D0c) then
+      lamc = cce(2,nu_c)/D0c
+      xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
+      ncten = (xnc-nc1d*rho)*odts*orho
+      elseif (xDc.gt. D0r*2.) then
+      lamc = cce(2,nu_c)/(D0r*2.)
+      xnc = ccg(1,nu_c)*ocg2(nu_c)*xrc/am_r*lamc**bm_r
+      ncten = (xnc-nc1d*rho)*odts*orho
+      endif
+      else
+      ncten = -nc1d*odts
+      endif
+      xnc=MAX(0.,(nc1d + ncten*dtsave)*rho)
+      if (xnc.gt.Nt_c_max)  ncten = (Nt_c_max-nc1d*rho)*odts*orho
+      qiten = qiten + (pri_inu_s + pri_iha_s + pri_ihm_s     + pri_wfz_s + pri_rfz_s + pri_ide_s  - prs_iau - prs_sci - pri_rci)  * orho
+      niten = niten + (pni_inu_s + pni_iha_s + pni_ihm_s     + pni_wfz_s + pni_rfz_s + pni_ide_s  - pni_iau_s - pni_sci_s - pni_rci_s)  * orho
+      xri=MAX(R1,(qi1d + qiten*dtsave)*rho)
+      xni=MAX(R2,(ni1d + niten*dtsave)*rho)
+      if (xri.gt. R1) then
+      lami = (am_i*cig(2)*oig1*xni/xri)**obmi
+      ilami = 1./lami
+      xDi = (bm_i + mu_i + 1.) * ilami
+      if (xDi.lt. 5.E-6) then
+      lami = cie(2)/5.E-6
+      xni = MIN(999.D3, cig(1)*oig2*xri/am_i*lami**bm_i)
+      niten = (xni-ni1d*rho)*odts*orho
+      elseif (xDi.gt. 300.E-6) then
+      lami = cie(2)/300.E-6
+      xni = cig(1)*oig2*xri/am_i*lami**bm_i
+      niten = (xni-ni1d*rho)*odts*orho
+      endif
+      else
+      niten = -ni1d*odts
+      endif
+      xni=MAX(0.,(ni1d + niten*dtsave)*rho)
+      if (xni.gt.999.E3)  niten = (999.E3-ni1d*rho)*odts*orho
+      qrten = qrten + (prr_wau + prr_rcw  + prr_sml + prr_gml + prr_rcs_s  + prr_rcg_s - prg_rfz_s  - pri_rfz_s - prr_rci_s)  * orho
+      nrten = nrten + (pnr_wau_s + pnr_sml_s + pnr_gml_s     - (pnr_rfz_s + pnr_rcr_s + pnr_rcg_s            + pnr_rcs_s + pnr_rci_s + pni_rfz_s) )          * orho
+      xrr=MAX(R1,(qr1d + qrten*dtsave)*rho)
+      xnr=MAX(R2,(nr1d + nrten*dtsave)*rho)
+      if (xrr.gt. R1) then
+      lamr = (am_r*crg(3)*org2*xnr/xrr)**obmr
+      mvd_r = (3.0 + mu_r + 0.672) / lamr
+      if (mvd_r .gt. 2.5E-3) then
+      mvd_r = 2.5E-3
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
+      nrten = (xnr-nr1d*rho)*odts*orho
+      elseif (mvd_r .lt. D0r*0.75) then
+      mvd_r = D0r*0.75
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      xnr = crg(2)*org3*xrr*lamr**bm_r / am_r
+      nrten = (xnr-nr1d*rho)*odts*orho
+      endif
+      else
+      qrten = -qr1d*odts
+      nrten = -nr1d*odts
+      endif
+      qsten = qsten + (prs_iau + prs_sde + prs_sci     + prs_scw + prs_rcs_s + prs_ide_s             - prs_ihm_s - prr_sml)                         * orho
+      qgten = qgten + (prg_scw + prg_rfz_s  + prg_gde + prg_rcg_s + prg_gcw  + prg_rci_s + prg_rcs_s - prg_ihm_s  - prr_gml)                           * orho
+      ngten = ngten + (png_scw_s + pnr_rfz_s - png_rcg_s     + pnr_rci_s + png_rcs_s + png_gde_s             - pnr_gml_s) * orho
+      qbten = qbten + (pbg_scw_s + pbg_rfz_s                  + pbg_gcw_s + pbg_rci_s + pbg_rcs_s             + pbg_rcg_s + pbg_sml_s - pbg_gml_s             + (prg_gde - prg_ihm_s) /rho_g(idx_bg) )    * orho
+      xrg=MAX(R1,(qg1d + qgten*dtsave)*rho)
+      xng=MAX(R2,(ng1d + ngten*dtsave)*rho)
+      xrb=MAX(xrg/rho/rho_g(NRHG),(qb1d + qbten*dtsave))
+      xrb=MIN(xrg/rho/rho_g(1), xrb)
+      if (xrg .gt. R1) then
+      lamg = (am_g(idx_bg)*cgg(3,1)*ogg2*xng/xrg)**obmg
+      mvd_g = (3.0 + mu_g + 0.672) / lamg
+      if(debug_flag) then
+      xrho_g = MAX(rho_g(1),MIN(rg/rho/rb,rho_g(NRHG)))
+      afall = a_coeff*((4.0*xrho_g*9.8)/(3.0*rho))**b_coeff
+      afall = afall * visco_s**(1.0-2.0*b_coeff)
+      vtg1 = rhof_s*afall*cgg(6,idx_bg)*ogg3 / lamg**bfall
+      vtg2 = rhof_s*afall*cgg(7,idx_bg)/cgg(12,idx_bg) / lamg**bfall
+      endif
+      if (mvd_g .gt. 25.4E-3) then
+      mvd_g = 25.4E-3
+      lamg = (3.0 + mu_g + 0.672) / mvd_g
+      xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg)
+      ngten = (xng-ng1d*rho)*odts*orho
+      elseif (mvd_g .lt. D0r) then
+      mvd_g = D0r
+      lamg = (3.0 + mu_g + 0.672) / mvd_g
+      xng = cgg(2,1)*ogg3*xrg*lamg**bm_g / am_g(idx_bg)
+      ngten = (xng-ng1d*rho)*odts*orho
+      endif
+      else
+      qgten = -qg1d*odts
+      ngten = -ng1d*odts
+      qbten = -qb1d*odts
+      endif
+      if (temp.lt.T_0) then
+      tten = tten  + ( lsub*ocp_s*(pri_inu_s + pri_ide_s  + prs_ide_s + prs_sde  + prg_gde + pri_iha_s)  + lfus2*ocp_s*(pri_wfz_s + pri_rfz_s  + prg_rfz_s + prs_scw  + prg_scw + prg_gcw  + prg_rcs_s + prs_rcs_s  + prr_rci_s + prg_rcg_s)  )*orho * (1-IFDRY)
+      else
+      tten = tten  + ( lfus*ocp_s*(-prr_sml - prr_gml  - prr_rcg_s - prr_rcs_s)  + lsub*ocp_s*(prs_sde + prg_gde)  )*orho * (1-IFDRY)
+      endif
+      if (th_probe == 2) return
+      temp = t1d + DT*tten
+      otemp = 1./temp
+      tempc = temp - 273.15
+      qv = MAX(1.E-10, qv1d + DT*qvten)
+      rho = 0.622*pres/(R*temp*(qv+0.622))
+      rhof = SQRT(RHO_NOT/rho)
+      rhof2 = SQRT(rhof)
+      qvs = rslf(pres, temp)
+      ssatw = qv/qvs - 1.
+      if (abs(ssatw).lt. eps) ssatw = 0.0
+      diffu = 2.11E-5*(temp/273.15)**1.94 * (101325./pres)
+      if (tempc .ge. 0.0) then
+      visco = (1.718+0.0049*tempc)*1.0E-5
+      else
+      visco = (1.718+0.0049*tempc-1.2E-5*tempc*tempc)*1.0E-5
+      endif
+      vsc2 = SQRT(rho/visco)
+      lvap = lvap0 + (2106.0 - 4218.0)*tempc
+      tcond = (5.69 + 0.0168*tempc)*1.0E-5 * 418.936
+      ocp = 1./(Cp*(1.+0.887*qv))
+      lvt2=lvap*lvap*ocp*oRv*otemp*otemp
+      nwfa = MAX(11.1E6, (nwfa1d + nwfaten*DT)*rho)
+      if ((qc1d + qcten*DT) .gt. R1) then
+      rc = (qc1d + qcten*DT)*rho
+      nc = MAX(2., MIN((nc1d+ncten*DT)*rho, Nt_c_max))
+      if (.NOT. is_aerosol_aware) nc = Nt_c
+      L_qc = .true.
+      else
+      rc = R1
+      nc = 2.
+      L_qc = .false.
+      endif
+      if ((qi1d + qiten*DT) .gt. R1) then
+      ri = (qi1d + qiten*DT)*rho
+      ni = MAX(R2, (ni1d + niten*DT)*rho)
+      L_qi = .true.
+      else
+      ri = R1
+      ni = R2
+      L_qi = .false.
+      endif
+      if ((qr1d + qrten*DT) .gt. R1) then
+      rr = (qr1d + qrten*DT)*rho
+      nr = MAX(R2, (nr1d + nrten*DT)*rho)
+      L_qr = .true.
+      lamr = (am_r*crg(3)*org2*nr/rr)**obmr
+      mvd_r = (3.0 + mu_r + 0.672) / lamr
+      if (mvd_r .gt. 2.5E-3) then
+      mvd_r = 2.5E-3
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      nr = crg(2)*org3*rr*lamr**bm_r / am_r
+      elseif (mvd_r .lt. D0r*0.75) then
+      mvd_r = D0r*0.75
+      lamr = (3.0 + mu_r + 0.672) / mvd_r
+      nr = crg(2)*org3*rr*lamr**bm_r / am_r
+      endif
+      else
+      rr = R1
+      nr = R2
+      L_qr = .false.
+      endif
+      if ((qs1d + qsten*DT) .gt. R1) then
+      rs = (qs1d + qsten*DT)*rho
+      L_qs = .true.
+      else
+      rs = R1
+      L_qs = .false.
+      endif
+      if (is_hail_aware) then
+      if ((qg1d + qgten*DT) .gt. R1) then
+      L_qg = .true.
+      rg = (qg1d + qgten*DT)*rho
+      ng = MAX(R2, (ng1d + ngten*DT)*rho)
+      rb = MAX(rg/rho/rho_g(NRHG), qb1d + qbten*DT)
+      rb = MIN(rg/rho/rho_g(1), rb)
+      idx_bg = MAX(1,MIN(NINT(rg/rho/rb *0.01)+1,NRHG))
+      else
+      rg = R1
+      ng = R2
+      rb = R1/rho/rho_g(NRHG)
+      idx_bg = idx_bg1
+      L_qg = .false.
+      endif
+      else
+      idx_bg = idx_bg1
+      if ((qg1d + qgten*DT) .gt. R1) then
+      rg = (qg1d + qgten*DT)*rho
+      ygra1 = alog10(max(1.E-9, rg))
+      zans1 = 3.0 + 2./7.*(ygra1+8.)
+      zans1 = MAX(2., MIN(zans1, 6.))
+      N0_exp = 10.**(zans1)
+      lam_exp = (N0_exp*am_g(idx_bg)*cgg(1,1)/rg)**oge1
+      lamg = lam_exp * (cgg(3,1)*ogg2*ogg1)**obmg
+      ng = cgg(2,1)*ogg3*rg*lamg**bm_g / am_g(idx_bg)
+      rb = rg/rho/rho_g(idx_bg)
+      else
+      rg = R1
+      ng = R2
+      rb = R1/rho/rho_g(NRHG)
+      L_qg = .false.
+      endif
+      endif
+      if (.not. iiwarm) then
+      smo2 = 0.
+      smob = 0.
+      smoc = 0.
+      smod = 0.
+      do thonce = 1, 1
+      if (.not. L_qs) CYCLE
+      tc0 = MIN(-0.1, temp-273.15)
+      smob = rs*oams
+      if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
+      smo2 = smob
+      else
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*bm_s  + sa(4)*tc0*bm_s + sa(5)*tc0*tc0  + sa(6)*bm_s*bm_s + sa(7)*tc0*tc0*bm_s  + sa(8)*tc0*bm_s*bm_s + sa(9)*tc0*tc0*tc0  + sa(10)*bm_s*bm_s*bm_s
+      a_ = 10.0**loga_
+      b_ = sb(1) + sb(2)*tc0 + sb(3)*bm_s  + sb(4)*tc0*bm_s + sb(5)*tc0*tc0  + sb(6)*bm_s*bm_s + sb(7)*tc0*tc0*bm_s  + sb(8)*tc0*bm_s*bm_s + sb(9)*tc0*tc0*tc0  + sb(10)*bm_s*bm_s*bm_s
+      smo2 = (smob/a_)**(1./b_)
+      endif
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(1)  + sa(4)*tc0*cse(1) + sa(5)*tc0*tc0  + sa(6)*cse(1)*cse(1) + sa(7)*tc0*tc0*cse(1)  + sa(8)*tc0*cse(1)*cse(1) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(1)*cse(1)*cse(1)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(1) + sb(4)*tc0*cse(1)  + sb(5)*tc0*tc0 + sb(6)*cse(1)*cse(1)  + sb(7)*tc0*tc0*cse(1) + sb(8)*tc0*cse(1)*cse(1)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(1)*cse(1)*cse(1)
+      smoc = a_ * smo2**b_
+      loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(14)  + sa(4)*tc0*cse(14) + sa(5)*tc0*tc0  + sa(6)*cse(14)*cse(14) + sa(7)*tc0*tc0*cse(14)  + sa(8)*tc0*cse(14)*cse(14) + sa(9)*tc0*tc0*tc0  + sa(10)*cse(14)*cse(14)*cse(14)
+      a_ = 10.0**loga_
+      b_ = sb(1)+ sb(2)*tc0 + sb(3)*cse(14) + sb(4)*tc0*cse(14)  + sb(5)*tc0*tc0 + sb(6)*cse(14)*cse(14)  + sb(7)*tc0*tc0*cse(14) + sb(8)*tc0*cse(14)*cse(14)  + sb(9)*tc0*tc0*tc0 + sb(10)*cse(14)*cse(14)*cse(14)
+      smod = a_ * smo2**b_
+      enddo
+      if (th_probe == 3) return
+      lamg = (am_g(idx_bg)*cgg(3,1)*ogg2*ng/rg)**obmg
+      ilamg = 1./lamg
+      N0_g = ng*ogg2*lamg**cge(2,1)
+      endif
+      lamr = (am_r*crg(3)*org2*nr/rr)**obmr
+      ilamr = 1./lamr
+      mvd_r = (3.0 + mu_r + 0.672) / lamr
+      N0_r = nr*org2*lamr**cre(2)
+      orho = 1./rho
+      if ( (ssatw.gt. eps) .or. (ssatw.lt. -eps .and.  L_qc) ) then
+      clap = (qv-qvs)/(1. + lvt2*qvs)
+      do n = 1, 3
+      fcd = qvs* EXP(lvt2*clap) - qv + clap
+      dfcd = qvs*lvt2* EXP(lvt2*clap) + 1.
+      clap = clap - fcd/dfcd
+      enddo
+      xrc = rc + clap*rho
+      xnc = 0.
+      if (xrc.gt. R1) then
+      prw_vcd = clap*odt
+      if (clap .gt. eps) then
+      if (is_aerosol_aware) then
+      xnc = MAX(2., activ_ncloud(temp, w1d, nwfa))
+      else
+      xnc = Nt_c
+      endif
+      pnc_wcd = 0.5*(xnc-nc + abs(xnc-nc))*odts*orho
+      elseif (clap .lt. -eps .AND. ssatw.lt.-1.E-6 .AND. is_aerosol_aware) then
+      tempc = temp - 273.15
+      otemp = 1./temp
+      rvs = rho*qvs
+      rvs_p = rvs*otemp*(lvap*otemp*oRv - 1.)
+      rvs_pp = rvs * ( otemp*(lvap*otemp*oRv - 1.)  *otemp*(lvap*otemp*oRv - 1.)  + (-2.*lvap*otemp*otemp*otemp*oRv)  + otemp*otemp)
+      gamsc = lvap*diffu/tcond * rvs_p
+      alphsc = 0.5*(gamsc/(1.+gamsc))*(gamsc/(1.+gamsc))  * rvs_pp/rvs_p * rvs/rvs_p
+      alphsc = MAX(1.E-9, alphsc)
+      xsat = ssatw
+      if (abs(xsat).lt. 1.E-9) xsat=0.
+      t1_evap = 2.*PI*( 1.0 - alphsc*xsat   + 2.*alphsc*alphsc*xsat*xsat   - 5.*alphsc*alphsc*alphsc*xsat*xsat*xsat )  / (1.+gamsc)
+      Dc_star = DSQRT(-2.D0*DT * t1_evap/(2.*PI)  * 4.*diffu*ssatw*rvs/rho_w)
+      idx_d = MAX(1, MIN(INT(1.E6*Dc_star), nbc))
+      idx_n = NINT(1.0 + FLOAT(nbc) * DLOG(nc/t_Nc(1)) / nic1)
+      idx_n = MAX(1, MIN(idx_n, nbc))
+      if (rc.gt. r_c(1)) then
+      nic = NINT(ALOG10(rc))
+      do nn = nic-1, nic+1
+      n = nn
+      if ( (rc/10.**nn).ge.1.0 .and.  (rc/10.**nn).lt.10.0) goto 159
+      enddo
+      159         continue
+      idx_c = INT(rc/10.**n) + 10*(n-nic2) - (n-nic2)
+      idx_c = MAX(1, MIN(idx_c, ntb_c))
+      else
+      idx_c = 1
+      endif
+      prw_vcd = MAX(DBLE(-rc*0.99*orho*odt), prw_vcd)
+      pnc_wcd = MAX(DBLE(-nc*0.99*orho*odt),                 DBLE(-tnc_wev(idx_d, idx_c, idx_n)*orho*odt))
+      endif
+      else
+      prw_vcd = -rc*orho*odt
+      pnc_wcd = -nc*orho*odt
+      endif
+      qvten = qvten - prw_vcd
+      qcten = qcten + prw_vcd
+      ncten = ncten + pnc_wcd
+      nwfaten = nwfaten - pnc_wcd
+      tten = tten + lvap*ocp*prw_vcd*(1-IFDRY)
+      rc = MAX(R1, (qc1d + DT*qcten)*rho)
+      if (rc.eq.R1) L_qc = .false.
+      nc = MAX(2., MIN((nc1d+ncten*DT)*rho, Nt_c_max))
+      if (.NOT. is_aerosol_aware) nc = Nt_c
+      qv = MAX(1.E-10, qv1d + DT*qvten)
+      temp = t1d + DT*tten
+      rho = 0.622*pres/(R*temp*(qv+0.622))
+      qvs = rslf(pres, temp)
+      ssatw = qv/qvs - 1.
+      endif
+      if ( (ssatw.lt. -eps) .and. L_qr  .and. (.not.(prw_vcd.gt. 0.)) ) then
+      tempc = temp - 273.15
+      otemp = 1./temp
+      orho = 1./rho
+      rhof = SQRT(RHO_NOT*orho)
+      rhof2 = SQRT(rhof)
+      diffu = 2.11E-5*(temp/273.15)**1.94 * (101325./pres)
+      if (tempc .ge. 0.0) then
+      visco = (1.718+0.0049*tempc)*1.0E-5
+      else
+      visco = (1.718+0.0049*tempc-1.2E-5*tempc*tempc)*1.0E-5
+      endif
+      vsc2 = SQRT(rho/visco)
+      lvap = lvap0 + (2106.0 - 4218.0)*tempc
+      tcond = (5.69 + 0.0168*tempc)*1.0E-5 * 418.936
+      ocp = 1./(Cp*(1.+0.887*qv))
+      rvs = rho*qvs
+      rvs_p = rvs*otemp*(lvap*otemp*oRv - 1.)
+      rvs_pp = rvs * ( otemp*(lvap*otemp*oRv - 1.)  *otemp*(lvap*otemp*oRv - 1.)  + (-2.*lvap*otemp*otemp*otemp*oRv)  + otemp*otemp)
+      gamsc = lvap*diffu/tcond * rvs_p
+      alphsc = 0.5*(gamsc/(1.+gamsc))*(gamsc/(1.+gamsc))  * rvs_pp/rvs_p * rvs/rvs_p
+      alphsc = MAX(1.E-9, alphsc)
+      xsat   = MIN(-1.E-9, ssatw)
+      t1_evap = 2.*PI*( 1.0 - alphsc*xsat   + 2.*alphsc*alphsc*xsat*xsat   - 5.*alphsc*alphsc*alphsc*xsat*xsat*xsat )  / (1.+gamsc)
+      lamr = 1./ilamr
+      if (qv/qvs .lt. 0.95 .AND. rr*orho.le.1.E-8) then
+      prv_rev = rr*orho*odts
+      else
+      prv_rev = t1_evap*diffu*(-ssatw)*N0_r*rvs  * (t1_qr_ev*ilamr**cre(10)  + t2_qr_ev*vsc2*rhof2*((lamr+0.5*fv_r)**(-cre(11))))
+      rate_max = MIN((rr*orho*odts), (qvs-qv)*odts)
+      prv_rev = MIN(DBLE(rate_max), prv_rev*orho)
+      IF (prr_gml.gt.0.0) THEN
+      eva_factor = MIN(1.0, 0.01+(0.99-0.01)*(tempc/20.0))
+      prv_rev = prv_rev*eva_factor
+      ENDIF
+      endif
+      pnr_rev = MIN(DBLE(nr*0.99*orho*odts),                   prv_rev * nr/rr)
+      qrten = qrten - prv_rev
+      qvten = qvten + prv_rev
+      nrten = nrten - pnr_rev
+      nwfaten = nwfaten + pnr_rev
+      tten = tten - lvap*ocp*prv_rev*(1-IFDRY)
+      rr = MAX(R1, (qr1d + DT*qrten)*rho)
+      qv = MAX(1.E-10, qv1d + DT*qvten)
+      nr = MAX(R2, (nr1d + DT*nrten)*rho)
+      temp = t1d + DT*tten
+      rho = 0.622*pres/(R*temp*(qv+0.622))
+      endif
+      if (th_probe == 4) return
+      end subroutine thom_lev
+
+!.. GPU (WRF_GPU_THLEV): mp_thompson from the sedimentation on (generated by thgen.py); the per-level
+!.. phase's arrays arrive as arguments (filled by thom_lev in the band scratch).
+      subroutine thom_tail(aer_init_opt, wif_input_opt, qv1d, qc1d, qi1d, qr1d, &
+                          qs1d, qg1d, qb1d, ni1d, nr1d, nc1d, &
+                          ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, &
+                          w1d, dzq, pptrain, pptsnow, pptgraul, pptice, &
+                          kts, kte, dt, ii, jj, thic, &
+                          thjjb)
+!$acc routine seq
+      implicit none
+      INTEGER, INTENT(IN):: aer_init_opt
+      INTEGER, INTENT(IN):: wif_input_opt
+      INTEGER, INTENT(IN):: kts
+      INTEGER, INTENT(IN):: kte
+      INTEGER, INTENT(IN):: ii
+      INTEGER, INTENT(IN):: jj
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qv1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qc1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qi1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qr1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qs1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qg1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qb1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: ni1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nr1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nc1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: ng1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nwfa1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nifa1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nbca1d
+      REAL, DIMENSION(kts:kte), INTENT(INOUT):: t1d
+      REAL, DIMENSION(kts:kte), INTENT(IN):: p1d
+      REAL, DIMENSION(kts:kte), INTENT(IN):: w1d
+      REAL, DIMENSION(kts:kte), INTENT(IN):: dzq
+      REAL, INTENT(INOUT):: pptrain
+      REAL, INTENT(INOUT):: pptsnow
+      REAL, INTENT(INOUT):: pptgraul
+      REAL, INTENT(INOUT):: pptice
+      REAL, INTENT(IN):: dt
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prw_vcd
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_wcd
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_wau
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_rcw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_scw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnc_gcw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pna_rca
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pna_sca
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pna_gca
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnd_rcd
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnd_scd
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnd_gcd
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnb_rcb
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnb_scb
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnb_gcb
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_wau
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_rcw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_rcg
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_gml
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prr_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prv_rev
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_wau
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rcg
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_sml
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_gml
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rev
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rcr
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pnr_rfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_inu
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_inu
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_ihm
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_ihm
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_wfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_wfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_rfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_rfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_ide
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_ide
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_sci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_iau
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pri_iha
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pni_iha
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_iau
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_sci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_scw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_sde
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_ihm
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prs_ide
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_scw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_rfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_gde
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_gcw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_rcg
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: prg_ihm
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: png_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: png_rcg
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: png_scw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: png_gde
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_scw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_rfz
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_gcw
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_rci
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_rcs
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_rcg
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_sml
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: pbg_gml
+      DOUBLE PRECISION, PARAMETER:: zerod0 = 0.0d0
+      DOUBLE PRECISION:: pnc_wau_s
+      DOUBLE PRECISION:: pnc_rcw_s
+      DOUBLE PRECISION:: pnc_scw_s
+      DOUBLE PRECISION:: pnc_gcw_s
+      DOUBLE PRECISION:: prr_rcs_s
+      DOUBLE PRECISION:: prr_rcg_s
+      DOUBLE PRECISION:: prr_rci_s
+      DOUBLE PRECISION:: pnr_wau_s
+      DOUBLE PRECISION:: pnr_rcs_s
+      DOUBLE PRECISION:: pnr_rcg_s
+      DOUBLE PRECISION:: pnr_rci_s
+      DOUBLE PRECISION:: pnr_sml_s
+      DOUBLE PRECISION:: pnr_gml_s
+      DOUBLE PRECISION:: pnr_rcr_s
+      DOUBLE PRECISION:: pnr_rfz_s
+      DOUBLE PRECISION:: pri_inu_s
+      DOUBLE PRECISION:: pni_inu_s
+      DOUBLE PRECISION:: pri_ihm_s
+      DOUBLE PRECISION:: pni_ihm_s
+      DOUBLE PRECISION:: pri_wfz_s
+      DOUBLE PRECISION:: pni_wfz_s
+      DOUBLE PRECISION:: pri_rfz_s
+      DOUBLE PRECISION:: pni_rfz_s
+      DOUBLE PRECISION:: pri_ide_s
+      DOUBLE PRECISION:: pni_ide_s
+      DOUBLE PRECISION:: pni_rci_s
+      DOUBLE PRECISION:: pni_sci_s
+      DOUBLE PRECISION:: pni_iau_s
+      DOUBLE PRECISION:: pri_iha_s
+      DOUBLE PRECISION:: pni_iha_s
+      DOUBLE PRECISION:: prs_rcs_s
+      DOUBLE PRECISION:: prs_ihm_s
+      DOUBLE PRECISION:: prs_ide_s
+      DOUBLE PRECISION:: prg_rfz_s
+      DOUBLE PRECISION:: prg_rci_s
+      DOUBLE PRECISION:: prg_rcs_s
+      DOUBLE PRECISION:: prg_rcg_s
+      DOUBLE PRECISION:: prg_ihm_s
+      DOUBLE PRECISION:: png_scw_s
+      DOUBLE PRECISION:: png_rcs_s
+      DOUBLE PRECISION:: png_rcg_s
+      DOUBLE PRECISION:: png_gde_s
+      DOUBLE PRECISION:: pbg_scw_s
+      DOUBLE PRECISION:: pbg_rfz_s
+      DOUBLE PRECISION:: pbg_gcw_s
+      DOUBLE PRECISION:: pbg_rci_s
+      DOUBLE PRECISION:: pbg_rcs_s
+      DOUBLE PRECISION:: pbg_rcg_s
+      DOUBLE PRECISION:: pbg_sml_s
+      DOUBLE PRECISION:: pbg_gml_s
+      DOUBLE PRECISION:: pna_rca_s
+      DOUBLE PRECISION:: pna_sca_s
+      DOUBLE PRECISION:: pna_gca_s
+      DOUBLE PRECISION:: pnd_rcd_s
+      DOUBLE PRECISION:: pnd_scd_s
+      DOUBLE PRECISION:: pnd_gcd_s
+      DOUBLE PRECISION:: pnb_rcb_s
+      DOUBLE PRECISION:: pnb_scb_s
+      DOUBLE PRECISION:: pnb_gcb_s
+      REAL, DIMENSION(1:KTGPU):: twet
+      REAL, DIMENSION(1:KTGPU):: pres
+      REAL, DIMENSION(1:KTGPU):: qv
+      REAL, DIMENSION(1:KTGPU):: ns
+      REAL, DIMENSION(1:KTGPU):: nwfa
+      REAL, DIMENSION(1:KTGPU):: nifa
+      REAL, DIMENSION(1:KTGPU):: nbca
+      REAL, DIMENSION(1:KTGPU):: rhof2
+      REAL, DIMENSION(1:KTGPU):: qvs
+      REAL, DIMENSION(1:KTGPU):: qvsi
+      REAL, DIMENSION(1:KTGPU):: delqvs
+      REAL, DIMENSION(1:KTGPU):: satw
+      REAL, DIMENSION(1:KTGPU):: sati
+      REAL, DIMENSION(1:KTGPU):: ssatw
+      REAL, DIMENSION(1:KTGPU):: ssati
+      REAL, DIMENSION(1:KTGPU):: diffu
+      REAL, DIMENSION(1:KTGPU):: vsc2
+      REAL, DIMENSION(1:KTGPU):: tcond
+      REAL, DIMENSION(1:KTGPU):: lvt2
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: ilamr
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: n0_r
+      DOUBLE PRECISION, DIMENSION(1:KTGPU):: n0_g
+      DOUBLE PRECISION:: n0_melt
+      REAL, DIMENSION(1:KTGPU):: mvd_c
+      REAL, DIMENSION(1:KTGPU):: smo2
+      REAL, DIMENSION(1:KTGPU):: smo1
+      REAL, DIMENSION(1:KTGPU):: smo0
+      REAL, DIMENSION(1:KTGPU):: smod
+      REAL, DIMENSION(1:KTGPU):: smoe
+      REAL, DIMENSION(1:KTGPU):: smof
+      REAL, DIMENSION(1:KTGPU):: smog
+      REAL, DIMENSION(1:KTGPU):: sed_r
+      REAL, DIMENSION(1:KTGPU):: sed_s
+      REAL, DIMENSION(1:KTGPU):: sed_g
+      REAL, DIMENSION(1:KTGPU):: sed_i
+      REAL, DIMENSION(1:KTGPU):: sed_n
+      REAL, DIMENSION(1:KTGPU):: sed_c
+      REAL, DIMENSION(1:KTGPU):: sed_b
+      REAL:: rgvm
+      REAL:: delta_tp
+      REAL:: orho
+      REAL:: lfus2
+      REAL, DIMENSION(5):: onstep
+      DOUBLE PRECISION:: n0_exp
+      DOUBLE PRECISION:: n0_min
+      DOUBLE PRECISION:: lam_exp
+      DOUBLE PRECISION:: lamc
+      DOUBLE PRECISION:: lamr
+      DOUBLE PRECISION:: lamg
+      DOUBLE PRECISION:: lami
+      DOUBLE PRECISION:: ilami
+      DOUBLE PRECISION:: ilamc
+      REAL:: xdc
+      REAL:: dc_b
+      REAL:: dc_g
+      REAL:: xdi
+      REAL:: xdr
+      REAL:: xds
+      REAL:: xdg
+      REAL:: ds_m
+      REAL:: dg_m
+      DOUBLE PRECISION:: dr_star
+      DOUBLE PRECISION:: dc_star
+      REAL:: zeta1
+      REAL:: zeta
+      REAL:: taud
+      REAL:: tau
+      REAL:: stoke_r
+      REAL:: stoke_s
+      REAL:: stoke_g
+      REAL:: stoke_i
+      REAL:: vti
+      REAL:: vtr
+      REAL:: vts
+      REAL:: vtg
+      REAL:: vtc
+      REAL:: xrho_g
+      REAL:: afall
+      REAL:: vtg1
+      REAL:: vtg2
+      REAL:: bfall
+      REAL, DIMENSION(1:KTGPU+1):: vtik
+      REAL, DIMENSION(1:KTGPU+1):: vtnik
+      REAL, DIMENSION(1:KTGPU+1):: vtrk
+      REAL, DIMENSION(1:KTGPU+1):: vtnrk
+      REAL, DIMENSION(1:KTGPU+1):: vtsk
+      REAL, DIMENSION(1:KTGPU+1):: vtgk
+      REAL, DIMENSION(1:KTGPU+1):: vtngk
+      REAL, DIMENSION(1:KTGPU+1):: vtck
+      REAL, DIMENSION(1:KTGPU+1):: vtnck
+      REAL:: m0
+      REAL:: slam1
+      REAL:: slam2
+      REAL:: mrat
+      REAL:: ils1
+      REAL:: ils2
+      REAL:: t1_vts
+      REAL:: t2_vts
+      REAL:: t3_vts
+      REAL:: t4_vts
+      REAL:: c_snow
+      REAL:: a_
+      REAL:: b_
+      REAL:: loga_
+      REAL:: a1
+      REAL:: a2
+      REAL:: tf
+      REAL:: tempc
+      REAL:: tc0
+      REAL:: r_mvd1
+      REAL:: r_mvd2
+      REAL:: xkrat
+      REAL:: dew_t
+      REAL:: tlcl
+      REAL:: the
+      REAL:: twet_k
+      REAL:: tempc_s
+      REAL:: rhof_s
+      REAL:: rhof2_s
+      REAL:: qvs_s
+      REAL:: delqvs_s
+      REAL:: qvsi_s
+      REAL:: satw_s
+      REAL:: sati_s
+      REAL:: ssatw_s
+      REAL:: ssati_s
+      REAL:: diffu_s
+      REAL:: visco_s
+      REAL:: ocp_s
+      REAL:: vsc2_s
+      REAL:: lvap_s
+      REAL:: tcond_s
+      REAL:: xnc
+      REAL:: xri
+      REAL:: xni
+      REAL:: xmi
+      REAL:: oxmi
+      REAL:: xrc
+      REAL:: xrr
+      REAL:: xnr
+      REAL:: xrg
+      REAL:: xng
+      REAL:: xrb
+      REAL:: xsat
+      REAL:: rate_max
+      REAL:: sump
+      REAL:: ratio
+      REAL:: clap
+      REAL:: fcd
+      REAL:: dfcd
+      REAL:: otemp
+      REAL:: rvs
+      REAL:: rvs_p
+      REAL:: rvs_pp
+      REAL:: gamsc
+      REAL:: alphsc
+      REAL:: t1_evap
+      REAL:: t1_subl
+      REAL:: r_frac
+      REAL:: g_frac
+      REAL:: const_ri
+      REAL:: rime_dens
+      REAL:: ef_rw
+      REAL:: ef_sw
+      REAL:: ef_gw
+      REAL:: ef_rr
+      REAL:: ef_ra
+      REAL:: ef_sa
+      REAL:: ef_ga
+      REAL:: dtsave
+      REAL:: odts
+      REAL:: odt
+      REAL:: odzq
+      REAL:: hgt_agl
+      REAL:: xslw1
+      REAL:: ygra1
+      REAL:: zans1
+      REAL:: eva_factor
+      REAL:: sr
+      REAL:: melt_f
+      INTEGER:: i
+      INTEGER:: k
+      INTEGER:: k2
+      INTEGER:: n
+      INTEGER:: nn
+      INTEGER:: nstep
+      INTEGER:: k_0
+      INTEGER:: kbot
+      INTEGER:: it
+      INTEGER:: iexfrq
+      INTEGER:: k_melting
+      INTEGER, DIMENSION(5):: ksed1
+      INTEGER:: nir
+      INTEGER:: nis
+      INTEGER:: nig
+      INTEGER:: nii
+      INTEGER:: nic
+      INTEGER:: niin
+      INTEGER:: idx_tc
+      INTEGER:: idx_t
+      INTEGER:: idx_s
+      INTEGER:: idx_g1
+      INTEGER:: idx_g
+      INTEGER:: idx_r1
+      INTEGER:: idx_r
+      INTEGER:: idx_i1
+      INTEGER:: idx_i
+      INTEGER:: idx_c
+      INTEGER:: idx
+      INTEGER:: idx_d
+      INTEGER:: idx_n
+      INTEGER:: idx_in
+      LOGICAL:: melti
+      LOGICAL:: no_micro
+      LOGICAL:: debug_flag
+      CHARACTER*256:: mp_debug
+      INTEGER:: nu_c
+      INTEGER, INTENT(IN):: thic, thjjb
+      dtsave = dt
+      odt = 1./dt
+      odts = 1./dtsave
+      iexfrq = 1
+      nstep = 0
+      onstep(:) = 1.0
+      ksed1(:) = 1
+      do k = kte+1, kts, -1
+         vtrk(k) = 0.
+         vtnrk(k) = 0.
+         vtik(k) = 0.
+         vtnik(k) = 0.
+         vtsk(k) = 0.
+         vtgk(k) = 0.
+         vtngk(k) = 0.
+         vtck(k) = 0.
+         vtnck(k) = 0.
+      enddo
+
+      if (ANY(thb_l_qr(thic,kts:kte,thjjb))) then
+      do k = kte, kts, -1
+         vtr = 0.
+         thb_rhof(thic,k,thjjb) = SQRT(RHO_NOT/thb_rho(thic,k,thjjb))
+
+         if (thb_rr(thic,k,thjjb).gt. R1) then
+          lamr = (am_r*crg(3)*org2*thb_nr(thic,k,thjjb)/thb_rr(thic,k,thjjb))**obmr
+          vtr = thb_rhof(thic,k,thjjb)*av_r*crg(6)*org3 * lamr**cre(3)                 &
+                      *((lamr+fv_r)**(-cre(6)))
+          vtrk(k) = vtr
+
+
+
+
+
+          vtr = thb_rhof(thic,k,thjjb)*av_r*crg(7)/crg(12) * lamr**cre(12)             &
+                      *((lamr+fv_r)**(-cre(7)))
+          vtnrk(k) = vtr
+         else
+          vtrk(k) = vtrk(k+1)
+          vtnrk(k) = vtnrk(k+1)
+         endif
+
+         if (MAX(vtrk(k),vtnrk(k)) .gt. 1.E-3) then
+            ksed1(1) = MAX(ksed1(1), k)
+            delta_tp = dzq(k)/(MAX(vtrk(k),vtnrk(k)))
+            nstep = MAX(nstep, INT(DT/delta_tp + 1.))
+         endif
+      enddo
+      if (ksed1(1) .eq. kte) ksed1(1) = kte-1
+      if (nstep .gt. 0) onstep(1) = 1./REAL(nstep)
+      endif
+
+
+
+      if (ANY(thb_l_qc(thic,kts:kte,thjjb))) then
+      hgt_agl = 0.
+      do k = kts, kte-1
+         if (thb_rc(thic,k,thjjb) .gt. R2) ksed1(5) = k
+         hgt_agl = hgt_agl + dzq(k)
+         if (hgt_agl .gt. 500.0) goto 151
+      enddo
+ 151  continue
+
+      do k = ksed1(5), kts, -1
+         vtc = 0.
+         if (thb_rc(thic,k,thjjb) .gt. R1 .and. w1d(k) .lt. 1.E-1) then
+          nu_c = MIN(15, NINT(1000.E6/thb_nc(thic,k,thjjb)) + 2)
+          lamc = (thb_nc(thic,k,thjjb)*am_r*ccg(2,nu_c)*ocg1(nu_c)/thb_rc(thic,k,thjjb))**obmr
+          ilamc = 1./lamc
+          vtc = thb_rhof(thic,k,thjjb)*av_c*ccg(5,nu_c)*ocg2(nu_c) * ilamc**bv_c
+          vtck(k) = vtc
+          vtc = thb_rhof(thic,k,thjjb)*av_c*ccg(4,nu_c)*ocg1(nu_c) * ilamc**bv_c
+          vtnck(k) = vtc
+         endif
+      enddo
+      endif
+
+
+
+      if (.not. iiwarm) then
+
+       if (ANY(thb_l_qi(thic,kts:kte,thjjb))) then
+       nstep = 0
+       do k = kte, kts, -1
+          vti = 0.
+
+          if (thb_ri(thic,k,thjjb).gt. R1) then
+           lami = (am_i*cig(2)*oig1*thb_ni(thic,k,thjjb)/thb_ri(thic,k,thjjb))**obmi
+           ilami = 1./lami
+           vti = thb_rhof(thic,k,thjjb)*av_i*cig(3)*oig2 * ilami**bv_i
+           vtik(k) = vti
+
+
+
+           vti = thb_rhof(thic,k,thjjb)*av_i*cig(6)/cig(7) * ilami**bv_i
+           vtnik(k) = vti
+          else
+           vtik(k) = vtik(k+1)
+           vtnik(k) = vtnik(k+1)
+          endif
+
+          if (vtik(k) .gt. 1.E-3) then
+             ksed1(2) = MAX(ksed1(2), k)
+             delta_tp = dzq(k)/vtik(k)
+             nstep = MAX(nstep, INT(DT/delta_tp + 1.))
+          endif
+       enddo
+       if (ksed1(2) .eq. kte) ksed1(2) = kte-1
+       if (nstep .gt. 0) onstep(2) = 1./REAL(nstep)
+       endif
+
+
+
+       if (ANY(thb_l_qs(thic,kts:kte,thjjb))) then
+       nstep = 0
+       do k = kte, kts, -1
+          vts = 0.
+
+          if (thb_rs(thic,k,thjjb).gt. R1) then
+           xDs = thb_smoc(thic,k,thjjb) / thb_smob(thic,k,thjjb)
+           Mrat = 1./xDs
+           ils1 = 1./(Mrat*Lam0 + fv_s)
+           ils2 = 1./(Mrat*Lam1 + fv_s)
+           t1_vts = Kap0*csg(4)*ils1**cse(4)
+           t2_vts = Kap1*Mrat**mu_s*csg(10)*ils2**cse(10)
+           ils1 = 1./(Mrat*Lam0)
+           ils2 = 1./(Mrat*Lam1)
+           t3_vts = Kap0*csg(1)*ils1**cse(1)
+           t4_vts = Kap1*Mrat**mu_s*csg(7)*ils2**cse(7)
+           vts = thb_rhof(thic,k,thjjb)*av_s * (t1_vts+t2_vts)/(t3_vts+t4_vts)
+           if (thb_prr_sml(thic,k,thjjb) .gt. 0.0) then 
+            SR = thb_rs(thic,k,thjjb)/(thb_rs(thic,k,thjjb)+thb_rr(thic,k,thjjb))
+            vtsk(k) = vts*SR + (1.-SR)*vtrk(k)
+           else
+            vtsk(k) = vts*thb_vts_boost(thic,k,thjjb)
+           endif
+          else
+            vtsk(k) = vtsk(k+1)
+          endif
+
+          if (vtsk(k) .gt. 1.E-3) then
+             ksed1(3) = MAX(ksed1(3), k)
+             delta_tp = dzq(k)/vtsk(k)
+             nstep = MAX(nstep, INT(DT/delta_tp + 1.))
+          endif
+       enddo
+       if (ksed1(3) .eq. kte) ksed1(3) = kte-1
+       if (nstep .gt. 0) onstep(3) = 1./REAL(nstep)
+       endif
+
+
+
+       if (ANY(thb_l_qg(thic,kts:kte,thjjb))) then
+       nstep = 0
+       do k = kte, kts, -1
+          vtg = 0.
+
+          if (thb_rg(thic,k,thjjb).gt. R1) then
+           if (is_hail_aware) then
+              xrho_g = MAX(rho_g(1),MIN(thb_rg(thic,k,thjjb)/thb_rho(thic,k,thjjb)/thb_rb(thic,k,thjjb),rho_g(NRHG)))
+              afall = a_coeff*((4.0*xrho_g*9.8)/(3.0*thb_rho(thic,k,thjjb)))**b_coeff
+              afall = afall * thb_visco(thic,k,thjjb)**(1.0-2.0*b_coeff)
+           else
+              afall = av_g_old
+              bfall = bv_g_old
+           endif
+           vtg = thb_rhof(thic,k,thjjb)*afall*cgg(6,thb_idx_bg(thic,k,thjjb))*ogg3 * thb_ilamg(thic,k,thjjb)**bfall
+            vtgk(k) = vtg
+
+
+           if (mu_g .eq. 0) then
+              vtg = thb_rhof(thic,k,thjjb)*afall*cgg(7,thb_idx_bg(thic,k,thjjb))/cgg(12,thb_idx_bg(thic,k,thjjb)) * thb_ilamg(thic,k,thjjb)**bfall
+           else
+              vtg = thb_rhof(thic,k,thjjb)*afall*cgg(8,thb_idx_bg(thic,k,thjjb))*ogg2 * thb_ilamg(thic,k,thjjb)**bfall
+           endif
+           vtngk(k) = vtg
+          else
+            vtgk(k) = vtgk(k+1)
+           vtngk(k) = vtngk(k+1)
+          endif
+
+          if (vtgk(k) .gt. 1.E-3) then
+             ksed1(4) = MAX(ksed1(4), k)
+             delta_tp = dzq(k)/vtgk(k)
+             nstep = MAX(nstep, INT(DT/delta_tp + 1.))
+          endif
+       enddo
+       if (ksed1(4) .eq. kte) ksed1(4) = kte-1
+       if (nstep .gt. 0) onstep(4) = 1./REAL(nstep)
+       endif
+      endif
+
+
+
+
+
+
+
+      if (ANY(thb_l_qr(thic,kts:kte,thjjb))) then
+      nstep = NINT(1./onstep(1))
+      do n = 1, nstep
+         do k = kte, kts, -1
+            sed_r(k) = vtrk(k)*thb_rr(thic,k,thjjb)
+            sed_n(k) = vtnrk(k)*thb_nr(thic,k,thjjb)
+         enddo
+         k = kte
+         odzq = 1./dzq(k)
+         orho = 1./thb_rho(thic,k,thjjb)
+         thb_qrten(thic,k,thjjb) = thb_qrten(thic,k,thjjb) - sed_r(k)*odzq*onstep(1)*orho
+         thb_nrten(thic,k,thjjb) = thb_nrten(thic,k,thjjb) - sed_n(k)*odzq*onstep(1)*orho
+         thb_rr(thic,k,thjjb) = MAX(R1, thb_rr(thic,k,thjjb) - sed_r(k)*odzq*DT*onstep(1))
+         thb_nr(thic,k,thjjb) = MAX(R2, thb_nr(thic,k,thjjb) - sed_n(k)*odzq*DT*onstep(1))
+         do k = ksed1(1), kts, -1
+            odzq = 1./dzq(k)
+            orho = 1./thb_rho(thic,k,thjjb)
+            thb_qrten(thic,k,thjjb) = thb_qrten(thic,k,thjjb) + (sed_r(k+1)-sed_r(k))                 &
+                                               *odzq*onstep(1)*orho
+            thb_nrten(thic,k,thjjb) = thb_nrten(thic,k,thjjb) + (sed_n(k+1)-sed_n(k))                 &
+                                               *odzq*onstep(1)*orho
+            thb_rr(thic,k,thjjb) = MAX(R1, thb_rr(thic,k,thjjb) + (sed_r(k+1)-sed_r(k)) &
+                                           *odzq*DT*onstep(1))
+            thb_nr(thic,k,thjjb) = MAX(R2, thb_nr(thic,k,thjjb) + (sed_n(k+1)-sed_n(k)) &
+                                           *odzq*DT*onstep(1))
+         enddo
+
+         if (thb_rr(thic,kts,thjjb).gt.R1*1000.) &
+         pptrain = pptrain + sed_r(kts)*DT*onstep(1)
+      enddo
+      endif
+
+
+
+      if (ANY(thb_l_qc(thic,kts:kte,thjjb))) then
+      do k = kte, kts, -1
+         sed_c(k) = vtck(k)*thb_rc(thic,k,thjjb)
+         sed_n(k) = vtnck(k)*thb_nc(thic,k,thjjb)
+      enddo
+      do k = ksed1(5), kts, -1
+         odzq = 1./dzq(k)
+         orho = 1./thb_rho(thic,k,thjjb)
+         thb_qcten(thic,k,thjjb) = thb_qcten(thic,k,thjjb) + (sed_c(k+1)-sed_c(k)) *odzq*orho
+         thb_ncten(thic,k,thjjb) = thb_ncten(thic,k,thjjb) + (sed_n(k+1)-sed_n(k)) *odzq*orho
+         thb_rc(thic,k,thjjb) = MAX(R1, thb_rc(thic,k,thjjb) + (sed_c(k+1)-sed_c(k)) *odzq*DT)
+         thb_nc(thic,k,thjjb) = MAX(10., thb_nc(thic,k,thjjb) + (sed_n(k+1)-sed_n(k)) *odzq*DT)
+      enddo
+      endif
+
+
+
+      if (ANY(thb_l_qi(thic,kts:kte,thjjb))) then
+      nstep = NINT(1./onstep(2))
+      do n = 1, nstep
+         do k = kte, kts, -1
+            sed_i(k) = vtik(k)*thb_ri(thic,k,thjjb)
+            sed_n(k) = vtnik(k)*thb_ni(thic,k,thjjb)
+         enddo
+         k = kte
+         odzq = 1./dzq(k)
+         orho = 1./thb_rho(thic,k,thjjb)
+         thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) - sed_i(k)*odzq*onstep(2)*orho
+         thb_niten(thic,k,thjjb) = thb_niten(thic,k,thjjb) - sed_n(k)*odzq*onstep(2)*orho
+         thb_ri(thic,k,thjjb) = MAX(R1, thb_ri(thic,k,thjjb) - sed_i(k)*odzq*DT*onstep(2))
+         thb_ni(thic,k,thjjb) = MAX(R2, thb_ni(thic,k,thjjb) - sed_n(k)*odzq*DT*onstep(2))
+         do k = ksed1(2), kts, -1
+            odzq = 1./dzq(k)
+            orho = 1./thb_rho(thic,k,thjjb)
+            thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) + (sed_i(k+1)-sed_i(k))                 &
+                                               *odzq*onstep(2)*orho
+            thb_niten(thic,k,thjjb) = thb_niten(thic,k,thjjb) + (sed_n(k+1)-sed_n(k))                 &
+                                               *odzq*onstep(2)*orho
+            thb_ri(thic,k,thjjb) = MAX(R1, thb_ri(thic,k,thjjb) + (sed_i(k+1)-sed_i(k)) &
+                                           *odzq*DT*onstep(2))
+            thb_ni(thic,k,thjjb) = MAX(R2, thb_ni(thic,k,thjjb) + (sed_n(k+1)-sed_n(k)) &
+                                           *odzq*DT*onstep(2))
+         enddo
+
+         if (thb_ri(thic,kts,thjjb).gt.R1*1000.) &
+         pptice = pptice + sed_i(kts)*DT*onstep(2)
+      enddo
+      endif
+
+
+
+      if (ANY(thb_l_qs(thic,kts:kte,thjjb))) then
+      nstep = NINT(1./onstep(3))
+      do n = 1, nstep
+         do k = kte, kts, -1
+            sed_s(k) = vtsk(k)*thb_rs(thic,k,thjjb)
+         enddo
+         k = kte
+         odzq = 1./dzq(k)
+         orho = 1./thb_rho(thic,k,thjjb)
+         thb_qsten(thic,k,thjjb) = thb_qsten(thic,k,thjjb) - sed_s(k)*odzq*onstep(3)*orho
+         thb_rs(thic,k,thjjb) = MAX(R1, thb_rs(thic,k,thjjb) - sed_s(k)*odzq*DT*onstep(3))
+         do k = ksed1(3), kts, -1
+            odzq = 1./dzq(k)
+            orho = 1./thb_rho(thic,k,thjjb)
+            thb_qsten(thic,k,thjjb) = thb_qsten(thic,k,thjjb) + (sed_s(k+1)-sed_s(k))                 &
+                                               *odzq*onstep(3)*orho
+            thb_rs(thic,k,thjjb) = MAX(R1, thb_rs(thic,k,thjjb) + (sed_s(k+1)-sed_s(k)) &
+                                           *odzq*DT*onstep(3))
+         enddo
+
+         if (thb_rs(thic,kts,thjjb).gt.R1*1000.) &
+         pptsnow = pptsnow + sed_s(kts)*DT*onstep(3)
+      enddo
+      endif
+
+
+
+      if (ANY(thb_l_qg(thic,kts:kte,thjjb))) then
+      nstep = NINT(1./onstep(4))
+      do n = 1, nstep
+         do k = kte, kts, -1
+            sed_g(k) = vtgk(k)*thb_rg(thic,k,thjjb)
+            sed_n(k) = vtngk(k)*thb_ng(thic,k,thjjb)
+            sed_b(k) = vtgk(k)*thb_rb(thic,k,thjjb)
+         enddo
+         k = kte
+         odzq = 1./dzq(k)
+         orho = 1./thb_rho(thic,k,thjjb)
+         thb_qgten(thic,k,thjjb) = thb_qgten(thic,k,thjjb) - sed_g(k)*odzq*onstep(4)*orho
+         thb_ngten(thic,k,thjjb) = thb_ngten(thic,k,thjjb) - sed_n(k)*odzq*onstep(4)*orho
+         thb_qbten(thic,k,thjjb) = thb_qbten(thic,k,thjjb) - sed_b(k)*odzq*onstep(4)
+         thb_rg(thic,k,thjjb) = MAX(R1, thb_rg(thic,k,thjjb) - sed_g(k)*odzq*DT*onstep(4))
+         thb_ng(thic,k,thjjb) = MAX(R2, thb_ng(thic,k,thjjb) - sed_n(k)*odzq*DT*onstep(4))
+         thb_rb(thic,k,thjjb) = MAX(R1/thb_rho(thic,k,thjjb)/rho_g(NRHG), thb_rb(thic,k,thjjb) - sed_b(k)*odzq*DT*onstep(4))
+         do k = ksed1(4), kts, -1
+            odzq = 1./dzq(k)
+            orho = 1./thb_rho(thic,k,thjjb)
+            thb_qgten(thic,k,thjjb) = thb_qgten(thic,k,thjjb) + (sed_g(k+1)-sed_g(k))                 &
+                                               *odzq*onstep(4)*orho
+            thb_ngten(thic,k,thjjb) = thb_ngten(thic,k,thjjb) + (sed_n(k+1)-sed_n(k))                 &
+                                               *odzq*onstep(4)*orho
+            thb_qbten(thic,k,thjjb) = thb_qbten(thic,k,thjjb) + (sed_b(k+1)-sed_b(k))                 &
+                                               *odzq*onstep(4)
+            thb_rg(thic,k,thjjb) = MAX(R1, thb_rg(thic,k,thjjb) + (sed_g(k+1)-sed_g(k)) &
+                                           *odzq*DT*onstep(4))
+            thb_ng(thic,k,thjjb) = MAX(R2, thb_ng(thic,k,thjjb) + (sed_n(k+1)-sed_n(k)) &
+                                           *odzq*DT*onstep(4))
+            thb_rb(thic,k,thjjb) = MAX(thb_rg(thic,k,thjjb)/thb_rho(thic,k,thjjb)/rho_g(NRHG), thb_rb(thic,k,thjjb) + (sed_b(k+1)-sed_b(k))  &
+                                           *odzq*DT*onstep(4))
+         enddo
+
+         if (thb_rg(thic,kts,thjjb).gt.R1*1000.) &
+         pptgraul = pptgraul + sed_g(kts)*DT*onstep(4)
+      enddo
+      endif
+
+
+
+
+
+      if (.not. iiwarm) then
+      do k = kts, kte
+         xri = MAX(0.0, qi1d(k) + thb_qiten(thic,k,thjjb)*DT)
+         if ( (thb_temp(thic,k,thjjb).gt. T_0) .and. (xri.gt. 0.0) ) then
+          thb_qcten(thic,k,thjjb) = thb_qcten(thic,k,thjjb) + xri*odt
+          thb_ncten(thic,k,thjjb) = thb_ncten(thic,k,thjjb) + ni1d(k)*odt
+          thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) - xri*odt
+          thb_niten(thic,k,thjjb) = -ni1d(k)*odt
+          thb_tten(thic,k,thjjb) = thb_tten(thic,k,thjjb) - lfus*thb_ocp(thic,k,thjjb)*xri*odt*(1-IFDRY)
+         endif
+
+         xrc = MAX(0.0, qc1d(k) + thb_qcten(thic,k,thjjb)*DT)
+         if ( (thb_temp(thic,k,thjjb).lt. HGFR) .and. (xrc.gt. 0.0) ) then
+          lfus2 = lsub - thb_lvap(thic,k,thjjb)
+          xnc = nc1d(k) + thb_ncten(thic,k,thjjb)*DT
+          thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) + xrc*odt
+          thb_niten(thic,k,thjjb) = thb_niten(thic,k,thjjb) + xnc*odt
+          thb_qcten(thic,k,thjjb) = thb_qcten(thic,k,thjjb) - xrc*odt
+          thb_ncten(thic,k,thjjb) = thb_ncten(thic,k,thjjb) - xnc*odt
+          thb_tten(thic,k,thjjb) = thb_tten(thic,k,thjjb) + lfus2*thb_ocp(thic,k,thjjb)*xrc*odt*(1-IFDRY)
+         endif
+      enddo
+      endif
+
+
+
+
+      do k = kts, kte
+         t1d(k)  = t1d(k) + thb_tten(thic,k,thjjb)*DT
+         qv1d(k) = MAX(1.E-10, qv1d(k) + thb_qvten(thic,k,thjjb)*DT)
+         qc1d(k) = qc1d(k) + thb_qcten(thic,k,thjjb)*DT
+         nc1d(k) = MAX(2./thb_rho(thic,k,thjjb), MIN(nc1d(k) + thb_ncten(thic,k,thjjb)*DT, Nt_c_max))
+         if (is_aerosol_aware) then
+            if (aer_init_opt .lt. 2) then
+               nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
+                             (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT)))
+               nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
+                             (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT)))
+               if (wif_input_opt .eq. 2) then
+                  nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                        &
+                                (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT)))
+               else
+                  nbca1d(k) = 0.0
+               endif
+            else
+               nwfa1d(k) = MAX(0.0, (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT))
+               nifa1d(k) = MAX(0.0, (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT))
+               if (wif_input_opt .eq. 2) then
+                  nbca1d(k) = MAX(0.0, (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT))
+               else
+                  nbca1d(k) = 0.0
+               endif
+            endif
+         else
+            nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
+                          (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT)))
+            nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
+                          (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT)))
+            nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                           &
+                          (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT)))
+         endif
+
+         if (qc1d(k) .le. R1) then
+           qc1d(k) = 0.0
+           nc1d(k) = 0.0
+         else
+           nu_c = MIN(15, NINT(1000.E6/(nc1d(k)*thb_rho(thic,k,thjjb))) + 2)
+           lamc = (am_r*ccg(2,nu_c)*ocg1(nu_c)*nc1d(k)/qc1d(k))**obmr
+           xDc = (bm_r + nu_c + 1.) / lamc
+           if (xDc.lt. D0c) then
+            lamc = cce(2,nu_c)/D0c
+           elseif (xDc.gt. D0r*2.) then
+            lamc = cce(2,nu_c)/(D0r*2.)
+           endif
+           nc1d(k) = MIN(ccg(1,nu_c)*ocg2(nu_c)*qc1d(k)/am_r*lamc**bm_r,&
+                         DBLE(Nt_c_max)/thb_rho(thic,k,thjjb))
+         endif
+
+         qi1d(k) = qi1d(k) + thb_qiten(thic,k,thjjb)*DT
+         ni1d(k) = MAX(R2/thb_rho(thic,k,thjjb), ni1d(k) + thb_niten(thic,k,thjjb)*DT)
+         if (qi1d(k) .le. R1) then
+           qi1d(k) = 0.0
+           ni1d(k) = 0.0
+         else
+           lami = (am_i*cig(2)*oig1*ni1d(k)/qi1d(k))**obmi
+           ilami = 1./lami
+           xDi = (bm_i + mu_i + 1.) * ilami
+           if (xDi.lt. 5.E-6) then
+            lami = cie(2)/5.E-6
+           elseif (xDi.gt. 300.E-6) then
+            lami = cie(2)/300.E-6
+           endif
+           ni1d(k) = MIN(cig(1)*oig2*qi1d(k)/am_i*lami**bm_i,           &
+                         999.D3/thb_rho(thic,k,thjjb))
+         endif
+         qr1d(k) = qr1d(k) + thb_qrten(thic,k,thjjb)*DT
+         nr1d(k) = MAX(R2/thb_rho(thic,k,thjjb), nr1d(k) + thb_nrten(thic,k,thjjb)*DT)
+         if (qr1d(k) .le. R1) then
+           qr1d(k) = 0.0
+           nr1d(k) = 0.0
+         else
+           lamr = (am_r*crg(3)*org2*nr1d(k)/qr1d(k))**obmr
+           thb_mvd_r(thic,k,thjjb) = (3.0 + mu_r + 0.672) / lamr
+           if (thb_mvd_r(thic,k,thjjb) .gt. 2.5E-3) then
+              thb_mvd_r(thic,k,thjjb) = 2.5E-3
+           elseif (thb_mvd_r(thic,k,thjjb) .lt. D0r*0.75) then
+              thb_mvd_r(thic,k,thjjb) = D0r*0.75
+           endif
+           lamr = (3.0 + mu_r + 0.672) / thb_mvd_r(thic,k,thjjb)
+           nr1d(k) = crg(2)*org3*qr1d(k)*lamr**bm_r / am_r
+         endif
+         qs1d(k) = qs1d(k) + thb_qsten(thic,k,thjjb)*DT
+         if (qs1d(k) .le. R1) qs1d(k) = 0.0
+         qg1d(k) = qg1d(k) + thb_qgten(thic,k,thjjb)*DT
+         ng1d(k) = MAX(R2/thb_rho(thic,k,thjjb), ng1d(k) + thb_ngten(thic,k,thjjb)*DT)
+         if (qg1d(k) .le. R1) then
+           qg1d(k) = 0.0
+           ng1d(k) = 0.0
+           qb1d(k) = 0.0
+         else
+           qb1d(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k) + thb_qbten(thic,k,thjjb)*DT)
+           qb1d(k) = MIN(qg1d(k)/rho_g(1), qb1d(k))
+           thb_idx_bg(thic,k,thjjb) = MAX(1,MIN(NINT(qg1d(k)/qb1d(k) *0.01)+1,NRHG))
+           if (.not. is_hail_aware) thb_idx_bg(thic,k,thjjb) = idx_bg1
+           lamg = (am_g(thb_idx_bg(thic,k,thjjb))*cgg(3,1)*ogg2*ng1d(k)/qg1d(k))**obmg
+           thb_mvd_g(thic,k,thjjb) = (3.0 + mu_g + 0.672) / lamg
+           if (thb_mvd_g(thic,k,thjjb) .gt. 25.4E-3) then
+              thb_mvd_g(thic,k,thjjb) = 25.4E-3
+           elseif (thb_mvd_g(thic,k,thjjb) .lt. D0r) then
+              thb_mvd_g(thic,k,thjjb) = D0r
+           endif
+           lamg = (3.0 + mu_g + 0.672) / thb_mvd_g(thic,k,thjjb)
+           ng1d(k) = cgg(2,1)*ogg3*qg1d(k)*lamg**bm_g / am_g(thb_idx_bg(thic,k,thjjb))
+         endif
+
+      enddo
+
+      end subroutine thom_tail
+#endif
+
 !+---+-----------------------------------------------------------------+
 !ctrlL
 !+---+-----------------------------------------------------------------+
