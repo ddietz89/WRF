@@ -809,6 +809,8 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
    INTEGER :: i, j, k, itf, jtf, ktf
    REAL , DIMENSION( its:ite ) :: dmdt
    REAL , DIMENSION( its:ite, kts:kte ) :: divv
+   INTEGER, PARAMETER :: KWW_MX = 64
+   REAL :: dvk_(KWW_MX), dm_
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:), ALLOCATABLE, SAVE :: muu, muv
 #else
@@ -898,16 +900,6 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
       ENDDO
       ENDDO
 
-!$acc parallel loop gang private(divv,dmdt) async(wrf_gpu_q) if(wrf_gpu_on)
-      DO j=jts,jtf
-
-!$acc loop vector
-        DO i=its,ite
-          dmdt(i) = 0.
-          ww(i,1,j) = 0.
-          ww(i,kte,j) = 0.
-        ENDDO
-
 !       Comments on the modifications for map scale factors
 !       ADT eqn 47 / my (putting rho -> 'mu') is:
 !       (1/my) partial d mu/dt = -mx partial d/dx(mu u/my)
@@ -933,24 +925,6 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !         => dmdt = sum_bot->top[divv]
 !       where
 !         divv=mx*[partial d/dx(mu u/my) + partial d/dy(mu v/mx)]*delta nu
-
-!$acc loop seq
-        DO k=kts,ktf
-!$acc loop vector
-        DO i=its,itf
-
-          divv(i,k) = msftx(i,j)*dnw(k)*( rdx*((c1h(k)*muu(i+1,j)+c2h(k))*u(i+1,k,j)/msfuy(i+1,j)-(c1h(k)*muu(i,j)+c2h(k))*u(i,k,j)/msfuy(i,j))  &
-                                        +rdy*((c1h(k)*muv(i,j+1)+c2h(k))*v(i,k,j+1)*msfvx_inv(i,j+1)-(c1h(k)*muv(i,j)+c2h(k))*v(i,k,j)*msfvx_inv(i,j))   )
-
-!          dmdt(i) = dmdt(i) + dnw(k)* ( rdx*(ru(i+1,k,j)-ru(i,k,j))  &
-!                                       +rdy*(rv(i,k,j+1)-rv(i,k,j))   )
-
-          dmdt(i) = dmdt(i) + divv(i,k)
-
-
-        ENDDO
-        ENDDO
-
 !       Further map scale factor notes:
 !       Now integrate from bottom to top, level by level:
 !       mu dnu/dt/my [k+1] = mu dnu/dt/my [k] + [-(1/my) partial d mu/dt
@@ -958,24 +932,29 @@ SUBROUTINE calc_ww_cp ( u, v, mup, mub, c1h, c2h, ww,    &
 !                           -mx partial d/dy(mu v/mx)]*dnu[k->k+1]
 !       ww [k+1] = ww [k] -(1/my) partial d mu/dt * dnu[k->k+1] - divv[k]
 !                = ww [k] -dmdt * dnw[k] - divv[k]
-
+! WRF_GPU (2026-11-08): one thread per column (gang vector over (j,i)) instead of one gang per row (~380 blocks,
+! 1.8 waves); divv(k) kept in a per-thread array, same expressions and the same bottom-to-top order of the sums
+      IF ( ktf > KWW_MX ) CALL wrf_error_fatal('calc_ww_cp: ktf > KWW_MX')
+!$acc parallel loop gang vector collapse(2) private(dvk_,dm_) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j=jts,jtf
+      DO i=its,ite
+        ww(i,1,j) = 0.
+        ww(i,kte,j) = 0.
+        IF ( i <= itf ) THEN
+          dm_ = 0.
 !$acc loop seq
-        DO k=2,ktf
-!$acc loop vector
-        DO i=its,itf
-
-!           ww(i,k,j)=ww(i,k-1,j)                                       &
-!                        - dnw(k-1)* ( dmdt(i)                          &
-!                                     +rdx*(ru(i+1,k-1,j)-ru(i,k-1,j))  &
-!                                     +rdy*(rv(i,k-1,j+1)-rv(i,k-1,j)) )
-
-           ww(i,k,j)=ww(i,k-1,j) - dnw(k-1)*c1h(k-1)*dmdt(i) - divv(i,k-1)
-
-        ENDDO
-        ENDDO
-     ENDDO
-
-
+          DO k=kts,ktf
+            dvk_(k) = msftx(i,j)*dnw(k)*( rdx*((c1h(k)*muu(i+1,j)+c2h(k))*u(i+1,k,j)/msfuy(i+1,j)-(c1h(k)*muu(i,j)+c2h(k))*u(i,k,j)/msfuy(i,j))  &
+                                        +rdy*((c1h(k)*muv(i,j+1)+c2h(k))*v(i,k,j+1)*msfvx_inv(i,j+1)-(c1h(k)*muv(i,j)+c2h(k))*v(i,k,j)*msfvx_inv(i,j))   )
+            dm_ = dm_ + dvk_(k)
+          ENDDO
+!$acc loop seq
+          DO k=2,ktf
+            ww(i,k,j)=ww(i,k-1,j) - dnw(k-1)*c1h(k-1)*dm_ - dvk_(k-1)
+          ENDDO
+        ENDIF
+      ENDDO
+      ENDDO
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -2406,11 +2385,12 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
    IF (config_flags%open_xs .or. specified ) i_start = max(its,ids+3)
    IF (config_flags%open_xe .or. specified ) itf     = min(itf,ide-4)
 
-!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+! WRF_GPU (2026-11-08): gangs over (j,k), vectors over i - one gang per row had only ~380 blocks (0.9 waves, 6%
+! occupancy) on a 1000x380 patch; same statement, same points
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = j_start, jtf
-
-!$acc loop vector collapse(2)
      DO k = 2, kte-1
+!$acc loop vector
      DO i = i_start, itf
         ph_tend(i,k,j)=ph_tend(i,k,j) - (0.25*rdx/msfty(i,j))*(                   &
                  ( (c1f(k)*muuf(i+1,j)+c2f(k))*(u(i+1,k,j)+u(i+1,k-1,j))*msfux(i+1,j)              &
@@ -2423,7 +2403,10 @@ SUBROUTINE rhs_ph( ph_tend, u, v, ww,               &
                       +(phb(i+3,k,j)-phb(i-3,k,j))  )   )                
      ENDDO
      ENDDO
+   ENDDO
 
+!$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
+   DO j = j_start, jtf
      k = kte
 !$acc loop vector
      DO i = i_start, itf
