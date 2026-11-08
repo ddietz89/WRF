@@ -8,7 +8,7 @@ MODULE module_em
 
    USE module_model_constants
    
-   USE module_advect_em, only: advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
+   USE module_advect_em, only: adv_tend_fresh, advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
         advect_weno_u, advect_weno_v, advect_weno_w, advect_scalar_weno,  advect_scalar_wenopd
    
    USE module_big_step_utilities_em, only: grid_config_rec_type, calculate_full, couple_momentum, calc_mu_uv, calc_mu_uv_1, &
@@ -1336,10 +1336,21 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 
    scalar_loop : DO im = scs, sce
 
+#ifdef WRF_GPU
+     ! plain advect_scalar ahead (not the rk_order pd/mono/weno variants): skip zeroing advect_tend, the fused
+     ! divergence pass writes every point the update reads (advect_scalar zeroes itself on other paths). -1 pass.
+     IF ( wrf_gpu_on .AND. .NOT. tenddec .AND. .NOT. ( rk_step == rk_order .AND. ( adv_opt == POSITIVEDEF .OR.     &
+          adv_opt == MONOTONIC .OR. adv_opt == WENO_SCALAR .OR. adv_opt == WENOPD_SCALAR ) ) ) THEN
+        adv_tend_fresh = .TRUE.
+     ELSE
+#endif
      CALL zero_tend ( advect_tend(ims,kms,jms),     &
                       ids, ide, jds, jde, kds, kde, &
                       ims, ime, jms, jme, kms, kme, &
                       its, ite, jts, jte, kts, kte )
+#ifdef WRF_GPU
+     ENDIF
+#endif
 
 #ifdef WRF_GPU
      ! h_tendency/z_tendency are written and read only with tenddec (CORDEX diagnostics): skip zeroing them otherwise

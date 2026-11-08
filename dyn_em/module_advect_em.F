@@ -131,6 +131,9 @@ MODULE module_advect_em
   ! bits: 1 advect_scalar, 2 advect_u, 4 advect_v, 8 advect_w
   LOGICAL, SAVE :: adv_fuse_init = .FALSE.
   INTEGER, SAVE :: adv_fuse_bits = 0
+  ! set by rk_scalar_tend when it skipped zeroing advect_tend: advect_scalar then starts the fused divergence pass
+  ! from 0 instead of reading the (zeroed) tendency, or zeroes it itself on any other path (2026-11-08)
+  LOGICAL, SAVE :: adv_tend_fresh = .FALSE.
 #endif
 
 CONTAINS
@@ -4385,6 +4388,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
 
    LOGICAL :: specified
+   LOGICAL :: fresh_
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
@@ -4423,6 +4427,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 #ifdef WRF_GPU
 ! WRF_GPU_ADVFUSE=1: y, x and vertical flux divergence in one (i,k,j) kernel. Same flux expressions, boundary
 ! degradation and update order (y, then x, then z) as the three separate kernels below, with no fqy3 scratch.
+  fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
   CALL adv_fuse_get
   IF ( IAND(adv_fuse_bits,1) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar .AND.        &
        .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                      &
@@ -4555,7 +4560,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    DO k = kts, ktf
 !$acc loop vector private(mrdx,mrdy,fl,fr,ub)
    DO i = its, itf
-     ub = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       ub = 0.
+     ELSE
+       ub = tendency(i,k,j)
+     ENDIF
      IF ( j >= j_start .AND. j <= j_end ) THEN
        fl = fqy3s(i,k,j) ; fr = fqy3s(i,k,j+1)
        mrdy=msftx(i,j)*rdy
@@ -4581,7 +4590,11 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    DO k = kts, ktf
 !$acc loop vector private(vel,mrdx,mrdy,ii,jp,kk,m,ff,fl,fr,ub)
    DO i = its, itf
-     ub = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       ub = 0.
+     ELSE
+       ub = tendency(i,k,j)
+     ENDIF
      ! y flux divergence (rows j_start..j_end; faces outside every branch are zero, as fqy3 = 0.)
      IF ( j >= j_start .AND. j <= j_end ) THEN
        DO m = 0, 1
@@ -4666,6 +4679,17 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 !$acc wait(1)
       ENDIF
    RETURN
+  ENDIF
+  IF ( fresh_ ) THEN   ! the fused path was not taken: zero the tendency here (rk_scalar_tend skipped it)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+     DO j = jts, jte
+     DO k = kts, kte
+!$acc loop vector
+     DO i = its, ite
+        tendency(i,k,j) = 0.
+     ENDDO
+     ENDDO
+     ENDDO
   ENDIF
 #endif
 
