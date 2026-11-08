@@ -139,6 +139,62 @@ MODULE module_advect_em
 CONTAINS
 
 #ifdef WRF_GPU
+#ifdef WRF_GPU
+! zero the tile points of t outside the box i0..i1 x k0..k1 x j0..j1 (the points a fused divergence pass does not write;
+! used when the caller skipped zero_tend: the array then holds exactly what zero-then-accumulate produced)
+SUBROUTINE adv_zero_outside( t, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, i0, i1, k0, k1, j0, j1 )
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, i0, i1, k0, k1, j0, j1
+   REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(INOUT) :: t
+   INTEGER :: i, j, k
+   IF ( k0 > kts ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jte
+      DO k = kts, k0-1
+!$acc loop vector
+      DO i = its, ite
+         t(i,k,j) = 0.
+      ENDDO
+      ENDDO
+      ENDDO
+   ENDIF
+   IF ( k1 < kte ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jte
+      DO k = k1+1, kte
+!$acc loop vector
+      DO i = its, ite
+         t(i,k,j) = 0.
+      ENDDO
+      ENDDO
+      ENDDO
+   ENDIF
+   IF ( j0 > jts .OR. j1 < jte ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jte
+      DO k = MAX(kts,k0), MIN(kte,k1)
+!$acc loop vector
+      DO i = its, ite
+         IF ( j < j0 .OR. j > j1 ) t(i,k,j) = 0.
+      ENDDO
+      ENDDO
+      ENDDO
+   ENDIF
+   IF ( i0 > its .OR. i1 < ite ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = MAX(jts,j0), MIN(jte,j1)
+      DO k = MAX(kts,k0), MIN(kte,k1)
+!$acc loop seq
+      DO i = its, ite
+         IF ( i < i0 .OR. i > i1 ) t(i,k,j) = 0.
+      ENDDO
+      ENDDO
+      ENDDO
+   ENDIF
+END SUBROUTINE adv_zero_outside
+#endif
+
 SUBROUTINE adv_fuse_get
    CHARACTER(LEN=32) :: v
    INTEGER :: st, ios
@@ -259,6 +315,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 
 
    LOGICAL :: specified
+   LOGICAL :: fresh_
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
@@ -298,6 +355,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
 #ifdef WRF_GPU
 ! WRF_GPU_ADVFUSE bit 2: y, x and vertical flux divergence of u in one (i,k,j) kernel - same flux expressions,
 ! boundary degradation and update order (y, x, z) as the separate kernels below, no fqy3/fqx/vflux scratch
+   fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
    CALL adv_fuse_get
    IF ( IAND(adv_fuse_bits,2) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
         .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
@@ -458,7 +516,11 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    DO k = kts, ktf
 !$acc loop vector private(vel,mrdx,mrdy,ip,jp,m,ub,vb,uw,dvm,dvp)
    DO i = its, ite
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( i >= imin .AND. i <= imax .AND. j >= j_start .AND. j <= j_end ) THEN
        dvm = fys_(i,k,j) ; dvp = fys_(i,k,j+1)
        mrdy=msfux(i,j)*rdy
@@ -477,6 +539,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, ite, kts, ktf, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -487,7 +550,11 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    DO k = kts, ktf
 !$acc loop vector private(vel,mrdx,mrdy,ip,jp,m,ub,vb,uw,dvm,dvp)
    DO i = its, ite
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( i >= imin .AND. i <= imax .AND. j >= j_start .AND. j <= j_end ) THEN
        DO m = 0, 1
          jp = j + m
@@ -588,11 +655,23 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, ite, kts, ktf, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
    RETURN
    ENDIF
+  IF ( fresh_ ) THEN   ! the fused path was not taken: zero the tendency here (the caller skipped zero_tend)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+     DO j = jts, jte
+     DO k = kts, kte
+!$acc loop vector
+     DO i = its, ite
+        tendency(i,k,j) = 0.
+     ENDDO
+     ENDDO
+     ENDDO
+  ENDIF
 #endif
 
 !  begin with horizontal flux divergence
@@ -2280,6 +2359,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 
    LOGICAL :: specified
+   LOGICAL :: fresh_
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
@@ -2318,6 +2398,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 #ifdef WRF_GPU
 ! WRF_GPU_ADVFUSE bit 4: y, x and vertical flux divergence of v in one (i,k,j) kernel - same flux expressions,
 ! boundary degradation and update order (y, x, z) as the separate kernels below, no fqy3/fqx/vflux scratch
+   fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
    CALL adv_fuse_get
    IF ( IAND(adv_fuse_bits,4) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
         .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
@@ -2468,7 +2549,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    DO k = kts, ktf
 !$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,dup,dum)
    DO i = its, itf
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( j >= j_start .AND. j <= j_end ) THEN
        dum = fys_(i,k,j) ; dup = fys_(i,k,j+1)
        mrdy=msfvy(i,j)*rdy
@@ -2487,6 +2572,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts, ktf, jts, jte )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -2497,7 +2583,11 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    DO k = kts, ktf
 !$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,dup,dum)
    DO i = its, itf
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( j >= j_start .AND. j <= j_end ) THEN
        DO jm = 0, 1
          jp = j + jm
@@ -2597,11 +2687,23 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts, ktf, jts, jte )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
    RETURN
    ENDIF
+  IF ( fresh_ ) THEN   ! the fused path was not taken: zero the tendency here (the caller skipped zero_tend)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+     DO j = jts, jte
+     DO k = kts, kte
+!$acc loop vector
+     DO i = its, ite
+        tendency(i,k,j) = 0.
+     ENDDO
+     ENDDO
+     ENDDO
+  ENDIF
 #endif
 
 
@@ -4580,6 +4682,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts, ktf, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -4675,6 +4778,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts, ktf, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -6370,6 +6474,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 
 
    LOGICAL :: specified
+   LOGICAL :: fresh_
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
@@ -6409,6 +6514,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
 ! WRF_GPU_ADVFUSE bit 8: y, x and vertical flux divergence of w in one (i,k,j) kernel - same flux expressions
 ! (lid-level velocity extrapolation, lid flux term), boundary degradation and update order (y, x, z) as the
 ! separate kernels below, no fqy3/fqx/vflux scratch
+   fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
    CALL adv_fuse_get
    IF ( IAND(adv_fuse_bits,8) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar &
         .AND. .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                     &
@@ -6602,7 +6708,11 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    DO k = kts+1, ktf+1
 !$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,vw)
    DO i = its, itf
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( j >= j_start .AND. j <= j_end ) THEN
        ub = fys_(i,k,j) ; vb = fys_(i,k,j+1)
        mrdy=msftx(i,j)*rdy
@@ -6624,6 +6734,7 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts+1, ktf+1, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -6634,7 +6745,11 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    DO k = kts+1, ktf+1
 !$acc loop vector private(vel,mrdx,mrdy,jp,jm,ub,vb,uw,vw)
    DO i = its, itf
-     uw = tendency(i,k,j)
+     IF ( fresh_ ) THEN
+       uw = 0.
+     ELSE
+       uw = tendency(i,k,j)
+     ENDIF
      IF ( j >= j_start .AND. j <= j_end ) THEN
        DO jm = 0, 1
          jp = j + jm
@@ -6785,11 +6900,23 @@ SUBROUTINE advect_w    ( w, w_old, tendency,            &
    ENDDO
    ENDDO
    ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts+1, ktf+1, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
    RETURN
    ENDIF
+  IF ( fresh_ ) THEN   ! the fused path was not taken: zero the tendency here (the caller skipped zero_tend)
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+     DO j = jts, jte
+     DO k = kts, kte
+!$acc loop vector
+     DO i = its, ite
+        tendency(i,k,j) = 0.
+     ENDDO
+     ENDDO
+     ENDDO
+  ENDIF
 #endif
 
 !  here is the choice of flux operators

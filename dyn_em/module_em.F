@@ -252,6 +252,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 
    IMPLICIT NONE
 #ifdef WRF_GPU
+   LOGICAL :: frs_uv, frs_w, frs_t
+#endif
+#ifdef WRF_GPU
    LOGICAL :: cor_in_curv
 #endif
 
@@ -407,21 +410,40 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 #ifdef WRF_GPU
    IF ( rkt_part /= 2 ) THEN
 #endif
+#ifdef WRF_GPU
+   ! fused advect_u/v/w/scalar are the first writers of ru/rv/rw/t_tend: skip their zeroing (advfresh.py)
+   frs_uv = wrf_gpu_on .AND. .NOT. ( rk_step == rk_order .AND. adv_opt == WENO_MOM )
+   frs_w  = frs_uv .AND. non_hydrostatic
+   frs_t  = wrf_gpu_on .AND. .NOT. ( ( config_flags%scalar_adv_opt == WENO_SCALAR .OR. config_flags%scalar_adv_opt == WENOPD_SCALAR &
+            .OR. config_flags%moist_adv_opt == WENO_SCALAR .OR. config_flags%moist_adv_opt == WENOPD_SCALAR ) .AND. rk_step == rk_order )
+#endif
+#ifdef WRF_GPU
+   IF ( .NOT. frs_uv ) &
+#endif
    CALL zero_tend ( ru_tend,                      &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. frs_uv ) &
+#endif
    CALL zero_tend ( rv_tend,                      &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. frs_w ) &
+#endif
    CALL zero_tend ( rw_tend,                      &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. frs_t ) &
+#endif
    CALL zero_tend ( t_tend,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
@@ -545,6 +567,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 
    ELSE
 
+#ifdef WRF_GPU
+     adv_tend_fresh = frs_uv
+#endif
      CALL advect_u ( u, u , ru_tend, ru, rv, wwE,  &
                      c1h, c2h,                     &
                      mut, time_step, config_flags, &
@@ -586,6 +611,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 
    ELSE
 
+#ifdef WRF_GPU
+     adv_tend_fresh = frs_uv
+#endif
      CALL advect_v ( v, v , rv_tend, ru, rv, wwE,  &
                      c1h, c2h,                     &
                      mut, time_step, config_flags, &
@@ -629,6 +657,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
 
      ELSE
      
+#ifdef WRF_GPU
+       adv_tend_fresh = frs_w
+#endif
        CALL advect_w ( w, w, rw_tend, ru, rv, wwE,   &
                        c1h, c2h,                     &
                        mut, time_step, config_flags, &
@@ -665,6 +696,9 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                                its, ite, jts, jte, kts, kte  )
    ELSE
 
+#ifdef WRF_GPU
+     adv_tend_fresh = frs_t
+#endif
      CALL advect_scalar ( t, t, t_tend, ru, rv, wwE,    &
                           c1h, c2h,                     &
                           mut, time_step, config_flags, &
