@@ -1206,8 +1206,8 @@ BENCH_START(calc_p_rho_tim)
    IF ( wrf_gpu_lean_step ) THEN
      IF ( leanasync < 0 ) THEN
         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_LEANASYNC', edv )
-        leanasync = 0
-        IF ( TRIM(edv) == '1' ) leanasync = 1
+        leanasync = 1   ! default on (2026-11-08, parked-option stack; neutral alone, bit-identical); 0 = off
+        IF ( TRIM(edv) == '0' ) leanasync = 0
      ENDIF
      IF ( leanasync == 1 ) THEN
         CALL gpu_lean_pull( grid, th_phy, p_phy, pi_phy, p8w, t8w, dz8w, moist, num_moist, ims, ime, jms, jme, kms, kme, 1 )
@@ -1948,8 +1948,8 @@ BENCH_END(set_phys_bc2_tim)
    CALL SYSTEM_CLOCK( sst_c(0) )
    IF ( hovl < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HOVL', hovl_v )
-      hovl = 0
-      IF ( TRIM(hovl_v) == '1' ) hovl = 1
+      hovl = 1   ! default on (2026-11-08, parked-option stack; neutral alone, bit-identical); 0 = off
+      IF ( TRIM(hovl_v) == '0' ) hovl = 0
    ENDIF
    hovl_ok = hovl == 1 .AND. wrf_gpu_on .AND. grid%num_tiles == 1 .AND. .NOT. ( config_flags%periodic_x .OR.   &
              config_flags%periodic_y .OR. config_flags%symmetric_xs .OR. config_flags%symmetric_xe .OR.        &

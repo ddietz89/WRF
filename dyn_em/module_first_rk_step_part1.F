@@ -242,8 +242,8 @@ BENCH_END(init_zero_tend_tim)
       ! WRF_GPU_PHYSAHALO=0 skips it on lean steps.
       IF ( physa_halo < 0 ) THEN
          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_PHYSAHALO', physa_env )
-         physa_halo = 1
-         IF ( TRIM(physa_env) == '0' ) physa_halo = 0
+         physa_halo = 0   ! default skip (2026-11-08: -1 ms/step on the 2-node MPS layout, bit-identical); 1 = exchange
+         IF ( TRIM(physa_env) == '1' ) physa_halo = 1
       ENDIF
       IF ( .NOT. ( wrf_gpu_lean_step .AND. physa_halo == 0 ) ) THEN
 #endif

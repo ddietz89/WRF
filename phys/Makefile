@@ -448,7 +448,7 @@ THOMPSON_REGCAP ?= 128
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
-THOMPSON_OPT ?=
+THOMPSON_OPT ?= -O2
 ifneq (,$(THOMPSON_OPT))
 module_mp_thompson.o: FCOPTIM = $(THOMPSON_OPT)
 endif
@@ -456,7 +456,7 @@ module_mp_thompson.o: FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
 COLPHYS_REGCAP ?= 128
 module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
 # GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
-GPUPHYS_EXTRA ?=
+GPUPHYS_EXTRA ?= -gpu=fastmath
 ifneq (,$(GPUPHYS_EXTRA))
 module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o: FCFLAGS += $(GPUPHYS_EXTRA)
 endif
