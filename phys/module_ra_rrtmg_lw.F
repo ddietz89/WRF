@@ -16014,7 +16014,9 @@ contains
          ! GBs of work arrays in the device pool and the Thompson stack reservation then fails on 500x380
          ! default (2026-11-07): balanced chunks of at most 12000 columns - the per-chunk g-point work arrays drop the
          ! steady GPU footprint 27.8 -> 19.2 GB on a 1000x380 patch at no measurable cost, bit-identical (was 72000)
-         if (st /= 0 .and. ncolm > 12000) nch = (ncolm + (ncolm+11999)/12000 - 1) / ((ncolm+11999)/12000)
+         ! default (2026-11-08): at most 6000 columns - per-chunk work arrays 2.9 -> 1.45 GB per rank, radiation step
+         ! 0.92 s either way on the 2-node MPS layout, bit-identical
+         if (st /= 0 .and. ncolm > 6000) nch = (ncolm + (ncolm+5999)/6000 - 1) / ((ncolm+5999)/6000)
          nch = min(nch, ncolm)
          gw_nchunk = nch
          nch = gw_nchunk

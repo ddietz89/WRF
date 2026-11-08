@@ -1815,12 +1815,13 @@
       IF ( thlev_on == 1 ) THEN
 !.. WRF_GPU_THLEV=1: level-parallel Thompson (see thom_lev / thom_tail); j bands bound the scratch
       ! the column list (mp_li/mp_lj, every patch column) in balanced bands of at most WRF_GPU_THBAND columns
-      ! (default 65536, 0 = one band): the hand-off scratch is (band, nk, 1) instead of the whole patch
+      ! (default 0 = one band): the hand-off scratch is (band, nk, 1). 2-node MPS layout (190k columns per rank):
+      ! one band 0.4179 s/step 21.0 GB/GPU, 100000 0.4195 19.6 GB, 65536 0.4221 19.1 GB (2026-11-08, bit-identical)
       IF ( thband_max < 0 ) THEN
          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_THBAND', cv_, STATUS=st_ )
-         thband_max = 65536
+         thband_max = 0
          IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) thband_max
-         IF ( st_ /= 0 ) thband_max = 65536
+         IF ( st_ /= 0 ) thband_max = 0
          IF ( thband_max <= 0 ) thband_max = HUGE(thband_max)/2
       ENDIF
       thnb = (ncol_ + thband_max - 1) / thband_max
