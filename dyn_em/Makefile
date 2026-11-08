@@ -67,6 +67,15 @@ ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 module_big_step_utilities_em.o: FCFLAGS += -gpu=maxregcount:$(BSU_REGCAP)
 endif
 endif
+# SMALLSTEP_REGCAP: register cap for the small-step solver kernels (ncu 2026-11-08 big1000: advance_w 96 regs / 30%
+# occupancy at 60% DRAM, advance_mu_t 88-107, advance_uv 64-90); 0 = no cap. A cap only changes register allocation.
+# Tried 80 (2026-11-08): bit-identical, 0.4121/0.4128 vs 0.4090/0.4116 s/step - no gain, default stays 0.
+SMALLSTEP_REGCAP ?= 0
+ifneq ($(SMALLSTEP_REGCAP),0)
+ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
+module_small_step_em.o: FCFLAGS += -gpu=maxregcount:$(SMALLSTEP_REGCAP)
+endif
+endif
 
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
