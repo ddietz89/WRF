@@ -455,6 +455,11 @@ endif
 module_mp_thompson.o: FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
 COLPHYS_REGCAP ?= 128
 module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
+# GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
+GPUPHYS_EXTRA ?=
+ifneq (,$(GPUPHYS_EXTRA))
+module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o: FCFLAGS += $(GPUPHYS_EXTRA)
+endif
 endif
 
 non_nmm : $(MODULES) $(FIRE_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM) $(NOAHMP_MODULES)
