@@ -76,6 +76,22 @@ ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 module_small_step_em.o: FCFLAGS += -gpu=maxregcount:$(SMALLSTEP_REGCAP)
 endif
 endif
+# ADVECT_EXTRA / DYNSS_EXTRA (e.g. -gpu=fastmath): extra flags for module_advect_em.o / module_small_step_em.o
+# (2026-11-08: the positive-definite advection flux kernels run ~3x slower than their traffic - division bound)
+ADVECT_EXTRA ?=
+ifneq (,$(ADVECT_EXTRA))
+module_advect_em.o: FCFLAGS += $(ADVECT_EXTRA)
+endif
+DYNSS_EXTRA ?=
+ifneq (,$(DYNSS_EXTRA))
+module_small_step_em.o: FCFLAGS += $(DYNSS_EXTRA)
+endif
+# DYNREST_EXTRA: the same for the other GPU dynamics objects (big-step utilities, RK driver, diffusion, boundaries,
+# solve_em, first_rk_step parts, implicit advection)
+DYNREST_EXTRA ?=
+ifneq (,$(DYNREST_EXTRA))
+module_big_step_utilities_em.o module_em.o module_diffusion_em.o module_bc_em.o solve_em.o module_first_rk_step_part1.o module_first_rk_step_part2.o module_ieva_em.o: FCFLAGS += $(DYNREST_EXTRA)
+endif
 
 cio.o :
 	$(CC) -c $(CFLAGS) cio.c
