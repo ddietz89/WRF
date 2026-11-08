@@ -11736,6 +11736,41 @@ contains
       real(kind=rb), allocatable :: out_uflx(:,:), out_dflx(:,:), out_uflxc(:,:), out_dflxc(:,:), &
          out_hr(:,:), out_hrc(:,:)
       integer, allocatable :: out_err(:)
+      ! host-only whole-patch staging, chunk-major: hs_X(nch, ..., nchunks) (device copies in_/out_ are one chunk)
+      real(kind=rb), allocatable :: hs_in_play(:,:,:)
+      real(kind=rb), allocatable :: hs_in_plev(:,:,:)
+      real(kind=rb), allocatable :: hs_in_tlay(:,:,:)
+      real(kind=rb), allocatable :: hs_in_tlev(:,:,:)
+      real(kind=rb), allocatable :: hs_in_h2o(:,:,:)
+      real(kind=rb), allocatable :: hs_in_o3(:,:,:)
+      real(kind=rb), allocatable :: hs_in_co2(:,:,:)
+      real(kind=rb), allocatable :: hs_in_ch4(:,:,:)
+      real(kind=rb), allocatable :: hs_in_n2o(:,:,:)
+      real(kind=rb), allocatable :: hs_in_o2(:,:,:)
+      real(kind=rb), allocatable :: hs_in_cfc11(:,:,:)
+      real(kind=rb), allocatable :: hs_in_cfc12(:,:,:)
+      real(kind=rb), allocatable :: hs_in_cfc22(:,:,:)
+      real(kind=rb), allocatable :: hs_in_ccl4(:,:,:)
+      real(kind=rb), allocatable :: hs_in_cldf(:,:,:)
+      real(kind=rb), allocatable :: hs_in_ciwp(:,:,:)
+      real(kind=rb), allocatable :: hs_in_clwp(:,:,:)
+      real(kind=rb), allocatable :: hs_in_cswp(:,:,:)
+      real(kind=rb), allocatable :: hs_in_rei(:,:,:)
+      real(kind=rb), allocatable :: hs_in_rel(:,:,:)
+      real(kind=rb), allocatable :: hs_in_res(:,:,:)
+      real(kind=rb), allocatable :: hs_in_hgt(:,:,:)
+      real(kind=rb), allocatable :: hs_in_emis(:,:,:)
+      real(kind=rb), allocatable :: hs_in_tsfc(:,:)
+      real(kind=rb), allocatable :: hs_in_lat(:,:)
+      integer, allocatable :: hs_in_flag(:,:,:)
+      real(kind=rb), allocatable :: hs_out_uflx(:,:,:)
+      real(kind=rb), allocatable :: hs_out_dflx(:,:,:)
+      real(kind=rb), allocatable :: hs_out_uflxc(:,:,:)
+      real(kind=rb), allocatable :: hs_out_dflxc(:,:,:)
+      real(kind=rb), allocatable :: hs_out_hr(:,:,:)
+      real(kind=rb), allocatable :: hs_out_hrc(:,:,:)
+      integer, allocatable :: hs_out_err(:,:)
+      integer :: gw_nchk = 0
       real(kind=rb), allocatable :: w_pavel(:,:)
       real(kind=rb), allocatable :: w_tavel(:,:)
       real(kind=rb), allocatable :: w_coldry(:,:)
@@ -15657,7 +15692,7 @@ contains
       integer(kind=im) :: s1, s2, s3, s4
       integer :: isub, l, n
       if (icld .lt. 1 .or. icld .gt. 5) then
-         out_err(ic) = 1
+         out_err(iw) = 1
          return
       endif
       if (idcor .eq. 1) then
@@ -15666,28 +15701,28 @@ contains
          else
             am3 = 4._rb * amr / 365._rb * (juldat-91)
          endif
-         decorr = ( am1 + am2 * exp(-(in_lat(ic) - am3)**2 / (am4*am4)) ) * 1.e3_rb
+         decorr = ( am1 + am2 * exp(-(in_lat(iw) - am3)**2 / (am4*am4)) ) * 1.e3_rb
       else
          decorr = Zo_default
       endif
       zo_inv = 1._rb / decorr
       do l = 1, nlay
-         cldf(l) = in_cldf(ic,l)
+         cldf(l) = in_cldf(iw,l)
          if (cldf(l) < cldmin) cldf(l) = 0._rb
       enddo
       alpha(1) = 0._rb
       do l = 2, nlay
-         alpha(l) = exp( -(in_hgt(ic,l) - in_hgt(ic,l-1)) * zo_inv)
+         alpha(l) = exp( -(in_hgt(iw,l) - in_hgt(iw,l-1)) * zo_inv)
          if (icld .eq. 5) then
             if (cldf(l) .eq. 0.0_rb .and. cldf(l-1) .gt. 0.0_rb) alpha(l) = 0.0_rb
          endif
       enddo
-      pm1 = in_play(ic,1)*1.e2_rb
-      pm2 = in_play(ic,2)*1.e2_rb
-      pm3 = in_play(ic,3)*1.e2_rb
-      pm4 = in_play(ic,4)*1.e2_rb
+      pm1 = in_play(iw,1)*1.e2_rb
+      pm2 = in_play(iw,2)*1.e2_rb
+      pm3 = in_play(iw,3)*1.e2_rb
+      pm4 = in_play(iw,4)*1.e2_rb
       if (pm1 .lt. pm2) then
-         out_err(ic) = 2
+         out_err(iw) = 2
          return
       endif
       s1 = (pm1 - int(pm1)) * 1000000000_im
@@ -15762,29 +15797,29 @@ contains
       enddo
       amttl = 0.0_rb
       wvttl = 0.0_rb
-      tbound = in_tsfc(ic)
-      w_pz(iw,0) = in_plev(ic,1)
-      w_tz(iw,0) = in_tlev(ic,1)
+      tbound = in_tsfc(iw)
+      w_pz(iw,0) = in_plev(iw,1)
+      w_tz(iw,0) = in_tlev(iw,1)
       do l = 1, nlayers
-         w_pavel(iw,l) = in_play(ic,l)
-         w_tavel(iw,l) = in_tlay(ic,l)
-         w_pz(iw,l) = in_plev(ic,l+1)
-         w_tz(iw,l) = in_tlev(ic,l+1)
-         w_wkl(iw,1,l) = in_h2o(ic,l)
-         w_wkl(iw,2,l) = in_co2(ic,l)
-         w_wkl(iw,3,l) = in_o3(ic,l)
-         w_wkl(iw,4,l) = in_n2o(ic,l)
-         w_wkl(iw,6,l) = in_ch4(ic,l)
-         w_wkl(iw,7,l) = in_o2(ic,l)
+         w_pavel(iw,l) = in_play(iw,l)
+         w_tavel(iw,l) = in_tlay(iw,l)
+         w_pz(iw,l) = in_plev(iw,l+1)
+         w_tz(iw,l) = in_tlev(iw,l+1)
+         w_wkl(iw,1,l) = in_h2o(iw,l)
+         w_wkl(iw,2,l) = in_co2(iw,l)
+         w_wkl(iw,3,l) = in_o3(iw,l)
+         w_wkl(iw,4,l) = in_n2o(iw,l)
+         w_wkl(iw,6,l) = in_ch4(iw,l)
+         w_wkl(iw,7,l) = in_o2(iw,l)
          amm = (1._rb - w_wkl(iw,1,l)) * amd + w_wkl(iw,1,l) * amw
          w_coldry(iw,l) = (w_pz(iw,l-1)-w_pz(iw,l)) * 1.e3_rb * avogad / &
                      (1.e2_rb * grav * amm * (1._rb + w_wkl(iw,1,l)))
       enddo
       do l = 1, nlayers
-         w_wx(iw,1,l) = in_ccl4(ic,l)
-         w_wx(iw,2,l) = in_cfc11(ic,l)
-         w_wx(iw,3,l) = in_cfc12(ic,l)
-         w_wx(iw,4,l) = in_cfc22(ic,l)
+         w_wx(iw,1,l) = in_ccl4(iw,l)
+         w_wx(iw,2,l) = in_cfc11(iw,l)
+         w_wx(iw,3,l) = in_cfc12(iw,l)
+         w_wx(iw,4,l) = in_cfc22(iw,l)
       enddo
       do l = 1, nlayers
          summol = 0.0_rb
@@ -15806,7 +15841,7 @@ contains
       wvsh = (amw * wvttl) / (amd * amttl)
       pwvcm = wvsh * (1.e3_rb * w_pz(iw,0)) / (1.e2_rb * grav)
       do n = 1, nbndlw
-         w_semiss(iw,n) = in_emis(ic,n)
+         w_semiss(iw,n) = in_emis(iw,n)
       enddo
       end subroutine inatm_g
 
@@ -15829,9 +15864,9 @@ contains
       do lay = 1, nlayers
         do ig = 1, ngptlw
           if (w_cldfmc(iw,ig,lay) .eq. 1._rb) then
-             ciw = in_ciwp(ic,lay)
-             clw = in_clwp(ic,lay)
-             csw = in_cswp(ic,lay)
+             ciw = in_ciwp(iw,lay)
+             clw = in_clwp(iw,lay)
+             csw = in_cswp(iw,lay)
           else
              ciw = 0._rb
              clw = 0._rb
@@ -15841,26 +15876,26 @@ contains
           if (w_cldfmc(iw,ig,lay) .ge. cldmin .and. &
              (cwp .ge. cldmin .or. w_taucmc(iw,ig,lay) .ge. cldmin)) then
             if (inflag .lt. 2) then
-               out_err(ic) = 3
+               out_err(iw) = 3
                return
             endif
-            radice = in_rei(ic,lay)
+            radice = in_rei(iw,lay)
             if ((ciw+csw) .eq. 0.0_rb) then
                abscoice = 0.0_rb
                abscosno = 0.0_rb
             elseif (iceflag .eq. 0) then
-               if (radice .lt. 10.0_rb) out_err(ic) = 4
+               if (radice .lt. 10.0_rb) out_err(iw) = 4
                abscoice = absice0(1) + absice0(2)/radice
                abscosno = 0.0_rb
             elseif (iceflag .eq. 1) then
-               if (radice .lt. 13.0_rb .or. radice .gt. 130._rb) out_err(ic) = 4
+               if (radice .lt. 13.0_rb .or. radice .gt. 130._rb) out_err(iw) = 4
                ncbands = 5
                ib = icb(ngb(ig))
                abscoice = absice1(1,ib) + absice1(2,ib)/radice
                abscosno = 0.0_rb
             elseif (iceflag .eq. 2) then
                if (radice .lt. 5.0_rb .or. radice .gt. 131.0_rb) then
-                  out_err(ic) = 4
+                  out_err(iw) = 4
                   return
                endif
                ncbands = 16
@@ -15873,7 +15908,7 @@ contains
                abscosno = 0.0_rb
             else
                if (radice .lt. 5.0_rb .or. radice .gt. 140.0_rb) then
-                  out_err(ic) = 5
+                  out_err(iw) = 5
                   return
                endif
                ncbands = 16
@@ -15886,9 +15921,9 @@ contains
                abscosno = 0.0_rb
             endif
             if (csw .gt. 0.0_rb .and. iceflag .eq. 5) then
-               radsno = in_res(ic,lay)
+               radsno = in_res(iw,lay)
                if (radsno .lt. 5.0_rb .or. radsno .gt. 140.0_rb) then
-                  out_err(ic) = 6
+                  out_err(iw) = 6
                   return
                endif
                ncbands = 16
@@ -15904,9 +15939,9 @@ contains
             elseif (liqflag .eq. 0) then
                abscoliq = absliq0
             elseif (liqflag .eq. 1) then
-               radliq = in_rel(ic,lay)
+               radliq = in_rel(iw,lay)
                if (radliq .lt. 2.5_rb .or. radliq .gt. 60._rb) then
-                  out_err(ic) = 7
+                  out_err(iw) = 7
                   return
                endif
                index = int(radliq - 1.5_rb)
@@ -15929,24 +15964,24 @@ contains
       integer, intent(in) :: ic, iw, nlay
       integer(kind=im) :: nlayers, laytrop, ncbands, k
       real(kind=rb) :: tbound, pwvcm
-      out_err(ic) = 0
-      call mcica_lw_g(ic, iw, nlay, in_flag(ic,2), in_flag(ic,3), in_flag(ic,4), in_flag(ic,8))
-      if (out_err(ic) .ne. 0) return
+      out_err(iw) = 0
+      call mcica_lw_g(ic, iw, nlay, in_flag(iw,2), in_flag(iw,3), in_flag(iw,4), in_flag(iw,8))
+      if (out_err(iw) .ne. 0) return
       call inatm_g(ic, iw, nlay, nlayers, tbound, pwvcm)
-      call cldprmc_g(ic, iw, nlayers, in_flag(ic,5), in_flag(ic,6), in_flag(ic,7), ncbands)
-      if (out_err(ic) .ne. 0) return
+      call cldprmc_g(ic, iw, nlayers, in_flag(iw,5), in_flag(iw,6), in_flag(iw,7), ncbands)
+      if (out_err(iw) .ne. 0) return
       call setcoef_g(iw, nlayers, 1, tbound, laytrop)
       call taumol_g(iw, nlayers, laytrop)
       call rtrnmc_g(iw, nlayers, 1, 16, 0, pwvcm, ncbands)
       do k = 0, nlayers
-         out_uflx(ic,k+1) = w_totuflux(iw,k)
-         out_dflx(ic,k+1) = w_totdflux(iw,k)
-         out_uflxc(ic,k+1) = w_totuclfl(iw,k)
-         out_dflxc(ic,k+1) = w_totdclfl(iw,k)
+         out_uflx(iw,k+1) = w_totuflux(iw,k)
+         out_dflx(iw,k+1) = w_totdflux(iw,k)
+         out_uflxc(iw,k+1) = w_totuclfl(iw,k)
+         out_dflxc(iw,k+1) = w_totdclfl(iw,k)
       enddo
       do k = 0, nlayers-1
-         out_hr(ic,k+1) = w_htr(iw,k)
-         out_hrc(ic,k+1) = w_htrc(iw,k)
+         out_hr(iw,k+1) = w_htr(iw,k)
+         out_hrc(iw,k+1) = w_htrc(iw,k)
       enddo
       end subroutine lw_col_g
 
@@ -15961,19 +15996,16 @@ contains
       if (nlay+1 .gt. mxl_g) call wrf_error_fatal('rrtmg_lw_gpu: nlayers+1 > mxl_g')
       if (ncolm .ne. gw_ncolm .or. nlay .ne. gw_nlay) then
          if (allocated(in_play)) then
-            deallocate(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2, &
-                       in_cfc11, in_cfc12, in_cfc22, in_ccl4, in_cldf, in_ciwp, in_clwp, in_cswp, in_rei, in_rel, &
-                       in_res, in_hgt, in_emis, in_tsfc, in_lat, in_flag, out_uflx, out_dflx, out_uflxc, out_dflxc, &
-                       out_hr, out_hrc, out_err)
+            deallocate(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2, in_cfc11, &
+                       in_cfc12, in_cfc22, in_ccl4, in_cldf, in_ciwp, in_clwp, in_cswp, in_rei, in_rel, in_res, &
+                       in_hgt, in_emis, in_tsfc, in_lat, in_flag, out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, &
+                       out_hrc, out_err)
+            deallocate(hs_in_play, hs_in_plev, hs_in_tlay, hs_in_tlev, hs_in_h2o, hs_in_o3, hs_in_co2, hs_in_ch4, &
+                       hs_in_n2o, hs_in_o2, hs_in_cfc11, hs_in_cfc12, hs_in_cfc22, hs_in_ccl4, hs_in_cldf, &
+                       hs_in_ciwp, hs_in_clwp, hs_in_cswp, hs_in_rei, hs_in_rel, hs_in_res, hs_in_hgt, hs_in_emis, &
+                       hs_in_tsfc, hs_in_lat, hs_in_flag, hs_out_uflx, hs_out_dflx, hs_out_uflxc, hs_out_dflxc, &
+                       hs_out_hr, hs_out_hrc, hs_out_err)
          endif
-         allocate(in_play(ncolm,nlay), in_plev(ncolm,nlay+1), in_tlay(ncolm,nlay), in_tlev(ncolm,nlay+1), &
-                  in_h2o(ncolm,nlay), in_o3(ncolm,nlay), in_co2(ncolm,nlay), in_ch4(ncolm,nlay), in_n2o(ncolm,nlay), &
-                  in_o2(ncolm,nlay), in_cfc11(ncolm,nlay), in_cfc12(ncolm,nlay), in_cfc22(ncolm,nlay), &
-                  in_ccl4(ncolm,nlay), in_cldf(ncolm,nlay), in_ciwp(ncolm,nlay), in_clwp(ncolm,nlay), &
-                  in_cswp(ncolm,nlay), in_rei(ncolm,nlay), in_rel(ncolm,nlay), in_res(ncolm,nlay), &
-                  in_hgt(ncolm,nlay), in_emis(ncolm,nbndlw), in_tsfc(ncolm), in_lat(ncolm), in_flag(ncolm,8), &
-                  out_uflx(ncolm,nlay+1), out_dflx(ncolm,nlay+1), out_uflxc(ncolm,nlay+1), out_dflxc(ncolm,nlay+1), &
-                  out_hr(ncolm,nlay), out_hrc(ncolm,nlay), out_err(ncolm))
          nch = 131072
          call get_environment_variable('WRF_GPU_RACHUNK', v, status=st)
          if (st == 0) read(v, *, iostat=st) nch
@@ -15984,15 +16016,37 @@ contains
          ! steady GPU footprint 27.8 -> 19.2 GB on a 1000x380 patch at no measurable cost, bit-identical (was 72000)
          if (st /= 0 .and. ncolm > 12000) nch = (ncolm + (ncolm+11999)/12000 - 1) / ((ncolm+11999)/12000)
          nch = min(nch, ncolm)
+         gw_nchunk = nch
+         nch = gw_nchunk
+         gw_nchk = (ncolm + nch - 1) / nch
+         ! device: one chunk of staging; host: the whole patch, chunk-major (2026-11-08 memory cut)
+         allocate(in_play(nch,nlay), in_plev(nch,nlay+1), in_tlay(nch,nlay), in_tlev(nch,nlay+1), in_h2o(nch,nlay), &
+                  in_o3(nch,nlay), in_co2(nch,nlay), in_ch4(nch,nlay), in_n2o(nch,nlay), in_o2(nch,nlay), &
+                  in_cfc11(nch,nlay), in_cfc12(nch,nlay), in_cfc22(nch,nlay), in_ccl4(nch,nlay), in_cldf(nch,nlay), &
+                  in_ciwp(nch,nlay), in_clwp(nch,nlay), in_cswp(nch,nlay), in_rei(nch,nlay), in_rel(nch,nlay), &
+                  in_res(nch,nlay), in_hgt(nch,nlay), in_emis(nch,nbndlw), in_tsfc(nch), in_lat(nch), in_flag(nch,8), &
+                  out_uflx(nch,nlay+1), out_dflx(nch,nlay+1), out_uflxc(nch,nlay+1), out_dflxc(nch,nlay+1), &
+                  out_hr(nch,nlay), out_hrc(nch,nlay), out_err(nch))
+         allocate(hs_in_play(nch,nlay,gw_nchk), hs_in_plev(nch,nlay+1,gw_nchk), hs_in_tlay(nch,nlay,gw_nchk), &
+                  hs_in_tlev(nch,nlay+1,gw_nchk), hs_in_h2o(nch,nlay,gw_nchk), hs_in_o3(nch,nlay,gw_nchk), &
+                  hs_in_co2(nch,nlay,gw_nchk), hs_in_ch4(nch,nlay,gw_nchk), hs_in_n2o(nch,nlay,gw_nchk), &
+                  hs_in_o2(nch,nlay,gw_nchk), hs_in_cfc11(nch,nlay,gw_nchk), hs_in_cfc12(nch,nlay,gw_nchk), &
+                  hs_in_cfc22(nch,nlay,gw_nchk), hs_in_ccl4(nch,nlay,gw_nchk), hs_in_cldf(nch,nlay,gw_nchk), &
+                  hs_in_ciwp(nch,nlay,gw_nchk), hs_in_clwp(nch,nlay,gw_nchk), hs_in_cswp(nch,nlay,gw_nchk), &
+                  hs_in_rei(nch,nlay,gw_nchk), hs_in_rel(nch,nlay,gw_nchk), hs_in_res(nch,nlay,gw_nchk), &
+                  hs_in_hgt(nch,nlay,gw_nchk), hs_in_emis(nch,nbndlw,gw_nchk), hs_in_tsfc(nch,gw_nchk), &
+                  hs_in_lat(nch,gw_nchk), hs_in_flag(nch,8,gw_nchk), hs_out_uflx(nch,nlay+1,gw_nchk), &
+                  hs_out_dflx(nch,nlay+1,gw_nchk), hs_out_uflxc(nch,nlay+1,gw_nchk), &
+                  hs_out_dflxc(nch,nlay+1,gw_nchk), hs_out_hr(nch,nlay,gw_nchk), hs_out_hrc(nch,nlay,gw_nchk), &
+                  hs_out_err(nch,gw_nchk))
          gw_ncolm = ncolm
          gw_nlay = nlay
-         gw_nchunk = nch
       endif
       gw_ims = ims
       gw_ime = ime
       gw_jms = jms
       gw_jme = jme
-      in_flag(:,1) = 0
+      hs_in_flag(:,1,:) = 0
       end subroutine rrtmg_lw_gpu_begin
 
       integer function rrtmg_lw_gpu_col(i, j)
@@ -16011,56 +16065,58 @@ contains
            co2vmr(nlay), ch4vmr(nlay), n2ovmr(nlay), o2vmr(nlay), cfc11vmr(nlay), cfc12vmr(nlay), cfc22vmr(nlay), &
            ccl4vmr(nlay), emis(nbndlw), cldfrac(nlay), ciwpth(nlay), clwpth(nlay), cswpth(nlay), rei(nlay), &
            rel(nlay), res(nlay), hgt(nlay), lat
-      integer :: ic, k
+      integer :: ic, k, icl, ich
       if (nlay .ne. gw_nlay) call wrf_error_fatal('rrtmg_lw_gpu_store: nlayers changed')
       if (irng .ne. 0) call wrf_error_fatal('rrtmg_lw_gpu: only the KISS generator (irng=0) is ported')
       ic = rrtmg_lw_gpu_col(i, j)
+      ich = (ic-1)/gw_nchunk + 1
+      icl = ic - (ich-1)*gw_nchunk
       do k = 1, nlay
-         in_play(ic,k) = play(k)
-         in_tlay(ic,k) = tlay(k)
-         in_h2o(ic,k) = h2ovmr(k)
-         in_o3(ic,k) = o3vmr(k)
-         in_co2(ic,k) = co2vmr(k)
-         in_ch4(ic,k) = ch4vmr(k)
-         in_n2o(ic,k) = n2ovmr(k)
-         in_o2(ic,k) = o2vmr(k)
-         in_cfc11(ic,k) = cfc11vmr(k)
-         in_cfc12(ic,k) = cfc12vmr(k)
-         in_cfc22(ic,k) = cfc22vmr(k)
-         in_ccl4(ic,k) = ccl4vmr(k)
-         in_cldf(ic,k) = cldfrac(k)
-         in_ciwp(ic,k) = ciwpth(k)
-         in_clwp(ic,k) = clwpth(k)
-         in_cswp(ic,k) = cswpth(k)
-         in_rei(ic,k) = rei(k)
-         in_rel(ic,k) = rel(k)
-         in_res(ic,k) = res(k)
-         in_hgt(ic,k) = hgt(k)
+         hs_in_play(icl,k,ich) = play(k)
+         hs_in_tlay(icl,k,ich) = tlay(k)
+         hs_in_h2o(icl,k,ich) = h2ovmr(k)
+         hs_in_o3(icl,k,ich) = o3vmr(k)
+         hs_in_co2(icl,k,ich) = co2vmr(k)
+         hs_in_ch4(icl,k,ich) = ch4vmr(k)
+         hs_in_n2o(icl,k,ich) = n2ovmr(k)
+         hs_in_o2(icl,k,ich) = o2vmr(k)
+         hs_in_cfc11(icl,k,ich) = cfc11vmr(k)
+         hs_in_cfc12(icl,k,ich) = cfc12vmr(k)
+         hs_in_cfc22(icl,k,ich) = cfc22vmr(k)
+         hs_in_ccl4(icl,k,ich) = ccl4vmr(k)
+         hs_in_cldf(icl,k,ich) = cldfrac(k)
+         hs_in_ciwp(icl,k,ich) = ciwpth(k)
+         hs_in_clwp(icl,k,ich) = clwpth(k)
+         hs_in_cswp(icl,k,ich) = cswpth(k)
+         hs_in_rei(icl,k,ich) = rei(k)
+         hs_in_rel(icl,k,ich) = rel(k)
+         hs_in_res(icl,k,ich) = res(k)
+         hs_in_hgt(icl,k,ich) = hgt(k)
       enddo
       do k = 1, nlay+1
-         in_plev(ic,k) = plev(k)
-         in_tlev(ic,k) = tlev(k)
+         hs_in_plev(icl,k,ich) = plev(k)
+         hs_in_tlev(icl,k,ich) = tlev(k)
       enddo
       do k = 1, nbndlw
-         in_emis(ic,k) = emis(k)
+         hs_in_emis(icl,k,ich) = emis(k)
       enddo
-      in_tsfc(ic) = tsfc
-      in_lat(ic) = lat
-      in_flag(ic,2) = icld
-      in_flag(ic,3) = idcor
-      in_flag(ic,4) = juldat
-      in_flag(ic,5) = inflglw
-      in_flag(ic,6) = iceflglw
-      in_flag(ic,7) = liqflglw
-      in_flag(ic,8) = permuteseed
-      in_flag(ic,1) = 1
+      hs_in_tsfc(icl,ich) = tsfc
+      hs_in_lat(icl,ich) = lat
+      hs_in_flag(icl,2,ich) = icld
+      hs_in_flag(icl,3,ich) = idcor
+      hs_in_flag(icl,4,ich) = juldat
+      hs_in_flag(icl,5,ich) = inflglw
+      hs_in_flag(icl,6,ich) = iceflglw
+      hs_in_flag(icl,7,ich) = liqflglw
+      hs_in_flag(icl,8,ich) = permuteseed
+      hs_in_flag(icl,1,ich) = 1
       end subroutine rrtmg_lw_gpu_store
 
 ! run: all stored columns on the GPU, in chunks of gw_nchunk columns (work arrays are per chunk)
       subroutine rrtmg_lw_gpu_run()
       use rrtmg_lw_gtab, only: lw_gtab_done, rrtmg_lw_gtab_init
       implicit none
-      integer :: c0, c1, ic, iw, nlay, ierr, nch, nl
+      integer :: c0, c1, ic, iw, nlay, ierr, nch, nl, ich
       integer :: ib, k, st, lt_, ncb_
       integer(kind=im) :: nl_
       real(kind=rb) :: tb_, pw_
@@ -16199,24 +16255,23 @@ contains
       endif
       if (allocated(s_nl)) deallocate(s_nl, s_lt, s_ncb, s_tb, s_pw)
       allocate(s_nl(nch), s_lt(nch), s_ncb(nch), s_tb(nch), s_pw(nch))
-!$acc update device(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3, in_co2, in_ch4, in_n2o, in_o2)
-!$acc update device(in_cfc11, in_cfc12, in_cfc22, in_ccl4, in_cldf, in_ciwp, in_clwp, in_cswp, in_rei)
-!$acc update device(in_rel, in_res, in_hgt, in_emis, in_tsfc, in_lat, in_flag)
       do c0 = 1, gw_ncolm, gw_nchunk
          c1 = min(c0 + gw_nchunk - 1, gw_ncolm)
+         ich = (c0-1)/gw_nchunk + 1
+         call gw_stage_in(ich)
        if (gw_stage == 1) then
          ! staged: column setup | coefficients | optical depths per (column, band) | radiative transfer
 !$acc parallel loop gang vector vector_length(128) private(iw, nl_, tb_, pw_, ncb_)
          do ic = c0, c1
             iw = ic - c0 + 1
             s_nl(iw) = -1
-            out_err(ic) = 0
-            if (in_flag(ic,1) .eq. 1) then
-               call mcica_lw_g(ic, iw, nlay, in_flag(ic,2), in_flag(ic,3), in_flag(ic,4), in_flag(ic,8))
-               if (out_err(ic) .eq. 0) then
+            out_err(iw) = 0
+            if (in_flag(iw,1) .eq. 1) then
+               call mcica_lw_g(ic, iw, nlay, in_flag(iw,2), in_flag(iw,3), in_flag(iw,4), in_flag(iw,8))
+               if (out_err(iw) .eq. 0) then
                   call inatm_g(ic, iw, nlay, nl_, tb_, pw_)
-                  call cldprmc_g(ic, iw, nl_, in_flag(ic,5), in_flag(ic,6), in_flag(ic,7), ncb_)
-                  if (out_err(ic) .eq. 0) then
+                  call cldprmc_g(ic, iw, nl_, in_flag(iw,5), in_flag(iw,6), in_flag(iw,7), ncb_)
+                  if (out_err(iw) .eq. 0) then
                      s_nl(iw) = nl_ ; s_tb(iw) = tb_ ; s_pw(iw) = pw_ ; s_ncb(iw) = ncb_
                   endif
                endif
@@ -16243,30 +16298,30 @@ contains
             if (s_nl(iw) .gt. 0) then
                call rtrnmc_g(iw, s_nl(iw), 1, 16, 0, s_pw(iw), s_ncb(iw))
                do k = 0, s_nl(iw)
-                  out_uflx(ic,k+1) = w_totuflux(iw,k)
-                  out_dflx(ic,k+1) = w_totdflux(iw,k)
-                  out_uflxc(ic,k+1) = w_totuclfl(iw,k)
-                  out_dflxc(ic,k+1) = w_totdclfl(iw,k)
+                  out_uflx(iw,k+1) = w_totuflux(iw,k)
+                  out_dflx(iw,k+1) = w_totdflux(iw,k)
+                  out_uflxc(iw,k+1) = w_totuclfl(iw,k)
+                  out_dflxc(iw,k+1) = w_totdclfl(iw,k)
                enddo
                do k = 0, s_nl(iw)-1
-                  out_hr(ic,k+1) = w_htr(iw,k)
-                  out_hrc(ic,k+1) = w_htrc(iw,k)
+                  out_hr(iw,k+1) = w_htr(iw,k)
+                  out_hrc(iw,k+1) = w_htrc(iw,k)
                enddo
             endif
          enddo
        else
 !$acc parallel loop gang vector vector_length(128) private(iw)
          do ic = c0, c1
-            if (in_flag(ic,1) .eq. 1) then
-               iw = ic - c0 + 1
+            iw = ic - c0 + 1
+            if (in_flag(iw,1) .eq. 1) then
                call lw_col_g(ic, iw, nlay)
             else
-               out_err(ic) = 0
+               out_err(iw) = 0
             endif
          enddo
        endif
+         call gw_stage_out(ich)
       enddo
-!$acc update self(out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc, out_err)
       if (allocated(w_pavel)) deallocate(w_pavel)
       if (allocated(w_tavel)) deallocate(w_tavel)
       if (allocated(w_coldry)) deallocate(w_coldry)
@@ -16328,7 +16383,8 @@ contains
       if (allocated(w_taug)) deallocate(w_taug)
       if (allocated(w_cldfmc)) deallocate(w_cldfmc)
       if (allocated(w_taucmc)) deallocate(w_taucmc)
-      ierr = maxval(out_err)
+      hs_out_err(gw_ncolm-(gw_nchk-1)*gw_nchunk+1:gw_nchunk, gw_nchk) = 0
+      ierr = maxval(hs_out_err)
       if (ierr .ne. 0) then
          write(msg, '(a,i3)') 'rrtmg_lw_gpu: column error code ', ierr
          call wrf_error_fatal(trim(msg))
@@ -16397,6 +16453,76 @@ contains
       if (allocated(w_taucmc)) deallocate(w_taucmc)
 end subroutine rrtmg_lw_gpu_run
 
+! copy one chunk of staged inputs to the device / outputs back (whole-chunk contiguous blocks)
+      subroutine gw_stage_in(ich)
+      use iso_c_binding, only: c_ptr, c_size_t
+      implicit none
+      integer, intent(in) :: ich
+      interface
+         type(c_ptr) function gw_devptr(h) bind(C, name='acc_deviceptr')
+         import :: c_ptr
+         type(*), dimension(*) :: h
+         end function
+         subroutine gw_h2d(d, h, n) bind(C, name='acc_memcpy_to_device')
+         import :: c_ptr, c_size_t
+         type(c_ptr), value :: d
+         type(*), dimension(*) :: h
+         integer(c_size_t), value :: n
+         end subroutine
+      end interface
+      call gw_h2d(gw_devptr(in_play), hs_in_play(1,1,ich), int(size(in_play),c_size_t)*int(storage_size(in_play)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_plev), hs_in_plev(1,1,ich), int(size(in_plev),c_size_t)*int(storage_size(in_plev)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_tlay), hs_in_tlay(1,1,ich), int(size(in_tlay),c_size_t)*int(storage_size(in_tlay)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_tlev), hs_in_tlev(1,1,ich), int(size(in_tlev),c_size_t)*int(storage_size(in_tlev)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_h2o), hs_in_h2o(1,1,ich), int(size(in_h2o),c_size_t)*int(storage_size(in_h2o)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_o3), hs_in_o3(1,1,ich), int(size(in_o3),c_size_t)*int(storage_size(in_o3)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_co2), hs_in_co2(1,1,ich), int(size(in_co2),c_size_t)*int(storage_size(in_co2)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_ch4), hs_in_ch4(1,1,ich), int(size(in_ch4),c_size_t)*int(storage_size(in_ch4)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_n2o), hs_in_n2o(1,1,ich), int(size(in_n2o),c_size_t)*int(storage_size(in_n2o)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_o2), hs_in_o2(1,1,ich), int(size(in_o2),c_size_t)*int(storage_size(in_o2)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_cfc11), hs_in_cfc11(1,1,ich), int(size(in_cfc11),c_size_t)*int(storage_size(in_cfc11)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_cfc12), hs_in_cfc12(1,1,ich), int(size(in_cfc12),c_size_t)*int(storage_size(in_cfc12)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_cfc22), hs_in_cfc22(1,1,ich), int(size(in_cfc22),c_size_t)*int(storage_size(in_cfc22)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_ccl4), hs_in_ccl4(1,1,ich), int(size(in_ccl4),c_size_t)*int(storage_size(in_ccl4)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_cldf), hs_in_cldf(1,1,ich), int(size(in_cldf),c_size_t)*int(storage_size(in_cldf)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_ciwp), hs_in_ciwp(1,1,ich), int(size(in_ciwp),c_size_t)*int(storage_size(in_ciwp)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_clwp), hs_in_clwp(1,1,ich), int(size(in_clwp),c_size_t)*int(storage_size(in_clwp)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_cswp), hs_in_cswp(1,1,ich), int(size(in_cswp),c_size_t)*int(storage_size(in_cswp)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_rei), hs_in_rei(1,1,ich), int(size(in_rei),c_size_t)*int(storage_size(in_rei)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_rel), hs_in_rel(1,1,ich), int(size(in_rel),c_size_t)*int(storage_size(in_rel)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_res), hs_in_res(1,1,ich), int(size(in_res),c_size_t)*int(storage_size(in_res)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_hgt), hs_in_hgt(1,1,ich), int(size(in_hgt),c_size_t)*int(storage_size(in_hgt)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_emis), hs_in_emis(1,1,ich), int(size(in_emis),c_size_t)*int(storage_size(in_emis)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_tsfc), hs_in_tsfc(1,ich), int(size(in_tsfc),c_size_t)*int(storage_size(in_tsfc)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_lat), hs_in_lat(1,ich), int(size(in_lat),c_size_t)*int(storage_size(in_lat)/8,c_size_t))
+      call gw_h2d(gw_devptr(in_flag), hs_in_flag(1,1,ich), int(size(in_flag),c_size_t)*int(storage_size(in_flag)/8,c_size_t))
+      end subroutine gw_stage_in
+
+      subroutine gw_stage_out(ich)
+      use iso_c_binding, only: c_ptr, c_size_t
+      implicit none
+      integer, intent(in) :: ich
+      interface
+         type(c_ptr) function gw_devptr(h) bind(C, name='acc_deviceptr')
+         import :: c_ptr
+         type(*), dimension(*) :: h
+         end function
+         subroutine gw_d2h(h, d, n) bind(C, name='acc_memcpy_from_device')
+         import :: c_ptr, c_size_t
+         type(*), dimension(*) :: h
+         type(c_ptr), value :: d
+         integer(c_size_t), value :: n
+         end subroutine
+      end interface
+      call gw_d2h(hs_out_uflx(1,1,ich), gw_devptr(out_uflx), int(size(out_uflx),c_size_t)*int(storage_size(out_uflx)/8,c_size_t))
+      call gw_d2h(hs_out_dflx(1,1,ich), gw_devptr(out_dflx), int(size(out_dflx),c_size_t)*int(storage_size(out_dflx)/8,c_size_t))
+      call gw_d2h(hs_out_uflxc(1,1,ich), gw_devptr(out_uflxc), int(size(out_uflxc),c_size_t)*int(storage_size(out_uflxc)/8,c_size_t))
+      call gw_d2h(hs_out_dflxc(1,1,ich), gw_devptr(out_dflxc), int(size(out_dflxc),c_size_t)*int(storage_size(out_dflxc)/8,c_size_t))
+      call gw_d2h(hs_out_hr(1,1,ich), gw_devptr(out_hr), int(size(out_hr),c_size_t)*int(storage_size(out_hr)/8,c_size_t))
+      call gw_d2h(hs_out_hrc(1,1,ich), gw_devptr(out_hrc), int(size(out_hrc),c_size_t)*int(storage_size(out_hrc)/8,c_size_t))
+      call gw_d2h(hs_out_err(1,ich), gw_devptr(out_err), int(size(out_err),c_size_t)*int(storage_size(out_err)/8,c_size_t))
+      end subroutine gw_stage_out
+
       end module rrtmg_lw_gpu
 #endif
 MODULE module_ra_rrtmg_lw
@@ -16416,7 +16542,7 @@ use rrtmg_lw_rad, only: rrtmg_lw
 use mcica_subcol_gen_lw, only: mcica_subcol_lw
 #if defined(WRF_GPU)
 use rrtmg_lw_gpu, only: rrtmg_lw_gpu_store, rrtmg_lw_gpu_begin, rrtmg_lw_gpu_col
-use rrtmg_lw_gwork, only: out_uflx, out_dflx, out_uflxc, out_dflxc, out_hr, out_hrc
+use rrtmg_lw_gwork, only: hs_out_uflx, hs_out_dflx, hs_out_uflxc, hs_out_dflxc, hs_out_hr, hs_out_hrc, gw_nchunk
 #endif
 
     real retab(95)
@@ -17755,36 +17881,38 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT) :: lwupt, lwuptc, lwdnt, lwdntc, &
                                                                    lwupb, lwupbc, lwdnb, lwdnbc
    REAL, DIMENSION( ims:ime, kms:kme+2, jms:jme ), OPTIONAL, INTENT(INOUT) :: lwupflx, lwupflxc, lwdnflx, lwdnflxc
-   INTEGER :: i, j, k, ic
+   INTEGER :: i, j, k, ic, icl, ich
    REAL :: tten1d
    DO j = jts, jte
    DO i = its, ite
       ic = rrtmg_lw_gpu_col(i, j)
-      glw(i,j) = out_dflx(ic,1)
-      olr(i,j) = out_uflx(ic,nlayers+1)
-      lwcf(i,j) = out_uflxc(ic,nlayers+1) - out_uflx(ic,nlayers+1)
+      ich = (ic-1)/gw_nchunk + 1
+      icl = ic - (ich-1)*gw_nchunk
+      glw(i,j) = hs_out_dflx(icl,1,ich)
+      olr(i,j) = hs_out_uflx(icl,nlayers+1,ich)
+      lwcf(i,j) = hs_out_uflxc(icl,nlayers+1,ich) - hs_out_uflx(icl,nlayers+1,ich)
       IF ( PRESENT(lwupt) ) THEN
-         lwupt(i,j)  = out_uflx(ic,nlayers+1)
-         lwuptc(i,j) = out_uflxc(ic,nlayers+1)
-         lwdnt(i,j)  = out_dflx(ic,nlayers+1)
-         lwdntc(i,j) = out_dflxc(ic,nlayers+1)
-         lwupb(i,j)  = out_uflx(ic,1)
-         lwupbc(i,j) = out_uflxc(ic,1)
-         lwdnb(i,j)  = out_dflx(ic,1)
-         lwdnbc(i,j) = out_dflxc(ic,1)
+         lwupt(i,j)  = hs_out_uflx(icl,nlayers+1,ich)
+         lwuptc(i,j) = hs_out_uflxc(icl,nlayers+1,ich)
+         lwdnt(i,j)  = hs_out_dflx(icl,nlayers+1,ich)
+         lwdntc(i,j) = hs_out_dflxc(icl,nlayers+1,ich)
+         lwupb(i,j)  = hs_out_uflx(icl,1,ich)
+         lwupbc(i,j) = hs_out_uflxc(icl,1,ich)
+         lwdnb(i,j)  = hs_out_dflx(icl,1,ich)
+         lwdnbc(i,j) = hs_out_dflxc(icl,1,ich)
       ENDIF
       IF ( PRESENT(lwupflx) ) THEN
          DO k = kts, kte+2
-            lwupflx(i,k,j)  = out_uflx(ic,k)
-            lwupflxc(i,k,j) = out_uflxc(ic,k)
-            lwdnflx(i,k,j)  = out_dflx(ic,k)
-            lwdnflxc(i,k,j) = out_dflxc(ic,k)
+            lwupflx(i,k,j)  = hs_out_uflx(icl,k,ich)
+            lwupflxc(i,k,j) = hs_out_uflxc(icl,k,ich)
+            lwdnflx(i,k,j)  = hs_out_dflx(icl,k,ich)
+            lwdnflxc(i,k,j) = hs_out_dflxc(icl,k,ich)
          ENDDO
       ENDIF
       DO k = kts, kte
-         tten1d = out_hr(ic,k)/86400.
+         tten1d = hs_out_hr(icl,k,ich)/86400.
          rthratenlw(i,k,j) = tten1d/pi3d(i,k,j)
-         tten1d = out_hrc(ic,k)/86400.
+         tten1d = hs_out_hrc(icl,k,ich)/86400.
          rthratenlwc(i,k,j) = tten1d/pi3d(i,k,j)
       ENDDO
    ENDDO

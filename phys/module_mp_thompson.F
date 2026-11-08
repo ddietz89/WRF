@@ -510,6 +510,7 @@
       INTEGER, DIMENSION(:,:), ALLOCATABLE:: thb_kmc
 !$acc declare create(thb_tten,thb_qvten,thb_qcten,thb_qiten,thb_qrten,thb_qsten,thb_qgten,thb_qbten,thb_niten,thb_nrten,thb_ncten,thb_ngten,thb_nwfaten,thb_nifaten,thb_nbcaten,thb_prr_sml,thb_temp,thb_rc,thb_ri,thb_rr,thb_rs,thb_rg,thb_rb,thb_ni,thb_nr,thb_nc,thb_ng,thb_rho,thb_rhof,thb_visco,thb_lvap,thb_ocp,thb_ilamg,thb_mvd_r,thb_mvd_g,thb_smob,thb_smoc,thb_vts_boost,thb_idx_bg,thb_l_qc,thb_l_qi,thb_l_qr,thb_l_qs,thb_l_qg,thb_qv1d,thb_qc1d,thb_qi1d,thb_qr1d,thb_qs1d,thb_qg1d,thb_qb1d,thb_ni1d,thb_nr1d,thb_nc1d,thb_ng1d,thb_nwfa1d,thb_nifa1d,thb_nbca1d,thb_t1d,thb_w1d,thb_nm,thb_km,thb_nmc,thb_kmc)
       INTEGER, SAVE:: thlev_on = -1, thbsz_ni = 0, thbsz_nk = 0, thbsz_nj = 0
+      INTEGER, SAVE:: thband_max = -1
 #endif
       CONTAINS
 
@@ -1358,7 +1359,7 @@
       REAL:: sv_rhod, sv_ygra1, sv_zans1, sv_N0_exp, sv_lam_exp, sv_lamg
       LOGICAL:: sv_nm
       INTEGER:: sv_km
-      INTEGER:: thjb, thje, thjj, thnb
+      INTEGER:: thjb, thje, thjj, thnb, thb0, thb1, thbsz
       REAL:: lv_tten
       REAL:: lv_qvten
       REAL:: lv_qcten
@@ -1813,20 +1814,33 @@
       ENDIF
       IF ( thlev_on == 1 ) THEN
 !.. WRF_GPU_THLEV=1: level-parallel Thompson (see thom_lev / thom_tail); j bands bound the scratch
-      thnb = j_end - j_start + 1
-      CALL thlev_alloc( i_end - i_start + 1, kte - kts + 1, thnb )
+      ! the column list (mp_li/mp_lj, every patch column) in balanced bands of at most WRF_GPU_THBAND columns
+      ! (default 65536, 0 = one band): the hand-off scratch is (band, nk, 1) instead of the whole patch
+      IF ( thband_max < 0 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_THBAND', cv_, STATUS=st_ )
+         thband_max = 65536
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) thband_max
+         IF ( st_ /= 0 ) thband_max = 65536
+         IF ( thband_max <= 0 ) thband_max = HUGE(thband_max)/2
+      ENDIF
+      thnb = (ncol_ + thband_max - 1) / thband_max
+      thbsz = (ncol_ + thnb - 1) / thnb
+      CALL thlev_alloc( thbsz, kte - kts + 1, 1 )
       thjb = j_start ; thje = j_end
-!$acc parallel loop gang vector collapse(3) &
+      DO thb0 = 1, ncol_, thbsz
+      thb1 = MIN( thb0 + thbsz - 1, ncol_ )
+!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) &
 !$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
 !$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
 !$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
 !$acc private(sv_p1d,sv_prr_sml,sv_qb1d,sv_qbten,sv_qc1d,sv_qcten,sv_qg1d,sv_qgten,sv_qi1d,sv_qiten) &
 !$acc private(sv_qr1d,sv_qrten,sv_qs1d,sv_qsten,sv_qv1d,sv_qvten,sv_rb,sv_rc,sv_rg,sv_rho) &
 !$acc private(sv_rhof,sv_ri,sv_rr,sv_rs,sv_smob,sv_smoc,sv_t1d,sv_temp,sv_tten,sv_visco) &
-!$acc private(sv_vts_boost,sv_w1d,sv_rhod,sv_ygra1,sv_zans1,sv_N0_exp,sv_lam_exp,sv_lamg,sv_nm,sv_km)
-      do j = thjb, thje
+!$acc private(sv_vts_boost,sv_w1d,sv_rhod,sv_ygra1,sv_zans1,sv_N0_exp,sv_lam_exp,sv_lamg,sv_nm,sv_km) &
+!$acc private(i, j)
       do k = kts, kte
-      do i = i_start, i_end
+      do n_ = thb0, thb1
+            i = mp_li(n_) ; j = mp_lj(n_)
             sv_t1d = th(i,k,j)*pii(i,k,j)
             sv_p1d = p(i,k,j)
             sv_w1d = w(i,k,j)
@@ -1859,23 +1873,20 @@
                sv_qb1d = 0
             endif
             CALL thom_lev(1, k, .true., 0, sv_nm, sv_km, gpu_aer, gpu_wif, sv_qv1d, sv_qc1d, sv_qi1d, sv_qr1d, sv_qs1d, sv_qg1d, sv_qb1d, sv_ni1d, sv_nr1d, sv_nc1d, sv_ng1d, sv_nwfa1d, sv_nifa1d, sv_nbca1d, sv_t1d, sv_p1d, sv_w1d, dt, sv_tten, sv_qvten, sv_qcten, sv_qiten, sv_qrten, sv_qsten, sv_qgten, sv_qbten, sv_niten, sv_nrten, sv_ncten, sv_ngten, sv_nwfaten, sv_nifaten, sv_nbcaten, sv_prr_sml, sv_temp, sv_rc, sv_ri, sv_rr, sv_rs, sv_rg, sv_rb, sv_ni, sv_nr, sv_nc, sv_ng, sv_rho, sv_rhof, sv_visco, sv_lvap, sv_ocp, sv_ilamg, sv_mvd_r, sv_mvd_g, sv_smob, sv_smoc, sv_vts_boost, sv_idx_bg, sv_l_qc, sv_l_qi, sv_l_qr, sv_l_qs, sv_l_qg)
-            thb_nm(i-i_start+1,k-kts+1,j-thjb+1) = sv_nm
-            thb_km(i-i_start+1,k-kts+1,j-thjb+1) = sv_km
+            thb_nm(n_-thb0+1,k-kts+1,1) = sv_nm
+            thb_km(n_-thb0+1,k-kts+1,1) = sv_km
       enddo
       enddo
-      enddo
-!$acc parallel loop gang vector collapse(2)
-      do j = thjb, thje
-      do i = i_start, i_end
-         thb_nmc(i-i_start+1,j-thjb+1) = .true.
-         thb_kmc(i-i_start+1,j-thjb+1) = 0
+!$acc parallel loop gang vector
+      do n_ = thb0, thb1
+         thb_nmc(n_-thb0+1,1) = .true.
+         thb_kmc(n_-thb0+1,1) = 0
          do k = kts, kte
-            IF ( .NOT. thb_nm(i-i_start+1,k-kts+1,j-thjb+1) ) thb_nmc(i-i_start+1,j-thjb+1) = .false.
-            thb_kmc(i-i_start+1,j-thjb+1) = MAX( thb_kmc(i-i_start+1,j-thjb+1), thb_km(i-i_start+1,k-kts+1,j-thjb+1) )
+            IF ( .NOT. thb_nm(n_-thb0+1,k-kts+1,1) ) thb_nmc(n_-thb0+1,1) = .false.
+            thb_kmc(n_-thb0+1,1) = MAX( thb_kmc(n_-thb0+1,1), thb_km(n_-thb0+1,k-kts+1,1) )
          enddo
       enddo
-      enddo
-!$acc parallel loop gang vector collapse(3) &
+!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) &
 !$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
 !$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
 !$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
@@ -1910,10 +1921,11 @@
 !$acc private(lv_n,lv_nn,lv_it,lv_iexfrq,lv_k_melting,lv_nir,lv_nis,lv_nig,lv_nii,lv_nic) &
 !$acc private(lv_niin,lv_idx_tc,lv_idx_t,lv_idx_s,lv_idx_g1,lv_idx_g,lv_idx_r1,lv_idx_r,lv_idx_i1,lv_idx_i) &
 !$acc private(lv_idx_c,lv_idx,lv_idx_d,lv_idx_n,lv_idx_in,lv_idx_bg,lv_no_micro,lv_l_qc,lv_l_qi,lv_l_qr) &
-!$acc private(lv_l_qs,lv_l_qg,lv_debug_flag,lv_nu_c,lvonce,thonce)
-      do j = thjb, thje
+!$acc private(lv_l_qs,lv_l_qg,lv_debug_flag,lv_nu_c,lvonce,thonce) &
+!$acc private(i, j)
       do k = kts, kte
-      do i = i_start, i_end
+      do n_ = thb0, thb1
+            i = mp_li(n_) ; j = mp_lj(n_)
             sv_t1d = th(i,k,j)*pii(i,k,j)
             sv_p1d = p(i,k,j)
             sv_w1d = w(i,k,j)
@@ -2127,8 +2139,8 @@
             lv_ssati_s = lv_sati_s - 1.
             if (abs(lv_ssati_s).lt. eps) lv_ssati_s = 0.0
             if (lv_no_micro .and. lv_ssati_s.gt. 0.0) lv_no_micro = .false.
-            lv_no_micro = thb_nmc(i-i_start+1,j-thjb+1)
-            lv_k_melting = thb_kmc(i-i_start+1,j-thjb+1)
+            lv_no_micro = thb_nmc(n_-thb0+1,1)
+            lv_k_melting = thb_kmc(n_-thb0+1,1)
             if (lv_no_micro) exit lvblk
             if (th_probe == 1) exit lvblk
             lv_tten = 0.
@@ -3232,75 +3244,74 @@
             endif
             if (th_probe == 4) exit lvblk
             enddo lvblk
-            thb_tten(i-i_start+1,k-kts+1,j-thjb+1) = lv_tten
-            thb_qvten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qvten
-            thb_qcten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qcten
-            thb_qiten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qiten
-            thb_qrten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qrten
-            thb_qsten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qsten
-            thb_qgten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qgten
-            thb_qbten(i-i_start+1,k-kts+1,j-thjb+1) = lv_qbten
-            thb_niten(i-i_start+1,k-kts+1,j-thjb+1) = lv_niten
-            thb_nrten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nrten
-            thb_ncten(i-i_start+1,k-kts+1,j-thjb+1) = lv_ncten
-            thb_ngten(i-i_start+1,k-kts+1,j-thjb+1) = lv_ngten
-            thb_nwfaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nwfaten
-            thb_nifaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nifaten
-            thb_nbcaten(i-i_start+1,k-kts+1,j-thjb+1) = lv_nbcaten
-            thb_prr_sml(i-i_start+1,k-kts+1,j-thjb+1) = lv_prr_sml
-            thb_temp(i-i_start+1,k-kts+1,j-thjb+1) = lv_temp
-            thb_rc(i-i_start+1,k-kts+1,j-thjb+1) = lv_rc
-            thb_ri(i-i_start+1,k-kts+1,j-thjb+1) = lv_ri
-            thb_rr(i-i_start+1,k-kts+1,j-thjb+1) = lv_rr
-            thb_rs(i-i_start+1,k-kts+1,j-thjb+1) = lv_rs
-            thb_rg(i-i_start+1,k-kts+1,j-thjb+1) = lv_rg
-            thb_rb(i-i_start+1,k-kts+1,j-thjb+1) = lv_rb
-            thb_ni(i-i_start+1,k-kts+1,j-thjb+1) = lv_ni
-            thb_nr(i-i_start+1,k-kts+1,j-thjb+1) = lv_nr
-            thb_nc(i-i_start+1,k-kts+1,j-thjb+1) = lv_nc
-            thb_ng(i-i_start+1,k-kts+1,j-thjb+1) = lv_ng
-            thb_rho(i-i_start+1,k-kts+1,j-thjb+1) = lv_rho
-            thb_rhof(i-i_start+1,k-kts+1,j-thjb+1) = lv_rhof
-            thb_visco(i-i_start+1,k-kts+1,j-thjb+1) = lv_visco
-            thb_lvap(i-i_start+1,k-kts+1,j-thjb+1) = lv_lvap
-            thb_ocp(i-i_start+1,k-kts+1,j-thjb+1) = lv_ocp
-            thb_ilamg(i-i_start+1,k-kts+1,j-thjb+1) = lv_ilamg
-            thb_mvd_r(i-i_start+1,k-kts+1,j-thjb+1) = lv_mvd_r
-            thb_mvd_g(i-i_start+1,k-kts+1,j-thjb+1) = lv_mvd_g
-            thb_smob(i-i_start+1,k-kts+1,j-thjb+1) = lv_smob
-            thb_smoc(i-i_start+1,k-kts+1,j-thjb+1) = lv_smoc
-            thb_vts_boost(i-i_start+1,k-kts+1,j-thjb+1) = lv_vts_boost
-            thb_idx_bg(i-i_start+1,k-kts+1,j-thjb+1) = lv_idx_bg
-            thb_l_qc(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qc
-            thb_l_qi(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qi
-            thb_l_qr(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qr
-            thb_l_qs(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qs
-            thb_l_qg(i-i_start+1,k-kts+1,j-thjb+1) = lv_l_qg
-            thb_qv1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qv1d
-            thb_qc1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qc1d
-            thb_qi1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qi1d
-            thb_qr1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qr1d
-            thb_qs1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qs1d
-            thb_qg1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qg1d
-            thb_qb1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_qb1d
-            thb_ni1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_ni1d
-            thb_nr1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nr1d
-            thb_nc1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nc1d
-            thb_ng1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_ng1d
-            thb_nwfa1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nwfa1d
-            thb_nifa1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nifa1d
-            thb_nbca1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_nbca1d
-            thb_t1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_t1d
-            thb_w1d(i-i_start+1,k-kts+1,j-thjb+1) = sv_w1d
-      enddo
+            thb_tten(n_-thb0+1,k-kts+1,1) = lv_tten
+            thb_qvten(n_-thb0+1,k-kts+1,1) = lv_qvten
+            thb_qcten(n_-thb0+1,k-kts+1,1) = lv_qcten
+            thb_qiten(n_-thb0+1,k-kts+1,1) = lv_qiten
+            thb_qrten(n_-thb0+1,k-kts+1,1) = lv_qrten
+            thb_qsten(n_-thb0+1,k-kts+1,1) = lv_qsten
+            thb_qgten(n_-thb0+1,k-kts+1,1) = lv_qgten
+            thb_qbten(n_-thb0+1,k-kts+1,1) = lv_qbten
+            thb_niten(n_-thb0+1,k-kts+1,1) = lv_niten
+            thb_nrten(n_-thb0+1,k-kts+1,1) = lv_nrten
+            thb_ncten(n_-thb0+1,k-kts+1,1) = lv_ncten
+            thb_ngten(n_-thb0+1,k-kts+1,1) = lv_ngten
+            thb_nwfaten(n_-thb0+1,k-kts+1,1) = lv_nwfaten
+            thb_nifaten(n_-thb0+1,k-kts+1,1) = lv_nifaten
+            thb_nbcaten(n_-thb0+1,k-kts+1,1) = lv_nbcaten
+            thb_prr_sml(n_-thb0+1,k-kts+1,1) = lv_prr_sml
+            thb_temp(n_-thb0+1,k-kts+1,1) = lv_temp
+            thb_rc(n_-thb0+1,k-kts+1,1) = lv_rc
+            thb_ri(n_-thb0+1,k-kts+1,1) = lv_ri
+            thb_rr(n_-thb0+1,k-kts+1,1) = lv_rr
+            thb_rs(n_-thb0+1,k-kts+1,1) = lv_rs
+            thb_rg(n_-thb0+1,k-kts+1,1) = lv_rg
+            thb_rb(n_-thb0+1,k-kts+1,1) = lv_rb
+            thb_ni(n_-thb0+1,k-kts+1,1) = lv_ni
+            thb_nr(n_-thb0+1,k-kts+1,1) = lv_nr
+            thb_nc(n_-thb0+1,k-kts+1,1) = lv_nc
+            thb_ng(n_-thb0+1,k-kts+1,1) = lv_ng
+            thb_rho(n_-thb0+1,k-kts+1,1) = lv_rho
+            thb_rhof(n_-thb0+1,k-kts+1,1) = lv_rhof
+            thb_visco(n_-thb0+1,k-kts+1,1) = lv_visco
+            thb_lvap(n_-thb0+1,k-kts+1,1) = lv_lvap
+            thb_ocp(n_-thb0+1,k-kts+1,1) = lv_ocp
+            thb_ilamg(n_-thb0+1,k-kts+1,1) = lv_ilamg
+            thb_mvd_r(n_-thb0+1,k-kts+1,1) = lv_mvd_r
+            thb_mvd_g(n_-thb0+1,k-kts+1,1) = lv_mvd_g
+            thb_smob(n_-thb0+1,k-kts+1,1) = lv_smob
+            thb_smoc(n_-thb0+1,k-kts+1,1) = lv_smoc
+            thb_vts_boost(n_-thb0+1,k-kts+1,1) = lv_vts_boost
+            thb_idx_bg(n_-thb0+1,k-kts+1,1) = lv_idx_bg
+            thb_l_qc(n_-thb0+1,k-kts+1,1) = lv_l_qc
+            thb_l_qi(n_-thb0+1,k-kts+1,1) = lv_l_qi
+            thb_l_qr(n_-thb0+1,k-kts+1,1) = lv_l_qr
+            thb_l_qs(n_-thb0+1,k-kts+1,1) = lv_l_qs
+            thb_l_qg(n_-thb0+1,k-kts+1,1) = lv_l_qg
+            thb_qv1d(n_-thb0+1,k-kts+1,1) = sv_qv1d
+            thb_qc1d(n_-thb0+1,k-kts+1,1) = sv_qc1d
+            thb_qi1d(n_-thb0+1,k-kts+1,1) = sv_qi1d
+            thb_qr1d(n_-thb0+1,k-kts+1,1) = sv_qr1d
+            thb_qs1d(n_-thb0+1,k-kts+1,1) = sv_qs1d
+            thb_qg1d(n_-thb0+1,k-kts+1,1) = sv_qg1d
+            thb_qb1d(n_-thb0+1,k-kts+1,1) = sv_qb1d
+            thb_ni1d(n_-thb0+1,k-kts+1,1) = sv_ni1d
+            thb_nr1d(n_-thb0+1,k-kts+1,1) = sv_nr1d
+            thb_nc1d(n_-thb0+1,k-kts+1,1) = sv_nc1d
+            thb_ng1d(n_-thb0+1,k-kts+1,1) = sv_ng1d
+            thb_nwfa1d(n_-thb0+1,k-kts+1,1) = sv_nwfa1d
+            thb_nifa1d(n_-thb0+1,k-kts+1,1) = sv_nifa1d
+            thb_nbca1d(n_-thb0+1,k-kts+1,1) = sv_nbca1d
+            thb_t1d(n_-thb0+1,k-kts+1,1) = sv_t1d
+            thb_w1d(n_-thb0+1,k-kts+1,1) = sv_w1d
       enddo
       enddo
 !$acc parallel loop gang vector present(mp_li, mp_lj) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
 !$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ,thjj)
-      do n_ = 1, ncol_
+      do n_ = thb0, thb1
          i = mp_li(n_) ; j = mp_lj(n_)
-         thjj = j - thjb + 1
+         thjj = 1
          pptrain = 0.
          pptsnow = 0.
          pptgraul = 0.
@@ -3341,28 +3352,28 @@
             endif
          enddo
          do k = kts, kte
-            qv1d(k) = thb_qv1d(i-i_start+1,k-kts+1,thjj)
-            qc1d(k) = thb_qc1d(i-i_start+1,k-kts+1,thjj)
-            qi1d(k) = thb_qi1d(i-i_start+1,k-kts+1,thjj)
-            qr1d(k) = thb_qr1d(i-i_start+1,k-kts+1,thjj)
-            qs1d(k) = thb_qs1d(i-i_start+1,k-kts+1,thjj)
-            qg1d(k) = thb_qg1d(i-i_start+1,k-kts+1,thjj)
-            qb1d(k) = thb_qb1d(i-i_start+1,k-kts+1,thjj)
-            ni1d(k) = thb_ni1d(i-i_start+1,k-kts+1,thjj)
-            nr1d(k) = thb_nr1d(i-i_start+1,k-kts+1,thjj)
-            nc1d(k) = thb_nc1d(i-i_start+1,k-kts+1,thjj)
-            ng1d(k) = thb_ng1d(i-i_start+1,k-kts+1,thjj)
-            nwfa1d(k) = thb_nwfa1d(i-i_start+1,k-kts+1,thjj)
-            nifa1d(k) = thb_nifa1d(i-i_start+1,k-kts+1,thjj)
-            nbca1d(k) = thb_nbca1d(i-i_start+1,k-kts+1,thjj)
-            t1d(k) = thb_t1d(i-i_start+1,k-kts+1,thjj)
-            w1d(k) = thb_w1d(i-i_start+1,k-kts+1,thjj)
+            qv1d(k) = thb_qv1d(n_-thb0+1,k-kts+1,thjj)
+            qc1d(k) = thb_qc1d(n_-thb0+1,k-kts+1,thjj)
+            qi1d(k) = thb_qi1d(n_-thb0+1,k-kts+1,thjj)
+            qr1d(k) = thb_qr1d(n_-thb0+1,k-kts+1,thjj)
+            qs1d(k) = thb_qs1d(n_-thb0+1,k-kts+1,thjj)
+            qg1d(k) = thb_qg1d(n_-thb0+1,k-kts+1,thjj)
+            qb1d(k) = thb_qb1d(n_-thb0+1,k-kts+1,thjj)
+            ni1d(k) = thb_ni1d(n_-thb0+1,k-kts+1,thjj)
+            nr1d(k) = thb_nr1d(n_-thb0+1,k-kts+1,thjj)
+            nc1d(k) = thb_nc1d(n_-thb0+1,k-kts+1,thjj)
+            ng1d(k) = thb_ng1d(n_-thb0+1,k-kts+1,thjj)
+            nwfa1d(k) = thb_nwfa1d(n_-thb0+1,k-kts+1,thjj)
+            nifa1d(k) = thb_nifa1d(n_-thb0+1,k-kts+1,thjj)
+            nbca1d(k) = thb_nbca1d(n_-thb0+1,k-kts+1,thjj)
+            t1d(k) = thb_t1d(n_-thb0+1,k-kts+1,thjj)
+            w1d(k) = thb_w1d(n_-thb0+1,k-kts+1,thjj)
          enddo
-         IF ( .NOT. thb_nmc(i-i_start+1,thjj) ) CALL thom_tail(gpu_aer, gpu_wif, &
+         IF ( .NOT. thb_nmc(n_-thb0+1,thjj) ) CALL thom_tail(gpu_aer, gpu_wif, &
                           qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d, ni1d,     &
                           nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, w1d, dz1d,  &
                       pptrain, pptsnow, pptgraul, pptice, &
-                      kts, kte, dt, i, j, i-i_start+1, thjj)
+                      kts, kte, dt, i, j, n_-thb0+1, thjj)
          RAINNCV(i,j) = pptrain + pptsnow + pptgraul + pptice
          RAINNC(i,j) = RAINNC(i,j) + pptrain + pptsnow + pptgraul + pptice
          SNOWNCV(i,j) = pptsnow + pptice
@@ -3410,6 +3421,7 @@
           enddo
          ENDIF
       enddo
+      ENDDO   ! THLEV list bands
       ELSE
 !$acc parallel loop gang vector present(mp_li, mp_lj) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
