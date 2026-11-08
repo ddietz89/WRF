@@ -88,7 +88,8 @@ CONTAINS
       USE module_diag_zld, ONLY : zld
       USE module_diag_afwa, ONLY : afwa_diagnostics_driver
 #ifdef WRF_GPU_RESIDENT
-      USE module_diag_afwa, ONLY : afwa_time_flags, diag_nwp_afwa_gpu, diag_nwp_afwa_gpu_sync
+      USE module_diag_afwa, ONLY : afwa_time_flags, diag_nwp_afwa_gpu, diag_nwp_afwa_gpu_sync, afwa_buoy_gpu, afwa_buoy_on_gpu, &
+                                   afwa_turb_gpu, afwa_turb_on_gpu
       USE module_state_description, ONLY : F_QNG, THOMPSON
 #endif
       USE module_diag_rasm, ONLY : mean_output_calc, diurnalcycle_output_calc
@@ -107,7 +108,8 @@ CONTAINS
 #ifdef WRF_GPU_RESIDENT
       LOGICAL :: gpu_diag_step, d_after_dump, d_out_step, d_first_step, d_nwp_reset
       LOGICAL :: upf_on
-      INTEGER, SAVE :: diag_upf = -1
+      INTEGER, SAVE :: diag_upf = -1, afwa_buoy_g = -1
+      LOGICAL, EXTERNAL :: gpu_resident_flag   ! device copies of the grid exist (solve_em)
       CHARACTER(LEN=8) :: upfv
       INTEGER :: d_idump
       REAL :: d_tfo
@@ -1115,6 +1117,38 @@ CONTAINS
             CALL wrf_error_fatal ( diag_message )
          END IF
 
+#ifdef WRF_GPU_RESIDENT
+         ! buoyancy (CAPE/CIN, the bulk of the host AFWA cost on output steps) on the GPU for the whole patch
+         ! (WRF_GPU_AFWABUOY=0: host as before)
+         IF ( afwa_buoy_g < 0 ) THEN
+            CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_AFWABUOY', upfv )
+            afwa_buoy_g = 1
+            IF ( TRIM(upfv) == '0' ) afwa_buoy_g = 0
+         ENDIF
+         afwa_buoy_on_gpu = .FALSE.
+         IF ( afwa_buoy_g == 1 .AND. gpu_resident_flag(0) .AND. config_flags%afwa_buoy_opt == 1 .AND. F_QV ) THEN
+            CALL afwa_buoy_gpu( grid%t_phy, grid%p, grid%pb, moist(ims,kms,jms,P_QV), grid%z, grid%ht,          &
+                                grid%afwa_cape, grid%afwa_cin, grid%afwa_zlfc, grid%afwa_plfc, grid%afwa_lidx,  &
+                                grid%afwa_cape_mu, grid%afwa_cin_mu, ims, ime, jms, jme, kms, kme,              &
+                                MINVAL(grid%i_start(1:grid%num_tiles)), MAXVAL(grid%i_end(1:grid%num_tiles)),   &
+                                MINVAL(grid%j_start(1:grid%num_tiles)), MAXVAL(grid%j_end(1:grid%num_tiles)),   &
+                                k_end - k_start + 1 )
+            afwa_buoy_on_gpu = .TRUE.
+         ENDIF
+         afwa_turb_on_gpu = .FALSE.
+         IF ( afwa_buoy_g == 1 .AND. gpu_resident_flag(0) .AND. config_flags%afwa_turb_opt == 1 ) THEN
+            ! same layer bounds as the host driver sets
+            grid%afwa_tlyrbot = (/ 1500., 3000., 4600., 6100., 7600., 9100., 10700. /)
+            grid%afwa_tlyrtop = (/ 3000., 4600., 6100., 7600., 9100., 10700., 12700. /)
+            CALL afwa_turb_gpu( grid%u_phy, grid%v_phy, grid%t_phy, grid%p, grid%pb, grid%z, grid%ht,              &
+                                grid%defor11, grid%defor12, grid%defor22, grid%afwa_turb, grid%afwa_llturb,       &
+                                grid%afwa_llturblgt, grid%afwa_llturbmdt, grid%afwa_llturbsvr, 7,                 &
+                                grid%afwa_tlyrbot, grid%afwa_tlyrtop, ims, ime, jms, jme, kms, kme,              &
+                                MINVAL(grid%i_start(1:grid%num_tiles)), MAXVAL(grid%i_end(1:grid%num_tiles)),   &
+                                MINVAL(grid%j_start(1:grid%num_tiles)), MAXVAL(grid%j_end(1:grid%num_tiles)) )
+            afwa_turb_on_gpu = .TRUE.
+         ENDIF
+#endif
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
@@ -1137,6 +1171,10 @@ CONTAINS
 
             END DO
             !$OMP END PARALLEL DO
+#ifdef WRF_GPU_RESIDENT
+         afwa_buoy_on_gpu = .FALSE.
+         afwa_turb_on_gpu = .FALSE.
+#endif
       ENDIF AFWA_DIAGS
 #ifdef WRF_GPU_RESIDENT
       IF ( gpu_diag_used ) CALL diag_nwp_afwa_gpu_sync( grid, .FALSE. )
@@ -1799,15 +1837,23 @@ CONTAINS
       INTEGER, INTENT(IN) :: k
       INTEGER(8), SAVE :: last = 0
       REAL(8), SAVE :: acc(8) = 0.d0
-      INTEGER, SAVE :: ncall = 0
+      INTEGER, SAVE :: ncall = 0, tevery = -1
       INTEGER(8) :: now, rate
       CHARACTER(LEN=256) :: msg
+      CHARACTER(LEN=16) :: tev
+      INTEGER :: tst
+      IF ( tevery < 0 ) THEN   ! WRF_GPU_TIMEREVERY: print interval (default 20 calls)
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_TIMEREVERY', tev, STATUS=tst )
+         tevery = 20
+         IF ( tst == 0 ) READ( tev, *, IOSTAT=tst ) tevery
+         IF ( tst /= 0 .OR. tevery < 1 ) tevery = 20
+      ENDIF
       CALL SYSTEM_CLOCK( now, rate )
       IF ( k > 0 ) acc(k) = acc(k) + DBLE(now - last) / DBLE(rate)
       last = now
       IF ( k == 8 ) THEN
          ncall = ncall + 1
-         IF ( MOD(ncall, 20) == 0 ) THEN
+         IF ( MOD(ncall, tevery) == 0 ) THEN
             WRITE(msg,'(A,I6,8F9.3)') 'DIAGTIME ', ncall, acc
             CALL wrf_message( msg )
          ENDIF

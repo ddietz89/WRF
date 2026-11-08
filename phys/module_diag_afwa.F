@@ -12,7 +12,45 @@ MODULE module_diag_afwa
 
     USE diag_functions
 
+#ifdef WRF_GPU
+    ! set by the diagnostics driver when afwa_buoy_gpu has filled the buoyancy fields for this call
+    LOGICAL :: afwa_buoy_on_gpu = .FALSE.
+    LOGICAL :: afwa_turb_on_gpu = .FALSE.
+#endif
+
 CONTAINS
+
+#ifdef WRF_SEG_TIMERS
+! AFWATIME: wall seconds per section of one afwa_diagnostics_driver call, measured on OpenMP thread 0's tile:
+! 1 pre-severe loops, 2 severe_wx (one Buoyancy/column), 3 precip type, 4 buoyancy block (two Buoyancy/column),
+! 5 thermal, 6 dbz+radar, 7 vil, 8 icing, 9 vis, 10 cloud.. end
+  SUBROUTINE afw_tick( k )
+!$  USE omp_lib, ONLY : omp_get_thread_num
+    INTEGER, INTENT(IN) :: k
+    INTEGER(8), SAVE :: last = 0
+    INTEGER, SAVE :: cur = 1
+    REAL(8), SAVE :: acc(10) = 0.d0
+    INTEGER(8) :: now, rate
+    CHARACTER(LEN=200) :: msg
+!$  IF ( omp_get_thread_num() /= 0 ) RETURN
+    CALL SYSTEM_CLOCK( now, rate )
+    IF ( k == 1 .AND. cur == 1 .AND. last == 0 ) THEN
+       last = now ; acc = 0.d0 ; RETURN
+    ENDIF
+    IF ( k == 1 ) THEN
+       acc = 0.d0 ; cur = 1 ; last = now ; RETURN
+    ENDIF
+    acc(cur) = acc(cur) + DBLE(now - last) / DBLE(rate)
+    last = now
+    IF ( k == 0 ) THEN
+       WRITE(msg,'(A,10F8.4)') 'AFWATIME ', acc
+       CALL wrf_message( msg )
+       cur = 1
+    ELSE
+       cur = k
+    ENDIF
+  END SUBROUTINE afw_tick
+#endif
 
   SUBROUTINE afwa_diagnostics_driver (   grid , config_flags     &
                              , moist                             &
@@ -118,6 +156,9 @@ CONTAINS
     ! ---------------------------------------------
     ibs = MAX(ims,its-2) ; ibe = MIN(ime,ite+2) ; jbs = MAX(jms,jts-2) ; jbe = MIN(jme,jte+2)
     write ( message, * ) 'inside afwa_diagnostics_driver'
+#ifdef WRF_SEG_TIMERS
+    CALL afw_tick(1)
+#endif
     CALL wrf_debug( 100 , message )
 
     ! Get timing info 
@@ -501,6 +542,9 @@ CONTAINS
         IF ( config_flags%periodic_x ) i_start = its
         IF ( config_flags%periodic_x ) i_end = ite
 
+#ifdef WRF_SEG_TIMERS
+        CALL afw_tick(2)
+#endif
         CALL severe_wx_diagnostics ( grid % wspd10max             &
                                , grid % w_up_max                  &
                                , grid % w_dn_max                  &
@@ -571,6 +615,9 @@ CONTAINS
   
       ! Diagnose precipitation type
       ! ---------------------------
+#ifdef WRF_SEG_TIMERS
+      CALL afw_tick(3)
+#endif
       CALL precip_type_diagnostics ( grid % t_phy               &
                              , grid % t2                        &
                              , rh                               &
@@ -627,7 +674,14 @@ CONTAINS
  
       ! Calculate buoyancy parameters.
       ! ------------------------------
+#ifdef WRF_SEG_TIMERS
+      CALL afw_tick(4)
+#endif
+#ifdef WRF_GPU
+      IF ( config_flags % afwa_buoy_opt == 1 .AND. .NOT. afwa_buoy_on_gpu ) THEN
+#else
       IF ( config_flags % afwa_buoy_opt == 1 ) THEN
+#endif
         nz = k_end - k_start + 1
 
         ! Calculate buoyancy for surface parcel
@@ -683,6 +737,9 @@ CONTAINS
       IF ( config_flags % afwa_therm_opt == 1 ) THEN
         write ( message, * ) 'Calculating thermal indices'
         CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+        CALL afw_tick(5)
+#endif
         CALL thermal_diagnostics ( grid % t2                        &
                                  , grid % psfc                      &
                                  , rh2m                             &
@@ -695,7 +752,11 @@ CONTAINS
                                  , its, ite, jts, jte, kps, kpe )
       ENDIF  ! afwa_therm_opt == 1
 
+#ifdef WRF_GPU
+      IF ( config_flags % afwa_turb_opt == 1 .AND. .NOT. afwa_turb_on_gpu ) THEN
+#else
       IF ( config_flags % afwa_turb_opt == 1 ) THEN
+#endif
         write ( message, * ) 'Calculating turbulence indices'
 
         !~ For now, hard code turbulence layer bottom and top AGL heights
@@ -733,6 +794,9 @@ CONTAINS
          config_flags % afwa_vil_opt == 1 ) THEN
         write ( message, * ) 'Calculating Radar'
         CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+        CALL afw_tick(6)
+#endif
         CALL wrf_dbzcalc ( rho                                  &
                              , grid%t_phy                       &
                              , qrain                            &
@@ -770,6 +834,9 @@ CONTAINS
       IF ( config_flags % afwa_vil_opt == 1 ) THEN
         write ( message, * ) 'Calculating VIL'
         CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+        CALL afw_tick(7)
+#endif
         CALL vert_int_liquid_diagnostics ( grid % vil           &
                              , grid % radarvil                  &
                              , grid % t_phy                     &
@@ -820,6 +887,9 @@ CONTAINS
           IF ( icing_opt .NE. 0 ) THEN
             write ( message, * ) 'Calculating Icing with icing opt ',icing_opt 
             CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+            CALL afw_tick(8)
+#endif
             CALL icing_diagnostics ( icing_opt                      &
                                  , grid % fzlev                     &
                                  , grid % icing_lg                  &
@@ -915,6 +985,9 @@ CONTAINS
         IF ( F_QC .AND. F_QR .AND. F_QI .AND. F_QS .AND. F_QG ) THEN
           write ( message, * ) 'Calculating visibility'
           CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+          CALL afw_tick(9)
+#endif
           CALL vis_diagnostics ( qcloud(ims:ime,k_start,jms:jme)  &
                                , qrain(ims:ime,k_start,jms:jme)   &
                                , qice(ims:ime,k_start,jms:jme)    &
@@ -947,6 +1020,9 @@ CONTAINS
         IF ( config_flags % afwa_cloud_opt == 1 ) THEN
           write ( message, * ) 'Calculating cloud'
           CALL wrf_debug( 100 , message )
+#ifdef WRF_SEG_TIMERS
+          CALL afw_tick(10)
+#endif
           CALL cloud_diagnostics (qcloud                          &
                                , qice                             &
                                , qsnow                            &
@@ -967,6 +1043,9 @@ CONTAINS
 
     ENDIF  ! is_output_timestep
 
+#ifdef WRF_SEG_TIMERS
+    CALL afw_tick(0)
+#endif
   END SUBROUTINE afwa_diagnostics_driver
 
 
@@ -2632,6 +2711,125 @@ CONTAINS
 ! diagnostic_output_nwp (no hail branch for Thompson) and afwa_diagnostics_driver (severe_wx_diagnostics not
 ! called: it needs QNG; precip_type_diagnostics).
 ! ---------------------------------------------------------------------------------------------------------------
+#ifdef WRF_GPU
+  ! AFWA buoyancy on the GPU (output steps): the same two Buoyancy calls per column as afwa_diagnostics_driver (surface
+  ! parcel; most unstable layer) on the device-resident state, results copied out. Host: 0.33 s of the history step on
+  ! a 1000x95 rank, mostly The2T's Newton iterations. Same formulas; device math library -> rounding-level differences
+  ! in these diagnostics only (they do not feed back into the model).
+  SUBROUTINE afwa_buoy_gpu ( t_phy, p, pb, qv, z, ht, cape, cin, zlfc, plfc, lidx, cape_mu, cin_mu, &
+                             ims, ime, jms, jme, kms, kme, is, ie, js, je, nz )
+    IMPLICIT NONE
+    INTEGER, INTENT(IN) :: ims, ime, jms, jme, kms, kme, is, ie, js, je, nz
+    REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN) :: t_phy, p, pb, qv, z
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN) :: ht
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(INOUT) :: cape, cin, zlfc, plfc, lidx, cape_mu, cin_mu
+    REAL :: tk_(KBUOY_G), rh_(KBUOY_G), pp_(KBUOY_G), hz_(KBUOY_G)
+    REAL :: zlfc_msl, d1, d2, d3, c_, ci_, pl_, li_, cm_, cim_
+    INTEGER :: i, j, k, kk, ostat
+    IF ( nz > KBUOY_G ) CALL wrf_error_fatal('afwa_buoy_gpu: nz > KBUOY_G')
+!$acc parallel loop gang vector collapse(2) present(t_phy, p, pb, qv, z, ht) &
+!$acc copyout(cape(is:ie,js:je), cin(is:ie,js:je), zlfc(is:ie,js:je), plfc(is:ie,js:je), lidx(is:ie,js:je)) &
+!$acc copyout(cape_mu(is:ie,js:je), cin_mu(is:ie,js:je)) private(tk_, rh_, pp_, hz_)
+    DO j = js, je
+    DO i = is, ie
+      DO kk = 1, nz
+        k = kms + kk - 1
+        tk_(kk) = t_phy(i,k,j)
+        pp_(kk) = pb(i,k,j) + p(i,k,j)
+        rh_(kk) = calc_rh( pp_(kk), t_phy(i,k,j), qv(i,k,j) )
+        hz_(kk) = z(i,k,j)
+      ENDDO
+      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, c_, ci_, zlfc_msl, pl_, li_, 3 )
+      cape(i,j) = c_ ; cin(i,j) = ci_ ; plfc(i,j) = pl_
+      IF ( zlfc_msl .ge. ht(i,j) ) THEN
+        zlfc(i,j) = zlfc_msl - ht(i,j)
+      ELSE
+        zlfc(i,j) = -1.
+      ENDIF
+      IF ( li_ .ne. 999. ) li_ = li_ + 273.15
+      lidx(i,j) = li_
+      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, cm_, cim_, d1, d2, d3, 1 )
+      cape_mu(i,j) = cm_ ; cin_mu(i,j) = cim_
+    ENDDO
+    ENDDO
+  END SUBROUTINE afwa_buoy_gpu
+#endif
+
+#ifdef WRF_GPU
+  ! AFWA turbulence indices on the GPU (output steps): turbulence_diagnostics' per-column work (Knapp-Ellrod CAT on 7
+  ! layers, low-level turbulence index over 0-1500 m AGL) on the device-resident state, for the whole patch; zagl and
+  ! total pressure built per column as the host driver does. Diagnostic-only outputs.
+  SUBROUTINE afwa_turb_gpu ( u_phy, v_phy, t_phy, p, pb, z, ht, defor11, defor12, defor22,                  &
+                             turb, llturb, llturblgt, llturbmdt, llturbsvr, nlyrs, lyrbot, lyrtop,          &
+                             ims, ime, jms, jme, kms, kme, is, ie, js, je )
+    IMPLICIT NONE
+    INTEGER, INTENT(IN) :: ims, ime, jms, jme, kms, kme, is, ie, js, je, nlyrs
+    REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN) :: u_phy, v_phy, t_phy, p, pb, z, defor11, defor12, defor22
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN) :: ht
+    REAL, DIMENSION(nlyrs), INTENT(IN) :: lyrbot, lyrtop
+    REAL, DIMENSION(ims:ime, nlyrs, jms:jme), INTENT(INOUT) :: turb
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(INOUT) :: llturb, llturblgt, llturbmdt, llturbsvr
+    REAL, DIMENSION(KBUOY_G) :: zc, uc, vc, tc, pc, d1c, d2c, d3c, tz, tt, tp, tu, tv
+    REAL :: ut, ub, vt, vb, a1t, a1b, a2t, a2b, a3t, a3b, wind, therm, mtn_wave, tpd_wave, lt
+    INTEGER :: i, j, k, n, kk, nk, top, nlayer
+    nk = kme - kms + 1
+    IF ( nk > KBUOY_G ) CALL wrf_error_fatal('afwa_turb_gpu: nz > KBUOY_G')
+!$acc parallel loop gang vector collapse(2) present(u_phy, v_phy, t_phy, p, pb, z, ht, defor11, defor12, defor22) &
+!$acc copyin(lyrbot, lyrtop) copyout(turb(is:ie,1:nlyrs,js:je), llturb(is:ie,js:je), llturblgt(is:ie,js:je)) &
+!$acc copyout(llturbmdt(is:ie,js:je), llturbsvr(is:ie,js:je)) private(zc, uc, vc, tc, pc, d1c, d2c, d3c, tz, tt, tp, tu, tv)
+    DO j = js, je
+    DO i = is, ie
+      DO kk = 1, nk
+        k = kms + kk - 1
+        zc(kk) = z(i,k,j) - ht(i,j)
+        uc(kk) = u_phy(i,k,j) ; vc(kk) = v_phy(i,k,j) ; tc(kk) = t_phy(i,k,j)
+        pc(kk) = pb(i,k,j) + p(i,k,j)
+        d1c(kk) = defor11(i,k,j) ; d2c(kk) = defor12(i,k,j) ; d3c(kk) = defor22(i,k,j)
+      ENDDO
+      DO n = 1, nlyrs
+        ut  = lin_interp_g( nk-1, zc, uc,  lyrtop(n) ) ; ub  = lin_interp_g( nk-1, zc, uc,  lyrbot(n) )
+        vt  = lin_interp_g( nk-1, zc, vc,  lyrtop(n) ) ; vb  = lin_interp_g( nk-1, zc, vc,  lyrbot(n) )
+        a1t = lin_interp_g( nk-1, zc, d1c, lyrtop(n) ) ; a1b = lin_interp_g( nk-1, zc, d1c, lyrbot(n) )
+        a2t = lin_interp_g( nk-1, zc, d2c, lyrtop(n) ) ; a2b = lin_interp_g( nk-1, zc, d2c, lyrbot(n) )
+        a3t = lin_interp_g( nk-1, zc, d3c, lyrtop(n) ) ; a3b = lin_interp_g( nk-1, zc, d3c, lyrbot(n) )
+        turb(i,n,j) = CATTurbulence( ub, ut, vb, vt, a1b, a1t, a2b, a2t, a3b, a3t, lyrbot(n), lyrtop(n) )
+      ENDDO
+      top = 1
+      DO kk = 2, nk
+        IF ( zc(kk) .gt. 1500. ) THEN
+          top = kk
+          EXIT
+        ENDIF
+      ENDDO
+      nlayer = top
+      DO kk = 1, nk
+        tz(kk) = zc(kk) ; tt(kk) = tc(kk) ; tp(kk) = pc(kk) ; tu(kk) = uc(kk) ; tv(kk) = vc(kk)
+      ENDDO
+      tz(top) = 1500.
+      tt(top) = lin_interp_g( nk-1, zc, tc, tz(top) )
+      tp(top) = lin_interp_g( nk-1, zc, pc, tz(top) )
+      tu(top) = lin_interp_g( nk-1, zc, uc, tz(top) )
+      tv(top) = lin_interp_g( nk-1, zc, vc, tz(top) )
+      wind     = LLT_Windspeed_g( nlayer, tu, tv )
+      therm    = LLT_Thermodynamic( nlayer, tt, tz )
+      mtn_wave = LLT_MountainWave( nlayer, 0., 0., tu, tv, tt, tz )
+      tpd_wave = LLT_TrappedWave( nlayer, tu, tv, tp )
+      lt = 1.-((1.-wind)*(1.-therm)*(1.-mtn_wave)*(1.-tpd_wave))
+      llturb(i,j) = lt
+      llturblgt(i,j) = (((((((lt * REAL (100))-REAL (30))*2.5)*.01)**2)*0.75)*REAL(100))
+      IF ( lt < 0.3 ) llturblgt(i,j) = REAL ( 0 )
+      IF ( llturblgt(i,j) > REAL (90) ) llturblgt(i,j) = REAL ( 90 )
+      llturbmdt(i,j) = (((((((lt * REAL (100))-REAL (35))*2.22222)*.01)*0.75)**2)*88.88888)
+      IF ( lt < 0.35 ) llturbmdt(i,j) = REAL ( 0 )
+      IF ( llturbmdt(i,j) > REAL (70) ) llturbmdt(i,j) = REAL ( 70 )
+      llturbsvr(i,j) = (((((((lt * REAL (100))-REAL (40))*REAL(2))*.01)*0.5)**2)*REAL(100))
+      IF ( lt < 0.40 ) llturbsvr(i,j) = REAL ( 0 )
+      IF ( llturbsvr(i,j) > REAL (35) ) llturbsvr(i,j) = REAL ( 35 )
+    ENDDO
+    ENDDO
+  END SUBROUTINE afwa_turb_gpu
+#endif
+
   SUBROUTINE afwa_time_flags ( grid, is_after_history_dump, is_output_timestep, is_first_timestep )
     USE module_domain, ONLY : domain , domain_clock_get
     USE module_utility

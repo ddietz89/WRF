@@ -9,7 +9,9 @@ MODULE wrf_seg_timers
    INTEGER(8), SAVE :: t_last = -1, rate = 1
    REAL(8), SAVE :: acc(0:6) = 0.d0
    INTEGER, SAVE :: prev_seg = 1
-   INTEGER, SAVE :: cur = 0, ncalls = 0
+   INTEGER, SAVE :: cur = 0, ncalls = 0, tevery = -1
+   CHARACTER(LEN=16), PRIVATE :: tev_
+   INTEGER, PRIVATE :: tst_
 CONTAINS
    SUBROUTINE seg_mark( id )
       INTEGER, INTENT(IN) :: id
@@ -19,7 +21,13 @@ CONTAINS
       t_last = t ; cur = id
       IF ( id == 0 ) THEN
          ncalls = ncalls + 1
-         IF ( MOD(ncalls, 20) == 0 ) WRITE(0,'(A,I6,A,5F11.3,A,2F11.3)') 'SEGTIME calls', ncalls, &
+         IF ( tevery < 0 ) THEN   ! WRF_GPU_TIMEREVERY: print interval of the cumulative timers (default 20 calls)
+            CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_TIMEREVERY', tev_, STATUS=tst_ )
+            tevery = 20
+            IF ( tst_ == 0 ) READ( tev_, *, IOSTAT=tst_ ) tevery
+            IF ( tst_ /= 0 .OR. tevery < 1 ) tevery = 20
+         ENDIF
+         IF ( MOD(ncalls, tevery) == 0 ) WRITE(0,'(A,I6,A,5F11.3,A,2F11.3)') 'SEGTIME calls', ncalls, &
             ' out/dyn/phys/mp/diag', acc(0), acc(1), acc(2), acc(3), acc(4), ' xfer/part2', acc(5), acc(6)
       ENDIF
    END SUBROUTINE seg_mark
@@ -6552,6 +6560,8 @@ SUBROUTINE gpu_pull_for_output( grid )
 !$acc update self(grid%re_ice) if(associated(grid%re_ice))
 !$acc update self(grid%re_snow) if(associated(grid%re_snow))
    ENDIF
+   ! GPU Thompson: 3-D reflectivity (computed on the device on diagnostic steps; history wrote zeros before, 2026-11-08)
+!$acc update self(grid%refl_10cm) if(associated(grid%refl_10cm))
    IF ( IAND( wrf_gpu_xfer(), 1024 ) /= 0 ) THEN  ! GPU MYJ PBL: its 3-D state for history/restart
 !$acc update self(grid%tke_pbl) if(associated(grid%tke_pbl))
 !$acc update self(grid%el_pbl) if(associated(grid%el_pbl))
