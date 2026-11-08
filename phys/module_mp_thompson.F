@@ -3265,6 +3265,8 @@
             endif
             if (th_probe == 4) exit lvblk
             enddo lvblk
+            ! columns without microphysics (thb_nmc) skip the tail, which is the only reader of these
+            IF ( .NOT. thb_nmc(n_-thb0+1,1) ) THEN
             thb_tten(n_-thb0+1,k-kts+1,1) = lv_tten
             thb_qvten(n_-thb0+1,k-kts+1,1) = lv_qvten
             thb_qcten(n_-thb0+1,k-kts+1,1) = lv_qcten
@@ -3309,6 +3311,7 @@
             thb_l_qr(n_-thb0+1,k-kts+1,1) = lv_l_qr
             thb_l_qs(n_-thb0+1,k-kts+1,1) = lv_l_qs
             thb_l_qg(n_-thb0+1,k-kts+1,1) = lv_l_qg
+            ENDIF
             thb_qv1d(n_-thb0+1,k-kts+1,1) = sv_qv1d
             thb_qc1d(n_-thb0+1,k-kts+1,1) = sv_qc1d
             thb_qi1d(n_-thb0+1,k-kts+1,1) = sv_qi1d
