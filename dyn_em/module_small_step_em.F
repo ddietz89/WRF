@@ -1903,10 +1903,177 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
       IF ( wpipe < 0 ) THEN
          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_WPIPE', wpv )
-         wpipe = 1
+         wpipe = 2
          IF ( TRIM(wpv) == '0' ) wpipe = 0
+         IF ( TRIM(wpv) == '1' ) wpipe = 1
       ENDIF
-      IF ( wpipe == 1 ) THEN
+      IF ( wpipe == 2 ) THEN
+      ! WPIPE=2: the rhs assembly (rhsc, wdwnc) and the time-averaged theta are computed level by level inside the
+      ! upward sweep (one pass over the column inputs instead of four); t_2ave is not stored back (it is a
+      ! per-small-step scratch copy of theta that nothing reads after advance_w). Same expressions -> bit-identical.
+      BLOCK
+      INTEGER :: cfg_damp_opt
+      INTEGER :: cfg_phi_adv_z
+      REAL :: wk, wprev, wnext
+      REAL :: phm, phk, phk1, c2m, c2k, c2n, altm, altk, altn, t2m, t2k, t2n, wk0, wn, rwt, rwn, cq, cqn, ak, an, alk, aln
+      REAL :: gk, gn, p1k, p1n, pbk, pbn, wsk, wsn
+      REAL :: rsm, rsk, rsn, wdk, wdn, rpre, p1lo, pblo, wwlo, p1hi, pbhi, wwhi, tav
+      INTEGER :: m
+      cfg_damp_opt = config_flags%damp_opt
+      cfg_phi_adv_z = config_flags%phi_adv_z
+!$acc parallel loop gang vector collapse(2) private(rhsc) async(wrf_gpu_q)
+  DO j = j_start, j_end
+  DO i = i_start, i_end
+    msfti = 1./msfty(i,j)
+    rhsc(1) = 0.
+    w(i,1,j)=                                           &
+             msfty(i,j)*.5*rdy*(                        &
+                      (ht(i,j+1)-ht(i,j  ))             &
+     *(cf1*v(i,1,j+1)+cf2*v(i,2,j+1)+cf3*v(i,3,j+1))    &
+                     +(ht(i,j  )-ht(i,j-1))             &
+     *(cf1*v(i,1,j  )+cf2*v(i,2,j  )+cf3*v(i,3,j  ))  ) &
+            +msftx(i,j)*.5*rdx*(                        &
+                      (ht(i+1,j)-ht(i,j  ))             &
+     *(cf1*u(i+1,1,j)+cf2*u(i+1,2,j)+cf3*u(i+1,3,j))    &
+                     +(ht(i,j  )-ht(i-1,j))             &
+     *(cf1*u(i  ,1,j)+cf2*u(i  ,2,j)+cf3*u(i  ,3,j))  )
+    ! wdwnc(2), wdwnc(3)
+    p1lo = ph_1(i,1,j) ; pblo = phb(i,1,j) ; wwlo = ww(i,1,j)
+    p1hi = ph_1(i,2,j) ; pbhi = phb(i,2,j) ; wwhi = ww(i,2,j)
+    IF (cfg_phi_adv_z == 2) THEN
+       wdk=rdnw(1)*(p1hi-p1lo+pbhi-pblo)
+    ELSE
+       wdk=.5*(wwhi+wwlo)*rdnw(1)*(p1hi-p1lo+pbhi-pblo)
+    ENDIF
+    p1lo = p1hi ; pblo = pbhi ; wwlo = wwhi
+    p1hi = ph_1(i,3,j) ; pbhi = phb(i,3,j) ; wwhi = ww(i,3,j)
+    IF (cfg_phi_adv_z == 2) THEN
+       wdn=rdnw(2)*(p1hi-p1lo+pbhi-pblo)
+    ELSE
+       wdn=.5*(wwhi+wwlo)*rdnw(2)*(p1hi-p1lo+pbhi-pblo)
+    ENDIF
+    ! level 1, 2 operands
+    phm = ph(i,1,j) ; phk = ph(i,2,j)
+    c2m = c2a(i,1,j) ; altm = alt(i,1,j)
+    tav = .5*((1.+epssm)*t_2(i,1,j)+(1.-epssm)*t_2ave(i,1,j))
+    t2m = (tav + (c1h(1)*Muave(i,j))*t0)/((c1h(1)*Muts(i,j)+c2h(1))*(t0+t_1(i,1,j)))
+    c2k = c2a(i,2,j) ; altk = alt(i,2,j)
+    IF ( 2 <= k_end ) THEN
+       tav = .5*((1.+epssm)*t_2(i,2,j)+(1.-epssm)*t_2ave(i,2,j))
+       t2k = (tav + (c1h(2)*Muave(i,j))*t0)/((c1h(2)*Muts(i,j)+c2h(2))*(t0+t_1(i,2,j)))
+    ELSE
+       t2k = 0.
+    ENDIF
+    wk0 = w(i,2,j) ; rwt = rw_tend(i,2,j) ; cq = cqw(i,2,j) ; ak = a(i,2,j) ; alk = alpha(i,2,j)
+    ! rhsc(2) (k_end >= 2: level 2 is interior)
+    rpre = dts*(ph_tend(i,2,j) + .5*g*(1.-epssm)*wk0)
+    IF (cfg_phi_adv_z == 2) THEN
+       rpre = rpre-dts*wwlo*( fnm(2)*wdn + fnp(2)*wdk )
+    ELSE
+       rpre = rpre-dts*( fnm(2)*wdn + fnp(2)*wdk )
+    ENDIF
+    rsk = phk + msfty(i,j)*rpre/(c1f(2)*mut(i,j)+c2f(2))
+    if(top_lid .and. 2.eq.k_end+1)rsk=0.
+    rhsc(2) = rsk
+    rsm = 0.
+    p1lo = p1hi ; pblo = pbhi ; wwlo = wwhi ; wdk = wdn
+    wprev = w(i,1,j)
+    DO k=2,k_end
+        m = k+1
+        phk1 = ph(i,m,j)
+        wn = w(i,m,j) ; rwn = rw_tend(i,m,j) ; cqn = cqw(i,m,j)
+        c2n = c2a(i,m,j) ; altn = alt(i,m,j) ; an = a(i,m,j) ; aln = alpha(i,m,j)
+        IF ( m <= k_end ) THEN
+           tav = .5*((1.+epssm)*t_2(i,m,j)+(1.-epssm)*t_2ave(i,m,j))
+           t2n = (tav + (c1h(m)*Muave(i,j))*t0)/((c1h(m)*Muts(i,j)+c2h(m))*(t0+t_1(i,m,j)))
+           ! rhsc(m) needs wdwnc(m+1)
+           p1hi = ph_1(i,m+1,j) ; pbhi = phb(i,m+1,j) ; wwhi = ww(i,m+1,j)
+           IF (cfg_phi_adv_z == 2) THEN
+              wdn=rdnw(m)*(p1hi-p1lo+pbhi-pblo)
+           ELSE
+              wdn=.5*(wwhi+wwlo)*rdnw(m)*(p1hi-p1lo+pbhi-pblo)
+           ENDIF
+           rpre = dts*(ph_tend(i,m,j) + .5*g*(1.-epssm)*wn)
+           IF (cfg_phi_adv_z == 2) THEN
+              rpre = rpre-dts*wwlo*( fnm(m)*wdn + fnp(m)*wdk )
+           ELSE
+              rpre = rpre-dts*( fnm(m)*wdn + fnp(m)*wdk )
+           ENDIF
+           p1lo = p1hi ; pblo = pbhi ; wwlo = wwhi ; wdk = wdn
+        ELSE
+           t2n = 0.
+           rpre = dts*(ph_tend(i,m,j) + .5*g*(1.-epssm)*wn)
+        ENDIF
+        rsn = phk1 + msfty(i,j)*rpre/(c1f(m)*mut(i,j)+c2f(m))
+        if(top_lid .and. m.eq.k_end+1)rsn=0.
+        rhsc(m) = rsn
+        wk=wk0+dts*rwt                                             &
+                 + msfti*cq*(                                      &
+            +.5*dts*g*rdn(k)*                                      &
+             (c2k*rdnw(k  )/(c1h(k)*MUT(i,j)+c2h(k))                         &
+        *((1.+epssm)*(rsn-rsk)                     &
+         +(1.-epssm)*(phk1-phk))                    &
+             -c2m*rdnw(k-1)/(c1h(k-1)*MUT(i,j)+c2h(k-1))                       &
+        *((1.+epssm)*(rsk-rsm)                     &
+         +(1.-epssm)*(phk-phm))))                  &
+                +dts*g*msfti*(rdn(k)*                              &
+             (c2k*altk*t2k            &
+             -c2m*altm*t2m)           &
+              - (c1f(k)*muave(i,j)))
+        wk=(wk-ak*wprev)*alk
+        w(i,k,j)=wk
+        wprev=wk
+        rsm = rsk ; rsk = rsn
+        phm = phk ; phk = phk1
+        c2m = c2k ; altm = altk ; t2m = t2k
+        c2k = c2n ; altk = altn ; t2k = t2n
+        wk0 = wn ; rwt = rwn ; cq = cqn ; ak = an ; alk = aln
+    ENDDO
+    k=k_end+1
+       wk=wk0+dts*rwt                         &
+           +msfti*(                                              &
+         -.5*dts*g/(c1h(k-1)*MUT(i,j)+c2h(k-1))*rdnw(k-1)**2*2.*c2m            &
+             *((1.+epssm)*(rsk-rsm)                   &
+              +(1.-epssm)*(phk-phm))                  &
+         -dts*g*(2.*rdnw(k-1)*                                      &
+                   c2m*altm*t2m        &
+              + (c1f(k)*muave(i,j))) )
+       if(top_lid)wk = 0.
+       wk=(wk-ak*wprev)*alk
+       w(i,k,j)=wk
+    ! GPU: back substitution, damping and the ph update in one downward pass (was three passes over w);
+    ! the sweep uses the undamped w(k+1) as before
+    IF (cfg_damp_opt .eq. 3) THEN
+       htop=(ph_1(i,k_end+1,j)+phb(i,k_end+1,j))/g
+       hbot=htop-hdepth
+    ENDIF
+    wnext = w(i,k_end+1,j)
+    wk0 = wnext ; gk = gamma(i,k_end+1,j) ; p1k = ph_1(i,k_end+1,j) ; pbk = phb(i,k_end+1,j) ; wsk = w_save(i,k_end+1,j)
+    DO k=k_end+1,2,-1
+       wn = w(i,k-1,j) ; gn = gamma(i,k-1,j) ; p1n = ph_1(i,k-1,j) ; pbn = phb(i,k-1,j) ; wsn = w_save(i,k-1,j)
+       IF ( k <= k_end ) THEN
+          wk = wk0-gk*wnext
+       ELSE
+          wk = wk0
+       ENDIF
+       wnext = wk
+       IF (cfg_damp_opt .eq. 3) THEN
+          hk=(p1k+pbk)/g
+          dampk = 0.
+          if(hk .ge. hbot)then
+            dampk = dampmag*sin(0.5*pi*(hk-hbot)/hdepth)*sin(0.5*pi*(hk-hbot)/hdepth)
+          endif
+          wk = (wk - dampk*(c1f(k)*mut(i,j)+c2f(k))*wsk)/(1.+dampk)
+       ENDIF
+       w(i,k,j) = wk
+       ph(i,k,j) = rhsc(k)+msfty(i,j)*.5*dts*g*(1.+epssm) &
+                      *wk/(c1f(k)*muts(i,j)+c2f(k))
+       wk0 = wn ; gk = gn ; p1k = p1n ; pbk = pbn ; wsk = wsn
+    ENDDO
+  ENDDO
+  ENDDO
+      END BLOCK
+      ELSE IF ( wpipe == 1 ) THEN
       BLOCK
       INTEGER :: cfg_damp_opt
       INTEGER :: cfg_phi_adv_z
