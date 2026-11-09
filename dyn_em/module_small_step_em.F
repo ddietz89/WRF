@@ -1379,7 +1379,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   ! u/v halo exchange; the following plain call does row j_end on the main queue after waiting for queue 2
   INTEGER, OPTIONAL, INTENT(IN) :: early
   INTEGER :: mtmode, qq, jm0, jm1
-  REAL :: tt_, wk_, wk1_, to_, tn_
+  REAL :: tt_, wk_, wk1_, to_, tn_, wwp_, wwc_
   LOGICAL :: tavpre_
   LOGICAL, SAVE :: mt_pending = .FALSE.
 ! stuff coming in
@@ -1496,8 +1496,6 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
                           -(v(i,k,j  )+(c1h(k)*muv(i,j  )+c2h(k))*v_1(i,k,j  )*msfvx_inv(i,j  )) ) &
                     +rdx*( (u(i+1,k,j)+(c1h(k)*muu(i+1,j)+c2h(k))*u_1(i+1,k,j)/msfuy(i+1,j))       &
                           -(u(i,k,j  )+(c1h(k)*muu(i  ,j)+c2h(k))*u_1(i,k,j  )/msfuy(i  ,j)) ))
-     ENDDO
-     DO k=k_start, k_end
         dmdtc = dmdtc + dnw(k)*dvdxic(k)
      ENDDO
        MUAVE(i,j) = MU(i,j)
@@ -1505,12 +1503,14 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
        MUDF(i,j) = (dmdtc+MU_TEND(i,j)) ! save tendency for div damp filter
        MUTS(i,j) = MUT(i,j)+MU(i,j)
        MUAVE(i,j) =.5*((1.+epssm)*MU(i,j)+(1.-epssm)*MUAVE(i,j))
+     ! GPU: recurrence and the ww_1 subtraction in one pass (running value in a register)
+     wwp_ = ww(i,1,j)
+     ww(i,1,j) = wwp_-ww_1(i,1,j)
      DO kk=2,k_end
        k=kk-1
-       ww(i,kk,j)=ww(i,kk-1,j)-dnw(kk-1)*((c1h(k)*dmdtc)+dvdxic(kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
-     END DO
-     DO k=1,k_end
-       ww(i,k,j)=ww(i,k,j)-ww_1(i,k,j)
+       wwc_ = wwp_-dnw(kk-1)*((c1h(k)*dmdtc)+dvdxic(kk-1)+(c1h(k)*mu_tend(i,j)))/msfty(i,j)
+       ww(i,kk,j) = wwc_-ww_1(i,kk,j)
+       wwp_ = wwc_
      END DO
    ENDDO
    ENDDO
