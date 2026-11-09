@@ -70,7 +70,9 @@ endif
 # SMALLSTEP_REGCAP: register cap for the small-step solver kernels (ncu 2026-11-08 big1000: advance_w 96 regs / 30%
 # occupancy at 60% DRAM, advance_mu_t 88-107, advance_uv 64-90); 0 = no cap. A cap only changes register allocation.
 # Tried 80 (2026-11-08): bit-identical, 0.4121/0.4128 vs 0.4090/0.4116 s/step - no gain, default stays 0.
-SMALLSTEP_REGCAP ?= 80
+# (80 was then switched on with the parked-option batch d953bde2; 2026-11-09 single-node bench, hpc04, 8 ranks, half
+# domain: no cap 0.3519/0.3533 vs 80: 0.3551/0.3562/0.3573, 96: 0.3569/0.3566, 64: 0.3593/0.3601 - all bit-identical.)
+SMALLSTEP_REGCAP ?= 0
 ifneq ($(SMALLSTEP_REGCAP),0)
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 module_small_step_em.o: private FCFLAGS += -gpu=maxregcount:$(SMALLSTEP_REGCAP)
