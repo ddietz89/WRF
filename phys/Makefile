@@ -441,7 +441,10 @@ include ../configure.wrf
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_noahdrv.o \
                  module_mp_radar.o
-$(GPU_REG64_OBJS): private FCFLAGS += -gpu=maxregcount:64
+GPUREG64_CAP ?= 64
+ifneq ($(GPUREG64_CAP),0)
+$(GPU_REG64_OBJS): private FCFLAGS += -gpu=maxregcount:$(GPUREG64_CAP)
+endif
 RRTMG_REGCAP ?= 64
 module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += -gpu=maxregcount:$(RRTMG_REGCAP)
 # 2026-11-09 single-node bench: 255 (effectively no cap) 0.3476/0.3474 vs 128 0.3490/0.3497/0.3492 s/step, bit-identical;
@@ -458,7 +461,13 @@ module_mp_thompson.o: private FCOPTIM = $(THOMPSON_OPT)
 endif
 module_mp_thompson.o: private FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
 COLPHYS_REGCAP ?= 128
-module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: private FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
+# per-scheme overrides (default: COLPHYS_REGCAP). 2026-11-09 single-node bench (bit-identical): MYJ 255 -1.3 ms
+# (0.3464/0.3466 vs 0.3478/0.3479), gwdo 255 +0.7 ms, Noah/radar (GPUREG64_CAP=0) within noise
+MYJ_REGCAP ?= 255
+GWDO_REGCAP ?= $(COLPHYS_REGCAP)
+module_cu_tiedtke.o module_sf_myjsfc.o: private FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
+module_bl_myjpbl.o: private FCFLAGS += -gpu=maxregcount:$(MYJ_REGCAP)
+module_bl_gwdo.o: private FCFLAGS += -gpu=maxregcount:$(GWDO_REGCAP)
 # GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
 GPUPHYS_EXTRA ?= -gpu=fastmath
 ifneq (,$(GPUPHYS_EXTRA))
