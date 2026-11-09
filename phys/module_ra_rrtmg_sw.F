@@ -13272,6 +13272,71 @@
       enddo
       end subroutine spcvmc_sw_g2
 
+      subroutine spcvmc_sw_g2k(jc, jk0, nlayers, prmu0)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, mxmol, jpband
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrsw_wvn, only : ngc, ngs
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc, jk0
+      integer(kind=im), intent(in) :: nlayers
+      real(kind=rb), intent(in) :: prmu0
+      integer(kind=im) :: klev, ibm, igt, ikl, iw, jb, jg, jk
+      real(kind=rb) :: zincflx(ngptsw)
+      klev = nlayers
+      iw = 0
+      do jb = 16, 29
+         ibm = jb-15
+         igt = ngc(ibm)
+         do jg = 1,igt
+            iw = iw+1
+            zincflx(iw) = w_adjflux(jc,jb) * w_sfluxzen(jc,iw) * prmu0
+            do jk=jk0,jk0
+               ikl=klev+2-jk
+
+! Accumulate spectral fluxes over bands - inactive
+!               zbbfu(ikl) = zbbfu(ikl) + zincflx(iw)*w_taug(jc,jk,iw)  
+!               zbbfd(ikl) = zbbfd(ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+!               zbbcu(ikl) = zbbcu(ikl) + zincflx(iw)*w_cldfmc(jc,iw,jk)
+!               zbbcd(ikl) = zbbcd(ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+!               zbbfddir(ikl) = zbbfddir(ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+!               zbbcddir(ikl) = zbbcddir(ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+
+! Accumulate spectral fluxes over whole spectrum  
+               w_pbbfu(jc,ikl) = w_pbbfu(jc,ikl) + zincflx(iw)*w_taug(jc,jk,iw)
+               w_pbbfd(jc,ikl) = w_pbbfd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+               w_pbbcu(jc,ikl) = w_pbbcu(jc,ikl) + zincflx(iw)*w_cldfmc(jc,iw,jk)
+               w_pbbcd(jc,ikl) = w_pbbcd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+               w_pbbfddir(jc,ikl) = w_pbbfddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+               w_pbbcddir(jc,ikl) = w_pbbcddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+            enddo
+
+! Accumulate direct fluxes for UV/visible bands
+               if (ibm >= 10 .and. ibm <= 13) then
+            do jk=jk0,jk0
+               ikl=klev+2-jk
+                  w_puvcd(jc,ikl) = w_puvcd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+                  w_puvfd(jc,ikl) = w_puvfd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+                  w_puvcddir(jc,ikl) = w_puvcddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+                  w_puvfddir(jc,ikl) = w_puvfddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+            enddo
+! Accumulate direct fluxes for near-IR bands
+               else if (ibm == 14 .or. ibm <= 9) then  
+            do jk=jk0,jk0
+               ikl=klev+2-jk
+                  w_pnicd(jc,ikl) = w_pnicd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+                  w_pnifd(jc,ikl) = w_pnifd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+                  w_pnicddir(jc,ikl) = w_pnicddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+                  w_pnifddir(jc,ikl) = w_pnifddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+            enddo
+               endif
+
+         enddo
+      enddo
+      end subroutine spcvmc_sw_g2k
+
 
       subroutine cldprmc_sw_g(ic, jc, nlayers, inflag, iceflag, liqflag)
 !$acc routine seq
@@ -13974,7 +14039,7 @@
       nlayers = w_nlayers(jc)
       cossza = in_cosz(jc)
       if (cossza .le. zepzen) cossza = zepzen
-      call spcvmc_sw_g2(jc, nlayers, cossza)
+      ! accumulation over g-points done per (column, level) by spcvmc_sw_g2k (swpost.py)
       do i = 1, nlayers+1
          out_uflxc(jc,i) = w_pbbcu(jc,i)
          out_dflxc(jc,i) = w_pbbcd(jc,i)
@@ -14139,7 +14204,7 @@
       use rrsw_wvn, only : ngc
       implicit none
       integer :: c0, c1, ic, jc, nlay, nch, nl, nl1, ierr, ich
-      integer :: iw_, ibm_, n_
+      integer :: iw_, ibm_, n_, jk_
       real(kind=rb) :: cz_
       character(len=128) :: msg
       if (.not. sw_gtab_done) call rrtmg_sw_gtab_init()
@@ -14300,6 +14365,19 @@
                cz_ = in_cosz(jc)
                if (cz_ .le. 1.e-10_rb) cz_ = 1.e-10_rb
                call spcvmc_sw_g1(jc, iw_, ibm_, w_nlayers(jc), cz_)
+            endif
+         enddo
+         enddo
+!$acc parallel loop gang vector collapse(2) vector_length(128) private(jc, cz_)
+         do jk_ = 1, nl1
+         do ic = c0, c1
+            jc = ic - c0 + 1
+            if (in_flag(jc,1) .eq. 1 .and. out_sw_err(jc) .eq. 0) then
+               if (jk_ .le. w_nlayers(jc)+1) then
+                  cz_ = in_cosz(jc)
+                  if (cz_ .le. 1.e-10_rb) cz_ = 1.e-10_rb
+                  call spcvmc_sw_g2k(jc, jk_, w_nlayers(jc), cz_)
+               endif
             endif
          enddo
          enddo

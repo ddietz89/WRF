@@ -16221,6 +16221,253 @@ contains
 
       end subroutine rtrnmc_g2
 
+      subroutine rtrnmc_g2k(iw, nlayers, lv0, istart, iend)
+!$acc routine seq
+      use rrtmg_lw_gwork
+      use rrlw_con, only: fluxfac, heatfac
+      use rrlw_wvn, only: delwave, ngb, ngs
+      use rrlw_tbl, only: tblint, bpade, tau_tbl, exp_tbl, tfn_tbl
+      use rrtmg_lw_rtrnmc, only: wtdiff, rec_6, a0, a1, a2
+      implicit none
+      integer, intent(in) :: iw, lv0
+!-----------------------------------------------------------------------------
+!
+!  Original version:   E. J. Mlawer, et al. RRTM_V3.0
+!  Revision for GCMs:  Michael J. Iacono; October, 2002
+!  Revision for F90:  Michael J. Iacono; June, 2006
+!
+!  This program calculates the upward fluxes, downward fluxes, and
+!  heating rates for an arbitrary clear or cloudy atmosphere.  The input
+!  to this program is the atmospheric profile, all Planck function
+!  information, and the cloud fraction by layer.  A variable diffusivity 
+!  angle (SECDIFF) is used for the angle integration.  Bands 2-3 and 5-9 
+!  use a value for SECDIFF that varies from 1.50 to 1.80 as a function of 
+!  the column water vapor, and other bands use a value of 1.66.  The Gaussian 
+!  weight appropriate to this angle (WTDIFF=0.5) is applied here.  Note that 
+!  use of the emissivity angle for the flux integration can cause errors of 
+!  1 to 4 W/m2 within cloudy layers.  
+!  Clouds are treated with the McICA stochastic approach and maximum-random
+!  cloud overlap. 
+!***************************************************************************
+
+! ------- Declarations -------
+
+! ----- Input -----
+      integer(kind=im), intent(in) :: nlayers         ! total number of layers
+      integer(kind=im), intent(in) :: istart          ! beginning band of calculation
+      integer(kind=im), intent(in) :: iend            ! ending band of calculation
+
+! Atmosphere
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (nbndlw)
+                                                      !    Dimensions: (nlayers,nbndlw)
+                                                      !    Dimensions: (0:nlayers,nbndlw)
+                                                      !    Dimensions: (nbndlw)
+                                                      !    Dimensions: (nlayers,ngptw)
+                                                      !    Dimensions: (nlayers,ngptlw)
+
+! Clouds
+                                                      !    Dimensions: (ngptlw,nlayers)
+                                                      !    Dimensions: (ngptlw,nlayers)
+
+! ----- Output -----
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+                                                      !    Dimensions: (0:nlayers)
+
+! ----- Local -----
+! Declarations for radiative transfer
+      real(kind=rb) :: atot(mxl_g)
+      real(kind=rb) :: atrans(mxl_g)
+      real(kind=rb) :: bbugas(mxl_g)
+      real(kind=rb) :: bbutot(mxl_g)
+      real(kind=rb) :: clrurad(0:mxl_g)
+      real(kind=rb) :: clrdrad(0:mxl_g)
+      real(kind=rb) :: uflux(0:mxl_g)
+      real(kind=rb) :: dflux(0:mxl_g)
+      real(kind=rb) :: urad(0:mxl_g)
+      real(kind=rb) :: drad(0:mxl_g)
+      real(kind=rb) :: uclfl(0:mxl_g)
+      real(kind=rb) :: dclfl(0:mxl_g)
+
+
+      real(kind=rb) :: secdiff(nbndlw)                 ! secant of diffusivity angle
+      real(kind=rb) :: transcld, radld, radclrd, plfrac, blay, dplankup, dplankdn
+      real(kind=rb) :: odepth, odtot, odepth_rec, odtot_rec, gassrc
+      real(kind=rb) :: tblind, tfactot, bbd, bbdtot, tfacgas, transc, tausfac
+      real(kind=rb) :: rad0, reflect, radlu, radclru
+
+      integer(kind=im) :: icldlyr(mxl_g)                  ! flag for cloud in layer
+      integer(kind=im) :: ibnd, ib, iband, lay, lev, l, ig  ! loop indices
+      integer(kind=im) :: igc                               ! g-point interval counter
+      integer(kind=im) :: iclddn                            ! flag for cloud in down path
+      integer(kind=im) :: ittot, itgas, itr                 ! lookup table indices
+
+! ------- Definitions -------
+! input
+!    nlayers                      ! number of model layers
+!    ngptlw                       ! total number of g-point subintervals
+!    nbndlw                       ! number of longwave spectral bands
+!    ncbands                      ! number of spectral bands for clouds
+!    secdiff                      ! diffusivity angle
+!    wtdiff                       ! weight for radiance to flux conversion
+!    pavel                        ! layer pressures (mb)
+!    pz                           ! level (interface) pressures (mb)
+!    tavel                        ! layer temperatures (k)
+!    tz                           ! level (interface) temperatures(mb)
+!    tbound                       ! surface temperature (k)
+!    cldfrac                      ! layer cloud fraction
+!    taucloud                     ! layer cloud optical depth
+!    itr                          ! integer look-up table index
+!    icldlyr                      ! flag for cloudy layers
+!    iclddn                       ! flag for cloud in column at any layer
+!    semiss                       ! surface emissivities for each band
+!    reflect                      ! surface reflectance
+!    bpade                        ! 1/(pade constant)
+!    tau_tbl                      ! clear sky optical depth look-up table
+!    exp_tbl                      ! exponential look-up table for transmittance
+!    tfn_tbl                      ! tau transition function look-up table
+
+! local
+!    atrans                       ! gaseous absorptivity
+!    abscld                       ! cloud absorptivity
+!    atot                         ! combined gaseous and cloud absorptivity
+!    odclr                        ! clear sky (gaseous) optical depth
+!    odcld                        ! cloud optical depth
+!    odtot                        ! optical depth of gas and cloud
+!    tfacgas                      ! gas-only pade factor, used for planck fn
+!    tfactot                      ! gas and cloud pade factor, used for planck fn
+!    bbdgas                       ! gas-only planck function for downward rt
+!    bbugas                       ! gas-only planck function for upward rt
+!    bbdtot                       ! gas and cloud planck function for downward rt
+!    bbutot                       ! gas and cloud planck function for upward calc.
+!    gassrc                       ! source radiance due to gas only
+!    efclfrac                     ! effective cloud fraction
+!    radlu                        ! spectrally summed upward radiance 
+!    radclru                      ! spectrally summed clear sky upward radiance 
+!    urad                         ! upward radiance by layer
+!    clrurad                      ! clear sky upward radiance by layer
+!    radld                        ! spectrally summed downward radiance 
+!    radclrd                      ! spectrally summed clear sky downward radiance 
+!    drad                         ! downward radiance by layer
+!    clrdrad                      ! clear sky downward radiance by layer
+
+! output
+!    totuflux                     ! upward longwave flux (w/m2)
+!    totdflux                     ! downward longwave flux (w/m2)
+!    fnet                         ! net longwave flux (w/m2)
+!    htr                          ! longwave heating rate (k/day)
+!    totuclfl                     ! clear sky upward longwave flux (w/m2)
+!    totdclfl                     ! clear sky downward longwave flux (w/m2)
+!    fnetc                        ! clear sky net longwave flux (w/m2)
+!    htrc                         ! clear sky longwave heating rate (k/day)
+
+
+!jm not thread safe      hvrrtc = '$Revision: 1.3 $'
+
+      integer(kind=im) :: anycld, cldab
+      w_totuflux(iw,lv0) = 0.0_rb
+      w_totdflux(iw,lv0) = 0.0_rb
+      w_totuclfl(iw,lv0) = 0.0_rb
+      w_totdclfl(iw,lv0) = 0.0_rb
+      urad(lv0) = 0.0_rb
+      drad(lv0) = 0.0_rb
+      clrurad(lv0) = 0.0_rb
+      clrdrad(lv0) = 0.0_rb
+      anycld = 0
+      cldab = 0
+      do lay = 1, nlayers
+         if (w_icld(iw,lay).eq.1) anycld = 1
+         if (w_icld(iw,lay).eq.1 .and. lay .ge. lv0+1) cldab = 1
+      enddo
+      igc = 1
+      do iband = istart, iend
+ 1000    continue
+         if (lv0+1 .le. nlayers) then
+            lev = lv0+1
+            drad(lev-1) = drad(lev-1) + w_taug(iw,lev,igc)
+            if (cldab.eq.1) then
+               clrdrad(lev-1) = clrdrad(lev-1) + w_fracs(iw,lev,igc)
+            else
+               clrdrad(lev-1) = drad(lev-1)
+            endif
+         endif
+         if (lv0 .eq. 0) then
+            urad(0) = urad(0) + w_taucmc(iw,igc,0)
+            clrurad(0) = clrurad(0) + w_cldfmc(iw,igc,0)
+         else
+            lev = lv0
+            urad(lev) = urad(lev) + w_taucmc(iw,igc,lev)
+            if (anycld.eq.1) then
+               clrurad(lev) = clrurad(lev) + w_cldfmc(iw,igc,lev)
+            else
+               clrurad(lev) = urad(lev)
+            endif
+         endif
+         igc = igc + 1
+         if (igc .le. ngs(iband)) go to 1000
+         lev = lv0
+            uflux(lev) = urad(lev)*wtdiff
+            dflux(lev) = drad(lev)*wtdiff
+            urad(lev) = 0.0_rb
+            drad(lev) = 0.0_rb
+            w_totuflux(iw,lev) = w_totuflux(iw,lev) + uflux(lev) * delwave(iband)
+            w_totdflux(iw,lev) = w_totdflux(iw,lev) + dflux(lev) * delwave(iband)
+            uclfl(lev) = clrurad(lev)*wtdiff
+            dclfl(lev) = clrdrad(lev)*wtdiff
+            clrurad(lev) = 0.0_rb
+            clrdrad(lev) = 0.0_rb
+            w_totuclfl(iw,lev) = w_totuclfl(iw,lev) + uclfl(lev) * delwave(iband)
+            w_totdclfl(iw,lev) = w_totdclfl(iw,lev) + dclfl(lev) * delwave(iband)
+      enddo
+      lev = lv0
+         w_totuflux(iw,lev) = w_totuflux(iw,lev) * fluxfac
+         w_totdflux(iw,lev) = w_totdflux(iw,lev) * fluxfac
+         w_fnet(iw,lev) = w_totuflux(iw,lev) - w_totdflux(iw,lev)
+         w_totuclfl(iw,lev) = w_totuclfl(iw,lev) * fluxfac
+         w_totdclfl(iw,lev) = w_totdclfl(iw,lev) * fluxfac
+         w_fnetc(iw,lev) = w_totuclfl(iw,lev) - w_totdclfl(iw,lev)
+      end subroutine rtrnmc_g2k
+
+      subroutine rtrnmc_g3(iw, nlayers)
+!$acc routine seq
+      use rrtmg_lw_gwork
+      use rrlw_con, only: fluxfac, heatfac
+      implicit none
+      integer, intent(in) :: iw
+      integer(kind=im), intent(in) :: nlayers
+      integer(kind=im) :: lev, l
+      do lev = 1, nlayers
+         l = lev - 1
+         w_htr(iw,l)=heatfac*(w_fnet(iw,l)-w_fnet(iw,lev))/(w_pz(iw,l)-w_pz(iw,lev))
+         w_htrc(iw,l)=heatfac*(w_fnetc(iw,l)-w_fnetc(iw,lev))/(w_pz(iw,l)-w_pz(iw,lev))
+      enddo
+      w_htr(iw,nlayers) = 0.0_rb
+      w_htrc(iw,nlayers) = 0.0_rb
+      end subroutine rtrnmc_g3
+
+      subroutine rtrnmc_g0k(iw, lay)
+!$acc routine seq
+      use rrtmg_lw_gwork
+      implicit none
+      integer, intent(in) :: iw
+      integer(kind=im), intent(in) :: lay
+      integer(kind=im) :: ig
+         w_icld(iw,lay) = 0
+         do ig = 1, ngptlw
+            if (w_cldfmc(iw,ig,lay) .eq. 1._rb) then
+               w_icld(iw,lay) = 1
+            else
+            endif
+         enddo
+      end subroutine rtrnmc_g0k
+
+
 
 
 !-----------------------------------------------------------------------------------------------------------------
@@ -16899,10 +17146,14 @@ contains
          enddo
          enddo
          if (lw_split == 1) then
-!$acc parallel loop gang vector vector_length(128) private(iw)
+!$acc parallel loop gang vector collapse(2) vector_length(128) private(iw)
+         do k = 1, nl
          do ic = c0, c1
             iw = ic - c0 + 1
-            if (s_nl(iw) .gt. 0) call rtrnmc_g0(iw, s_nl(iw))
+            if (s_nl(iw) .gt. 0) then
+               if (k .le. s_nl(iw)) call rtrnmc_g0k(iw, k)
+            endif
+         enddo
          enddo
 !$acc parallel loop gang vector collapse(2) vector_length(128) private(iw)
          do ig_ = 1, ngptlw
@@ -16911,13 +17162,22 @@ contains
             if (s_nl(iw) .gt. 0) call rtrnmc_g1(iw, s_nl(iw), ig_, s_pw(iw))
          enddo
          enddo
+!$acc parallel loop gang vector collapse(2) vector_length(128) private(iw)
+         do k = 0, nl
+         do ic = c0, c1
+            iw = ic - c0 + 1
+            if (s_nl(iw) .gt. 0) then
+               if (k .le. s_nl(iw)) call rtrnmc_g2k(iw, s_nl(iw), k, 1, 16)
+            endif
+         enddo
+         enddo
          endif
 !$acc parallel loop gang vector vector_length(128) private(iw, k)
          do ic = c0, c1
             iw = ic - c0 + 1
             if (s_nl(iw) .gt. 0) then
                if (lw_split == 1) then
-                  call rtrnmc_g2(iw, s_nl(iw), 1, 16)
+                  call rtrnmc_g3(iw, s_nl(iw))
                else
                   call rtrnmc_g(iw, s_nl(iw), 1, 16, 0, s_pw(iw), s_ncb(iw))
                endif
