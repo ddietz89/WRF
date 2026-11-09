@@ -12,8 +12,23 @@ MODULE module_small_step_em
 
    USE module_configure
    USE module_model_constants
+#ifdef WRF_GPU
+   INTEGER, SAVE :: ss_wpipe = -1           ! WRF_GPU_WPIPE: 2 streamed advance_w (default), 1 pipelined, 0 original
+   LOGICAL, SAVE :: ss_tavpre = .FALSE.     ! advance_mu_t stored the time-averaged theta in t_ave (WPIPE=2)
+#endif
 
 CONTAINS
+#ifdef WRF_GPU
+SUBROUTINE ss_wpipe_init
+   CHARACTER(LEN=8) :: wpv
+   IF ( ss_wpipe >= 0 ) RETURN
+   wpv = ' '
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_WPIPE', wpv )
+   ss_wpipe = 2
+   IF ( TRIM(wpv) == '0' ) ss_wpipe = 0
+   IF ( TRIM(wpv) == '1' ) ss_wpipe = 1
+END SUBROUTINE ss_wpipe_init
+#endif
 
 SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
                             t_1, t_2, ph_1, ph_2,         &
@@ -1364,7 +1379,8 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   ! u/v halo exchange; the following plain call does row j_end on the main queue after waiting for queue 2
   INTEGER, OPTIONAL, INTENT(IN) :: early
   INTEGER :: mtmode, qq, jm0, jm1
-  REAL :: tt_, wk_, wk1_
+  REAL :: tt_, wk_, wk1_, to_, tn_
+  LOGICAL :: tavpre_
   LOGICAL, SAVE :: mt_pending = .FALSE.
 ! stuff coming in
   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
@@ -1588,16 +1604,20 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
 ! (had been divided by msfty)
 ! need to uncouple before updating uncoupled Theta (by adding)
 #ifdef WRF_GPU
+  ss_tavpre = .FALSE.
   IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXMT .AND. k_end+1 == kde ) THEN
+  CALL ss_wpipe_init
+  tavpre_ = ( ss_wpipe == 2 )
+  ss_tavpre = tavpre_
   ! GPU: the t_ave/ft update and the flux-divergence update in one (j,k,i) kernel; the two vertical fluxes of
   ! each level are formed inline (the wdtnc column array's expression, 0 at levels 1 and kde)
 !$acc parallel loop gang collapse(2) async(qq)
    DO j=jm0, jm1
    DO k=1,k_end
-!$acc loop vector private(tt_,wk_,wk1_)
+!$acc loop vector private(tt_,wk_,wk1_,to_,tn_)
    DO i=i_start, i_end
-     t_ave(i,k,j) = t(i,k,j)
-     tt_ = t(i,k,j) + msfty(i,j)*dts*ft(i,k,j)
+     to_ = t(i,k,j)
+     tt_ = to_ + msfty(i,j)*dts*ft(i,k,j)
      IF ( k >= 2 ) THEN
        wk_ = ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
      ELSE
@@ -1608,7 +1628,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
      ELSE
        wk1_ = 0.
      ENDIF
-       t(i,k,j) = tt_ - dts*msfty(i,j)*(              &
+       tn_ = tt_ - dts*msfty(i,j)*(              &
                           msftx(i,j)*(                     &
                .5*rdy*                                     &
               ( v(i,k,j+1)*(t_1(i,k,j+1)+t_1(i,k, j ))     &
@@ -1617,6 +1637,12 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
               ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j))     &
                -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) &
              + rdnw(k)*( wk1_-wk_ ) )
+       t(i,k,j) = tn_
+       IF ( tavpre_ ) THEN
+          t_ave(i,k,j) = .5*((1.+epssm)*tn_+(1.-epssm)*to_)
+       ELSE
+          t_ave(i,k,j) = to_
+       ENDIF
    ENDDO
    ENDDO
    ENDDO
@@ -1721,8 +1747,7 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 ! pieces properly yet, so we will have to hope that it is okay
 ! We think we have found a slight error in surface w calculation
   IMPLICIT NONE ! religion first
-  INTEGER, SAVE :: wpipe = -1          ! WRF_GPU_WPIPE=0: original advance_w sweeps (A/B of the pipelined ones)
-  CHARACTER(LEN=8) :: wpv
+  INTEGER :: wpipe
       
 ! stuff coming in
   TYPE(grid_config_rec_type), INTENT(IN   ) :: config_flags
@@ -1901,12 +1926,8 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
   ! The row kernel below (one gang per j, vector over i, k phases inside) has only (j_end-j_start+1) gangs;
   ! on the GPU run one thread per column instead (same arithmetic per point, k loops sequential in-thread).
   IF ( wrf_gpu_on .AND. k_end+1 <= KMAXW ) THEN
-      IF ( wpipe < 0 ) THEN
-         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_WPIPE', wpv )
-         wpipe = 2
-         IF ( TRIM(wpv) == '0' ) wpipe = 0
-         IF ( TRIM(wpv) == '1' ) wpipe = 1
-      ENDIF
+      CALL ss_wpipe_init
+      wpipe = ss_wpipe
       IF ( wpipe == 2 ) THEN
       ! WPIPE=2: the rhs assembly (rhsc, wdwnc) and the time-averaged theta are computed level by level inside the
       ! upward sweep (one pass over the column inputs instead of four); t_2ave is not stored back (it is a
@@ -1919,6 +1940,8 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
       REAL :: gk, gn, p1k, p1n, pbk, pbn, wsk, wsn
       REAL :: rsm, rsk, rsn, wdk, wdn, rpre, p1lo, pblo, wwlo, p1hi, pbhi, wwhi, tav
       INTEGER :: m
+      LOGICAL :: tavp
+      tavp = ss_tavpre
       cfg_damp_opt = config_flags%damp_opt
       cfg_phi_adv_z = config_flags%phi_adv_z
 !$acc parallel loop gang vector collapse(2) private(rhsc) async(wrf_gpu_q)
@@ -1955,11 +1978,19 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     ! level 1, 2 operands
     phm = ph(i,1,j) ; phk = ph(i,2,j)
     c2m = c2a(i,1,j) ; altm = alt(i,1,j)
-    tav = .5*((1.+epssm)*t_2(i,1,j)+(1.-epssm)*t_2ave(i,1,j))
+    IF ( tavp ) THEN
+       tav = t_2ave(i,1,j)
+    ELSE
+       tav = .5*((1.+epssm)*t_2(i,1,j)+(1.-epssm)*t_2ave(i,1,j))
+    ENDIF
     t2m = (tav + (c1h(1)*Muave(i,j))*t0)/((c1h(1)*Muts(i,j)+c2h(1))*(t0+t_1(i,1,j)))
     c2k = c2a(i,2,j) ; altk = alt(i,2,j)
     IF ( 2 <= k_end ) THEN
-       tav = .5*((1.+epssm)*t_2(i,2,j)+(1.-epssm)*t_2ave(i,2,j))
+       IF ( tavp ) THEN
+          tav = t_2ave(i,2,j)
+       ELSE
+          tav = .5*((1.+epssm)*t_2(i,2,j)+(1.-epssm)*t_2ave(i,2,j))
+       ENDIF
        t2k = (tav + (c1h(2)*Muave(i,j))*t0)/((c1h(2)*Muts(i,j)+c2h(2))*(t0+t_1(i,2,j)))
     ELSE
        t2k = 0.
@@ -1984,7 +2015,11 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
         wn = w(i,m,j) ; rwn = rw_tend(i,m,j) ; cqn = cqw(i,m,j)
         c2n = c2a(i,m,j) ; altn = alt(i,m,j) ; an = a(i,m,j) ; aln = alpha(i,m,j)
         IF ( m <= k_end ) THEN
-           tav = .5*((1.+epssm)*t_2(i,m,j)+(1.-epssm)*t_2ave(i,m,j))
+           IF ( tavp ) THEN
+              tav = t_2ave(i,m,j)
+           ELSE
+              tav = .5*((1.+epssm)*t_2(i,m,j)+(1.-epssm)*t_2ave(i,m,j))
+           ENDIF
            t2n = (tav + (c1h(m)*Muave(i,j))*t0)/((c1h(m)*Muts(i,j)+c2h(m))*(t0+t_1(i,m,j)))
            ! rhsc(m) needs wdwnc(m+1)
            p1hi = ph_1(i,m+1,j) ; pbhi = phb(i,m+1,j) ; wwhi = ww(i,m+1,j)
