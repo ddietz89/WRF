@@ -10296,7 +10296,7 @@
       real(kind=rb), allocatable :: w_pnifddir(:,:)
       real(kind=rb), allocatable :: w_pnicddir(:,:)
       ! WRF_GPU_SWSPLIT (swsplit.py): nlayers per column (flux profiles go to the g-point input slices, swmem.py)
-      integer, allocatable :: w_nlayers(:)
+      integer, allocatable :: w_nlayers(:), w_laytrop(:)
       integer :: sw_split = -1
 !$acc declare create(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3)
 !$acc declare create(in_co2, in_ch4, in_n2o, in_o2, in_cldf, in_ciwp)
@@ -10314,7 +10314,7 @@
 !$acc declare create(w_pbbfd, w_pbbfu, w_pbbcd, w_pbbcu, w_puvfd, w_puvcd)
 !$acc declare create(w_pnifd, w_pnicd, w_pbbfddir, w_pbbcddir, w_puvfddir, w_puvcddir)
 !$acc declare create(w_pnifddir, w_pnicddir)
-!$acc declare create(w_nlayers)
+!$acc declare create(w_nlayers, w_laytrop)
       end module rrtmg_sw_gwork
       module rrtmg_sw_gpu
       use parkind, only : im => kind_im, rb => kind_rb
@@ -10583,6 +10583,45 @@
       call taumol28_g(jc, nlayers, laytrop)
       call taumol29_g(jc, nlayers, laytrop)
       end subroutine taumol_sw_g
+
+      subroutine taumol_sw_band_g(jc, nlayers, laytrop, jb)
+!$acc routine seq
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc, jb
+      integer(kind=im), intent(in) :: nlayers, laytrop
+      select case (jb)
+      case (16)
+         call taumol16_g(jc, nlayers, laytrop)
+      case (17)
+         call taumol17_g(jc, nlayers, laytrop)
+      case (18)
+         call taumol18_g(jc, nlayers, laytrop)
+      case (19)
+         call taumol19_g(jc, nlayers, laytrop)
+      case (20)
+         call taumol20_g(jc, nlayers, laytrop)
+      case (21)
+         call taumol21_g(jc, nlayers, laytrop)
+      case (22)
+         call taumol22_g(jc, nlayers, laytrop)
+      case (23)
+         call taumol23_g(jc, nlayers, laytrop)
+      case (24)
+         call taumol24_g(jc, nlayers, laytrop)
+      case (25)
+         call taumol25_g(jc, nlayers, laytrop)
+      case (26)
+         call taumol26_g(jc, nlayers, laytrop)
+      case (27)
+         call taumol27_g(jc, nlayers, laytrop)
+      case (28)
+         call taumol28_g(jc, nlayers, laytrop)
+      case (29)
+         call taumol29_g(jc, nlayers, laytrop)
+      end select
+      end subroutine taumol_sw_band_g
+
 
       subroutine taumol16_g(jc, nlayers, laytrop)
 !$acc routine seq
@@ -12878,7 +12917,11 @@
 
 ! Calculate the optical depths for gaseous absorption and Rayleigh scattering
 
-      call taumol_sw_g(jc, klev, laytrop)
+      ! taumol per (column, band) in rrtmg_sw_gpu_run (swpre.py); its w_sfluxzen zeroing stays here
+      do jk = 1, ngptsw
+         w_sfluxzen(jc,jk) = 0.0
+      enddo
+      w_laytrop(jc) = laytrop
       end subroutine spcvmc_sw_g0
 
       subroutine spcvmc_sw_g1(jc, iw, ibm, nlayers, prmu0)
@@ -14333,7 +14376,9 @@
       endif
       if (sw_split == 1) then
          if (allocated(w_nlayers)) deallocate(w_nlayers)
-         allocate(w_nlayers(nch))
+      if (allocated(w_laytrop)) deallocate(w_laytrop)
+         if (allocated(w_laytrop)) deallocate(w_laytrop)
+         allocate(w_nlayers(nch), w_laytrop(nch))
       endif
       do c0 = 1, sw_ncolm, nch
          c1 = min(c0 + nch - 1, sw_ncolm)
@@ -14352,6 +14397,13 @@
             else
                out_sw_err(jc) = 0
             endif
+         enddo
+!$acc parallel loop gang vector collapse(2) vector_length(128) private(jc)
+         do ibm_ = 16, 29
+         do ic = c0, c1
+            jc = ic - c0 + 1
+            if (in_flag(jc,1) .eq. 1 .and. out_sw_err(jc) .eq. 0) call taumol_sw_band_g(jc, w_nlayers(jc), w_laytrop(jc), ibm_)
+         enddo
          enddo
 !$acc parallel loop gang vector collapse(2) vector_length(128) private(jc, ibm_, n_, cz_)
          do iw_ = 1, ngptsw
@@ -14456,6 +14508,7 @@
       if (allocated(w_pnifddir)) deallocate(w_pnifddir)
       if (allocated(w_pnicddir)) deallocate(w_pnicddir)
       if (allocated(w_nlayers)) deallocate(w_nlayers)
+      if (allocated(w_laytrop)) deallocate(w_laytrop)
       hs_out_sw_err(sw_ncolm-(sw_nchk-1)*sw_nchunk+1:sw_nchunk, sw_nchk) = 0
       ierr = maxval(hs_out_sw_err)
       if (ierr .ne. 0) then
@@ -14520,6 +14573,7 @@
       if (allocated(w_pnifddir)) deallocate(w_pnifddir)
       if (allocated(w_pnicddir)) deallocate(w_pnicddir)
       if (allocated(w_nlayers)) deallocate(w_nlayers)
+      if (allocated(w_laytrop)) deallocate(w_laytrop)
 end subroutine rrtmg_sw_gpu_run
 
 ! copy one chunk of staged inputs to the device / outputs back (whole-chunk contiguous blocks)
