@@ -458,7 +458,14 @@ module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: FCFL
 # GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
 GPUPHYS_EXTRA ?= -gpu=fastmath
 ifneq (,$(GPUPHYS_EXTRA))
-module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o: FCFLAGS += $(GPUPHYS_EXTRA)
+module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o \
+  module_physics_addtendc.o module_diag_afwa.o module_diagnostics_driver.o: FCFLAGS += $(GPUPHYS_EXTRA)
+endif
+# RRTMG_EXTRA (e.g. -gpu=fastmath): extra flags for the RRTMG LW/SW objects (exp/log heavy optical-depth and
+# transmittance kernels; dynamics fastmath was -20 ms/step at rounding-level error, 2026-11-08)
+RRTMG_EXTRA ?=
+ifneq (,$(RRTMG_EXTRA))
+module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: FCFLAGS += $(RRTMG_EXTRA)
 endif
 endif
 
