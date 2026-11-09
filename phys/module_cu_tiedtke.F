@@ -490,6 +490,15 @@ contains
       real, dimension(1:KTMX_G+1) :: zi, zl
       real, dimension(1:KTMX_G) :: sig1
       integer :: i, j, k, km, kp, kx, zz
+      ! WRF_GPU_TIEMERGE=1 (default): tiecnv_g's staging inside the driver kernel (one copy of each column)
+      INTEGER, SAVE :: tie_merge = -1
+      real, dimension(1, KTMX_G) :: m_ztp1, m_zqp1, m_pum1, m_pvm1, m_pverv, m_pgeo, m_pqte, m_zqq, m_ptte, m_pcte, &
+                                    m_pvom, m_pvol, m_zqsat, m_ztu, m_zqu, m_zlu, m_zlude, m_zmfu, m_zmfd
+      real, dimension(1) :: m_pqhfl, m_paprc, m_paprs, m_prsfc, m_pssfc, m_paprsm, m_zrain
+      integer, dimension(1) :: m_icbot, m_ictop
+      logical, dimension(1) :: m_locum
+      real :: m_zi0, m_zi1, m_zlk, m_zlprev, m_tt, m_rn, m_ztpp1, m_fliq, m_fice, m_ztc, m_zalf
+      real :: m_psheat, m_psrain, m_psevap, m_psmelt, m_psdiss
       if ( kts /= 1 .or. kte+1 > KTMX_G ) call wrf_error_fatal('cu_tiedtke_gpu: needs kts=1 and kte < KTMX_G')
       kx=kte-kts+1
       delt=dt*stepcu
@@ -562,6 +571,132 @@ contains
          enddo
          enddo
       ENDIF
+   IF ( tie_merge < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_TIEMERGE', cv_, STATUS=st_ )
+      tie_merge = 1
+      IF ( st_ == 0 .AND. TRIM(cv_) == '0' ) tie_merge = 0
+   ENDIF
+   IF ( tie_merge == 1 ) THEN
+!$acc parallel loop gang vector copyin(sig1) present(cu_li, cu_lj) &
+!$acc private(slimsk,ktype,prsi,prsl,q1,q2,q3,t1,u1,v1,m_ztp1,m_zqp1,m_pum1,m_pvm1,m_pverv,m_pgeo,m_pqte,m_zqq) &
+!$acc private(m_ptte,m_pcte,m_pvom,m_pvol,m_zqsat,m_ztu,m_zqu,m_zlu,m_zlude,m_zmfu,m_zmfd) &
+!$acc private(m_pqhfl,m_paprc,m_paprs,m_prsfc,m_pssfc,m_paprsm,m_zrain,m_icbot,m_ictop,m_locum)
+   do n_ = 1, ncol_
+      i = cu_li(n_) ; j = cu_lj(n_)
+      cu_act_flag(i,j)=.true.
+      slimsk(1)=int(abs(xland(i,j)-2.))
+      ! heights: zi(k) = zi(k-1) + dz8w(k-1), zl(k) = (zi(k+1)+zi(k))*0.5, zl(kte) = 2*zi(kte) - zl(kte-1)
+      m_zi0 = 0.0
+      m_zlprev = 0.0
+      do k=kts,kte
+        zz = kte+1-k
+        IF ( k < kte ) THEN
+           m_zi1 = m_zi0+dz8w(i,k,j)
+           m_zlk = (m_zi1+m_zi0)*0.5
+        ELSE
+           m_zlk = 2.*m_zi0-m_zlprev
+        ENDIF
+        m_ptte(1,zz)=0.0
+        m_pcte(1,zz)=0.0
+        m_pvom(1,zz)=0.0
+        m_pvol(1,zz)=0.0
+        m_ztp1(1,zz)=t3d(i,k,j)
+        m_zqp1(1,zz)=qv3d(i,k,j)/(1.0+qv3d(i,k,j))
+        m_pum1(1,zz)=u3d(i,k,j)
+        m_pvm1(1,zz)=v3d(i,k,j)
+        t1(1,zz)=t3d(i,k,j)
+        u1(1,zz)=u3d(i,k,j)
+        v1(1,zz)=v3d(i,k,j)
+        m_pverv(1,zz)=-0.5*g*rho3d(i,k,j)*(w(i,k,j)+w(i,k+1,j))
+        m_pgeo(1,zz)=g*m_zlk
+        prsl(1,zz) = pcps(i,k,j)
+        m_tt=m_ztp1(1,zz)
+        m_zqsat(1,zz)=tlucua(m_tt)/prsl(1,zz)
+        m_zqsat(1,zz)=min(0.5,m_zqsat(1,zz))
+        m_zqsat(1,zz)=m_zqsat(1,zz)/(1.-vtmpc1*m_zqsat(1,zz))
+        if(itimestep == 1) then
+           m_pqte(1,zz)=0.+0.
+        else
+           m_pqte(1,zz)=qvften(i,k,j)+qvpblten(i,k,j)
+        endif
+        m_zqq(1,zz)=m_pqte(1,zz)
+        q2(1,zz)=qc3d(i,k,j)
+        q3(1,zz)=qi3d(i,k,j)
+        IF ( k < kte ) THEN
+           m_zlprev = m_zlk ; m_zi0 = m_zi1
+        ENDIF
+      enddo
+      do k=kts,kte+1
+        zz = kte+2-k
+        prsi(1,zz) = p8w(i,k,j)
+      enddo
+      m_psheat=0.0 ; m_psrain=0.0 ; m_psevap=0.0 ; m_psmelt=0.0 ; m_psdiss=0.0
+      m_zrain(1)=0.0
+      m_locum(1)=.false.
+      m_prsfc(1)=0.0
+      m_pssfc(1)=0.0
+      m_paprc(1)=0.0
+      m_paprs(1)=0.0
+      m_paprsm(1)=0.0
+      m_pqhfl(1)=qfx(i,j)
+      call cumastr_new_g &
+         (1,        kx,       kx+1,     kx-1,    m_ztp1,   &
+          m_zqp1,   m_pum1,   m_pvm1,   m_pverv, m_zqsat,  &
+          m_pqhfl,  delt,     prsl,     prsi,    m_pgeo,   &
+          m_ptte,   m_pqte,   m_pvom,   m_pvol,  m_prsfc,  &
+          m_pssfc,  m_paprc,  m_paprsm, m_paprs, m_locum,  &
+          ktype,    m_icbot,  m_ictop,  m_ztu,   m_zqu,    &
+          m_zlu,    m_zlude,  m_zmfu,   m_zmfd,  m_zrain,  &
+          m_psrain, m_psevap, m_psheat, m_psdiss, m_psmelt, &
+          m_pcte,   sig1,     slimsk)
+      ! output stage exactly as tiecnv_g + driver (per-thread arrays; keeps the rounding of the original)
+      if(fdbk.ge.1.0e-9) then
+      do k=1,kx
+        if(m_pcte(1,k).gt.0.0) then
+          m_ztpp1=t1(1,k)+m_ptte(1,k)*delt
+          if(m_ztpp1.ge.t000) then
+             m_fliq=1.0
+             m_zalf=0.0
+          else if(m_ztpp1.le.hgfr) then
+             m_fliq=0.0
+             m_zalf=alf
+          else
+             m_ztc=m_ztpp1-t000
+             m_fliq=0.0059+0.9941*exp(-0.003102*m_ztc*m_ztc)
+             m_zalf=alf
+          endif
+          m_fice=1.0-m_fliq
+          q2(1,k)=q2(1,k)+m_fliq*m_pcte(1,k)*delt
+          q3(1,k)=q3(1,k)+m_fice*m_pcte(1,k)*delt
+          m_ptte(1,k)=m_ptte(1,k)-m_zalf*rcpd*m_fliq*m_pcte(1,k)
+        endif
+      enddo
+      endif
+      do k=1,kx
+        t1(1,k)=m_ztp1(1,k)+m_ptte(1,k)*delt
+        m_zqp1(1,k)=m_zqp1(1,k)+(m_pqte(1,k)-m_zqq(1,k))*delt
+        q1(1,k)=m_zqp1(1,k)/(1.0-m_zqp1(1,k))
+      enddo
+      m_rn=amax1(0.0,(m_prsfc(1)+m_pssfc(1))*delt)
+      if (lmfdudv) then
+        do k=1,kx
+          u1(1,k)=u1(1,k)+m_pvom(1,k)*delt
+          v1(1,k)=v1(1,k)+m_pvol(1,k)*delt
+        enddo
+      endif
+      raincv(i,j)=m_rn/stepcu
+      pratec(i,j)=m_rn/(stepcu * dt)
+      do k=kts,kte
+        zz = kte+1-k
+          rthcuten(i,k,j)=(t1(1,zz)-t3d(i,k,j))/pi3d(i,k,j)*rdelt
+          rqvcuten(i,k,j)=(q1(1,zz)-qv3d(i,k,j))*rdelt
+          rucuten(i,k,j) =(u1(1,zz)-u3d(i,k,j))*rdelt
+          rvcuten(i,k,j) =(v1(1,zz)-v3d(i,k,j))*rdelt
+          rqccuten(i,k,j)=(q2(1,zz)-qc3d(i,k,j))*rdelt
+          rqicuten(i,k,j)=(q3(1,zz)-qi3d(i,k,j))*rdelt
+      enddo
+   enddo
+   ELSE
 !$acc parallel loop gang vector copyin(sig1) present(cu_li, cu_lj) &
 !$acc private(rn,evap,slimsk,ktype,prsi,del,dot,phil,prsl,q1,q2,q3,q1b,q1bl,t1,u1,v1,omg,ght,zi,zl)
    do n_ = 1, ncol_
@@ -620,6 +755,7 @@ contains
           rqicuten(i,k,j)=(q3(1,zz)-qi3d(i,k,j))*rdelt
       enddo
    enddo
+   ENDIF
    end subroutine cu_tiedtke_gpu
 #endif
 
