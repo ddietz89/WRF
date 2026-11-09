@@ -11,7 +11,11 @@ END MODULE diag_functions
 MODULE diag_functions
 
 #ifdef WRF_GPU
+#ifdef WRF_GPU_KCOL
+  INTEGER, PARAMETER :: KBUOY_G = WRF_GPU_KCOL   ! kcol.py
+#else
   INTEGER, PARAMETER :: KBUOY_G = 128
+#endif
 #endif
 
 CONTAINS

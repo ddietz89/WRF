@@ -10187,7 +10187,11 @@
       use parkind, only : im => kind_im, rb => kind_rb
       implicit none
       save
+#ifdef WRF_GPU_KCOL
+      integer, parameter :: mxl_s = WRF_GPU_KCOL   ! fixed-size per-thread level arrays (nlayers+1 <= mxl_s; kcol.py)
+#else
       integer, parameter :: mxl_s = 40      ! fixed-size per-thread level arrays (nlayers+1 <= mxl_s)
+#endif
       integer :: sw_ncolm = 0, sw_nchunk = 0, sw_nlay = 0, sw_ims = 0, sw_ime = -1, sw_jms = 0, sw_jme = -1
       real(kind=rb), allocatable :: in_play(:,:), in_plev(:,:), in_tlay(:,:), in_tlev(:,:), in_h2o(:,:), &
          in_o3(:,:), in_co2(:,:), in_ch4(:,:), in_n2o(:,:), in_o2(:,:), in_cldf(:,:), in_ciwp(:,:), in_clwp(:,:), &
@@ -10291,6 +10295,9 @@
       real(kind=rb), allocatable :: w_puvcddir(:,:)
       real(kind=rb), allocatable :: w_pnifddir(:,:)
       real(kind=rb), allocatable :: w_pnicddir(:,:)
+      ! WRF_GPU_SWSPLIT (swsplit.py): nlayers per column (flux profiles go to the g-point input slices, swmem.py)
+      integer, allocatable :: w_nlayers(:)
+      integer :: sw_split = -1
 !$acc declare create(in_play, in_plev, in_tlay, in_tlev, in_h2o, in_o3)
 !$acc declare create(in_co2, in_ch4, in_n2o, in_o2, in_cldf, in_ciwp)
 !$acc declare create(in_clwp, in_cswp, in_rei, in_rel, in_res, in_hgt)
@@ -10307,6 +10314,7 @@
 !$acc declare create(w_pbbfd, w_pbbfu, w_pbbcd, w_pbbcu, w_puvfd, w_puvcd)
 !$acc declare create(w_pnifd, w_pnicd, w_pbbfddir, w_pbbcddir, w_puvfddir, w_puvcddir)
 !$acc declare create(w_pnifddir, w_pnicddir)
+!$acc declare create(w_nlayers)
       end module rrtmg_sw_gwork
       module rrtmg_sw_gpu
       use parkind, only : im => kind_im, rb => kind_rb
@@ -12838,6 +12846,433 @@
 
       end subroutine spcvmc_sw_g
 
+      subroutine spcvmc_sw_g0(jc, nlayers, laytrop)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, mxmol, jpband
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrsw_wvn, only : ngc, ngs
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers, laytrop
+      integer(kind=im) :: klev, jk
+      klev = nlayers
+      do jk=1,klev+1
+         w_pbbcd(jc,jk)=0._rb
+         w_pbbcu(jc,jk)=0._rb
+         w_pbbfd(jc,jk)=0._rb
+         w_pbbfu(jc,jk)=0._rb
+         w_pbbcddir(jc,jk)=0._rb
+         w_pbbfddir(jc,jk)=0._rb
+         w_puvcd(jc,jk)=0._rb
+         w_puvfd(jc,jk)=0._rb
+         w_puvcddir(jc,jk)=0._rb
+         w_puvfddir(jc,jk)=0._rb
+         w_pnicd(jc,jk)=0._rb
+         w_pnifd(jc,jk)=0._rb
+         w_pnicddir(jc,jk)=0._rb
+         w_pnifddir(jc,jk)=0._rb
+      enddo
+
+
+! Calculate the optical depths for gaseous absorption and Rayleigh scattering
+
+      call taumol_sw_g(jc, klev, laytrop)
+      end subroutine spcvmc_sw_g0
+
+      subroutine spcvmc_sw_g1(jc, iw, ibm, nlayers, prmu0)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, mxmol, jpband
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrsw_wvn, only : ngc, ngs
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: iw, ibm, nlayers
+      real(kind=rb), intent(in) :: prmu0
+      integer(kind=im), parameter :: icpr = 1
+! ------- Local -------
+
+      logical :: lrtchkclr(mxl_s),lrtchkcld(mxl_s)
+
+      integer(kind=im)  :: klev
+      integer(kind=im) :: ib1, ib2, igt, ikl, ikp, ikx
+      integer(kind=im) :: jb, jg, jl, jk
+!      integer(kind=im), parameter :: nuv = ?? 
+!      integer(kind=im), parameter :: nvs = ?? 
+      integer(kind=im) :: itind
+
+      real(kind=rb) :: tblind, ze1
+      real(kind=rb) :: zclear, zcloud
+      real(kind=rb) :: zdbt(mxl_s), zdbt_nodel(mxl_s)
+      real(kind=rb) :: zgc(mxl_s), zgcc(mxl_s), zgco(mxl_s)
+      real(kind=rb) :: zomc(mxl_s), zomcc(mxl_s), zomco(mxl_s)
+      real(kind=rb) :: zrdnd(mxl_s), zrdndc(mxl_s)
+      real(kind=rb) :: zref(mxl_s), zrefc(mxl_s), zrefo(mxl_s)
+      real(kind=rb) :: zrefd(mxl_s), zrefdc(mxl_s), zrefdo(mxl_s)
+      real(kind=rb) :: zrup(mxl_s), zrupd(mxl_s)
+      real(kind=rb) :: zrupc(mxl_s), zrupdc(mxl_s)
+      real(kind=rb) :: zs1(mxl_s)
+      real(kind=rb) :: ztauc(mxl_s), ztauo(mxl_s)
+      real(kind=rb) :: ztdn(mxl_s), ztdnd(mxl_s), ztdbt(mxl_s)
+      real(kind=rb) :: ztoc(mxl_s), ztor(mxl_s)
+      real(kind=rb) :: ztra(mxl_s), ztrac(mxl_s), ztrao(mxl_s)
+      real(kind=rb) :: ztrad(mxl_s), ztradc(mxl_s), ztrado(mxl_s)
+      real(kind=rb) :: zdbtc(mxl_s), ztdbtc(mxl_s)
+      real(kind=rb) :: zincflx(ngptsw), zdbtc_nodel(mxl_s) 
+      real(kind=rb) :: ztdbt_nodel(mxl_s), ztdbtc_nodel(mxl_s)
+
+      real(kind=rb) :: zdbtmc, zdbtmo, zf, zgw, zreflect
+      real(kind=rb) :: zwf, tauorig, repclc
+!     real(kind=rb) :: zincflux                                   ! inactive
+
+! Arrays from rrtmg_sw_taumoln routines
+
+!      real(kind=rb) :: ztaug(nlayers,16), ztaur(nlayers,16)
+!      real(kind=rb) :: zsflxzen(16)
+
+! Arrays from rrtmg_sw_vrtqdr routine
+
+      real(kind=rb) :: zcd(mxl_s), zcu(mxl_s)
+      real(kind=rb) :: zfd(mxl_s), zfu(mxl_s)
+
+! Inactive arrays
+!     real(kind=rb) :: zbbcd(nlayers+1), zbbcu(nlayers+1)
+!     real(kind=rb) :: zbbfd(nlayers+1), zbbfu(nlayers+1)
+!     real(kind=rb) :: zbbfddir(nlayers+1), zbbcddir(nlayers+1)
+
+      klev = nlayers
+      repclc = 1.e-12_rb
+      jb = ibm + 15
+
+! Apply adjustment for correct Earth/Sun distance and zenith angle to incoming solar flux
+            zincflx(iw) = w_adjflux(jc,jb) * w_sfluxzen(jc,iw) * prmu0
+!             zincflux = zincflux + adjflux(jb) * zsflxzen(iw) * prmu0           ! inactive
+
+! Compute layer reflectances and transmittances for direct and diffuse sources, 
+! first clear then cloudy
+
+! zrefc(jk)  direct albedo for clear
+! zrefo(jk)  direct albedo for cloud
+! zrefdc(jk) diffuse albedo for clear
+! zrefdo(jk) diffuse albedo for cloud
+! ztrac(jk)  direct transmittance for clear
+! ztrao(jk)  direct transmittance for cloudy
+! ztradc(jk) diffuse transmittance for clear
+! ztrado(jk) diffuse transmittance for cloudy
+!  
+! zref(jk)   direct reflectance
+! zrefd(jk)  diffuse reflectance
+! ztra(jk)   direct transmittance
+! ztrad(jk)  diffuse transmittance
+!
+! zdbtc(jk)  clear direct beam transmittance
+! zdbto(jk)  cloudy direct beam transmittance
+! zdbt(jk)   layer mean direct beam transmittance
+! ztdbt(jk)  total direct beam transmittance at levels
+
+! Clear-sky    
+!   TOA direct beam    
+            ztdbtc(1)=1.0_rb
+            ztdbtc_nodel(1)=1.0_rb
+!   Surface values
+            zdbtc(klev+1) =0.0_rb
+            ztrac(klev+1) =0.0_rb
+            ztradc(klev+1)=0.0_rb
+            zrefc(klev+1) =w_albdir(jc,ibm)
+            zrefdc(klev+1)=w_albdif(jc,ibm)
+            zrupc(klev+1) =w_albdir(jc,ibm)
+            zrupdc(klev+1)=w_albdif(jc,ibm)
+           
+! Total sky    
+!   TOA direct beam    
+            ztdbt(1)=1.0_rb
+            ztdbt_nodel(1)=1.0_rb
+!   Surface values
+            zdbt(klev+1) =0.0_rb
+            ztra(klev+1) =0.0_rb
+            ztrad(klev+1)=0.0_rb
+            zref(klev+1) =w_albdir(jc,ibm)
+            zrefd(klev+1)=w_albdif(jc,ibm)
+            zrup(klev+1) =w_albdir(jc,ibm)
+            zrupd(klev+1)=w_albdif(jc,ibm)
+    
+! Top of layer loop
+            do jk=1,klev
+
+! Note: two-stream calculations proceed from top to bottom; 
+!   RRTMG_SW quantities are given bottom to top and are reversed here
+
+               ikl=klev+1-jk
+
+! Set logical flag to do REFTRA calculation
+!   Do REFTRA for all clear layers
+               lrtchkclr(jk)=.true.
+
+!   Do REFTRA only for cloudy layers in profile, since already done for clear layers
+               lrtchkcld(jk)=.false.
+               lrtchkcld(jk)=(w_cldfmc(jc,iw,ikl) > repclc)
+
+! Clear-sky optical parameters - this section inactive     
+!   Original
+!               ztauc(jk) = ztaur(ikl,iw) + ztaug(ikl,iw)
+!               zomcc(jk) = ztaur(ikl,iw) / ztauc(jk)
+!               zgcc(jk) = 0.0001_rb
+!   Total sky optical parameters        
+!               ztauo(jk) = ztaur(ikl,iw) + ztaug(ikl,iw) + ptaucmc(ikl,iw)
+!               zomco(jk) = ptaucmc(ikl,iw) * pomgcmc(ikl,iw) + ztaur(ikl,iw)
+!               zgco (jk) = (ptaucmc(ikl,iw) * pomgcmc(ikl,iw) * pasycmc(ikl,iw) + &
+!                           ztaur(ikl,iw) * 0.0001_rb) / zomco(jk)
+!               zomco(jk) = zomco(jk) / ztauo(jk)
+
+! Clear-sky optical parameters including aerosols
+               ztauc(jk) = w_taur(jc,ikl,iw) + w_taug(jc,ikl,iw) + w_taua(jc,ikl,ibm)
+               zomcc(jk) = w_taur(jc,ikl,iw) * 1.0_rb + w_taua(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm)
+               zgcc(jk) = w_asma(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm) * w_taua(jc,ikl,ibm) / zomcc(jk)
+               zomcc(jk) = zomcc(jk) / ztauc(jk)
+
+! Pre-delta-scaling clear and cloudy direct beam transmittance (must use 'orig', unscaled cloud OD)       
+!   \/\/\/ This block of code is only needed for direct beam calculation
+!     
+               zclear = 1.0_rb - w_cldfmc(jc,iw,ikl)
+               zcloud = w_cldfmc(jc,iw,ikl)
+
+! Clear
+!                zdbtmc = exp(-ztauc(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauc(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmc = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else 
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmc = exp_tbl(itind)
+               endif
+
+               zdbtc_nodel(jk) = zdbtmc
+               ztdbtc_nodel(jk+1) = zdbtc_nodel(jk) * ztdbtc_nodel(jk)
+
+! Clear + Cloud
+               tauorig = ztauc(jk) + w_taormc(jc,iw,ikl)
+!                zdbtmo = exp(-tauorig / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = tauorig / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmo = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmo = exp_tbl(itind)
+               endif
+
+               zdbt_nodel(jk) = zclear*zdbtmc + zcloud*zdbtmo
+               ztdbt_nodel(jk+1) = zdbt_nodel(jk) * ztdbt_nodel(jk)
+!   /\/\/\ Above code only needed for direct beam calculation
+            enddo
+
+! to vectorize the following loop
+            do jk=1, klev
+! Delta scaling - clear   
+               zf = zgcc(jk) * zgcc(jk)
+               zwf = zomcc(jk) * zf
+               ztauc(jk) = (1.0_rb - zwf) * ztauc(jk)
+               zomcc(jk) = (zomcc(jk) - zwf) / (1.0_rb - zwf)
+               zgcc (jk) = (zgcc(jk) - zf) / (1.0_rb - zf)
+            enddo
+
+
+! Total sky optical parameters (cloud properties already delta-scaled)
+!   Use this code if cloud properties are derived in rrtmg_sw_cldprop       
+               if (icpr .ge. 1) then
+            do jk=1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = ztauc(jk) + w_taucmc(jc,iw,ikl)
+                  zomco(jk) = ztauc(jk) * zomcc(jk) + w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) 
+                  zgco (jk) = (w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) * w_asmcmc(jc,iw,ikl) + &
+                              ztauc(jk) * zomcc(jk) * zgcc(jk)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+            enddo
+
+! Total sky optical parameters (if cloud properties not delta scaled)
+!   Use this code if cloud properties are not derived in rrtmg_sw_cldprop       
+               elseif (icpr .eq. 0) then
+            do jk=1,klev
+                  ikl=klev+1-jk
+                  ztauo(jk) = w_taur(jc,ikl,iw) + w_taug(jc,ikl,iw) + w_taua(jc,ikl,ibm) + w_taucmc(jc,iw,ikl)
+                  zomco(jk) = w_taua(jc,ikl,ibm) * w_ssaa(jc,ikl,ibm) + w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) + &
+                              w_taur(jc,ikl,iw) * 1.0_rb
+                  zgco (jk) = (w_taucmc(jc,iw,ikl) * w_ssacmc(jc,iw,ikl) * w_asmcmc(jc,iw,ikl) + &
+                              w_taua(jc,ikl,ibm)*w_ssaa(jc,ikl,ibm)*w_asma(jc,ikl,ibm)) / zomco(jk)
+                  zomco(jk) = zomco(jk) / ztauo(jk)
+
+! Delta scaling - clouds 
+!   Use only if subroutine rrtmg_sw_cldprop is not used to get cloud properties and to apply delta scaling
+                  zf = zgco(jk) * zgco(jk)
+                  zwf = zomco(jk) * zf
+                  ztauo(jk) = (1._rb - zwf) * ztauo(jk)
+                  zomco(jk) = (zomco(jk) - zwf) / (1.0_rb - zwf)
+                  zgco (jk) = (zgco(jk) - zf) / (1.0_rb - zf)
+            enddo
+               endif 
+
+! End of layer loop
+
+! Clear sky reflectivities
+            call reftra_sw_g (klev, &
+                            lrtchkclr, zgcc, prmu0, ztauc, zomcc, &
+                            zrefc, zrefdc, ztrac, ztradc)
+
+! Total sky reflectivities      
+            call reftra_sw_g (klev, &
+                            lrtchkcld, zgco, prmu0, ztauo, zomco, &
+                            zrefo, zrefdo, ztrao, ztrado)
+
+            do jk=1,klev
+
+! Combine clear and cloudy contributions for total sky
+               ikl = klev+1-jk 
+               zclear = 1.0_rb - w_cldfmc(jc,iw,ikl)
+               zcloud = w_cldfmc(jc,iw,ikl)
+
+               zref(jk) = zclear*zrefc(jk) + zcloud*zrefo(jk)
+               zrefd(jk)= zclear*zrefdc(jk) + zcloud*zrefdo(jk)
+               ztra(jk) = zclear*ztrac(jk) + zcloud*ztrao(jk)
+               ztrad(jk)= zclear*ztradc(jk) + zcloud*ztrado(jk)
+
+! Direct beam transmittance        
+
+! Clear
+!                zdbtmc = exp(-ztauc(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauc(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmc = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmc = exp_tbl(itind)
+               endif
+
+               zdbtc(jk) = zdbtmc
+               ztdbtc(jk+1) = zdbtc(jk)*ztdbtc(jk)
+
+! Clear + Cloud
+!                zdbtmo = exp(-ztauo(jk) / prmu0)
+
+! Use exponential lookup table for transmittance, or expansion of 
+! exponential for low tau
+               ze1 = ztauo(jk) / prmu0
+               if (ze1 .le. od_lo) then
+                  zdbtmo = 1._rb - ze1 + 0.5_rb * ze1 * ze1
+               else
+                  tblind = ze1 / (bpade + ze1)
+                  itind = tblint * tblind + 0.5_rb
+                  zdbtmo = exp_tbl(itind)
+               endif
+
+               zdbt(jk) = zclear*zdbtmc + zcloud*zdbtmo
+               ztdbt(jk+1) = zdbt(jk)*ztdbt(jk)
+        
+            enddo           
+                 
+! Vertical quadrature for clear-sky fluxes
+
+            call vrtqdr_sw_g(klev, iw, &
+                           zrefc, zrefdc, ztrac, ztradc, &
+                           zdbtc, zrdndc, zrupc, zrupdc, ztdbtc, &
+                           zcd, zcu)
+      
+! Vertical quadrature for cloudy fluxes
+
+            call vrtqdr_sw_g(klev, iw, &
+                           zref, zrefd, ztra, ztrad, &
+                           zdbt, zrdnd, zrup, zrupd, ztdbt, &
+                           zfd, zfu)
+
+            do jk=1,klev+1
+               w_taug(jc,jk,iw) = zfu(jk)
+               w_taur(jc,jk,iw) = zfd(jk)
+               w_cldfmc(jc,iw,jk) = zcu(jk)
+               w_taucmc(jc,iw,jk) = zcd(jk)
+               w_ssacmc(jc,iw,jk) = ztdbt_nodel(jk)
+               w_asmcmc(jc,iw,jk) = ztdbtc_nodel(jk)
+            enddo
+      end subroutine spcvmc_sw_g1
+
+      subroutine spcvmc_sw_g2(jc, nlayers, prmu0)
+!$acc routine seq
+      use parkind, only : im => kind_im, rb => kind_rb
+      use parrrsw, only : nbndsw, ngptsw, mxmol, jpband
+      use rrsw_tbl, only : tblint, bpade, od_lo, exp_tbl
+      use rrsw_wvn, only : ngc, ngs
+      use rrtmg_sw_gwork
+      implicit none
+      integer, intent(in) :: jc
+      integer(kind=im), intent(in) :: nlayers
+      real(kind=rb), intent(in) :: prmu0
+      integer(kind=im) :: klev, ibm, igt, ikl, iw, jb, jg, jk
+      real(kind=rb) :: zincflx(ngptsw)
+      klev = nlayers
+      iw = 0
+      do jb = 16, 29
+         ibm = jb-15
+         igt = ngc(ibm)
+         do jg = 1,igt
+            iw = iw+1
+            zincflx(iw) = w_adjflux(jc,jb) * w_sfluxzen(jc,iw) * prmu0
+            do jk=1,klev+1
+               ikl=klev+2-jk
+
+! Accumulate spectral fluxes over bands - inactive
+!               zbbfu(ikl) = zbbfu(ikl) + zincflx(iw)*w_taug(jc,jk,iw)  
+!               zbbfd(ikl) = zbbfd(ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+!               zbbcu(ikl) = zbbcu(ikl) + zincflx(iw)*w_cldfmc(jc,iw,jk)
+!               zbbcd(ikl) = zbbcd(ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+!               zbbfddir(ikl) = zbbfddir(ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+!               zbbcddir(ikl) = zbbcddir(ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+
+! Accumulate spectral fluxes over whole spectrum  
+               w_pbbfu(jc,ikl) = w_pbbfu(jc,ikl) + zincflx(iw)*w_taug(jc,jk,iw)
+               w_pbbfd(jc,ikl) = w_pbbfd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+               w_pbbcu(jc,ikl) = w_pbbcu(jc,ikl) + zincflx(iw)*w_cldfmc(jc,iw,jk)
+               w_pbbcd(jc,ikl) = w_pbbcd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+               w_pbbfddir(jc,ikl) = w_pbbfddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+               w_pbbcddir(jc,ikl) = w_pbbcddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+            enddo
+
+! Accumulate direct fluxes for UV/visible bands
+               if (ibm >= 10 .and. ibm <= 13) then
+            do jk=1,klev+1
+               ikl=klev+2-jk
+                  w_puvcd(jc,ikl) = w_puvcd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+                  w_puvfd(jc,ikl) = w_puvfd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+                  w_puvcddir(jc,ikl) = w_puvcddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+                  w_puvfddir(jc,ikl) = w_puvfddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+            enddo
+! Accumulate direct fluxes for near-IR bands
+               else if (ibm == 14 .or. ibm <= 9) then  
+            do jk=1,klev+1
+               ikl=klev+2-jk
+                  w_pnicd(jc,ikl) = w_pnicd(jc,ikl) + zincflx(iw)*w_taucmc(jc,iw,jk)
+                  w_pnifd(jc,ikl) = w_pnifd(jc,ikl) + zincflx(iw)*w_taur(jc,jk,iw)
+                  w_pnicddir(jc,ikl) = w_pnicddir(jc,ikl) + zincflx(iw)*w_asmcmc(jc,iw,jk)
+                  w_pnifddir(jc,ikl) = w_pnifddir(jc,ikl) + zincflx(iw)*w_ssacmc(jc,iw,jk)
+            enddo
+               endif
+
+         enddo
+      enddo
+      end subroutine spcvmc_sw_g2
+
+
       subroutine cldprmc_sw_g(ic, jc, nlayers, inflag, iceflag, liqflag)
 !$acc routine seq
       use parkind, only : im => kind_im, rb => kind_rb
@@ -13497,6 +13932,76 @@
       out_hr(jc,nlayers) = 0._rb
       end subroutine sw_col_g
 
+      subroutine sw_col_g_pre(ic, jc, nlay)
+!$acc routine seq
+      use rrsw_con, only : heatfac
+      implicit none
+      integer, intent(in) :: ic, jc, nlay
+      real(kind=rb), parameter :: zepzen = 1.e-10_rb
+      integer(kind=im) :: nlayers, laytrop, layswtch, laylow, i, ib
+      real(kind=rb) :: tbound, cossza, zdpgcp, nf0, nf1, nc0, nc1
+      out_sw_err(jc) = 0
+      call mcica_sw_g(ic, jc, nlay, in_flag(jc,2), in_flag(jc,3), in_flag(jc,4), in_flag(jc,8))
+      if (out_sw_err(jc) .ne. 0) return
+      call inatm_sw_g(ic, jc, nlay, nlayers, tbound)
+      call cldprmc_sw_g(ic, jc, nlayers, in_flag(jc,5), in_flag(jc,6), in_flag(jc,7))
+      if (out_sw_err(jc) .ne. 0) return
+      call setcoef_sw_g(jc, nlayers, tbound, laytrop, layswtch, laylow)
+      cossza = in_cosz(jc)
+      if (cossza .le. zepzen) cossza = zepzen
+      do ib = 1, 9
+         w_albdir(jc,ib) = in_aldir(jc)
+         w_albdif(jc,ib) = in_aldif(jc)
+      enddo
+      w_albdir(jc,nbndsw) = in_aldir(jc)
+      w_albdif(jc,nbndsw) = in_aldif(jc)
+      do ib = 10, 13
+         w_albdir(jc,ib) = in_asdir(jc)
+         w_albdif(jc,ib) = in_asdif(jc)
+      enddo
+      call spcvmc_sw_g0(jc, nlayers, laytrop)
+      w_nlayers(jc) = nlayers
+      end subroutine sw_col_g_pre
+
+      subroutine sw_col_g_post(ic, jc, nlay)
+!$acc routine seq
+      use rrsw_con, only : heatfac
+      implicit none
+      integer, intent(in) :: ic, jc, nlay
+      real(kind=rb), parameter :: zepzen = 1.e-10_rb
+      integer(kind=im) :: nlayers, laytrop, layswtch, laylow, i, ib
+      real(kind=rb) :: tbound, cossza, zdpgcp, nf0, nf1, nc0, nc1
+      nlayers = w_nlayers(jc)
+      cossza = in_cosz(jc)
+      if (cossza .le. zepzen) cossza = zepzen
+      call spcvmc_sw_g2(jc, nlayers, cossza)
+      do i = 1, nlayers+1
+         out_uflxc(jc,i) = w_pbbcu(jc,i)
+         out_dflxc(jc,i) = w_pbbcd(jc,i)
+         out_uflx(jc,i) = w_pbbfu(jc,i)
+         out_dflx(jc,i) = w_pbbfd(jc,i)
+      enddo
+      out_sfc(jc,5) = w_pbbfddir(jc,1)
+      out_sfc(jc,6) = out_dflx(jc,1) - w_pbbfddir(jc,1)
+      out_sfc(jc,7) = w_pbbcddir(jc,1)
+      out_sfc(jc,1) = w_puvfddir(jc,1)
+      out_sfc(jc,2) = w_puvfd(jc,1) - w_puvfddir(jc,1)
+      out_sfc(jc,3) = w_pnifddir(jc,1)
+      out_sfc(jc,4) = w_pnifd(jc,1) - w_pnifddir(jc,1)
+      do i = 1, nlayers
+         zdpgcp = heatfac / w_pdp(jc,i)
+         nc0 = out_dflxc(jc,i) - out_uflxc(jc,i)
+         nc1 = out_dflxc(jc,i+1) - out_uflxc(jc,i+1)
+         nf0 = out_dflx(jc,i) - out_uflx(jc,i)
+         nf1 = out_dflx(jc,i+1) - out_uflx(jc,i+1)
+         out_hrc(jc,i) = (nc1 - nc0) * zdpgcp
+         out_hr(jc,i) = (nf1 - nf0) * zdpgcp
+      enddo
+      out_hrc(jc,nlayers) = 0._rb
+      out_hr(jc,nlayers) = 0._rb
+      end subroutine sw_col_g_post
+
+
 !-------------------------------------------------------------------------------- host side
       subroutine rrtmg_sw_gpu_begin(ims, ime, jms, jme, nlay)
       implicit none
@@ -13631,8 +14136,11 @@
 
       subroutine rrtmg_sw_gpu_run()
       use rrtmg_sw_gtab, only: sw_gtab_done, rrtmg_sw_gtab_init
+      use rrsw_wvn, only : ngc
       implicit none
       integer :: c0, c1, ic, jc, nlay, nch, nl, nl1, ierr, ich
+      integer :: iw_, ibm_, n_
+      real(kind=rb) :: cz_
       character(len=128) :: msg
       if (.not. sw_gtab_done) call rrtmg_sw_gtab_init()
       if (.not. any(hs_in_flag(:,1,:) .eq. 1)) return
@@ -13703,19 +14211,19 @@
       if (allocated(w_albdir)) deallocate(w_albdir)
       allocate(w_albdir(nch,nbndsw))
       if (allocated(w_taug)) deallocate(w_taug)
-      allocate(w_taug(nch,nl,ngptsw))
+      allocate(w_taug(nch,nl1,ngptsw))
       if (allocated(w_taur)) deallocate(w_taur)
-      allocate(w_taur(nch,nl,ngptsw))
+      allocate(w_taur(nch,nl1,ngptsw))
       if (allocated(w_sfluxzen)) deallocate(w_sfluxzen)
       allocate(w_sfluxzen(nch,ngptsw))
       if (allocated(w_cldfmc)) deallocate(w_cldfmc)
-      allocate(w_cldfmc(nch,ngptsw,nl))
+      allocate(w_cldfmc(nch,ngptsw,nl1))
       if (allocated(w_taucmc)) deallocate(w_taucmc)
-      allocate(w_taucmc(nch,ngptsw,nl))
+      allocate(w_taucmc(nch,ngptsw,nl1))
       if (allocated(w_ssacmc)) deallocate(w_ssacmc)
-      allocate(w_ssacmc(nch,ngptsw,nl))
+      allocate(w_ssacmc(nch,ngptsw,nl1))
       if (allocated(w_asmcmc)) deallocate(w_asmcmc)
-      allocate(w_asmcmc(nch,ngptsw,nl))
+      allocate(w_asmcmc(nch,ngptsw,nl1))
       if (allocated(w_taormc)) deallocate(w_taormc)
       allocate(w_taormc(nch,ngptsw,nl))
       if (allocated(w_taua)) deallocate(w_taua)
@@ -13752,6 +14260,16 @@
       allocate(w_pnifddir(nch,nl1))
       if (allocated(w_pnicddir)) deallocate(w_pnicddir)
       allocate(w_pnicddir(nch,nl1))
+      if (sw_split < 0) then
+         call get_environment_variable('WRF_GPU_SWSPLIT', msg, status=ierr)
+         sw_split = 1
+         if (ierr == 0) read(msg, *, iostat=ierr) sw_split
+         if (ierr /= 0) sw_split = 1
+      endif
+      if (sw_split == 1) then
+         if (allocated(w_nlayers)) deallocate(w_nlayers)
+         allocate(w_nlayers(nch))
+      endif
       do c0 = 1, sw_ncolm, nch
          c1 = min(c0 + nch - 1, sw_ncolm)
          ich = (c0-1)/sw_nchunk + 1
@@ -13760,6 +14278,37 @@
             cycle
          endif
          call sw_stage_in(ich)
+         if (sw_split == 1) then
+!$acc parallel loop gang vector vector_length(128) private(jc)
+         do ic = c0, c1
+            jc = ic - c0 + 1
+            if (in_flag(jc,1) .eq. 1) then
+               call sw_col_g_pre(ic, jc, nlay)
+            else
+               out_sw_err(jc) = 0
+            endif
+         enddo
+!$acc parallel loop gang vector collapse(2) vector_length(128) private(jc, ibm_, n_, cz_)
+         do iw_ = 1, ngptsw
+         do ic = c0, c1
+            jc = ic - c0 + 1
+            if (in_flag(jc,1) .eq. 1 .and. out_sw_err(jc) .eq. 0) then
+               ibm_ = 1 ; n_ = ngc(1)
+               do while (iw_ > n_)
+                  ibm_ = ibm_ + 1 ; n_ = n_ + ngc(ibm_)
+               enddo
+               cz_ = in_cosz(jc)
+               if (cz_ .le. 1.e-10_rb) cz_ = 1.e-10_rb
+               call spcvmc_sw_g1(jc, iw_, ibm_, w_nlayers(jc), cz_)
+            endif
+         enddo
+         enddo
+!$acc parallel loop gang vector vector_length(128) private(jc)
+         do ic = c0, c1
+            jc = ic - c0 + 1
+            if (in_flag(jc,1) .eq. 1 .and. out_sw_err(jc) .eq. 0) call sw_col_g_post(ic, jc, nlay)
+         enddo
+         else
 !$acc parallel loop gang vector vector_length(128) private(jc)
          do ic = c0, c1
             jc = ic - c0 + 1
@@ -13769,6 +14318,7 @@
                out_sw_err(jc) = 0
             endif
          enddo
+         endif
          call sw_stage_out(ich)
       enddo
       if (allocated(w_pavel)) deallocate(w_pavel)
@@ -13827,6 +14377,7 @@
       if (allocated(w_puvcddir)) deallocate(w_puvcddir)
       if (allocated(w_pnifddir)) deallocate(w_pnifddir)
       if (allocated(w_pnicddir)) deallocate(w_pnicddir)
+      if (allocated(w_nlayers)) deallocate(w_nlayers)
       hs_out_sw_err(sw_ncolm-(sw_nchk-1)*sw_nchunk+1:sw_nchunk, sw_nchk) = 0
       ierr = maxval(hs_out_sw_err)
       if (ierr .ne. 0) then
@@ -13890,6 +14441,7 @@
       if (allocated(w_puvcddir)) deallocate(w_puvcddir)
       if (allocated(w_pnifddir)) deallocate(w_pnifddir)
       if (allocated(w_pnicddir)) deallocate(w_pnicddir)
+      if (allocated(w_nlayers)) deallocate(w_nlayers)
 end subroutine rrtmg_sw_gpu_run
 
 ! copy one chunk of staged inputs to the device / outputs back (whole-chunk contiguous blocks)

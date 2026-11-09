@@ -10,7 +10,11 @@
  public:: gwdo
 #ifdef WRF_GPU_RESIDENT
  public:: gwdo_gpu
+#ifdef WRF_GPU_KCOL
+ integer, parameter:: KTG_GWD = WRF_GPU_KCOL   ! max levels of the device column routine (kcol.py)
+#else
  integer, parameter:: KTG_GWD = 64   ! max levels of the device column routine (fixed-size locals)
+#endif
 #endif
 
 
@@ -288,7 +292,8 @@
          IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) gw_compact
          IF ( st_ /= 0 ) gw_compact = 0
       ENDIF
-      nx_ = ite - its + 1 ; ny_ = jte - jts + 1 ; ncol_ = nx_*ny_
+           IF ( kte > KTG_GWD ) CALL wrf_error_fatal('gwdo_gpu: kte > KTG_GWD (rebuild with a larger GPU_KCOL)')
+ nx_ = ite - its + 1 ; ny_ = jte - jts + 1 ; ncol_ = nx_*ny_
       IF ( ALLOCATED(gw_li) ) THEN
          IF ( SIZE(gw_li) /= ncol_ .OR. SIZE(gw_nact) /= ny_ .OR. SIZE(gw_flag,1) /= nx_ ) THEN
 !$acc exit data delete(gw_li, gw_lj, gw_flag, gw_nact, gw_offa, gw_offi)

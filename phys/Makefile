@@ -441,31 +441,43 @@ include ../configure.wrf
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_noahdrv.o \
                  module_mp_radar.o
-$(GPU_REG64_OBJS): FCFLAGS += -gpu=maxregcount:64
+$(GPU_REG64_OBJS): private FCFLAGS += -gpu=maxregcount:64
 RRTMG_REGCAP ?= 64
-module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: FCFLAGS += -gpu=maxregcount:$(RRTMG_REGCAP)
+module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += -gpu=maxregcount:$(RRTMG_REGCAP)
 THOMPSON_REGCAP ?= 128
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
 THOMPSON_OPT ?= -O2
 ifneq (,$(THOMPSON_OPT))
-module_mp_thompson.o: FCOPTIM = $(THOMPSON_OPT)
+module_mp_thompson.o: private FCOPTIM = $(THOMPSON_OPT)
 endif
-module_mp_thompson.o: FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
+module_mp_thompson.o: private FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
 COLPHYS_REGCAP ?= 128
-module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
+module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o: private FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
 # GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
 GPUPHYS_EXTRA ?= -gpu=fastmath
 ifneq (,$(GPUPHYS_EXTRA))
 module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o \
-  module_physics_addtendc.o module_diag_afwa.o module_diagnostics_driver.o: FCFLAGS += $(GPUPHYS_EXTRA)
+  module_physics_addtendc.o module_diag_afwa.o module_diagnostics_driver.o: private FCFLAGS += $(GPUPHYS_EXTRA)
+endif
+# GPU_KCOL: level dimension of the GPU column routines' per-thread arrays (MYJ, gwdo, Tiedtke, RRTMG SW, AFWA;
+# not RRTMG LW: it adds buffer layers up to 0 hPa, nlayers = kme + nint(p_top/4 hPa) - 1 = 45 here, mxl_g stays 64;
+# not AFWA (KBUOY_G): at 35 the CAPE/CIN/turbulence diagnostics changed (prognostics bit-identical), and its 7.3 KB
+# frame is below Tiedtke's 8.6 KB anyway;
+# kcol.py). The CUDA driver reserves the largest launched stack frame for every resident thread of every process, so
+# oversizing costs GBs per rank. Must be >= e_vert+2 (RRTMG adds a layer above the model top and needs nlayers+1;
+# the column routines stop with wrf_error_fatal otherwise): 35 fits the 33-level test case. 0 = the old per-scheme
+# limits (64/64/40/64/40/128).
+GPU_KCOL ?= 35
+ifneq ($(GPU_KCOL),0)
+module_bl_myjpbl.o module_bl_gwdo.o module_cu_tiedtke.o module_ra_rrtmg_sw.o: private CPPFLAGS += -DWRF_GPU_KCOL=$(GPU_KCOL)
 endif
 # RRTMG_EXTRA (e.g. -gpu=fastmath): extra flags for the RRTMG LW/SW objects (exp/log heavy optical-depth and
 # transmittance kernels; dynamics fastmath was -20 ms/step at rounding-level error, 2026-11-08)
 RRTMG_EXTRA ?=
 ifneq (,$(RRTMG_EXTRA))
-module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: FCFLAGS += $(RRTMG_EXTRA)
+module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += $(RRTMG_EXTRA)
 endif
 endif
 

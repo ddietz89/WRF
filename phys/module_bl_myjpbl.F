@@ -127,7 +127,11 @@
 !
 #ifdef WRF_GPU
 !.. GPU port: fixed-size columns of the device routines (kts=1), species count of VDIFH
+#ifdef WRF_GPU_KCOL
+      INTEGER, PARAMETER :: KMAXP = WRF_GPU_KCOL, MYJ_NSPMAX = 7   ! kcol.py
+#else
       INTEGER, PARAMETER :: KMAXP = 64, MYJ_NSPMAX = 7
+#endif
 !$acc declare copyin(ITRMX)
 #endif
       CONTAINS

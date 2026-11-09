@@ -111,7 +111,11 @@ module module_cu_tiedtke
 !-----------------------------------------------------------------------
 !
 #ifdef WRF_GPU
+#ifdef WRF_GPU_KCOL
+      integer, parameter :: KTMX_G = WRF_GPU_KCOL   ! max levels of the GPU column copies (kcol.py)
+#else
       integer, parameter :: KTMX_G = 40   ! max levels of the GPU column copies
+#endif
 #endif
 contains
 !-----------------------------------------------------------------------

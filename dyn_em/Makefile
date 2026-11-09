@@ -64,7 +64,7 @@ include ../configure.wrf
 BSU_REGCAP ?= 0
 ifneq ($(BSU_REGCAP),0)
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
-module_big_step_utilities_em.o: FCFLAGS += -gpu=maxregcount:$(BSU_REGCAP)
+module_big_step_utilities_em.o: private FCFLAGS += -gpu=maxregcount:$(BSU_REGCAP)
 endif
 endif
 # SMALLSTEP_REGCAP: register cap for the small-step solver kernels (ncu 2026-11-08 big1000: advance_w 96 regs / 30%
@@ -73,7 +73,7 @@ endif
 SMALLSTEP_REGCAP ?= 80
 ifneq ($(SMALLSTEP_REGCAP),0)
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
-module_small_step_em.o: FCFLAGS += -gpu=maxregcount:$(SMALLSTEP_REGCAP)
+module_small_step_em.o: private FCFLAGS += -gpu=maxregcount:$(SMALLSTEP_REGCAP)
 endif
 endif
 ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
@@ -81,17 +81,17 @@ ifneq (,$(findstring -DWRF_GPU_RESIDENT,$(ARCH_LOCAL)))
 # (2026-11-08: the positive-definite advection flux kernels run ~3x slower than their traffic - division bound)
 ADVECT_EXTRA ?= -gpu=fastmath
 ifneq (,$(ADVECT_EXTRA))
-module_advect_em.o: FCFLAGS += $(ADVECT_EXTRA)
+module_advect_em.o: private FCFLAGS += $(ADVECT_EXTRA)
 endif
 DYNSS_EXTRA ?= -gpu=fastmath
 ifneq (,$(DYNSS_EXTRA))
-module_small_step_em.o: FCFLAGS += $(DYNSS_EXTRA)
+module_small_step_em.o: private FCFLAGS += $(DYNSS_EXTRA)
 endif
 # DYNREST_EXTRA: the same for the other GPU dynamics objects (big-step utilities, RK driver, diffusion, boundaries,
 # solve_em, first_rk_step parts, implicit advection)
 DYNREST_EXTRA ?= -gpu=fastmath
 ifneq (,$(DYNREST_EXTRA))
-module_big_step_utilities_em.o module_em.o module_diffusion_em.o module_bc_em.o solve_em.o module_first_rk_step_part1.o module_first_rk_step_part2.o module_ieva_em.o: FCFLAGS += $(DYNREST_EXTRA)
+module_big_step_utilities_em.o module_em.o module_diffusion_em.o module_bc_em.o solve_em.o module_first_rk_step_part1.o module_first_rk_step_part2.o module_ieva_em.o: private FCFLAGS += $(DYNREST_EXTRA)
 endif
 # fastmath on all of them (2026-11-08, 2-node 16 ranks, judged against the c256 CPU run): 0.3925 -> 0.3636 s/step,
 # T2 rmse 0.0037 / PSFC 0.111 (rounding-level baseline 0.0031 / 0.10); -gpu=flushz,loadcache:L1 on top: no gain.
