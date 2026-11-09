@@ -283,14 +283,20 @@
  ! the scheme's static ldrag conditions); flat/ocean columns take the scheme's no-drag path. Per-column arithmetic
  ! unchanged (bit-identical).
  integer, save :: gw_compact = -1
+ integer, save :: gw_skip = -1
  integer, allocatable, save :: gw_li(:), gw_lj(:), gw_flag(:,:), gw_nact(:), gw_offa(:), gw_offi(:)
  integer :: nx_, ny_, ncol_, n_, jj_, cnt_, act_, pa_, pi_, tot_, st_
  character(len=8) :: cv_
       IF ( gw_compact < 0 ) THEN
+         ! default 1 since the no-drag skip (2026-11-09): the skipped columns then fill whole warps
          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_GWCOMPACT', cv_, STATUS=st_ )
-         gw_compact = 0
+         gw_compact = 1
          IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) gw_compact
-         IF ( st_ /= 0 ) gw_compact = 0
+         IF ( st_ /= 0 ) gw_compact = 1
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_GWSKIP', cv_, STATUS=st_ )
+         gw_skip = 1
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) gw_skip
+         IF ( st_ /= 0 ) gw_skip = 1
       ENDIF
            IF ( kte > KTG_GWD ) CALL wrf_error_fatal('gwdo_gpu: kte > KTG_GWD (rebuild with a larger GPU_KCOL)')
  nx_ = ite - its + 1 ; ny_ = jte - jts + 1 ; ncol_ = nx_*ny_
@@ -355,6 +361,17 @@
 !$acc present(var2d,oc12d,oa2d1,oa2d2,oa2d3,oa2d4,ol2d1,ol2d2,ol2d3,ol2d4,elvmax,sina,cosa,dx,gw_li,gw_lj)
  do n_ = 1, ncol_
     i = gw_li(n_) ; j = gw_lj(n_)
+    ! WRF_GPU_GWSKIP (default 1): a column without subgrid orography (var2d <= 0 or elvmax <= hmt_min = 50 m: the
+    ! scheme's static no-drag test, ldrag) adds zero tendencies and zero stresses; skip it before loading the column
+    if ( gw_skip == 1 .and. ( var2d(i,j) .le. 0. .or. elvmax(i,j) .le. 50. ) ) then
+       do k = kts,kte
+          dtaux3d(i,k,j) = 0.
+          dtauy3d(i,k,j) = 0.
+       enddo
+       dusfcg(i,j) = 0.
+       dvsfcg(i,j) = 0.
+       cycle
+    endif
     do k = kts,kte
        uc(1,k)  = u3d(i,k,j)
        vc(1,k)  = v3d(i,k,j)
