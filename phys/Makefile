@@ -448,7 +448,9 @@ THOMPSON_REGCAP ?= 128
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
-THOMPSON_OPT ?= -O2
+# 2026-11-09 (single-node bench, after THLEV): -O3 0.3484/0.3497 vs -O2 0.3520/0.3520 s/step (rounding-level change,
+# T2 rmse 0.0034 vs the -O2 run) -> default back to the global -O3 (empty); -O2 stays available as THOMPSON_OPT=-O2.
+THOMPSON_OPT ?=
 ifneq (,$(THOMPSON_OPT))
 module_mp_thompson.o: private FCOPTIM = $(THOMPSON_OPT)
 endif
