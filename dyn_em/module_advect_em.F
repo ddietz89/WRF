@@ -8802,6 +8802,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
+   LOGICAL :: fresh_   ! pdfresh.py
 
    INTEGER :: jp1, jp0, jtmp
 
@@ -9042,6 +9043,24 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 
   ktf=MIN(kte,kde-1)
   horz_order = config_flags%h_sca_adv_order
+#ifdef WRF_GPU
+   ! the caller skipped zeroing the tendency (adv_tend_fresh, pdfresh.py): only the fused divergence pass below starts
+   ! from 0; on every other path zero the tile here, as the skipped zero_tend did
+   fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
+   IF ( fresh_ .AND. .NOT. ( IAND(adv_fuse_bits,16) /= 0 .AND. .NOT. tenddec .AND. .NOT. ( config_flags%open_xs .OR. &
+        config_flags%open_xe .OR. config_flags%open_ys .OR. config_flags%open_ye ) ) ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+     DO j = jts, jte
+     DO k = kts, kte
+!$acc loop vector
+     DO i = its, ite
+        tendency(i,k,j) = 0.
+     ENDDO
+     ENDDO
+     ENDDO
+     fresh_ = .FALSE.
+   ENDIF
+#endif
   vert_order = config_flags%v_sca_adv_order
 
    ! grid spacings once per call (identical expressions to the former per-point ones; pdhoist.py)
@@ -11169,7 +11188,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
-     ub = tendency(i,k,j)                           &
+     IF ( fresh_ ) THEN
+       ub = 0.
+     ELSE
+       ub = tendency(i,k,j)
+     ENDIF
+     ub = ub                                        &
                             -rdzw(k)*( fqz (i,k+1,j)-fqz (i,k,j)  &
                                       +fqzl(i,k+1,j)-fqzl(i,k,j))
      IF ( i >= imin .AND. i <= imax ) THEN
@@ -11186,6 +11210,8 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
   ENDDO
   ENDDO
+      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, &
+                                           i_start, i_end, kts, ktf, j_start, j_end )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF

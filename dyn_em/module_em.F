@@ -454,26 +454,41 @@ SUBROUTINE rk_tendency ( config_flags, rk_step,                           &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. ( wrf_gpu_on .AND. rk_step > 1 ) ) &   ! savezero.py
+#endif
    CALL zero_tend ( u_save,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. ( wrf_gpu_on .AND. rk_step > 1 ) ) &   ! savezero.py
+#endif
    CALL zero_tend ( v_save,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. ( wrf_gpu_on .AND. rk_step > 1 ) ) &   ! savezero.py
+#endif
    CALL zero_tend ( w_save,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. ( wrf_gpu_on .AND. rk_step > 1 ) ) &   ! savezero.py
+#endif
    CALL zero_tend ( ph_save,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
                     its, ite, jts, jte, kts, kte )
 
+#ifdef WRF_GPU
+   IF ( .NOT. ( wrf_gpu_on .AND. rk_step > 1 ) ) &   ! savezero.py
+#endif
    CALL zero_tend ( t_save,                       &
                     ids, ide, jds, jde, kds, kde, &
                     ims, ime, jms, jme, kms, kme, &
@@ -1373,8 +1388,8 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 #ifdef WRF_GPU
      ! plain advect_scalar ahead (not the rk_order pd/mono/weno variants): skip zeroing advect_tend, the fused
      ! divergence pass writes every point the update reads (advect_scalar zeroes itself on other paths). -1 pass.
-     IF ( wrf_gpu_on .AND. .NOT. tenddec .AND. .NOT. ( rk_step == rk_order .AND. ( adv_opt == POSITIVEDEF .OR.     &
-          adv_opt == MONOTONIC .OR. adv_opt == WENO_SCALAR .OR. adv_opt == WENOPD_SCALAR ) ) ) THEN
+     IF ( wrf_gpu_on .AND. .NOT. tenddec .AND. .NOT. ( rk_step == rk_order .AND. (                                 &
+          adv_opt == MONOTONIC .OR. adv_opt == WENO_SCALAR .OR. adv_opt == WENOPD_SCALAR ) ) ) THEN   ! pd: pdfresh.py
         adv_tend_fresh = .TRUE.
      ELSE
 #endif
