@@ -444,7 +444,9 @@ GPU_REG64_OBJS = module_sf_noahlsm.o module_sf_noahlsm_glacial_only.o module_sf_
 $(GPU_REG64_OBJS): private FCFLAGS += -gpu=maxregcount:64
 RRTMG_REGCAP ?= 64
 module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += -gpu=maxregcount:$(RRTMG_REGCAP)
-THOMPSON_REGCAP ?= 128
+# 2026-11-09 single-node bench: 255 (effectively no cap) 0.3476/0.3474 vs 128 0.3490/0.3497/0.3492 s/step, bit-identical;
+# COLPHYS_REGCAP 255 was slower (0.3511/0.3512) and stays 128.
+THOMPSON_REGCAP ?= 255
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
