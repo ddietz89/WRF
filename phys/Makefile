@@ -449,7 +449,9 @@ RRTMG_REGCAP ?= 64
 module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += -gpu=maxregcount:$(RRTMG_REGCAP)
 # 2026-11-09 single-node bench: 255 (effectively no cap) 0.3476/0.3474 vs 128 0.3490/0.3497/0.3492 s/step, bit-identical;
 # COLPHYS_REGCAP 255 was slower (0.3511/0.3512) and stays 128.
-THOMPSON_REGCAP ?= 255
+# 2026-11-10 (G16 bench, bit-identical): cap 160 0.3228/0.3238/0.3239/0.3247/0.3250 vs 255 0.3239/0.3251/0.3255,
+# 144 0.3242/0.3266, 192 0.3276/0.3278, 128 0.3254/0.3270, 176 0.3286/0.3290 -> 160.
+THOMPSON_REGCAP ?= 160
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
