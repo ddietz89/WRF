@@ -1412,6 +1412,9 @@
       DOUBLE PRECISION:: cback, x, eta, f_d
       REAL:: xslw1, ygra1, zans1
       INTEGER :: k_0loop
+      REAL:: qv_s, rho_s, rr_s, nr_s, rg_s, ng_s, rb_s, smo2_s, smoz_s
+      DOUBLE PRECISION:: ilamr_s, N0_r_s, ilamg_s, N0_g_s
+      INTEGER:: idx_s
 
 !+---+
 
@@ -1423,58 +1426,57 @@
 !..Put column of data into local arrays.
 !+---+-----------------------------------------------------------------+
 
+      ! GPU (2026-11-10): rain and graupel reflectivity factors formed in this loop from per-level scalars (the
+      ! ilamr/N0_r/ilamg/N0_g arrays and the separate graupel and ze passes are gone; rhof/rc/mvd_r were never read);
+      ! same expressions and precision. Arrays remain only where the melting-layer pass needs them.
       do k = kts, kte
          temp(k) = thb_t1d(thic,k-kts+1,thjjb)
-         qv(k) = MAX(1.E-10, thb_qv1d(thic,k-kts+1,thjjb))
-         pres(k) = p1d(k)
-         rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
-         rhof(k) = SQRT(RHO_NOT/rho(k))
-         rc(k) = MAX(R1, thb_qc1d(thic,k-kts+1,thjjb)*rho(k))
+         qv_s = MAX(1.E-10, thb_qv1d(thic,k-kts+1,thjjb))
+         rho_s = 0.622*p1d(k)/(R*temp(k)*(qv_s+0.622))
+         ze_rain(k) = 1.e-22
+         ze_snow(k) = 1.e-22
+         ze_graupel(k) = 1.e-22
          if (thb_qr1d(thic,k-kts+1,thjjb) .gt. R1) then
-            rr(k) = thb_qr1d(thic,k-kts+1,thjjb)*rho(k)
-            nr(k) = MAX(R2, thb_nr1d(thic,k-kts+1,thjjb)*rho(k))
-            lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
-            ilamr(k) = 1./lamr
-            N0_r(k) = nr(k)*org2*lamr**cre(2)
-            mvd_r(k) = (3.0 + mu_r + 0.672) * ilamr(k)
+            rr_s = thb_qr1d(thic,k-kts+1,thjjb)*rho_s
+            nr_s = MAX(R2, thb_nr1d(thic,k-kts+1,thjjb)*rho_s)
+            lamr = (am_r*crg(3)*org2*nr_s/rr_s)**obmr
+            ilamr_s = 1./lamr
+            N0_r_s = nr_s*org2*lamr**cre(2)
             L_qr(k) = .true.
+            if (k <= ke_diag) ze_rain(k) = N0_r_s*crg(4)*ilamr_s**cre(4)
          else
-            rr(k) = R1
-            nr(k) = R1
-            mvd_r(k) = 50.E-6
             L_qr(k) = .false.
          endif
          if (thb_qs1d(thic,k-kts+1,thjjb) .gt. R2) then
-            rs(k) = thb_qs1d(thic,k-kts+1,thjjb)*rho(k)
+            rs(k) = thb_qs1d(thic,k-kts+1,thjjb)*rho_s
             L_qs(k) = .true.
          else
             rs(k) = R1
             L_qs(k) = .false.
          endif
          if (thb_qg1d(thic,k-kts+1,thjjb) .gt. R2) then
-            rg(k) = thb_qg1d(thic,k-kts+1,thjjb)*rho(k)
-            ng(k) = MAX(R2, thb_ng1d(thic,k-kts+1,thjjb)*rho(k))
-            rb(k) = MAX(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(NRHG), thb_qb1d(thic,k-kts+1,thjjb))
-            rb(k) = MIN(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(1), rb(k))
-            idx_bg(k) = MAX(1,MIN(NINT(thb_qg1d(thic,k-kts+1,thjjb)/rb(k) *0.01)+1,NRHG))
-            if (.not. is_hail_aware) idx_bg(k) = idx_bg1
+            rg_s = thb_qg1d(thic,k-kts+1,thjjb)*rho_s
+            ng_s = MAX(R2, thb_ng1d(thic,k-kts+1,thjjb)*rho_s)
+            rb_s = MAX(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(NRHG), thb_qb1d(thic,k-kts+1,thjjb))
+            rb_s = MIN(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(1), rb_s)
+            idx_s = MAX(1,MIN(NINT(thb_qg1d(thic,k-kts+1,thjjb)/rb_s *0.01)+1,NRHG))
+            if (.not. is_hail_aware) idx_s = idx_bg1
             L_qg(k) = .true.
+            if (k <= ke_diag) then
+               lamg = (am_g(idx_s)*cgg(3,1)*ogg2*ng_s/rg_s)**obmg
+               ilamg_s = 1./lamg
+               N0_g_s = ng_s*ogg2*lamg**cge(2,1)
+               ze_graupel(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)  &
+     &               * (am_g(idx_s)/900.0)*(am_g(idx_s)/900.0)  &
+     &               * N0_g_s*cgg(4,1)*ilamg_s**cge(4,1)
+            endif
          else
-            rg(k) = R1
-            ng(k) = R2
-            idx_bg(k) = idx_bg1
             L_qg(k) = .false.
          endif
       enddo
-
-!+---+-----------------------------------------------------------------+
-!..Calculate y-intercept, slope, and useful moments for snow.
-!+---+-----------------------------------------------------------------+
       do k = kts, kte
-         smo2(k) = 0.
          smob(k) = 0.
          smoc(k) = 0.
-         smoz(k) = 0.
       enddo
       if ( ( ke_diag > kts .and. ANY(L_qs(kts:kte)) ) .or.  &
             (ke_diag == kts .and. L_qs(kts) .eqv. .true. ) ) then
@@ -1486,7 +1488,7 @@
 !..All other moments based on reference, 2nd moment.  If bm_s.ne.2,
 !.. then we must compute actual 2nd moment and use as reference.
          if (bm_s.gt.(2.0-1.e-3) .and. bm_s.lt.(2.0+1.e-3)) then
-            smo2(k) = smob(k)
+            smo2_s = smob(k)
          else
             loga_ = sa(1) + sa(2)*tc0 + sa(3)*bm_s &
      &         + sa(4)*tc0*bm_s + sa(5)*tc0*tc0 &
@@ -1499,7 +1501,7 @@
      &         + sb(6)*bm_s*bm_s + sb(7)*tc0*tc0*bm_s &
      &         + sb(8)*tc0*bm_s*bm_s + sb(9)*tc0*tc0*tc0 &
      &         + sb(10)*bm_s*bm_s*bm_s
-            smo2(k) = (smob(k)/a_)**(1./b_)
+            smo2_s = (smob(k)/a_)**(1./b_)
          endif
 
 !..Calculate bm_s+1 (th) moment.  Useful for diameter calcs.
@@ -1513,7 +1515,7 @@
      &        + sb(5)*tc0*tc0 + sb(6)*cse(1)*cse(1) &
      &        + sb(7)*tc0*tc0*cse(1) + sb(8)*tc0*cse(1)*cse(1) &
      &        + sb(9)*tc0*tc0*tc0 + sb(10)*cse(1)*cse(1)*cse(1)
-         smoc(k) = a_ * smo2(k)**b_
+         smoc(k) = a_ * smo2_s**b_
 
 !..Calculate bm_s*2 (th) moment.  Useful for reflectivity.
          loga_ = sa(1) + sa(2)*tc0 + sa(3)*cse(3) &
@@ -1526,7 +1528,9 @@
      &        + sb(5)*tc0*tc0 + sb(6)*cse(3)*cse(3) &
      &        + sb(7)*tc0*tc0*cse(3) + sb(8)*tc0*cse(3)*cse(3) &
      &        + sb(9)*tc0*tc0*tc0 + sb(10)*cse(3)*cse(3)*cse(3)
-         smoz(k) = a_ * smo2(k)**b_
+         smoz_s = a_ * smo2_s**b_
+         ze_snow(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)     &
+     &                           * (am_s/900.0)*(am_s/900.0)*smoz_s
       enddo
       endif
 
@@ -1534,16 +1538,6 @@
 !..Calculate y-intercept, slope values for graupel.
 !+---+-----------------------------------------------------------------+
 
-      if (ANY(L_qg(kts:kte))) then
-      do k = kte, kts, -1
-         lamg = (am_g(idx_bg(k))*cgg(3,1)*ogg2*ng(k)/rg(k))**obmg
-         ilamg(k) = 1./lamg
-         N0_g(k) = ng(k)*ogg2*lamg**cge(2,1)
-      enddo
-      else
-         ilamg(:) = 0.
-         N0_g(:) = 0.
-      endif
 
 !+---+-----------------------------------------------------------------+
 !..Locate K-level of start of melting (k_0 is level above).
@@ -1576,17 +1570,6 @@
 !.. simple. Integrations of m(D)*m(D)*N(D)*dD.
 !+---+-----------------------------------------------------------------+
 
-      do k = kts, ke_diag ! kte
-         ze_rain(k) = 1.e-22
-         ze_snow(k) = 1.e-22
-         ze_graupel(k) = 1.e-22
-         if (L_qr(k)) ze_rain(k) = N0_r(k)*crg(4)*ilamr(k)**cre(4)
-         if (L_qs(k)) ze_snow(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)     &
-     &                           * (am_s/900.0)*(am_s/900.0)*smoz(k)
-         if (L_qg(k)) ze_graupel(k) = (0.176/0.93) * (6.0/PI)*(6.0/PI)  &
-     &               * (am_g(idx_bg(k))/900.0)*(am_g(idx_bg(k))/900.0)  &
-     &               * N0_g(k)*cgg(4,1)*ilamg(k)**cge(4,1)
-      enddo
 
 !+---+-----------------------------------------------------------------+
 !..Special case of melting ice (snow/graupel) particles.  Assume the
