@@ -3485,6 +3485,8 @@ halo      HALO_EM_PHYS_SHCU dyn_em       4:rushten,rvshten
 halo      HALO_EM_FDDA dyn_em            4:rundgdten,rvndgdten
 halo      HALO_EM_FDDA_SFC dyn_em 48:z,z_at_w,pblh,regime,znt,odis_ndg_old,odis_ndg_new
 halo      HALO_EM_PHYS_DIFFUSION dyn_em  4:defor11,defor22,defor12,defor13,defor23,div,xkmv,xkmh,xkhv,xkhh,tke_1,tke_2
+# GPU (WRF_GPU_HALOMRG): PHYS_PBL + PHYS_CU + PHYS_DIFFUSION + TKE_5 in first_rk_step_part2 as one exchange
+halo      HALO_EM_PHYS_MRG dyn_em  4:rublten,rvblten,rucuten,rvcuten,defor11,defor22,defor12,defor13,defor23,div,xkmv,xkmh,xkhv,xkhh;48:tke_1,tke_2
 halo      HALO_EM_SBM dyn_em 8:p_phy,pi_phy,dz8w,th_phy,rho,qv_old,th_old,u_phy,v_phy,moist
 halo      HALO_EM_TKE_ADVECT_3 dyn_em 24:tke_2
 halo      HALO_EM_TKE_ADVECT_5 dyn_em 48:tke_2
@@ -3507,6 +3509,8 @@ halo      HALO_EM_D dyn_em    24:ru_m,rv_m,ww_m,mut,muts
 halo      HALO_EM_D_PV dyn_em 24:u_2,v_2,t_2
 halo      HALO_EM_D2_3 dyn_em 24:u_2,v_2,w_2,t_2,ph_2;24:moist,chem,tracer,scalar,tke_2;4:mu_2,al
 halo      HALO_EM_D2_5 dyn_em 48:u_2,v_2,w_2,t_2,ph_2;24:moist,chem,tracer,scalar,tke_2;4:mu_2,al
+# GPU (WRF_GPU_HALOMRG): D2_5 plus the TKE/MOIST/SCALAR halos that follow it in RK steps 1-2 (widest stencil), one exchange
+halo      HALO_EM_D2M_5 dyn_em 48:u_2,v_2,w_2,t_2,ph_2;24:chem,tracer;80:moist,scalar,tke_1,tke_2;4:mu_2,al
 halo      HALO_EM_D3_3 dyn_em 24:u_1,u_2,v_1,v_2,w_1,w_2,t_1,t_2,ph_1,ph_2,tke_1,tke_2,moist,chem,tracer,scalar;4:mu_1,mu_2
 halo      HALO_EM_D3_5 dyn_em 48:u_1,u_2,v_1,v_2,w_1,w_2,t_1,t_2,ph_1,ph_2,tke_1,tke_2,moist,chem,tracer,scalar;4:mu_1,mu_2
 halo      HALO_EM_E_3 dyn_em 24:u_1,u_2,v_1,v_2,w_1,w_2,t_1,t_2,ph_1,ph_2,tke_1,tke_2,;4:mu_1,mu_2

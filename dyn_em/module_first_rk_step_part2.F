@@ -41,7 +41,7 @@ CONTAINS
 #ifdef DM_PARALLEL
     USE module_dm, ONLY : local_communicator, mytask, ntasks, ntasks_x, ntasks_y, local_communicator_periodic, &
                           wrf_dm_maxval, wrf_err_message, local_communicator_x, local_communicator_y
-    USE module_comm_dm, ONLY : halo_em_tke_c_sub,halo_em_tke_d_sub,halo_em_tke_e_sub            &
+    USE module_comm_dm, ONLY : halo_em_phys_mrg_sub,halo_em_tke_c_sub,halo_em_tke_d_sub,halo_em_tke_e_sub            &
             ,halo_em_phys_pbl_sub,halo_em_phys_shcu_sub &
             ,halo_em_fdda_sub,halo_em_phys_diffusion_sub,halo_em_tke_3_sub &
             ,halo_em_tke_5_sub,halo_obs_nudge_sub,period_bdy_em_a1_sub,period_bdy_em_phy_bc_sub &
@@ -128,6 +128,9 @@ CONTAINS
   :: nba_rij
 
 ! Local
+  INTEGER, SAVE :: halomrg = -1   ! WRF_GPU_HALOMRG (merged halo exchanges)
+  LOGICAL :: phm_on
+  CHARACTER(LEN=8) :: hmv_
 
     REAL, DIMENSION( ims:ime, jms:jme ) :: ht_loc
     REAL :: scale_factor
@@ -736,6 +739,26 @@ ENDIF
 ! tke           x
 !
 !-----------------------------------------------------------------------
+       ! WRF_GPU_HALOMRG=1: PBL + CU + DIFFUSION + TKE_5 halos as one exchange when all four would run
+       IF ( halomrg < 0 ) THEN
+          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HALOMRG', hmv_ )
+          halomrg = 1   ! default on (bit-identical, -1.9 ms); WRF_GPU_HALOMRG=0 restores the separate exchanges
+          IF ( TRIM(hmv_) == '0' ) halomrg = 0
+       ENDIF
+       phm_on = halomrg == 1 .AND. config_flags%bl_pbl_physics .ge. 1 .AND. config_flags%shcu_physics .le. 1 &
+                .AND. config_flags%grid_fdda .lt. 1 .AND. config_flags%diff_opt .ge. 1                       &
+                .AND. config_flags%h_sca_adv_order > 4 .AND. config_flags%h_sca_adv_order <= 6                &
+                .AND. ( config_flags%cu_physics == SASSCHEME      .or.   &
+                        config_flags%cu_physics == TIEDTKESCHEME  .or.   &
+                        config_flags%cu_physics == NTIEDTKESCHEME .or.   &
+                        config_flags%cu_physics == MSKFSCHEME     .or.   &
+                        config_flags%cu_physics == CAMZMSCHEME    .or.   &
+                        config_flags%cu_physics == SCALESASSCHEME .or.   &
+                        config_flags%cu_physics == NSASSCHEME     .or.   &
+                        config_flags%cu_physics == KSASSCHEME )
+       IF ( phm_on ) THEN
+#      include "HALO_EM_PHYS_MRG.inc"
+       ELSE
        IF ( config_flags%bl_pbl_physics .ge. 1 ) THEN
 #      include "HALO_EM_PHYS_PBL.inc"
        ENDIF
@@ -767,6 +790,7 @@ ENDIF
          WRITE(wrf_err_message,*)'solve_em: invalid h_sca_adv_order = ',config_flags%h_sca_adv_order
          CALL wrf_error_fatal(TRIM(wrf_err_message))
        ENDIF
+       ENDIF   ! phm_on
 #endif
 
 BENCH_START(update_phy_ten_tim)

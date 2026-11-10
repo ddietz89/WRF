@@ -70,7 +70,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
                   halo_em_a_sub,halo_em_b_sub,halo_em_c2_sub,halo_em_chem_e_3_sub          &
                  ,halo_em_chem_e_5_sub,halo_em_chem_e_7_sub,halo_em_chem_old_e_5_sub       &
                  ,halo_em_chem_old_e_7_sub,halo_em_c_sub,halo_em_d2_3_sub                  &
-                 ,halo_em_d2_5_sub,halo_em_d3_3_sub,halo_em_d3_5_sub,halo_em_d_sub         &
+                 ,halo_em_d2_5_sub,halo_em_d2m_5_sub,halo_em_d3_3_sub,halo_em_d3_5_sub,halo_em_d_sub         &
                  ,halo_em_e_3_sub,halo_em_e_5_sub,halo_em_hydro_uv_sub                     &
                  ,halo_em_moist_e_3_sub,halo_em_moist_e_5_sub,halo_em_moist_e_7_sub        &
                  ,halo_em_moist_old_e_5_sub,halo_em_moist_old_e_7_sub                      &
@@ -225,6 +225,9 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL                        :: early_rkt
    INTEGER, SAVE                  :: earlydyn = -1
    INTEGER, SAVE                  :: leanasync = -1
+   INTEGER, SAVE                  :: halomrg = -1   ! WRF_GPU_HALOMRG (merged halo exchanges)
+   LOGICAL                        :: d2m_on
+   CHARACTER(LEN=8)               :: hmv_
    INTEGER                        :: ed_its, ed_ite, ed_jts, ed_jte
    CHARACTER(LEN=8)               :: edv
 #endif
@@ -4173,10 +4176,25 @@ BENCH_END(calc_p_rho_tim)
 ! scalar                  x
 
 #ifdef DM_PARALLEL
+       ! WRF_GPU_HALOMRG=1: D2_5 also carries moist/scalar/tke at the widest stencil the halos below would use
+       ! (80), and those three exchanges are skipped (set_physical_bc3d in between is a no-op on these rows for
+       ! specified/nested boundaries; bit-identity checked)
+       IF ( halomrg < 0 ) THEN
+          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HALOMRG', hmv_ )
+          halomrg = 1   ! default on (bit-identical, -1.9 ms); WRF_GPU_HALOMRG=0 restores the separate exchanges
+          IF ( TRIM(hmv_) == '0' ) halomrg = 0
+       ENDIF
+       d2m_on = halomrg == 1 .AND. config_flags%h_sca_adv_order >= 5 .AND. config_flags%h_sca_adv_order <= 6 &
+                .AND. config_flags%h_mom_adv_order <= 6 .AND. ( config_flags%specified .OR. config_flags%nested ) &
+                .AND. .NOT. ( config_flags%periodic_x .OR. config_flags%periodic_y )
        IF      ( config_flags%h_mom_adv_order <= 4 .and. config_flags%h_sca_adv_order <= 4 ) THEN
 #    include "HALO_EM_D2_3.inc"
        ELSE IF ( config_flags%h_mom_adv_order <= 6 .and. config_flags%h_sca_adv_order <= 6 ) THEN
+         IF ( d2m_on ) THEN
+#    include "HALO_EM_D2M_5.inc"
+         ELSE
 #    include "HALO_EM_D2_5.inc"
+         ENDIF
        ELSE 
          WRITE(wrf_err_message,*)'solve_em: invalid h_mom_adv_order or h_sca_adv_order = ', &
                config_flags%h_mom_adv_order, config_flags%h_sca_adv_order
@@ -4310,6 +4328,7 @@ BENCH_END(bc_end_tim)
 ! moist, chem, scalar, tke      x
 
 
+       IF ( .NOT. d2m_on ) THEN
        IF      ( config_flags%h_sca_adv_order <= 4 ) THEN
          IF ( (config_flags%tke_adv_opt /= ORIGINAL .and. config_flags%tke_adv_opt /= WENO_SCALAR) .and. (rk_step == rk_order-1) ) THEN
 #         include "HALO_EM_TKE_5.inc"
@@ -4326,8 +4345,9 @@ BENCH_END(bc_end_tim)
          WRITE(wrf_err_message,*)'solve_em: invalid h_sca_adv_order = ',config_flags%h_sca_adv_order
          CALL wrf_error_fatal(TRIM(wrf_err_message))
        ENDIF
+       ENDIF   ! .NOT. d2m_on
 
-       IF ( num_moist .GE. PARAM_FIRST_SCALAR ) THEN
+       IF ( num_moist .GE. PARAM_FIRST_SCALAR .AND. .NOT. d2m_on ) THEN
          IF      ( config_flags%h_sca_adv_order <= 4 ) THEN
            IF ( (config_flags%moist_adv_opt /= ORIGINAL .and. config_flags%moist_adv_opt /= WENO_SCALAR) .and. (rk_step == rk_order-1) ) THEN
 #        include "HALO_EM_MOIST_E_5.inc"
@@ -4381,7 +4401,7 @@ BENCH_END(bc_end_tim)
            CALL wrf_error_fatal(TRIM(wrf_err_message))
          ENDIF
        ENDIF
-       IF ( num_scalar >= PARAM_FIRST_SCALAR ) THEN
+       IF ( num_scalar >= PARAM_FIRST_SCALAR .AND. .NOT. d2m_on ) THEN
          IF      ( config_flags%h_sca_adv_order <= 4 ) THEN
            IF ( (config_flags%scalar_adv_opt /= ORIGINAL .and. config_flags%scalar_adv_opt /= WENO_SCALAR) .and. (rk_step == rk_order-1) ) THEN
 #        include "HALO_EM_SCALAR_E_5.inc"
