@@ -1603,6 +1603,9 @@
 !
       REAL :: ADEN,AKQS,BDEN,BESH,BESM,CDEN,CF,DTOZS,ELL,ELOQ2,ELOQ4   &
      &       ,ELQDZ,ESH,ESM,ESQHF,GHL,GML,Q1L,RDEN,RDZ
+#ifdef WRF_GPU
+      REAL :: DTOZL,AKQK,AKQN,CRK,CRN,CMK,CMN,RSQK
+#endif
 !
 #ifdef WRF_GPU
       REAL,DIMENSION(1:KMAXP) :: AKQ,CM,CR,DTOZ,RSQ2
@@ -1618,6 +1621,43 @@
 !----------------------------------------------------------------------
       ESQHF=0.5*ESQ
 !
+#ifdef WRF_GPU
+! GPU (2026-11-10): DTOZ and AKQ formed per level inside the forward sweep, CM/CR/RSQ2/AKQ of the level above
+! carried in registers (CM, CR, RSQ2 still stored for the back substitution). Same expressions and order.
+      IF ( KTS == 1 .AND. LMH-2 >= KTS+1 ) THEN
+        K=KTS
+        DTOZL=(DTDIF+DTDIF)/(Z(K)-Z(K+2))
+        AKQK=SQRT((Q2(K)+Q2(K+1))*0.5)*(EL(K)+EL(K+1))*ESQHF         &
+     &        /(Z(K+1)-Z(K+2))
+        CRK=-DTOZL*AKQK
+        CR(K)=CRK
+        CMK=DTOZL*AKQK+1.
+        CM(1)=CMK
+        RSQK=Q2(1)
+        RSQ2(1)=RSQK
+        DO K=KTS+1,LMH-2
+          DTOZL=(DTDIF+DTDIF)/(Z(K)-Z(K+2))
+          AKQN=SQRT((Q2(K)+Q2(K+1))*0.5)*(EL(K)+EL(K+1))*ESQHF         &
+     &        /(Z(K+1)-Z(K+2))
+          CRN=-DTOZL*AKQN
+          CF=-DTOZL*AKQK/CMK
+          CMN=-CRK*CF+(AKQK+AKQN)*DTOZL+1.
+          RSQK=-RSQK*CF+Q2(K)
+          CR(K)=CRN ; CM(K)=CMN ; RSQ2(K)=RSQK
+          CRK=CRN ; CMK=CMN ; AKQK=AKQN
+        ENDDO
+        DTOZS=(DTDIF+DTDIF)/(Z(LMH-1)-Z(LMH+1))
+        AKQS=SQRT((Q2(LMH-1)+Q2(LMH))*0.5)*(EL(LMH-1)+ELZ0)*ESQHF        &
+     &    /(Z(LMH)-Z(LMH+1))
+        CF=-DTOZS*AKQK/CMK
+        Q2(LMH-1)=(DTOZS*AKQS*Q2(LMH)-RSQK*CF+Q2(LMH-1))          &
+     &        /((AKQK+AKQS)*DTOZS-CRK*CF+1.)
+        DO K=LMH-2,KTS,-1
+          Q2(K)=(-CR(K)*Q2(K+1)+RSQ2(K))/CM(K)
+        ENDDO
+        RETURN
+      ENDIF
+#endif
       DO K=KTS,LMH-2
         DTOZ(K)=(DTDIF+DTDIF)/(Z(K)-Z(K+2))
         AKQ(K)=SQRT((Q2(K)+Q2(K+1))*0.5)*(EL(K)+EL(K+1))*ESQHF         &
@@ -1991,6 +2031,9 @@
       INTEGER :: K
 !
       REAL :: CF,DTOZAK,DTOZL,DTOZS,RCML,RCMVB,RHOK,RKMH
+#ifdef WRF_GPU
+      REAL :: CRK,CRN,CMK,CMN,RSUK,RSVK
+#endif
 !
 #ifdef WRF_GPU
       REAL,DIMENSION(1:KMAXP) :: CM,CR,DTOZ,RSU,RSV
@@ -2000,6 +2043,47 @@
 !----------------------------------------------------------------------
 !**********************************************************************
 !----------------------------------------------------------------------
+#ifdef WRF_GPU
+! GPU (2026-11-10): DTOZ formed per level inside the forward sweep, CM/CR/RSU/RSV of the level above carried in
+! registers (still stored for the back substitution). Same expressions and order.
+      IF ( LMH-1 >= 2 ) THEN
+        DTOZL=DTDIF/(Z(1)-Z(2))
+        CRK=-DTOZL*RKM(1)
+        CR(1)=CRK
+        RHOK=RHO(1)
+        CMK=DTOZL*RKM(1)+RHOK
+        CM(1)=CMK
+        RSUK=U(1)*RHOK
+        RSVK=V(1)*RHOK
+        RSU(1)=RSUK
+        RSV(1)=RSVK
+        DO K=2,LMH-1
+          DTOZL=DTDIF/(Z(K)-Z(K+1))
+          CRN=-DTOZL*RKM(K)
+          CF=-DTOZL*RKM(K-1)/CMK
+          RHOK=RHO(K)
+          CMN=-CRK*CF+(RKM(K-1)+RKM(K))*DTOZL+RHOK
+          RSUK=-RSUK*CF+U(K)*RHOK
+          RSVK=-RSVK*CF+V(K)*RHOK
+          CR(K)=CRN ; CM(K)=CMN ; RSU(K)=RSUK ; RSV(K)=RSVK
+          CRK=CRN ; CMK=CMN
+        ENDDO
+        DTOZS=DTDIF/(Z(LMH)-Z(LMH+1))
+        RKMH=RKM(LMH-1)
+        CF=-DTOZS*RKMH/CMK
+        RHOK=RHO(LMH)
+        RCMVB=1./((RKMH+RKMS)*DTOZS-CRK*CF+RHOK)
+        DTOZAK=DTOZS*RKMS
+        U(LMH)=(DTOZAK*UZ0-RSUK*CF+U(LMH)*RHOK)*RCMVB
+        V(LMH)=(DTOZAK*VZ0-RSVK*CF+V(LMH)*RHOK)*RCMVB
+        DO K=LMH-1,1,-1
+          RCML=1./CM(K)
+          U(K)=(-CR(K)*U(K+1)+RSU(K))*RCML
+          V(K)=(-CR(K)*V(K+1)+RSV(K))*RCML
+        ENDDO
+        RETURN
+      ENDIF
+#endif
       DO K=1,LMH-1
         DTOZ(K)=DTDIF/(Z(K)-Z(K+1))
         CR(K)=-DTOZ(K)*RKM(K)
