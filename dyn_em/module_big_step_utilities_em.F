@@ -2707,6 +2707,13 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
    REAL,  INTENT(IN   ) :: rdx, rdy, cf1, cf2, cf3, cfn, cfn1
 
    INTEGER :: i,j,k, itf, jtf, ktf, i_start, j_start
+   ! WRF_GPU_VSTREAM (y gradient streamed over blocks of JBH rows)
+   INTEGER, PARAMETER :: JBH = 4
+   INTEGER, SAVE :: hpgvs_ = -1
+   CHARACTER(LEN=8) :: hvv_
+   INTEGER :: jbh_, nbh_, j0h_, j1h_, kah_, kxh_
+   REAL :: qh_mu,qh_ph0,qh_ph1,qh_alt,qh_p,qh_al,qh_pb,qh_php,qh_pa,qh_pc,qh_px
+   REAL :: ch_mu,ch_ph0,ch_ph1,ch_alt,ch_p,ch_al,ch_pb,ch_php,ch_pa,ch_pc,ch_px
    REAL, DIMENSION( ims:ime, kms:kme ) :: dpn
    REAL :: dpx, dpy
    REAL :: hpg_d0, hpg_d1
@@ -2762,7 +2769,57 @@ SUBROUTINE horizontal_pressure_gradient( ru_tend,rv_tend,                &
 #ifdef WRF_GPU_RESIDENT
      ! GPU: gangs over (j,k) instead of one gang per row (ncu 2026-11-07: 16% occupancy, two partial waves on
      ! big1000); dpn at k and k+1 is recomputed per level with the same expressions as the row version
-     IF ( non_hydrostatic ) THEN
+     IF ( hpgvs_ < 0 ) THEN
+        CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_VSTREAM', hvv_ )
+        hpgvs_ = 1
+        IF ( TRIM(hvv_) == '0' ) hpgvs_ = 0
+     ENDIF
+     IF ( non_hydrostatic .AND. hpgvs_ == 1 .AND. wrf_gpu_on .AND. kde >= 4 ) THEN
+     ! WRF_GPU_VSTREAM=1 (default, 2026-11-10): as advance_uv's v update - one thread per (i, k, block of JBH rows),
+     ! the row-(j-1) operands carried in registers. Same expressions and operand order as the kernel below.
+       nbh_ = ( jtf - j_start + JBH ) / JBH
+!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) &
+!$acc private(j,j0h_,j1h_,kah_,kxh_,dpy,hpg_d0,hpg_d1,qh_mu,qh_ph0,qh_ph1,qh_alt,qh_p,qh_al,qh_pb,qh_php,qh_pa,qh_pc,qh_px) &
+!$acc private(ch_mu,ch_ph0,ch_ph1,ch_alt,ch_p,ch_al,ch_pb,ch_php,ch_pa,ch_pc,ch_px)
+       DO jbh_ = 0, nbh_-1
+         DO k = 1, ktf
+           DO i = i_start, itf
+             j0h_ = j_start + jbh_*JBH ; j1h_ = MIN( j0h_+JBH-1, jtf )
+             kah_ = MAX( k-1, 1 ) ; kxh_ = k
+             IF ( k == 1 ) kxh_ = 3
+             IF ( k == kde-1 ) kxh_ = kde-2
+             j = j0h_ - 1
+             qh_mu = mu(i,j) ; qh_ph0 = ph(i,k,j) ; qh_ph1 = ph(i,k+1,j) ; qh_alt = alt(i,k,j) ; qh_p = p(i,k,j)
+             qh_al = al(i,k,j) ; qh_pb = pb(i,k,j) ; qh_php = php(i,k,j) ; qh_pa = p(i,kah_,j) ; qh_pc = p(i,k+1,j)
+             qh_px = p(i,kxh_,j)
+             DO j = j0h_, j1h_
+               ch_mu = mu(i,j) ; ch_ph0 = ph(i,k,j) ; ch_ph1 = ph(i,k+1,j) ; ch_alt = alt(i,k,j) ; ch_p = p(i,k,j)
+               ch_al = al(i,k,j) ; ch_pb = pb(i,k,j) ; ch_php = php(i,k,j) ; ch_pa = p(i,kah_,j) ; ch_pc = p(i,k+1,j)
+               ch_px = p(i,kxh_,j)
+               IF ( k == 1 ) THEN
+                 hpg_d0 = .5*( cf1*(qh_p+ch_p)+cf2*(qh_pc+ch_pc)+cf3*(qh_px+ch_px) )
+               ELSE
+                 hpg_d0 = .5*( fnm(k)*(qh_p+ch_p)+fnp(k)*(qh_pa+ch_pa) )
+               ENDIF
+               IF ( k+1 == kde ) THEN
+                 IF ( top_lid ) THEN
+                   hpg_d1 = .5*( cfn *(qh_p+ch_p)+cfn1*(qh_px+ch_px) )
+                 ELSE
+                   hpg_d1 = 0.
+                 ENDIF
+               ELSE
+                 hpg_d1 = .5*( fnm(k+1)*(qh_pc+ch_pc)+fnp(k+1)*(qh_p+ch_p) )
+               ENDIF
+               dpy = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*( (ch_ph1-qh_ph1 + ch_ph0-qh_ph0) +(ch_alt+qh_alt)*(ch_p-qh_p) +(ch_al+qh_al)*(ch_pb-qh_pb) )
+               dpy = dpy + (msfvy(i,j)/msfvx(i,j))*rdy*(ch_php-qh_php)*(rdnw(k)*(hpg_d1-hpg_d0)-.5*((c1h(k)*qh_mu)+(c1h(k)*ch_mu)))
+               rv_tend(i,k,j) = rv_tend(i,k,j)-cqv(i,k,j)*dpy
+               qh_mu = ch_mu ; qh_ph0 = ch_ph0 ; qh_ph1 = ch_ph1 ; qh_alt = ch_alt ; qh_p = ch_p ; qh_al = ch_al
+               qh_pb = ch_pb ; qh_php = ch_php ; qh_pa = ch_pa ; qh_pc = ch_pc ; qh_px = ch_px
+             END DO
+           END DO
+         END DO
+       END DO
+     ELSE IF ( non_hydrostatic ) THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
        DO j = j_start, jtf
          DO k = 1, ktf
