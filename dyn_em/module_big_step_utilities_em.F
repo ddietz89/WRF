@@ -993,7 +993,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
 #endif
       REAL :: qt_   ! GPU: per-point species sum
       REAL :: qu_, qv_, qw_
-      INTEGER :: itfu, jtfu, itfv, jtfv, itfw, jtfw
+      INTEGER :: itfu, jtfu, itfv, jtfv, itfw, jtfw, jcq1
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
 #ifdef WRF_GPU
@@ -1036,8 +1036,11 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         itfu = ite ; jtfu = MIN(jte,jde-1)
         itfv = MIN(ite,ide-1) ; jtfv = jte
         itfw = MIN(ite,ide-1) ; jtfw = MIN(jte,jde-1)
+        ! WRF_GPU_CSKIP: cqv also at the north halo row jte+1 (from the moist halo; the north neighbour's first row)
+        jcq1 = jte
+        IF ( jte+1 <= jde-1 ) jcq1 = jte+1
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q)
-        DO j=jts,jte
+        DO j=jts,jcq1
           DO k=kts,ktf
 !$acc loop vector private(qu_,qv_,qw_)
             DO i=its,ite
@@ -1048,7 +1051,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
                 IF ( k > kts ) qw_ = qw_ + moist(i,k,j,ispe) + moist(i,k-1,j,ispe)
               ENDDO
               IF ( j <= jtfu ) cqu(i,k,j) = 1./(1.+0.5*qu_)
-              IF ( i <= itfv .AND. j <= jtfv ) cqv(i,k,j) = 1./(1.+0.5*qv_)
+              IF ( i <= itfv .AND. ( j <= jtfv .OR. j == jte+1 ) ) cqv(i,k,j) = 1./(1.+0.5*qv_)
               IF ( k > kts .AND. i <= itfw .AND. j <= jtfw ) cqw(i,k,j) = 0.5*qw_
             ENDDO
           ENDDO

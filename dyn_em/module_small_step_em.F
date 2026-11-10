@@ -15,6 +15,7 @@ MODULE module_small_step_em
 #ifdef WRF_GPU
    INTEGER, SAVE :: ss_wpipe = -1           ! WRF_GPU_WPIPE: 2 streamed advance_w (default), 1 pipelined, 0 original
    LOGICAL, SAVE :: ss_tavpre = .FALSE.     ! advance_mu_t stored the time-averaged theta in t_ave (WPIPE=2)
+   LOGICAL, SAVE :: ss_vrow = .FALSE.       ! WRF_GPU_CSKIP: advance_uv (late/full) also updates v at jte+1
 #endif
 
 CONTAINS
@@ -1086,6 +1087,53 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ENDDO
   ENDDO
+  IF ( ss_vrow .AND. uvmode == 0 .AND. jte+1 <= jde-spec_zone-1 ) THEN
+  ! WRF_GPU_CSKIP: v at the north halo row, as the north neighbour computes its first row (HALO_EM_C skipped)
+  j = jte+1
+!$acc parallel loop gang async(qq)
+  DO k = k_start, k_end
+!$acc loop vector private(ut,dpk,dpk1,dpx,mudfxy,kk,m,dpm)
+  DO i = i_start, i_end
+     ut = v(i,k,j) + dts*rv_tend(i,k,j)
+     IF ( .TRUE. ) THEN   ! the north neighbour's first row: tendency and pressure-gradient parts both apply
+       mudfxy = -emdiv*dy*(MUDF(i,j)-MUDF(i,j-1))*msfvx_inv(i,j)
+       dpx = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
+          ((ph(i,k+1,j)-ph(i,k+1,j-1))+(ph (i,k,j)-ph (i,k,j-1)))   &
+          +(alt(i,k  ,j)+alt(i,k  ,j-1))*(p  (i,k,j)-p  (i,k,j-1))  &
+          +(al (i,k  ,j)+al (i,k  ,j-1))*(pb (i,k,j)-pb (i,k,j-1)) )
+       IF (non_hydrostatic) THEN
+         DO m = 0, 1
+           kk = k + m
+           IF ( kk == 1 ) THEN
+             dpm = .5*( cf1*(p(i,1,j)+p(i,1,j-1))  &
+                       +cf2*(p(i,2,j)+p(i,2,j-1))  &
+                       +cf3*(p(i,3,j)+p(i,3,j-1)) )
+           ELSE IF ( kk == kde ) THEN
+             dpm = 0.
+             IF (top_lid) THEN
+               dpm =.5*( cf1*(p(i,kde-1,j-1)+p(i,kde-1,j))   &
+                        +cf2*(p(i,kde-2,j-1)+p(i,kde-2,j))   &
+                        +cf3*(p(i,kde-3,j-1)+p(i,kde-3,j))  )
+             ENDIF
+           ELSE
+             dpm = .5*( fnm(kk)*(p(i,kk  ,j)+p(i,kk  ,j-1))  &
+                       +fnp(kk)*(p(i,kk-1,j)+p(i,kk-1,j-1)) )
+           ENDIF
+           IF ( m == 0 ) THEN
+             dpk = dpm
+           ELSE
+             dpk1 = dpm
+           ENDIF
+         ENDDO
+         dpx = dpx + (msfvy(i,j)/msfvx(i,j))*rdy*(php(i,k,j)-php(i,k,j-1))*    &
+             (rdnw(k)*(dpk1-dpk)-.5*((c1h(k)*mu(i,j-1))+(c1h(k)*mu(i,j))))
+       END IF
+       ut = ut-dts*cqv(i,k,j)*dpx+(c1h(k)*mudfxy)
+     END IF
+     v(i,k,j) = ut
+  ENDDO
+  ENDDO
+  ENDIF
   ELSE IF ( wrf_gpu_on .AND. MAX(kde,k_end+1) <= KMAXUV ) THEN
 !$acc parallel loop gang vector collapse(2) private(dpnc,dpxyc) async(wrf_gpu_q)
   DO j = j_start, j_end

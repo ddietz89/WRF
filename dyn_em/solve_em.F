@@ -226,7 +226,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    INTEGER, SAVE                  :: earlydyn = -1
    INTEGER, SAVE                  :: leanasync = -1
    INTEGER, SAVE                  :: halomrg = -1   ! WRF_GPU_HALOMRG (merged halo exchanges)
-   LOGICAL                        :: d2m_on, dm_on
+   LOGICAL                        :: d2m_on, dm_on, cskip_on
+   INTEGER, SAVE                  :: cskip = -1      ! WRF_GPU_CSKIP
    CHARACTER(LEN=8)               :: hmv_
    INTEGER                        :: ed_its, ed_ite, ed_jts, ed_jte
    CHARACTER(LEN=8)               :: edv
@@ -1956,6 +1957,17 @@ BENCH_START(set_phys_bc2_tim)
 BENCH_END(set_phys_bc2_tim)
      small_steps : DO iteration = 1 , number_of_small_timesteps
 #ifdef WRF_GPU
+   ! WRF_GPU_CSKIP=1: from the 2nd small step on, HALO_EM_C is skipped and advance_uv computes v at the north halo
+   ! row itself (the only u/v halo values read before the next exchange); global decision, same on all tasks
+   IF ( cskip < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CSKIP', hmv_ )
+      cskip = 0
+      IF ( TRIM(hmv_) == '1' ) cskip = 1
+   ENDIF
+   cskip_on = cskip == 1 .AND. iteration >= 2 .AND. ntasks_x == 1 .AND. wrf_gpu_on                     &
+              .AND. ( config_flags%specified .OR. config_flags%nested )                                &
+              .AND. .NOT. ( config_flags%periodic_x .OR. config_flags%periodic_y )
+   ss_vrow = cskip_on
    CALL SYSTEM_CLOCK( sst_c(0) )
    IF ( hovl < 0 ) THEN
       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HOVL', hovl_v )
@@ -2122,8 +2134,12 @@ BENCH_END(spec_bdy_uv_tim)
                           k_start    , k_end                , early=1 )
    ENDIF
 #endif
+#ifdef WRF_GPU
+   IF ( .NOT. cskip_on ) THEN
+#endif
 #     include "HALO_EM_C.inc"
 #ifdef WRF_GPU
+   ENDIF
    CALL SYSTEM_CLOCK( sst_c(5) )
 #endif
 #endif
