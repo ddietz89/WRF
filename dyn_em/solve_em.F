@@ -70,7 +70,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
                   halo_em_a_sub,halo_em_b_sub,halo_em_c2_sub,halo_em_chem_e_3_sub          &
                  ,halo_em_chem_e_5_sub,halo_em_chem_e_7_sub,halo_em_chem_old_e_5_sub       &
                  ,halo_em_chem_old_e_7_sub,halo_em_c_sub,halo_em_d2_3_sub                  &
-                 ,halo_em_d2_5_sub,halo_em_d2m_5_sub,halo_em_d3_3_sub,halo_em_d3_5_sub,halo_em_d_sub         &
+                 ,halo_em_d2_5_sub,halo_em_d2m_5_sub,halo_em_dm_7_sub,halo_em_d3_3_sub,halo_em_d3_5_sub,halo_em_d_sub         &
                  ,halo_em_e_3_sub,halo_em_e_5_sub,halo_em_hydro_uv_sub                     &
                  ,halo_em_moist_e_3_sub,halo_em_moist_e_5_sub,halo_em_moist_e_7_sub        &
                  ,halo_em_moist_old_e_5_sub,halo_em_moist_old_e_7_sub                      &
@@ -226,7 +226,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    INTEGER, SAVE                  :: earlydyn = -1
    INTEGER, SAVE                  :: leanasync = -1
    INTEGER, SAVE                  :: halomrg = -1   ! WRF_GPU_HALOMRG (merged halo exchanges)
-   LOGICAL                        :: d2m_on
+   LOGICAL                        :: d2m_on, dm_on
    CHARACTER(LEN=8)               :: hmv_
    INTEGER                        :: ed_its, ed_ite, ed_jts, ed_jte
    CHARACTER(LEN=8)               :: edv
@@ -2653,6 +2653,20 @@ BENCH_END(small_step_finish_tim)
 !-----------------------------------------------------------------------
 ! first moisture
 
+     ! WRF_GPU_HALOMRG=1 (last RK step, positive-definite moist and scalar): the moist_old and scalar_old halos
+     ! below go out with HALO_EM_D as one exchange (HALO_EM_DM_7); nothing in between reads their halo rows
+     IF ( halomrg < 0 ) THEN
+        CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HALOMRG', hmv_ )
+        halomrg = 1
+        IF ( TRIM(hmv_) == '0' ) halomrg = 0
+     ENDIF
+     dm_on = halomrg == 1 .AND. rk_step == rk_order                                                            &
+             .AND. config_flags%moist_adv_opt /= ORIGINAL .AND. config_flags%moist_adv_opt /= WENO_SCALAR      &
+             .AND. config_flags%scalar_adv_opt /= ORIGINAL .AND. config_flags%scalar_adv_opt /= WENO_SCALAR    &
+             .AND. num_3d_m >= PARAM_FIRST_SCALAR .AND. num_3d_s >= PARAM_FIRST_SCALAR                         &
+             .AND. config_flags%h_sca_adv_order > 4 .AND. config_flags%h_sca_adv_order <= 6                    &
+             .AND. ( config_flags%specified .OR. config_flags%nested )                                         &
+             .AND. .NOT. ( config_flags%periodic_x .OR. config_flags%periodic_y )
      IF ((config_flags%moist_adv_opt /= ORIGINAL .and. config_flags%moist_adv_opt /= WENO_SCALAR) .and. &
          (rk_step == rk_order)) THEN
 
@@ -2679,7 +2693,7 @@ BENCH_END(small_step_finish_tim)
 
 !---------------------- positive definite bc call
 #ifdef DM_PARALLEL
-       IF (config_flags%moist_adv_opt /= ORIGINAL .and. config_flags%moist_adv_opt /= WENO_SCALAR) THEN
+       IF (config_flags%moist_adv_opt /= ORIGINAL .and. config_flags%moist_adv_opt /= WENO_SCALAR .and. .NOT. dm_on) THEN
          IF      ( config_flags%h_sca_adv_order <= 4 ) THEN
 #     include "HALO_EM_MOIST_OLD_E_5.inc"
          ELSE IF ( config_flags%h_sca_adv_order <= 6 ) THEN
@@ -2742,7 +2756,7 @@ BENCH_END(small_step_finish_tim)
 
 !---------------------- positive definite bc call
 #ifdef DM_PARALLEL
-       IF (config_flags%scalar_adv_opt /= ORIGINAL .and. config_flags%scalar_adv_opt /= WENO_SCALAR) THEN
+       IF (config_flags%scalar_adv_opt /= ORIGINAL .and. config_flags%scalar_adv_opt /= WENO_SCALAR .and. .NOT. dm_on) THEN
 #ifndef RSL
          IF      ( config_flags%h_sca_adv_order <= 4 ) THEN
 #     include "HALO_EM_SCALAR_OLD_E_5.inc"
@@ -2982,7 +2996,11 @@ BENCH_END(small_step_finish_tim)
 !
 !--------------------------------------------------------------
 
+       IF ( dm_on ) THEN
+#  include "HALO_EM_DM_7.inc"
+       ELSE
 #  include "HALO_EM_D.inc"
+       ENDIF
 ! WCS addition 11/19/08
 #  include "PERIOD_EM_DA.inc"
 #endif

@@ -3506,6 +3506,8 @@ halo      HALO_EM_B2 dyn_em 4:ru_tend,rv_tend
 halo      HALO_EM_C dyn_em    4:u_2,v_2
 halo      HALO_EM_C2 dyn_em    4:ph_2,al,p,mu_2,muts,mudf
 halo      HALO_EM_D dyn_em    24:ru_m,rv_m,ww_m,mut,muts
+# GPU (WRF_GPU_HALOMRG): HALO_EM_D plus the last-RK-step positive-definite MOIST_OLD/SCALAR_OLD halos, one exchange
+halo      HALO_EM_DM_7 dyn_em 24:ru_m,rv_m,ww_m,mut,muts;80:moist_old,scalar_old
 halo      HALO_EM_D_PV dyn_em 24:u_2,v_2,t_2
 halo      HALO_EM_D2_3 dyn_em 24:u_2,v_2,w_2,t_2,ph_2;24:moist,chem,tracer,scalar,tke_2;4:mu_2,al
 halo      HALO_EM_D2_5 dyn_em 48:u_2,v_2,w_2,t_2,ph_2;24:moist,chem,tracer,scalar,tke_2;4:mu_2,al
