@@ -895,6 +895,13 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
       REAL :: mudfxy
       REAL :: ut, dpk, dpk1, dpx, dpm   ! GPU 3-D kernels
       INTEGER :: kk, m
+      ! WRF_GPU_VSTREAM (v update streamed over blocks of JBV rows)
+      INTEGER, PARAMETER :: JBV = 4
+      INTEGER, SAVE :: vstream_ = -1
+      CHARACTER(LEN=8) :: vsv_
+      INTEGER :: jb_, nbv_, j0_, j1_, ka_, kx_
+      REAL :: q_mudf,q_mu,q_ph0,q_ph1,q_alt,q_p,q_al,q_pb,q_php,q_pa,q_pc,q_px
+      REAL :: c_mudf,c_mu,c_ph0,c_ph1,c_alt,c_p,c_al,c_pb,c_php,c_pa,c_pc,c_px
 #endif
       REAL                      :: dx, dy
       INTEGER :: i,j,k, i_start, i_end, j_start, j_end, k_start, k_end
@@ -1042,6 +1049,74 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ENDDO
   ENDDO
+  IF ( vstream_ < 0 ) THEN
+     CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_VSTREAM', vsv_ )
+     vstream_ = 1
+     IF ( TRIM(vsv_) == '0' ) vstream_ = 0
+  ENDIF
+  IF ( vstream_ == 1 ) THEN
+  ! WRF_GPU_VSTREAM=1 (default, 2026-11-10): one thread per (i, k, block of JBV rows) walks its rows in j and carries
+  ! the row-(j-1) operands in registers (the gang-per-(j,k) kernel below re-read every j-1 row from L2: ncu L1 hit
+  ! 29% vs 60% for u). Same expressions, operand order and per-point arithmetic as the kernel below.
+  nbv_ = ( jv1 - jv0 + JBV ) / JBV
+!$acc parallel loop gang vector collapse(3) async(qq) &
+!$acc private(j,ut,dpk,dpk1,dpx,mudfxy,j0_,j1_,ka_,kx_,q_mudf,q_mu,q_ph0,q_ph1,q_alt,q_p,q_al,q_pb,q_php,q_pa,q_pc,q_px) &
+!$acc private(c_mudf,c_mu,c_ph0,c_ph1,c_alt,c_p,c_al,c_pb,c_php,c_pa,c_pc,c_px)
+  DO jb_ = 0, nbv_-1
+  DO k = k_start, k_end
+  DO i = i_start, i_end
+     j0_ = jv0 + jb_*JBV ; j1_ = MIN( j0_+JBV-1, jv1 )
+     ka_ = MAX( k-1, 1 ) ; kx_ = k
+     IF ( k == 1 ) kx_ = 3
+     IF ( k == kde-1 ) kx_ = kde-3
+     j = j0_ - 1
+     q_mudf = MUDF(i,j) ; q_mu = mu(i,j)
+     q_ph0 = ph(i,k,j) ; q_ph1 = ph(i,k+1,j) ; q_alt = alt(i,k,j) ; q_p = p(i,k,j) ; q_al = al(i,k,j)
+     q_pb = pb(i,k,j) ; q_php = php(i,k,j) ; q_pa = p(i,ka_,j) ; q_pc = p(i,k+1,j) ; q_px = p(i,kx_,j)
+     DO j = j0_, j1_
+       c_mudf = MUDF(i,j) ; c_mu = mu(i,j)
+       c_ph0 = ph(i,k,j) ; c_ph1 = ph(i,k+1,j) ; c_alt = alt(i,k,j) ; c_p = p(i,k,j) ; c_al = al(i,k,j)
+       c_pb = pb(i,k,j) ; c_php = php(i,k,j) ; c_pa = p(i,ka_,j) ; c_pc = p(i,k+1,j) ; c_px = p(i,kx_,j)
+       ut = v(i,k,j) + dts*rv_tend(i,k,j)
+       IF ( ( j >= j_start_vp) .and. ( j <= j_end_vp ) ) THEN
+         mudfxy = -emdiv*dy*(c_mudf-q_mudf)*msfvx_inv(i,j)
+         dpx = (msfvy(i,j)/msfvx(i,j))*.5*rdy*(c1h(k)*muv(i,j)+c2h(k))*(       &
+            ((c_ph1-q_ph1)+(c_ph0-q_ph0))   &
+            +(c_alt+q_alt)*(c_p-q_p)  &
+            +(c_al+q_al)*(c_pb-q_pb) )
+         IF (non_hydrostatic) THEN
+           IF ( k == 1 ) THEN
+             dpk = .5*( cf1*(c_p+q_p)  &
+                       +cf2*(c_pc+q_pc)  &
+                       +cf3*(c_px+q_px) )
+           ELSE
+             dpk = .5*( fnm(k)*(c_p+q_p)  &
+                       +fnp(k)*(c_pa+q_pa) )
+           ENDIF
+           IF ( k+1 == kde ) THEN
+             dpk1 = 0.
+             IF (top_lid) THEN
+               dpk1 =.5*( cf1*(q_p+c_p)   &
+                         +cf2*(q_pa+c_pa)   &
+                         +cf3*(q_px+c_px)  )
+             ENDIF
+           ELSE
+             dpk1 = .5*( fnm(k+1)*(c_pc+q_pc)  &
+                        +fnp(k+1)*(c_p+q_p) )
+           ENDIF
+           dpx = dpx + (msfvy(i,j)/msfvx(i,j))*rdy*(c_php-q_php)*    &
+               (rdnw(k)*(dpk1-dpk)-.5*((c1h(k)*q_mu)+(c1h(k)*c_mu)))
+         END IF
+         ut = ut-dts*cqv(i,k,j)*dpx+(c1h(k)*mudfxy)
+       END IF
+       v(i,k,j) = ut
+       q_mudf = c_mudf ; q_mu = c_mu ; q_ph0 = c_ph0 ; q_ph1 = c_ph1 ; q_alt = c_alt ; q_p = c_p ; q_al = c_al
+       q_pb = c_pb ; q_php = c_php ; q_pa = c_pa ; q_pc = c_pc ; q_px = c_px
+     ENDDO
+  ENDDO
+  ENDDO
+  ENDDO
+  ELSE
 !$acc parallel loop gang collapse(2) async(qq)
   DO j = jv0, jv1
   DO k = k_start, k_end
@@ -1087,6 +1162,7 @@ SUBROUTINE advance_uv ( u, ru_tend, v, rv_tend,        &
   ENDDO
   ENDDO
   ENDDO
+  ENDIF   ! vstream_
   IF ( ss_vrow .AND. uvmode == 0 .AND. jte+1 <= jde-spec_zone-1 ) THEN
   ! WRF_GPU_CSKIP: v at the north halo row, as the north neighbour computes its first row (HALO_EM_C skipped)
   j = jte+1
