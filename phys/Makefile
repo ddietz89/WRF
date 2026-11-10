@@ -97,6 +97,7 @@ MODULES = \
 	module_mp_etanew.o \
 	module_mp_fer_hires.o \
 	module_mp_thompson.o \
+	module_mp_thompson_tail.o \
 	module_mp_tempo_cfgs.o \
 	module_mp_tempo_params.o \
 	module_mp_tempo_utils.o \
@@ -451,7 +452,9 @@ module_ra_rrtmg_lw.o module_ra_rrtmg_sw.o: private FCFLAGS += -gpu=maxregcount:$
 # COLPHYS_REGCAP 255 was slower (0.3511/0.3512) and stays 128.
 # 2026-11-10 (G16 bench, bit-identical): cap 160 0.3228/0.3238/0.3239/0.3247/0.3250 vs 255 0.3239/0.3251/0.3255,
 # 144 0.3242/0.3266, 192 0.3276/0.3278, 128 0.3254/0.3270, 176 0.3286/0.3290 -> 160.
-THOMPSON_REGCAP ?= 160
+# 2026-11-10 with the tail kernel split out (THOMPSON_TAIL_REGCAP 128): main 255 0.3193/0.3197, 160 0.3220/0.3246
+# vs the unsplit 160 0.3234/0.3241/0.3249 (bit-identical) -> 255.
+THOMPSON_REGCAP ?= 255
 # THOMPSON_OPT (e.g. -O2): optimisation level for Thompson only. The column kernel is ~58k SASS instructions at -O3
 # (~40k at -O2) and 57% of its warp stalls are instruction fetch (ncu on the cloudy big760n case, 2026-11-07)
 # It must replace FCOPTIM (configure.wrf: FCFLAGS = $(FCOPTIM) ...): a trailing -O2 after -O3 leaves the device code at -O3.
@@ -459,21 +462,29 @@ THOMPSON_REGCAP ?= 160
 # T2 rmse 0.0034 vs the -O2 run) -> default back to the global -O3 (empty); -O2 stays available as THOMPSON_OPT=-O2.
 THOMPSON_OPT ?=
 ifneq (,$(THOMPSON_OPT))
-module_mp_thompson.o: private FCOPTIM = $(THOMPSON_OPT)
+module_mp_thompson.o module_mp_thompson_tail.o: private FCOPTIM = $(THOMPSON_OPT)
 endif
 module_mp_thompson.o: private FCFLAGS += -gpu=maxregcount:$(THOMPSON_REGCAP)
+# THOMPSON_TAIL_REGCAP: the column tail kernel (submodule module_mp_thompson_tail.F). 2026-11-10 nsys, cloudy
+# 1000x380 rank, ms/step tail + level kernel: whole file at 128 20.7+18.4, 160 21.5+15.2, 255 26.0+12.0.
+# Split, main 255: tail 128 0.3193/0.3197, 96 0.3200/0.3207.
+THOMPSON_TAIL_REGCAP ?= 128
+module_mp_thompson_tail.o: private FCFLAGS += -gpu=maxregcount:$(THOMPSON_TAIL_REGCAP)
+module_mp_thompson_tail.o: module_mp_thompson.o
 COLPHYS_REGCAP ?= 128
 # per-scheme overrides (default: COLPHYS_REGCAP). 2026-11-09 single-node bench (bit-identical): MYJ 255 -1.3 ms
 # (0.3464/0.3466 vs 0.3478/0.3479), gwdo 255 +0.7 ms, Noah/radar (GPUREG64_CAP=0) within noise
 MYJ_REGCAP ?= 255
 GWDO_REGCAP ?= $(COLPHYS_REGCAP)
-module_cu_tiedtke.o module_sf_myjsfc.o: private FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
+TIEDTKE_REGCAP ?= $(COLPHYS_REGCAP)
+module_cu_tiedtke.o: private FCFLAGS += -gpu=maxregcount:$(TIEDTKE_REGCAP)
+module_sf_myjsfc.o: private FCFLAGS += -gpu=maxregcount:$(COLPHYS_REGCAP)
 module_bl_myjpbl.o: private FCFLAGS += -gpu=maxregcount:$(MYJ_REGCAP)
 module_bl_gwdo.o: private FCFLAGS += -gpu=maxregcount:$(GWDO_REGCAP)
 # GPUPHYS_EXTRA (e.g. -gpu=fastmath): extra flags for the GPU column-physics objects (parked-option stacking, 2026-11-08)
 GPUPHYS_EXTRA ?= -gpu=fastmath
 ifneq (,$(GPUPHYS_EXTRA))
-module_mp_thompson.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o \
+module_mp_thompson.o module_mp_thompson_tail.o module_cu_tiedtke.o module_bl_myjpbl.o module_bl_gwdo.o module_sf_myjsfc.o module_sf_noahdrv.o \
   module_physics_addtendc.o module_diag_afwa.o module_diagnostics_driver.o: private FCFLAGS += $(GPUPHYS_EXTRA)
 endif
 # GPU_KCOL: level dimension of the GPU column routines' per-thread arrays (MYJ, gwdo, Tiedtke, RRTMG SW, AFWA;
