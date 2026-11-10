@@ -45,6 +45,9 @@
             p1d(k) = p(i,k,j)
             dz1d(k) = dz(i,k,j)
          enddo
+         ! THSPLIT (opt-in): thom_fin works on local copies, written back into the hand-off arrays afterwards;
+         ! the default path (thom_tail) updates the hand-off arrays in place. Everything below reads thb_*.
+         IF ( thsplit_on == 1 ) THEN
          do k = kts, kte
             qv1d(k) = thb_qv1d(n_-thb0+1,k-kts+1,thjj)
             qc1d(k) = thb_qc1d(n_-thb0+1,k-kts+1,thjj)
@@ -63,6 +66,7 @@
             t1d(k) = thb_t1d(n_-thb0+1,k-kts+1,thjj)
             w1d(k) = thb_w1d(n_-thb0+1,k-kts+1,thjj)
          enddo
+         ENDIF
          IF ( .NOT. thb_nmc(n_-thb0+1,thjj) ) THEN
           IF ( thsplit_on == 1 ) THEN
            pptrain = thb_ppt(n_-thb0+1,1) ; pptice = thb_ppt(n_-thb0+1,2)
@@ -72,11 +76,27 @@
                           nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, w1d, dz1d,  &
                       pptrain, pptsnow, pptgraul, pptice, &
                       kts, kte, dt, i, j, n_-thb0+1, thjj)
+           do k = kts, kte
+              thb_qv1d(n_-thb0+1,k-kts+1,thjj) = qv1d(k)
+              thb_qc1d(n_-thb0+1,k-kts+1,thjj) = qc1d(k)
+              thb_qi1d(n_-thb0+1,k-kts+1,thjj) = qi1d(k)
+              thb_qr1d(n_-thb0+1,k-kts+1,thjj) = qr1d(k)
+              thb_qs1d(n_-thb0+1,k-kts+1,thjj) = qs1d(k)
+              thb_qg1d(n_-thb0+1,k-kts+1,thjj) = qg1d(k)
+              thb_qb1d(n_-thb0+1,k-kts+1,thjj) = qb1d(k)
+              thb_ni1d(n_-thb0+1,k-kts+1,thjj) = ni1d(k)
+              thb_nr1d(n_-thb0+1,k-kts+1,thjj) = nr1d(k)
+              thb_nc1d(n_-thb0+1,k-kts+1,thjj) = nc1d(k)
+              thb_ng1d(n_-thb0+1,k-kts+1,thjj) = ng1d(k)
+              thb_nwfa1d(n_-thb0+1,k-kts+1,thjj) = nwfa1d(k)
+              thb_nifa1d(n_-thb0+1,k-kts+1,thjj) = nifa1d(k)
+              thb_nbca1d(n_-thb0+1,k-kts+1,thjj) = nbca1d(k)
+              thb_t1d(n_-thb0+1,k-kts+1,thjj) = t1d(k)
+              thb_w1d(n_-thb0+1,k-kts+1,thjj) = w1d(k)
+           enddo
           ELSE
            CALL thom_tail(gpu_aer, gpu_wif, &
-                          qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, qb1d, ni1d,     &
-                          nr1d, nc1d, ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, w1d, dz1d,  &
-                      pptrain, pptsnow, pptgraul, pptice, &
+                      dz1d, pptrain, pptsnow, pptgraul, pptice, &
                       kts, kte, dt, i, j, n_-thb0+1, thjj)
           ENDIF
          ENDIF
@@ -88,16 +108,16 @@
          GRAUPELNC(i,j) = GRAUPELNC(i,j) + pptgraul
          SR(i,j) = (pptsnow + pptgraul + pptice)/(RAINNCV(i,j)+1.e-12)
          do k = kts, kte
-            qv(i,k,j) = qv1d(k)
-            qc(i,k,j) = qc1d(k)
-            qi(i,k,j) = qi1d(k)
-            qr(i,k,j) = qr1d(k)
-            qs(i,k,j) = qs1d(k)
-            qg(i,k,j) = qg1d(k)
-            ni(i,k,j) = ni1d(k)
-            nr(i,k,j) = nr1d(k)
-            th(i,k,j) = t1d(k)/pii(i,k,j)
-            if (qv1d(k) .lt. 0.0) then
+            qv(i,k,j) = thb_qv1d(n_-thb0+1,k-kts+1,thjj)
+            qc(i,k,j) = thb_qc1d(n_-thb0+1,k-kts+1,thjj)
+            qi(i,k,j) = thb_qi1d(n_-thb0+1,k-kts+1,thjj)
+            qr(i,k,j) = thb_qr1d(n_-thb0+1,k-kts+1,thjj)
+            qs(i,k,j) = thb_qs1d(n_-thb0+1,k-kts+1,thjj)
+            qg(i,k,j) = thb_qg1d(n_-thb0+1,k-kts+1,thjj)
+            ni(i,k,j) = thb_ni1d(n_-thb0+1,k-kts+1,thjj)
+            nr(i,k,j) = thb_nr1d(n_-thb0+1,k-kts+1,thjj)
+            th(i,k,j) = thb_t1d(n_-thb0+1,k-kts+1,thjj)/pii(i,k,j)
+            if (thb_qv1d(n_-thb0+1,k-kts+1,thjj) .lt. 0.0) then
              if (k.lt.kte-2 .and. k.gt.kts+1) then
                 qv(i,k,j) = MAX(1.E-7, 0.5*(qv(i,k-1,j) + qv(i,k+1,j)))
              else
@@ -106,8 +126,7 @@
             endif
          enddo
          IF ( gpu_do_refl ) THEN
-          call thtl_refl10cm (qv1d, qc1d, qr1d, nr1d, qs1d, qg1d,       &
-                      ng1d, qb1d, t1d, p1d, dBZ, kts, kte, i, j, kediagloc)
+          call thtl_refl10cm (p1d, dBZ, kts, kte, i, j, kediagloc, n_-thb0+1, thjj)
           do k = kts, kte
              refl_10cm(i,k,j) = MAX(-35., dBZ(k))
           enddo
@@ -117,6 +136,12 @@
              re_qc1d(k) = RE_QC_BG
              re_qi1d(k) = RE_QI_BG
              re_qs1d(k) = RE_QS_BG
+          enddo
+          do k = kts, kte   ! radiation steps only: the inputs from the hand-off arrays
+             t1d(k) = thb_t1d(n_-thb0+1,k-kts+1,thjj) ; qv1d(k) = thb_qv1d(n_-thb0+1,k-kts+1,thjj)
+             qc1d(k) = thb_qc1d(n_-thb0+1,k-kts+1,thjj) ; nc1d(k) = thb_nc1d(n_-thb0+1,k-kts+1,thjj)
+             qi1d(k) = thb_qi1d(n_-thb0+1,k-kts+1,thjj) ; ni1d(k) = thb_ni1d(n_-thb0+1,k-kts+1,thjj)
+             qs1d(k) = thb_qs1d(n_-thb0+1,k-kts+1,thjj)
           enddo
           call thtl_effectRad (t1d, p1d, qv1d, qc1d, nc1d, qi1d, ni1d, qs1d,  &
                       re_qc1d, re_qi1d, re_qs1d, kts, kte)
@@ -129,12 +154,12 @@
       enddo
       END SUBROUTINE thom_tail_band
 
-      subroutine thom_tail(aer_init_opt, wif_input_opt, qv1d, qc1d, qi1d, qr1d, &
-                          qs1d, qg1d, qb1d, ni1d, nr1d, nc1d, &
-                          ng1d, nwfa1d, nifa1d, nbca1d, t1d, p1d, &
-                          w1d, dzq, pptrain, pptsnow, pptgraul, pptice, &
+      subroutine thom_tail(aer_init_opt, wif_input_opt, &
+                          dzq, pptrain, pptsnow, pptgraul, pptice, &
                           kts, kte, dt, ii, jj, thic, &
                           thjjb)
+! GPU (2026-11-10): the column state (qv..nbca, t, w) is read and updated in place in the level kernel's hand-off
+! arrays thb_* (global, coalesced across columns) instead of per-thread local copies; same operations and order.
 !$acc routine seq
       implicit none
       INTEGER, INTENT(IN):: aer_init_opt
@@ -143,23 +168,6 @@
       INTEGER, INTENT(IN):: kte
       INTEGER, INTENT(IN):: ii
       INTEGER, INTENT(IN):: jj
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qv1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qc1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qi1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qr1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qs1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qg1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: qb1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: ni1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nr1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nc1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: ng1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nwfa1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nifa1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: nbca1d
-      REAL, DIMENSION(kts:kte), INTENT(INOUT):: t1d
-      REAL, DIMENSION(kts:kte), INTENT(IN):: p1d
-      REAL, DIMENSION(kts:kte), INTENT(IN):: w1d
       REAL, DIMENSION(kts:kte), INTENT(IN):: dzq
       REAL, INTENT(INOUT):: pptrain
       REAL, INTENT(INOUT):: pptsnow
@@ -583,7 +591,7 @@
 
       do k = ksed1(5), kts, -1
          vtc = 0.
-         if (thb_rc(thic,k,thjjb) .gt. R1 .and. w1d(k) .lt. 1.E-1) then
+         if (thb_rc(thic,k,thjjb) .gt. R1 .and. thb_w1d(thic,k-kts+1,thjjb) .lt. 1.E-1) then
           nu_c = MIN(15, NINT(1000.E6/thb_nc(thic,k,thjjb)) + 2)
           lamc = (thb_nc(thic,k,thjjb)*am_r*ccg(2,nu_c)*ocg1(nu_c)/thb_rc(thic,k,thjjb))**obmr
           ilamc = 1./lamc
@@ -873,19 +881,19 @@
 
       if (.not. iiwarm) then
       do k = kts, kte
-         xri = MAX(0.0, qi1d(k) + thb_qiten(thic,k,thjjb)*DT)
+         xri = MAX(0.0, thb_qi1d(thic,k-kts+1,thjjb) + thb_qiten(thic,k,thjjb)*DT)
          if ( (thb_temp(thic,k,thjjb).gt. T_0) .and. (xri.gt. 0.0) ) then
           thb_qcten(thic,k,thjjb) = thb_qcten(thic,k,thjjb) + xri*odt
-          thb_ncten(thic,k,thjjb) = thb_ncten(thic,k,thjjb) + ni1d(k)*odt
+          thb_ncten(thic,k,thjjb) = thb_ncten(thic,k,thjjb) + thb_ni1d(thic,k-kts+1,thjjb)*odt
           thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) - xri*odt
-          thb_niten(thic,k,thjjb) = -ni1d(k)*odt
+          thb_niten(thic,k,thjjb) = -thb_ni1d(thic,k-kts+1,thjjb)*odt
           thb_tten(thic,k,thjjb) = thb_tten(thic,k,thjjb) - lfus*thb_ocp(thic,k,thjjb)*xri*odt*(1-IFDRY)
          endif
 
-         xrc = MAX(0.0, qc1d(k) + thb_qcten(thic,k,thjjb)*DT)
+         xrc = MAX(0.0, thb_qc1d(thic,k-kts+1,thjjb) + thb_qcten(thic,k,thjjb)*DT)
          if ( (thb_temp(thic,k,thjjb).lt. HGFR) .and. (xrc.gt. 0.0) ) then
           lfus2 = lsub - thb_lvap(thic,k,thjjb)
-          xnc = nc1d(k) + thb_ncten(thic,k,thjjb)*DT
+          xnc = thb_nc1d(thic,k-kts+1,thjjb) + thb_ncten(thic,k,thjjb)*DT
           thb_qiten(thic,k,thjjb) = thb_qiten(thic,k,thjjb) + xrc*odt
           thb_niten(thic,k,thjjb) = thb_niten(thic,k,thjjb) + xnc*odt
           thb_qcten(thic,k,thjjb) = thb_qcten(thic,k,thjjb) - xrc*odt
@@ -899,63 +907,63 @@
 
 
       do k = kts, kte
-         t1d(k)  = t1d(k) + thb_tten(thic,k,thjjb)*DT
-         qv1d(k) = MAX(1.E-10, qv1d(k) + thb_qvten(thic,k,thjjb)*DT)
-         qc1d(k) = qc1d(k) + thb_qcten(thic,k,thjjb)*DT
-         nc1d(k) = MAX(2./thb_rho(thic,k,thjjb), MIN(nc1d(k) + thb_ncten(thic,k,thjjb)*DT, Nt_c_max))
+         thb_t1d(thic,k-kts+1,thjjb)  = thb_t1d(thic,k-kts+1,thjjb) + thb_tten(thic,k,thjjb)*DT
+         thb_qv1d(thic,k-kts+1,thjjb) = MAX(1.E-10, thb_qv1d(thic,k-kts+1,thjjb) + thb_qvten(thic,k,thjjb)*DT)
+         thb_qc1d(thic,k-kts+1,thjjb) = thb_qc1d(thic,k-kts+1,thjjb) + thb_qcten(thic,k,thjjb)*DT
+         thb_nc1d(thic,k-kts+1,thjjb) = MAX(2./thb_rho(thic,k,thjjb), MIN(thb_nc1d(thic,k-kts+1,thjjb) + thb_ncten(thic,k,thjjb)*DT, Nt_c_max))
          if (is_aerosol_aware) then
             if (aer_init_opt .lt. 2) then
-               nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
-                             (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT)))
-               nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
-                             (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT)))
+               thb_nwfa1d(thic,k-kts+1,thjjb) = MAX(11.1E6, MIN(9999.E6,                           &
+                             (thb_nwfa1d(thic,k-kts+1,thjjb)+thb_nwfaten(thic,k,thjjb)*DT)))
+               thb_nifa1d(thic,k-kts+1,thjjb) = MAX(naIN1*0.01, MIN(9999.E6,                       &
+                             (thb_nifa1d(thic,k-kts+1,thjjb)+thb_nifaten(thic,k,thjjb)*DT)))
                if (wif_input_opt .eq. 2) then
-                  nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                        &
-                                (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT)))
+                  thb_nbca1d(thic,k-kts+1,thjjb) = MAX(5.55E6, MIN(9999.E6,                        &
+                                (thb_nbca1d(thic,k-kts+1,thjjb)+thb_nbcaten(thic,k,thjjb)*DT)))
                else
-                  nbca1d(k) = 0.0
+                  thb_nbca1d(thic,k-kts+1,thjjb) = 0.0
                endif
             else
-               nwfa1d(k) = MAX(0.0, (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT))
-               nifa1d(k) = MAX(0.0, (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT))
+               thb_nwfa1d(thic,k-kts+1,thjjb) = MAX(0.0, (thb_nwfa1d(thic,k-kts+1,thjjb)+thb_nwfaten(thic,k,thjjb)*DT))
+               thb_nifa1d(thic,k-kts+1,thjjb) = MAX(0.0, (thb_nifa1d(thic,k-kts+1,thjjb)+thb_nifaten(thic,k,thjjb)*DT))
                if (wif_input_opt .eq. 2) then
-                  nbca1d(k) = MAX(0.0, (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT))
+                  thb_nbca1d(thic,k-kts+1,thjjb) = MAX(0.0, (thb_nbca1d(thic,k-kts+1,thjjb)+thb_nbcaten(thic,k,thjjb)*DT))
                else
-                  nbca1d(k) = 0.0
+                  thb_nbca1d(thic,k-kts+1,thjjb) = 0.0
                endif
             endif
          else
-            nwfa1d(k) = MAX(11.1E6, MIN(9999.E6,                           &
-                          (nwfa1d(k)+thb_nwfaten(thic,k,thjjb)*DT)))
-            nifa1d(k) = MAX(naIN1*0.01, MIN(9999.E6,                       &
-                          (nifa1d(k)+thb_nifaten(thic,k,thjjb)*DT)))
-            nbca1d(k) = MAX(5.55E6, MIN(9999.E6,                           &
-                          (nbca1d(k)+thb_nbcaten(thic,k,thjjb)*DT)))
+            thb_nwfa1d(thic,k-kts+1,thjjb) = MAX(11.1E6, MIN(9999.E6,                           &
+                          (thb_nwfa1d(thic,k-kts+1,thjjb)+thb_nwfaten(thic,k,thjjb)*DT)))
+            thb_nifa1d(thic,k-kts+1,thjjb) = MAX(naIN1*0.01, MIN(9999.E6,                       &
+                          (thb_nifa1d(thic,k-kts+1,thjjb)+thb_nifaten(thic,k,thjjb)*DT)))
+            thb_nbca1d(thic,k-kts+1,thjjb) = MAX(5.55E6, MIN(9999.E6,                           &
+                          (thb_nbca1d(thic,k-kts+1,thjjb)+thb_nbcaten(thic,k,thjjb)*DT)))
          endif
 
-         if (qc1d(k) .le. R1) then
-           qc1d(k) = 0.0
-           nc1d(k) = 0.0
+         if (thb_qc1d(thic,k-kts+1,thjjb) .le. R1) then
+           thb_qc1d(thic,k-kts+1,thjjb) = 0.0
+           thb_nc1d(thic,k-kts+1,thjjb) = 0.0
          else
-           nu_c = MIN(15, NINT(1000.E6/(nc1d(k)*thb_rho(thic,k,thjjb))) + 2)
-           lamc = (am_r*ccg(2,nu_c)*ocg1(nu_c)*nc1d(k)/qc1d(k))**obmr
+           nu_c = MIN(15, NINT(1000.E6/(thb_nc1d(thic,k-kts+1,thjjb)*thb_rho(thic,k,thjjb))) + 2)
+           lamc = (am_r*ccg(2,nu_c)*ocg1(nu_c)*thb_nc1d(thic,k-kts+1,thjjb)/thb_qc1d(thic,k-kts+1,thjjb))**obmr
            xDc = (bm_r + nu_c + 1.) / lamc
            if (xDc.lt. D0c) then
             lamc = cce(2,nu_c)/D0c
            elseif (xDc.gt. D0r*2.) then
             lamc = cce(2,nu_c)/(D0r*2.)
            endif
-           nc1d(k) = MIN(ccg(1,nu_c)*ocg2(nu_c)*qc1d(k)/am_r*lamc**bm_r,&
+           thb_nc1d(thic,k-kts+1,thjjb) = MIN(ccg(1,nu_c)*ocg2(nu_c)*thb_qc1d(thic,k-kts+1,thjjb)/am_r*lamc**bm_r,&
                          DBLE(Nt_c_max)/thb_rho(thic,k,thjjb))
          endif
 
-         qi1d(k) = qi1d(k) + thb_qiten(thic,k,thjjb)*DT
-         ni1d(k) = MAX(R2/thb_rho(thic,k,thjjb), ni1d(k) + thb_niten(thic,k,thjjb)*DT)
-         if (qi1d(k) .le. R1) then
-           qi1d(k) = 0.0
-           ni1d(k) = 0.0
+         thb_qi1d(thic,k-kts+1,thjjb) = thb_qi1d(thic,k-kts+1,thjjb) + thb_qiten(thic,k,thjjb)*DT
+         thb_ni1d(thic,k-kts+1,thjjb) = MAX(R2/thb_rho(thic,k,thjjb), thb_ni1d(thic,k-kts+1,thjjb) + thb_niten(thic,k,thjjb)*DT)
+         if (thb_qi1d(thic,k-kts+1,thjjb) .le. R1) then
+           thb_qi1d(thic,k-kts+1,thjjb) = 0.0
+           thb_ni1d(thic,k-kts+1,thjjb) = 0.0
          else
-           lami = (am_i*cig(2)*oig1*ni1d(k)/qi1d(k))**obmi
+           lami = (am_i*cig(2)*oig1*thb_ni1d(thic,k-kts+1,thjjb)/thb_qi1d(thic,k-kts+1,thjjb))**obmi
            ilami = 1./lami
            xDi = (bm_i + mu_i + 1.) * ilami
            if (xDi.lt. 5.E-6) then
@@ -963,16 +971,16 @@
            elseif (xDi.gt. 300.E-6) then
             lami = cie(2)/300.E-6
            endif
-           ni1d(k) = MIN(cig(1)*oig2*qi1d(k)/am_i*lami**bm_i,           &
+           thb_ni1d(thic,k-kts+1,thjjb) = MIN(cig(1)*oig2*thb_qi1d(thic,k-kts+1,thjjb)/am_i*lami**bm_i,           &
                          999.D3/thb_rho(thic,k,thjjb))
          endif
-         qr1d(k) = qr1d(k) + thb_qrten(thic,k,thjjb)*DT
-         nr1d(k) = MAX(R2/thb_rho(thic,k,thjjb), nr1d(k) + thb_nrten(thic,k,thjjb)*DT)
-         if (qr1d(k) .le. R1) then
-           qr1d(k) = 0.0
-           nr1d(k) = 0.0
+         thb_qr1d(thic,k-kts+1,thjjb) = thb_qr1d(thic,k-kts+1,thjjb) + thb_qrten(thic,k,thjjb)*DT
+         thb_nr1d(thic,k-kts+1,thjjb) = MAX(R2/thb_rho(thic,k,thjjb), thb_nr1d(thic,k-kts+1,thjjb) + thb_nrten(thic,k,thjjb)*DT)
+         if (thb_qr1d(thic,k-kts+1,thjjb) .le. R1) then
+           thb_qr1d(thic,k-kts+1,thjjb) = 0.0
+           thb_nr1d(thic,k-kts+1,thjjb) = 0.0
          else
-           lamr = (am_r*crg(3)*org2*nr1d(k)/qr1d(k))**obmr
+           lamr = (am_r*crg(3)*org2*thb_nr1d(thic,k-kts+1,thjjb)/thb_qr1d(thic,k-kts+1,thjjb))**obmr
            thb_mvd_r(thic,k,thjjb) = (3.0 + mu_r + 0.672) / lamr
            if (thb_mvd_r(thic,k,thjjb) .gt. 2.5E-3) then
               thb_mvd_r(thic,k,thjjb) = 2.5E-3
@@ -980,22 +988,22 @@
               thb_mvd_r(thic,k,thjjb) = D0r*0.75
            endif
            lamr = (3.0 + mu_r + 0.672) / thb_mvd_r(thic,k,thjjb)
-           nr1d(k) = crg(2)*org3*qr1d(k)*lamr**bm_r / am_r
+           thb_nr1d(thic,k-kts+1,thjjb) = crg(2)*org3*thb_qr1d(thic,k-kts+1,thjjb)*lamr**bm_r / am_r
          endif
-         qs1d(k) = qs1d(k) + thb_qsten(thic,k,thjjb)*DT
-         if (qs1d(k) .le. R1) qs1d(k) = 0.0
-         qg1d(k) = qg1d(k) + thb_qgten(thic,k,thjjb)*DT
-         ng1d(k) = MAX(R2/thb_rho(thic,k,thjjb), ng1d(k) + thb_ngten(thic,k,thjjb)*DT)
-         if (qg1d(k) .le. R1) then
-           qg1d(k) = 0.0
-           ng1d(k) = 0.0
-           qb1d(k) = 0.0
+         thb_qs1d(thic,k-kts+1,thjjb) = thb_qs1d(thic,k-kts+1,thjjb) + thb_qsten(thic,k,thjjb)*DT
+         if (thb_qs1d(thic,k-kts+1,thjjb) .le. R1) thb_qs1d(thic,k-kts+1,thjjb) = 0.0
+         thb_qg1d(thic,k-kts+1,thjjb) = thb_qg1d(thic,k-kts+1,thjjb) + thb_qgten(thic,k,thjjb)*DT
+         thb_ng1d(thic,k-kts+1,thjjb) = MAX(R2/thb_rho(thic,k,thjjb), thb_ng1d(thic,k-kts+1,thjjb) + thb_ngten(thic,k,thjjb)*DT)
+         if (thb_qg1d(thic,k-kts+1,thjjb) .le. R1) then
+           thb_qg1d(thic,k-kts+1,thjjb) = 0.0
+           thb_ng1d(thic,k-kts+1,thjjb) = 0.0
+           thb_qb1d(thic,k-kts+1,thjjb) = 0.0
          else
-           qb1d(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k) + thb_qbten(thic,k,thjjb)*DT)
-           qb1d(k) = MIN(qg1d(k)/rho_g(1), qb1d(k))
-           thb_idx_bg(thic,k,thjjb) = MAX(1,MIN(NINT(qg1d(k)/qb1d(k) *0.01)+1,NRHG))
+           thb_qb1d(thic,k-kts+1,thjjb) = MAX(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(NRHG), thb_qb1d(thic,k-kts+1,thjjb) + thb_qbten(thic,k,thjjb)*DT)
+           thb_qb1d(thic,k-kts+1,thjjb) = MIN(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(1), thb_qb1d(thic,k-kts+1,thjjb))
+           thb_idx_bg(thic,k,thjjb) = MAX(1,MIN(NINT(thb_qg1d(thic,k-kts+1,thjjb)/thb_qb1d(thic,k-kts+1,thjjb) *0.01)+1,NRHG))
            if (.not. is_hail_aware) thb_idx_bg(thic,k,thjjb) = idx_bg1
-           lamg = (am_g(thb_idx_bg(thic,k,thjjb))*cgg(3,1)*ogg2*ng1d(k)/qg1d(k))**obmg
+           lamg = (am_g(thb_idx_bg(thic,k,thjjb))*cgg(3,1)*ogg2*thb_ng1d(thic,k-kts+1,thjjb)/thb_qg1d(thic,k-kts+1,thjjb))**obmg
            thb_mvd_g(thic,k,thjjb) = (3.0 + mu_g + 0.672) / lamg
            if (thb_mvd_g(thic,k,thjjb) .gt. 25.4E-3) then
               thb_mvd_g(thic,k,thjjb) = 25.4E-3
@@ -1003,7 +1011,7 @@
               thb_mvd_g(thic,k,thjjb) = D0r
            endif
            lamg = (3.0 + mu_g + 0.672) / thb_mvd_g(thic,k,thjjb)
-           ng1d(k) = cgg(2,1)*ogg3*qg1d(k)*lamg**bm_g / am_g(thb_idx_bg(thic,k,thjjb))
+           thb_ng1d(thic,k-kts+1,thjjb) = cgg(2,1)*ogg3*thb_qg1d(thic,k-kts+1,thjjb)*lamg**bm_g / am_g(thb_idx_bg(thic,k,thjjb))
          endif
 
       enddo
@@ -1332,8 +1340,8 @@
 
       end subroutine thtl_effectRad
 
-      subroutine thtl_refl10cm (qv1d, qc1d, qr1d, nr1d, qs1d, qg1d,     &
-                          ng1d, qb1d, t1d, p1d, dBZ, kts, kte, ii, jj, ke_diag)
+      subroutine thtl_refl10cm (p1d, dBZ, kts, kte, ii, jj, ke_diag, thic, thjjb)
+! GPU (2026-11-10): the hydrometeor/temperature columns are read from the tail's hand-off arrays thb_* (thic, thjjb)
 #ifdef WRF_GPU
 !$acc routine seq
 #endif
@@ -1342,8 +1350,8 @@
 
 !..Sub arguments
       INTEGER, INTENT(IN):: kts, kte, ii, jj, ke_diag
-      REAL, DIMENSION(kts:kte), INTENT(IN)::                            &
-                qv1d, qc1d, qr1d, nr1d, qs1d, qg1d, ng1d, qb1d, t1d, p1d
+      INTEGER, INTENT(IN):: thic, thjjb
+      REAL, DIMENSION(kts:kte), INTENT(IN):: p1d
       REAL, DIMENSION(kts:kte), INTENT(INOUT):: dBZ
 !     REAL, DIMENSION(kts:kte), INTENT(INOUT):: vt_dBZ
 
@@ -1416,15 +1424,15 @@
 !+---+-----------------------------------------------------------------+
 
       do k = kts, kte
-         temp(k) = t1d(k)
-         qv(k) = MAX(1.E-10, qv1d(k))
+         temp(k) = thb_t1d(thic,k-kts+1,thjjb)
+         qv(k) = MAX(1.E-10, thb_qv1d(thic,k-kts+1,thjjb))
          pres(k) = p1d(k)
          rho(k) = 0.622*pres(k)/(R*temp(k)*(qv(k)+0.622))
          rhof(k) = SQRT(RHO_NOT/rho(k))
-         rc(k) = MAX(R1, qc1d(k)*rho(k))
-         if (qr1d(k) .gt. R1) then
-            rr(k) = qr1d(k)*rho(k)
-            nr(k) = MAX(R2, nr1d(k)*rho(k))
+         rc(k) = MAX(R1, thb_qc1d(thic,k-kts+1,thjjb)*rho(k))
+         if (thb_qr1d(thic,k-kts+1,thjjb) .gt. R1) then
+            rr(k) = thb_qr1d(thic,k-kts+1,thjjb)*rho(k)
+            nr(k) = MAX(R2, thb_nr1d(thic,k-kts+1,thjjb)*rho(k))
             lamr = (am_r*crg(3)*org2*nr(k)/rr(k))**obmr
             ilamr(k) = 1./lamr
             N0_r(k) = nr(k)*org2*lamr**cre(2)
@@ -1436,19 +1444,19 @@
             mvd_r(k) = 50.E-6
             L_qr(k) = .false.
          endif
-         if (qs1d(k) .gt. R2) then
-            rs(k) = qs1d(k)*rho(k)
+         if (thb_qs1d(thic,k-kts+1,thjjb) .gt. R2) then
+            rs(k) = thb_qs1d(thic,k-kts+1,thjjb)*rho(k)
             L_qs(k) = .true.
          else
             rs(k) = R1
             L_qs(k) = .false.
          endif
-         if (qg1d(k) .gt. R2) then
-            rg(k) = qg1d(k)*rho(k)
-            ng(k) = MAX(R2, ng1d(k)*rho(k))
-            rb(k) = MAX(qg1d(k)/rho_g(NRHG), qb1d(k))
-            rb(k) = MIN(qg1d(k)/rho_g(1), rb(k))
-            idx_bg(k) = MAX(1,MIN(NINT(qg1d(k)/rb(k) *0.01)+1,NRHG))
+         if (thb_qg1d(thic,k-kts+1,thjjb) .gt. R2) then
+            rg(k) = thb_qg1d(thic,k-kts+1,thjjb)*rho(k)
+            ng(k) = MAX(R2, thb_ng1d(thic,k-kts+1,thjjb)*rho(k))
+            rb(k) = MAX(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(NRHG), thb_qb1d(thic,k-kts+1,thjjb))
+            rb(k) = MIN(thb_qg1d(thic,k-kts+1,thjjb)/rho_g(1), rb(k))
+            idx_bg(k) = MAX(1,MIN(NINT(thb_qg1d(thic,k-kts+1,thjjb)/rb(k) *0.01)+1,NRHG))
             if (.not. is_hail_aware) idx_bg(k) = idx_bg1
             L_qg(k) = .true.
          else
