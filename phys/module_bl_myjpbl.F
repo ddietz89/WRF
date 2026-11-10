@@ -814,7 +814,8 @@
       REAL, DIMENSION(NSPECS:NSPECE) :: CLOW,CTS,SZ0
       REAL, DIMENSION(1:KMAXP) :: CWMK,PK,Q2K,QK,THEK,TK,UK,VK,QCWK,QCIK,RHOK,APEC,THEC,CWMC
       REAL, DIMENSION(1:KMAXP) :: AKHK,AKMK,EL,GH,GM,AKHC,AKMC
-      REAL, DIMENSION(1:KMAXP+1) :: ZHK,ZINTC
+      REAL, DIMENSION(1:KMAXP+1) :: ZHK
+      REAL :: SP1,SP2,SP3,SP4,CWMS
       REAL, DIMENSION(NSPECS:NSPECE,1:KMAXP) :: SPECIES
       IF ( KTS /= 1 .OR. KTE+1 > KMAXP ) CALL wrf_error_fatal('MYJPBL_GPU: needs kts=1 and kte < KMAXP')
       NSPEC=4
@@ -823,7 +824,7 @@
       DTDIF=DTTURBL
 !$acc parallel loop gang vector collapse(2) &
 !$acc private(CLOW,CTS,SZ0,CWMK,PK,Q2K,QK,THEK,TK,UK,VK,QCWK,QCIK,RHOK,APEC,THEC,CWMC) &
-!$acc private(AKHK,AKMK,EL,GH,GM,AKHC,AKMC,ZHK,ZINTC,SPECIES)
+!$acc private(AKHK,AKMK,EL,GH,GM,AKHC,AKMC,ZHK,SPECIES)
       DO J=JTS,JTE
       DO I=ITS,ITE
         DO K=KMS,KME
@@ -832,10 +833,10 @@
         DO K=KTS,KTE-1
           AKMC(K)=0.
         ENDDO
-        ZINTC(KTE+1)=HT(I,J)
+        ZHK(KTE+1)=HT(I,J)
         DO K=KTE,KTS,-1
           KFLIP=KTE+1-K
-          ZINTC(K)=ZINTC(K+1)+DZ(I,KFLIP,J)
+          ZHK(K)=ZHK(K+1)+DZ(I,KFLIP,J)
           APEC(K)=1./EXNER(I,K,J)
           CWMC(K)=QCW(I,K,J)
           CWMC(K)=CWMC(K)+QCI(I,K,J)
@@ -854,9 +855,7 @@
           UK(K)=U(I,KFLIP,J)
           VK(K)=V(I,KFLIP,J)
           Q2K(K)=2.*TKE_MYJ(I,KFLIP,J)
-          ZHK(K)=ZINTC(K)
         ENDDO
-        ZHK(KTE+1)=HT(I,J)
         CALL MIXLEN(LMH,UK,VK,TK,THEK,QK,CWMK                          &
      &             ,Q2K,ZHK,GM,GH,EL                                   &
      &             ,PBLH(I,J),LPBLC,LMXL,CT(I,J),MIXHT(I,J)            &
@@ -892,26 +891,20 @@
 !-- main_integration (one column)
         PSFC=PINT(I,LOWLYR(I,J),J)
         THSKC=TSK(I,J)*(1.E5/PSFC)**CAPA
+        ! GPU (2026-11-10): THEK, QK, CWMK and ZHK still hold the setup values (MIXLEN, PRODQ2, DIFCOF and VDIFQ
+        ! only read them), so they are not rebuilt here; QCWK/QCIK go straight into SPECIES
         DO K=KTE,KTS,-1
           KFLIP=KTE+1-K
-          THEK(K)=THEC(KFLIP)
-          RATIOMX=QV(I,KFLIP,J)
-          QK(K)=RATIOMX/(1.+RATIOMX)
-          CWMK(K)=CWMC(KFLIP)
-          QCWK(K)=QCW(I,KFLIP,J)
           SPECIES(1,K)=THEK(K)
           SPECIES(2,K)=QK(K)
-          SPECIES(3,K)=QCWK(K)
-          QCIK(K)=QCI(I,KFLIP,J)
-          SPECIES(4,K)=QCIK(K)
-          ZHK(K)=ZINTC(K)
+          SPECIES(3,K)=QCW(I,KFLIP,J)
+          SPECIES(4,K)=QCI(I,KFLIP,J)
           RHOK(K)=PMID(I,KFLIP,J)/(R_D*T(I,KFLIP,J)*                   &
      &                             (1.+P608*QK(K)-CWMK(K)))
         ENDDO
         DO K=KTS,KTE-1
           AKHK(K)=AKHC(K)*0.5*(RHOK(K)+RHOK(K+1))
         ENDDO
-        ZHK(KTE+1)=ZINTC(KTE+1)
         SEAMASK=XLAND(I,J)-1.
         THZ0(I,J)=(1.-SEAMASK)*THSKC+SEAMASK*THZ0(I,J)
         LLOW=LOWLYR(I,J)
@@ -953,25 +946,21 @@
      &            ,IDS,IDE,JDS,JDE,KDS,KDE                             &
      &            ,IMS,IME,JMS,JME,KMS,KME                             &
      &            ,ITS,ITE,JTS,JTE,KTS,KTE,I,J)
-        DO K=KTS,KTE
-          THEK(K)=SPECIES(1,K)
-          QK  (K)=SPECIES(2,K)
-          QCWK(K)=SPECIES(3,K)
-          CWMK(K)=QCWK(K)
-          QCIK(K)=SPECIES(4,K)
-          CWMK(K)=CWMK(K)+QCIK(K)
-        ENDDO
+        ! VDIFH's results are read from SPECIES directly (same values and operations as the copy-back arrays)
         DO K=KTS,KTE
           KFLIP=KTE+1-K
+          SP1=SPECIES(1,KFLIP) ; SP2=SPECIES(2,KFLIP) ; SP3=SPECIES(3,KFLIP) ; SP4=SPECIES(4,KFLIP)
+          CWMS=SP3
+          CWMS=CWMS+SP4
           THOLD=TH(I,K,J)
-          THNEW=THEK(KFLIP)+CWMK(KFLIP)*ELOCP*APEC(K)
+          THNEW=SP1+CWMS*ELOCP*APEC(K)
           DTDT=(THNEW-THOLD)*RDTTURBL
           QOLD=QV(I,K,J)/(1.+QV(I,K,J))
-          DQDT=(QK(KFLIP)-QOLD)*RDTTURBL
+          DQDT=(SP2-QOLD)*RDTTURBL
           RTHBLTEN(I,K,J)=DTDT
-          RQVBLTEN(I,K,J)=DQDT/(1.-QK(KFLIP))**2
-          RQCBLTEN(I,K,J)=(QCWK(KFLIP)-QCW(I,K,J))*RDTTURBL
-          RQIBLTEN(I,K,J)=(QCIK(KFLIP)-QCI(I,K,J))*RDTTURBL
+          RQVBLTEN(I,K,J)=DQDT/(1.-SP2)**2
+          RQCBLTEN(I,K,J)=(SP3-QCW(I,K,J))*RDTTURBL
+          RQIBLTEN(I,K,J)=(SP4-QCI(I,K,J))*RDTTURBL
         ENDDO
         DO K=KTS,KTE-1
           AKMK(K)=AKMC(K)
@@ -979,13 +968,7 @@
         ENDDO
         LLOW=LOWLYR(I,J)
         AKMS_DENS=AKMS(I,J)*RHOK(KTE+1-LLOW)
-        DO K=KTE,KTS,-1
-          KFLIP=KTE+1-K
-          UK(K)=U(I,KFLIP,J)
-          VK(K)=V(I,KFLIP,J)
-          ZHK(K)=ZINTC(K)
-        ENDDO
-        ZHK(KTE+1)=ZINTC(KTE+1)
+        ! UK, VK and ZHK still hold the setup values (MIXLEN only reads U, V and Z)
         CALL VDIFV(LMH,DTDIF,UZ0(I,J),VZ0(I,J)                         &
      &            ,AKMS_DENS,UK,VK,AKMK,ZHK,RHOK                       &
      &            ,IDS,IDE,JDS,JDE,KDS,KDE                             &
@@ -1719,6 +1702,9 @@
       INTEGER:: K,M
 !
       REAL:: CF,CMB,CMSB,DTOZL,DTOZS,RCML,RHOK,RKHH,RKHZ,RKSS,RSSB
+#ifdef WRF_GPU
+      REAL:: CRK,CRN,CMK,CMN,KC1,KC2,KC3,KC4,N1,N2,N3,N4,R1,R2,R3,R4
+#endif
 !
 #ifdef WRF_GPU
       REAL,DIMENSION(1:KMAXP):: CM,CR,DTOZ
@@ -1734,6 +1720,84 @@
 !
 !----------------------------------------------------------------------
 !**********************************************************************
+#ifdef WRF_GPU
+! GPU (2026-11-10, the 4 species of MYJPBL_GPU): DTOZ and the counter-gradient terms RKCT are formed per level in
+! registers inside the forward sweep, which also carries CM, CR and RSS of the level above in registers (they are
+! still stored for the back substitution). Same expressions in the same order as the three passes below; the
+! per-thread arrays these passes streamed through DRAM were the largest share of MYJ's local-memory traffic.
+      IF ( MSS == 1 .AND. NSPEC == 4 .AND. LMH-1 >= KTS+1 ) THEN
+        K=KTS
+        DTOZL=DTDIF/(ZHK(K)-ZHK(K+1))
+        CRK=-DTOZL*RKH(K)
+        CR(K)=CRK
+        IF(K.LT.LPBL) THEN
+          KC1=0. ; KC2=0. ; KC3=0. ; KC4=0.
+        ELSE
+          RKHZ=RKH(K)*(ZHK(K)-ZHK(K+2))
+          KC1=RKHZ*CTS(1)*0.5 ; KC2=RKHZ*CTS(2)*0.5 ; KC3=RKHZ*CTS(3)*0.5 ; KC4=RKHZ*CTS(4)*0.5
+        ENDIF
+        RHOK=RHO(KTS)
+        CMK=DTOZL*RKH(KTS)+RHOK
+        CM(KTS)=CMK
+        R1=-KC1*DTOZL+SPECIES(1,KTS)*RHOK ; RSS(1,KTS)=R1
+        R2=-KC2*DTOZL+SPECIES(2,KTS)*RHOK ; RSS(2,KTS)=R2
+        R3=-KC3*DTOZL+SPECIES(3,KTS)*RHOK ; RSS(3,KTS)=R3
+        R4=-KC4*DTOZL+SPECIES(4,KTS)*RHOK ; RSS(4,KTS)=R4
+        DO K=KTS+1,LMH-1
+          DTOZL=DTDIF/(ZHK(K)-ZHK(K+1))
+          CRN=-DTOZL*RKH(K)
+          IF(K.LT.LPBL) THEN
+            N1=0. ; N2=0. ; N3=0. ; N4=0.
+          ELSE
+            RKHZ=RKH(K)*(ZHK(K)-ZHK(K+2))
+            N1=RKHZ*CTS(1)*0.5 ; N2=RKHZ*CTS(2)*0.5 ; N3=RKHZ*CTS(3)*0.5 ; N4=RKHZ*CTS(4)*0.5
+          ENDIF
+          CF=-DTOZL*RKH(K-1)/CMK
+          RHOK=RHO(K)
+          CMN=-CRK*CF+(RKH(K-1)+RKH(K))*DTOZL+RHOK
+          R1=-R1*CF &
+                   +(KC1-N1)*DTOZL+SPECIES(1,K)*RHOK
+          R2=-R2*CF &
+                   +(KC2-N2)*DTOZL+SPECIES(2,K)*RHOK
+          R3=-R3*CF &
+                   +(KC3-N3)*DTOZL+SPECIES(3,K)*RHOK
+          R4=-R4*CF &
+                   +(KC4-N4)*DTOZL+SPECIES(4,K)*RHOK
+          RSS(1,K)=R1 ; RSS(2,K)=R2 ; RSS(3,K)=R3 ; RSS(4,K)=R4
+          CR(K)=CRN ; CM(K)=CMN
+          CRK=CRN ; CMK=CMN
+          KC1=N1 ; KC2=N2 ; KC3=N3 ; KC4=N4
+        ENDDO
+        DTOZS=DTDIF/(ZHK(LMH)-ZHK(LMH+1))
+        RKHH=RKH(LMH-1)
+        CF=-DTOZS*RKHH/CMK
+        CMB=CRK*CF
+        RHOK=RHO(LMH)
+        RKSS=RKHS*CLOW(1)
+        CMSB=-CMB+(RKHH+RKSS)*DTOZS+RHOK
+        RSSB=-R1*CF+KC1*DTOZS+SPECIES(1,LMH)*RHOK
+        SPECIES(1,LMH)=(DTOZS*RKSS*SZ0(1)+RSSB)/CMSB
+        RKSS=RKHS*CLOW(2)
+        CMSB=-CMB+(RKHH+RKSS)*DTOZS+RHOK
+        RSSB=-R2*CF+KC2*DTOZS+SPECIES(2,LMH)*RHOK
+        SPECIES(2,LMH)=(DTOZS*RKSS*SZ0(2)+RSSB)/CMSB
+        RKSS=RKHS*CLOW(3)
+        CMSB=-CMB+(RKHH+RKSS)*DTOZS+RHOK
+        RSSB=-R3*CF+KC3*DTOZS+SPECIES(3,LMH)*RHOK
+        SPECIES(3,LMH)=(DTOZS*RKSS*SZ0(3)+RSSB)/CMSB
+        RKSS=RKHS*CLOW(4)
+        CMSB=-CMB+(RKHH+RKSS)*DTOZS+RHOK
+        RSSB=-R4*CF+KC4*DTOZS+SPECIES(4,LMH)*RHOK
+        SPECIES(4,LMH)=(DTOZS*RKSS*SZ0(4)+RSSB)/CMSB
+        DO K=LMH-1,KTS,-1
+          RCML=1./CM(K)
+          DO M=MSS,NSPEC
+            SPECIES(M,K)=(-CR(K)*SPECIES(M,K+1)+RSS(M,K))*RCML
+          ENDDO
+        ENDDO
+        RETURN
+      ENDIF
+#endif
 !---PREPARATIONS-------------------------------------------------------
       DO K=KTS,LMH-1
         DTOZ(K)=DTDIF/(ZHK(K)-ZHK(K+1))
