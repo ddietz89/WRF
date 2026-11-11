@@ -11,6 +11,11 @@
     USE module_big_step_utilities_em, only: grid_config_rec_type, param_first_scalar, p_qv, p_qi, p_qc
     USE module_model_constants
 
+   ! WRF_GPU_DEFLEAN (set per step in solve_em): with diff_opt=1 + km_opt=4 only defor11/defor22/defor12 are read
+   ! (smag2d_km); div, defor33, defor13, defor23 and BN2 are restart-only fields nothing else reads, so they are
+   ! computed only on restart-writing steps.  2 = verify: fill them with NaN instead.
+   INTEGER, SAVE :: wrf_gpu_deflean = 0
+
     CONTAINS
 
 !=======================================================================
@@ -381,6 +386,7 @@
 !-----------------------------------------------------------------------
 ! Calculate zonal divergence (du/dx) and add it to the divergence array.
 
+    IF ( wrf_gpu_deflean == 0 ) THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
@@ -390,6 +396,7 @@
     END DO
     END DO
     END DO
+    ENDIF
 
 ! End calculation of zonal divergence.
 !-----------------------------------------------------------------------
@@ -510,6 +517,7 @@
 ! Calculate meridional divergence (dv/dy) and add it to the divergence
 ! array.
 
+    IF ( wrf_gpu_deflean == 0 ) THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
     DO j = j_start, j_end
     DO k = kts, ktf
@@ -573,6 +581,7 @@
     END DO
     END DO
     END DO
+    ENDIF
 
 ! End calculation of vertical divergence.
 !-----------------------------------------------------------------------
@@ -945,6 +954,7 @@
 ! A "y" has simply been added to all map scale factors to allow the model to
 ! compile without errors.
 
+    IF ( wrf_gpu_deflean == 0 ) THEN   ! defor13 / defor23
 !-----------------------------------------------------------------------
 ! Calculate dw/dx.
 
@@ -1442,6 +1452,22 @@
     END IF
 
   ENDIF ! NBA-----------------------------------------------------------
+    ENDIF   ! wrf_gpu_deflean
+    IF ( wrf_gpu_deflean == 2 ) THEN
+      tmp = TRANSFER( 2143289344, 1.0 )   ! quiet NaN: any reader would show up in the output
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jte
+      DO k = kts, kte
+!$acc loop vector
+      DO i = its, ite
+        div(i,k,j) = tmp
+        defor33(i,k,j) = tmp
+        defor13(i,k,j) = tmp
+        defor23(i,k,j) = tmp
+      END DO
+      END DO
+      END DO
+    ENDIF
 
 ! End update of boundary for defor13 and defor23.
 !-----------------------------------------------------------------------
@@ -1552,6 +1578,7 @@
     j_start = jts
     j_end   = MIN( jte, jde-1 )
 
+    IF ( wrf_gpu_deflean == 0 ) THEN   ! BN2 is read only by the km_opt 2/3/5 closures
     CALL calculate_N2( config_flags, BN2, moist,           &
                        theta, t, p, p8w, t8w,              &
                        dnw, dn, rdz, rdzw,                 &
@@ -1559,6 +1586,17 @@
                        ids, ide, jds, jde, kds, kde,       &
                        ims, ime, jms, jme, kms, kme,       &
                        its, ite, jts, jte, kts, kte        )
+    ELSE IF ( wrf_gpu_deflean == 2 ) THEN
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+      DO j = jts, jte
+      DO k = kts, kte
+!$acc loop vector
+      DO i = its, ite
+        BN2(i,k,j) = TRANSFER( 2143289344, 1.0 )
+      END DO
+      END DO
+      END DO
+    ENDIF
 
 ! Select a scheme for calculating diffusion coefficients.
 

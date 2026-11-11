@@ -226,6 +226,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
    INTEGER, SAVE                  :: earlydyn = -1
    INTEGER, SAVE                  :: c2half = -1   ! WRF_GPU_C2HALF
    INTEGER                        :: c2one_
+   INTEGER, SAVE                  :: deflean = -1  ! WRF_GPU_DEFLEAN (1 on = default, 0 off, 2 verify with NaN fill)
    ! WRF_GPU_C2AVOID (1 on, 2 verify): every small step also computes the south halo row jts-1 locally (advance_mu_t
    ! in an extra call after HALO_EM_C; the t/mu/muts/ph/w boundary updates, advance_w and calc_p_rho start at jts-1),
    ! from a one-way stage-start exchange of
@@ -670,6 +671,21 @@ SUBROUTINE solve_em ( grid , config_flags  &
    IF (config_flags%nwp_diagnostics == 1) diag_flag = .true.
 
    grid%itimestep = grid%itimestep + 1
+#ifdef WRF_GPU_RESIDENT
+   ! WRF_GPU_DEFLEAN: with diff_opt=1 + km_opt=4 (2-D Smagorinsky on model surfaces) and no NBA only defor11, defor22
+   ! and defor12 are read; div, defor33, defor13, defor23 (cal_deform_and_div) and BN2 (calculate_N2) are restart-only
+   ! fields with no reader, so they are computed only on steps that write a restart.
+   IF ( deflean < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_DEFLEAN', hmv_ )
+      deflean = 1   ! default on (bit-identical, -4.5 ms/step single node, 2026-11-11); WRF_GPU_DEFLEAN=0 restores
+      IF ( TRIM(hmv_) == '0' ) deflean = 0
+      IF ( TRIM(hmv_) == '2' ) deflean = 2
+   ENDIF
+   wrf_gpu_deflean = 0
+   IF ( wrf_gpu_on .AND. config_flags%diff_opt == 1 .AND. config_flags%km_opt == 4 .AND.                      &
+        config_flags%sfs_opt == 0 .AND. .NOT. restart_flag ) wrf_gpu_deflean = deflean
+#endif
+
    grid%dtbc = grid%dtbc + grid%dt
 
    IF( coupler_on ) CALL cpl_store_input( grid, config_flags )
