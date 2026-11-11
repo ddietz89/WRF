@@ -8,7 +8,7 @@ MODULE module_em
 
    USE module_model_constants
    
-   USE module_advect_em, only: adv_tend_fresh, advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
+   USE module_advect_em, only: adv_tend_fresh, advm, adv_upd_n, adv_mask_alloc, advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
         advect_weno_u, advect_weno_v, advect_weno_w, advect_scalar_weno,  advect_scalar_wenopd
    
    USE module_big_step_utilities_em, only: grid_config_rec_type, calculate_full, couple_momentum, calc_mu_uv, calc_mu_uv_1, &
@@ -1814,6 +1814,7 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
     REAL :: tf_r
     INTEGER, SAVE :: rkufuse = -1
     CHARACTER(LEN=8) :: rkv
+    INTEGER :: mn_
 
 #ifdef WRF_GPU
    REAL, DIMENSION(:,:,:), ALLOCATABLE, SAVE :: tendency
@@ -1892,12 +1893,28 @@ SUBROUTINE rk_update_scalar( scs, sce,                      &
     IF ( rkufuse == 1 .AND. wrf_gpu_on .AND. .NOT. tenddec ) THEN
 ! WRF_GPU_RKUFUSE=1: tendency (0, advection*msfty, + sc_tend) and the scalar update in one (i,k,j) kernel per
 ! species (tenddec off: no advh_t/advz_t accumulation); same values as the separate kernels below
+      ! WRF_GPU_ADVMASK: in a dead block (advect_scalar[_pd] mask slot mn_) the stage field and the advective tendency
+      ! are exactly zero, so with sc_tend = 0 the update gives (c*scalar_1)/c': nothing to do where scalar_1 is 0
+      ! (rk_step 1: scalar_1 := scalar_2 = 0, written only where scalar_1 is not already 0). Slot 0 = all live.
+      mn_ = adv_upd_n ; adv_upd_n = 0
+      IF ( scs /= sce ) mn_ = 0
+      CALL adv_mask_alloc( ims, ime, kms, kme, jms, jme )
       DO  im = scs,sce
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+!$acc parallel loop gang collapse(2) present(advm) async(wrf_gpu_q)
       DO  j = jts, min(jte,jde-1)
       DO  k = kts, min(kte,kde-1)
 !$acc loop vector private(muo,mun,tf_r)
       DO  i = its, min(ite,ide-1)
+        IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) THEN
+          IF ( sc_tend(i,k,j,im) == 0. ) THEN
+            IF ( rk_step == 1 ) THEN
+              IF ( scalar_1(i,k,j,im) /= 0. ) scalar_1(i,k,j,im) = 0.
+              CYCLE
+            ELSE IF ( scalar_1(i,k,j,im) == 0. ) THEN
+              CYCLE
+            ENDIF
+          ENDIF
+        ENDIF
         tf_r = 0.
         IF ( i >= i_start .AND. i <= i_end .AND. j >= j_start .AND. j <= j_end .AND.             &
              k >= k_start .AND. k <= k_end ) tf_r = advect_tend(i,k,j) * msfty(i,j)

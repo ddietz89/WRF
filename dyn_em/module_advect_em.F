@@ -134,6 +134,17 @@ MODULE module_advect_em
   ! set by rk_scalar_tend when it skipped zeroing advect_tend: advect_scalar then starts the fused divergence pass
   ! from 0 instead of reading the (zeroed) tendency, or zeroes it itself on any other path (2026-11-08)
   LOGICAL, SAVE :: adv_tend_fresh = .FALSE.
+  ! WRF_GPU_ADVMASK=1: empty-block skipping in advect_scalar / advect_scalar_pd (2026-11-11). advm(b,k,j,n) /= 0 means
+  ! the 16-cell i-block b of row (k,j) of species slot n is live; 0 means the field (and on the pd stage the old field)
+  ! is exactly zero in every cell of the block and in every cell its flux stencils read (3 in i and j, 2 in k), so all
+  ! its face fluxes are exactly zero and its advective tendency is +0. Slot 0 is all ones (species without a mask).
+  ! adv_mask_build fills the slots from the arrays the advection is about to read; the caller sets adv_msk_n to the
+  ! slot of the species right before rk_scalar_tend, advect_scalar[_pd] consume it.
+  INTEGER, PARAMETER :: adv_msk_slots = 24
+  INTEGER, SAVE :: adv_msk_on = -1
+  INTEGER, SAVE :: adv_msk_n = 0
+  INTEGER, SAVE :: adv_upd_n = 0   ! same slot for rk_update_scalar (set by the caller right before it)
+  INTEGER(1), ALLOCATABLE, SAVE :: advm(:,:,:,:), advz(:,:,:,:)
 #endif
 
 CONTAINS
@@ -194,6 +205,96 @@ SUBROUTINE adv_zero_outside( t, ims, ime, kms, kme, jms, jme, its, ite, kts, kte
    ENDIF
 END SUBROUTINE adv_zero_outside
 #endif
+
+SUBROUTINE adv_mask_init
+   CHARACTER(LEN=32) :: v
+   INTEGER :: st, ios
+   IF ( adv_msk_on >= 0 ) RETURN
+   ! default 2 (advection + scalar update; 2-node 0.2983-0.2988 vs 0.3134 s/step, full ncdiff 0, 2026-11-11);
+   ! WRF_GPU_ADVMASK=1 advection only, =0 off
+   adv_msk_on = 2
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVMASK', v, STATUS=st )
+   IF ( st == 0 .AND. LEN_TRIM(v) > 0 ) THEN
+      READ ( v, *, IOSTAT=ios ) adv_msk_on
+      IF ( ios /= 0 .OR. adv_msk_on < 0 ) adv_msk_on = 2
+   ENDIF
+END SUBROUTINE adv_mask_init
+
+SUBROUTINE adv_mask_alloc( ims, ime, kms, kme, jms, jme )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: ims, ime, kms, kme, jms, jme
+   IF ( ALLOCATED(advm) ) THEN
+      IF ( UBOUND(advm,1) == ISHFT(ime-ims,-4) .AND. LBOUND(advm,2) == kms .AND. UBOUND(advm,2) == kme .AND.  &
+           LBOUND(advm,3) == jms .AND. UBOUND(advm,3) == jme ) RETURN
+!$acc wait(1)
+!$acc exit data delete(advm, advz)
+      DEALLOCATE( advm, advz )
+   ENDIF
+   ALLOCATE( advm(0:ISHFT(ime-ims,-4),kms:kme,jms:jme,0:adv_msk_slots), &
+             advz(0:ISHFT(ime-ims,-4),kms:kme,jms:jme,0:adv_msk_slots) )
+   advm = 0_1 ; advz = 0_1
+   advm(:,:,:,0) = 1_1
+!$acc wait(1)
+!$acc enter data copyin(advm, advz)
+END SUBROUTINE adv_mask_alloc
+
+! masks for species n1..n2 (except nskip) of the 4-D array f into slots slot0+n; with use_old also fo must be zero
+SUBROUTINE adv_mask_build( f, fo, use_old, n1, n2, nskip, slot0, nd, ims, ime, kms, kme, jms, jme, kts, ktf )
+   USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: n1, n2, nskip, slot0, nd, ims, ime, kms, kme, jms, jme, kts, ktf
+   LOGICAL, INTENT(IN) :: use_old
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme,nd), INTENT(IN) :: f, fo
+   INTEGER :: b, nb, i, j, k, n, i0, i1, jj, kk
+   INTEGER(1) :: z
+   CALL adv_mask_alloc( ims, ime, kms, kme, jms, jme )
+   nb = ISHFT(ime-ims,-4)
+   ! raw flags: any nonzero in the block or within 3 cells of it in i
+!$acc parallel loop gang vector collapse(4) present(advz) private(z,i0,i1) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO n = n1, n2
+   DO j = jms, jme
+   DO k = kts, ktf
+   DO b = 0, nb
+      z = 0_1
+      IF ( n /= nskip ) THEN
+         i0 = MAX(ims, ims+16*b-3)
+         i1 = MIN(ime, ims+16*b+18)
+!$acc loop seq
+         DO i = i0, i1
+            IF ( f(i,k,j,n) /= 0. ) z = 1_1
+         ENDDO
+         IF ( use_old ) THEN
+!$acc loop seq
+            DO i = i0, i1
+               IF ( fo(i,k,j,n) /= 0. ) z = 1_1
+            ENDDO
+         ENDIF
+      ENDIF
+      advz(b,k,j,slot0+n) = z
+   ENDDO
+   ENDDO
+   ENDDO
+   ENDDO
+   ! live = any raw flag within 3 rows in j and 2 levels in k
+!$acc parallel loop gang vector collapse(4) present(advz,advm) private(z) async(wrf_gpu_q) if(wrf_gpu_on)
+   DO n = n1, n2
+   DO j = jms, jme
+   DO k = kts, ktf
+   DO b = 0, nb
+      z = 0_1
+!$acc loop seq
+      DO jj = MAX(jms,j-3), MIN(jme,j+3)
+!$acc loop seq
+      DO kk = MAX(kts,k-2), MIN(ktf,k+2)
+         z = IOR( z, advz(b,kk,jj,slot0+n) )
+      ENDDO
+      ENDDO
+      advm(b,k,j,slot0+n) = z
+   ENDDO
+   ENDDO
+   ENDDO
+   ENDDO
+END SUBROUTINE adv_mask_build
 
 SUBROUTINE adv_fuse_get
    CHARACTER(LEN=32) :: v
@@ -4491,6 +4592,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 
    LOGICAL :: specified
    LOGICAL :: fresh_
+   INTEGER :: mn_
 #ifdef WRF_GPU
    ! GPU (managed memory): persistent work arrays instead of per-call automatic arrays
    IF ( ALLOCATED(fqy) ) THEN
@@ -4530,6 +4632,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
 ! WRF_GPU_ADVFUSE=1: y, x and vertical flux divergence in one (i,k,j) kernel. Same flux expressions, boundary
 ! degradation and update order (y, then x, then z) as the three separate kernels below, with no fqy3 scratch.
   fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
+  mn_ = adv_msk_n ; adv_msk_n = 0
   CALL adv_fuse_get
   IF ( IAND(adv_fuse_bits,1) /= 0 .AND. horz_order == 5 .AND. vert_order == 3 .AND. .NOT. config_flags%polar .AND.        &
        .NOT. ( config_flags%open_xs .OR. config_flags%open_xe .OR.                                      &
@@ -4585,12 +4688,16 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
      ALLOCATE( fqx3s(its:ite+1,kts:kte,jts:jte), fqy3s(its:ite,kts:kte,jts:jte+1), fqz3s(its:ite,kts:kte+1,jts:jte) )
 !$acc enter data create(fqx3s, fqy3s, fqz3s)
    ENDIF
+   CALL adv_mask_alloc( ims, ime, kms, kme, jms, jme )
+   IF ( mn_ < 0 .OR. mn_ > adv_msk_slots ) mn_ = 0
+   ! WRF_GPU_ADVMASK: a face is evaluated when either cell next to it is live (slot 0: always)
    ! y faces jp_ = j_start..j_end+1
-!$acc parallel loop gang collapse(2) present(fqy3s) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(fqy3s,advm) async(wrf_gpu_q) if(wrf_gpu_on)
    DO jp_ = j_start, j_end+1
    DO k = kts, ktf
 !$acc loop vector private(vel,ff)
    DO i = its, itf
+     IF ( IOR(advm(ISHFT(i-ims,-4),k,jp_,mn_),advm(ISHFT(i-ims,-4),k,jp_-1,mn_)) == 0_1 ) CYCLE
      IF( (jp_ >= j_start_f ) .and. (jp_ <= j_end_f) ) THEN
        vel = rv(i,k,jp_)
        ff = vel*flux5(                                         &
@@ -4614,11 +4721,12 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ! x faces ii_ = i_start..i_end+1
-!$acc parallel loop gang collapse(2) present(fqx3s) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(fqx3s,advm) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
    DO k = kts, ktf
 !$acc loop vector private(vel,ff)
    DO ii_ = i_start, i_end+1
+     IF ( IOR(advm(ISHFT(ii_-ims,-4),k,j,mn_),advm(ISHFT(ii_-1-ims,-4),k,j,mn_)) == 0_1 ) CYCLE
      IF ( ii_ >= i_start_f .AND. ii_ <= i_end_f ) THEN
        vel = ru(ii_,k,j)
        ff = vel*flux5( field(ii_-3,k,j), field(ii_-2,k,j),  &
@@ -4638,11 +4746,14 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ! z faces kk_ = kts..ktf+1
-!$acc parallel loop gang collapse(2) present(fqz3s) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(fqz3s,advm) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
    DO kk_ = kts, ktf+1
 !$acc loop vector private(vel,ff)
    DO i = its, itf
+     IF ( kk_ > kts .AND. kk_ <= ktf ) THEN
+       IF ( IOR(advm(ISHFT(i-ims,-4),kk_,j,mn_),advm(ISHFT(i-ims,-4),kk_-1,j,mn_)) == 0_1 ) CYCLE
+     ENDIF
      IF ( kk_ == kts .OR. kk_ > ktf ) THEN
        ff = 0.
      ELSE IF ( kk_ == kts+1 .OR. kk_ == ktf ) THEN
@@ -4657,11 +4768,15 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ! divergence, same order as the single kernel: y, then x, then z
-!$acc parallel loop gang collapse(2) present(fqx3s,fqy3s,fqz3s) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(fqx3s,fqy3s,fqz3s,advm) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j = jts, jtf
    DO k = kts, ktf
 !$acc loop vector private(mrdx,mrdy,fl,fr,ub)
    DO i = its, itf
+     IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) THEN   ! dead: every face flux is exactly zero
+       IF ( fresh_ ) tendency(i,k,j) = 0.
+       CYCLE
+     ENDIF
      IF ( fresh_ ) THEN
        ub = 0.
      ELSE
@@ -8803,6 +8918,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    LOGICAL :: degrade_xs, degrade_ys
    LOGICAL :: degrade_xe, degrade_ye
    LOGICAL :: fresh_   ! pdfresh.py
+   INTEGER :: mn_
 
    INTEGER :: jp1, jp0, jtmp
 
@@ -9047,6 +9163,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ! the caller skipped zeroing the tendency (adv_tend_fresh, pdfresh.py): only the fused divergence pass below starts
    ! from 0; on every other path zero the tile here, as the skipped zero_tend did
    fresh_ = adv_tend_fresh ; adv_tend_fresh = .FALSE.
+   ! WRF_GPU_ADVMASK: only on the path where the fused limiter and divergence kernels (bit 16) follow the three
+   ! GPU flux kernels below; everywhere else every face is evaluated (slot 0)
+   mn_ = adv_msk_n ; adv_msk_n = 0
+   CALL adv_fuse_get
+   IF ( mn_ < 0 .OR. mn_ > adv_msk_slots ) mn_ = 0
+   IF ( .NOT. ( IAND(adv_fuse_bits,16) /= 0 .AND. .NOT. tenddec .AND. config_flags%h_sca_adv_order == 5 .AND.     &
+        config_flags%v_sca_adv_order == 3 .AND. .NOT. config_flags%polar .AND. .NOT. ( config_flags%open_xs .OR.  &
+        config_flags%open_xe .OR. config_flags%open_ys .OR. config_flags%open_ye ) ) ) mn_ = 0
+   CALL adv_mask_alloc( ims, ime, kms, kme, jms, jme )
    IF ( fresh_ .AND. .NOT. ( IAND(adv_fuse_bits,16) /= 0 .AND. .NOT. tenddec .AND. .NOT. ( config_flags%open_xs .OR. &
         config_flags%open_xe .OR. config_flags%open_ys .OR. config_flags%open_ye ) ) ) THEN
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -9531,11 +9656,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 !  compute fluxes, 5th order
 
 #ifdef WRF_GPU
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
       j_loop_y_flux_5 : DO j = j_start, j_end+1
         DO k = kts,ktf
 !$acc loop vector private(cr,dy,mu,vel)
         DO i = i_start,i_end
+      IF ( IOR(advm(ISHFT(i-ims,-4),k,j,mn_),advm(ISHFT(i-ims,-4),k,j-1,mn_)) == 0_1 ) CYCLE
       IF( (j >= j_start_f ) .and. (j <= j_end_f) ) THEN ! use full stencil
 
           dy = pdy_(i,j)  ! ADT eqn 48 d/dy
@@ -9746,11 +9872,12 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 #ifdef WRF_GPU_RESIDENT
 ! GPU: gangs over (j,k) (ncu 2026-11-07: one gang per row, 381 blocks, 150 registers, 9.5 ms/step on big1000);
 ! the boundary-degrade levels are a vector loop over the few boundary i values. Same expressions as the row version.
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
         DO k=kts,ktf
 !$acc loop vector private(cr,dx,mu,vel)
         DO i = i_start_f, i_end_f
+          IF ( IOR(advm(ISHFT(i-ims,-4),k,j,mn_),advm(ISHFT(i-1-ims,-4),k,j,mn_)) == 0_1 ) CYCLE
 
           dx = pdx_(i,j)  ! ADT eqn 48 d/dx
           mu = 0.5*((c1(k)*mut(i,j)+c2(k))+(c1(k)*mut(i-1,j)+c2(k)))
@@ -10892,11 +11019,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 #ifdef WRF_GPU_RESIDENT
 ! GPU: gangs over (j,k) with a per-level ladder (zeros at 1 and kde, the kts+1/ktf formula, the interior flux3);
 ! each (i,k) is written by exactly one branch with the row version's expressions (8.6 ms/step on big1000 before).
-!$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop gang collapse(2) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
         DO k = kts, kde
 !$acc loop vector private(cr,dz,mu,vel)
          DO i = i_start, i_end
+           IF ( k > kts .AND. k > 1 .AND. k < kde ) THEN
+             IF ( IOR(advm(ISHFT(i-ims,-4),k,j,mn_),advm(ISHFT(i-ims,-4),k-1,j,mn_)) == 0_1 ) CYCLE
+           ENDIF
            IF ( k == 1 .OR. k == kde ) THEN
              fqz(i,k,j)  = 0.
              fqzl(i,k,j) = 0.
@@ -11070,10 +11200,11 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
 ! WRF_GPU_ADVFUSE bit 16: low-order solution, outgoing flux and rescaling in one kernel (ph_low/flux_out kept in
 ! registers). A cell rescales only its outgoing faces and reads only the outgoing part of each face flux, so the
 ! neighbours' rescaling never changes what it reads -> same results as the three kernels below
-!$acc parallel loop collapse(3) private(scale,ub,vb) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(scale,ub,vb) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
    DO j=j_start, j_end
    DO k=kts, ktf
    DO i=i_start, i_end
+     IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) CYCLE   ! dead: all six fluxes zero, nothing to limit
      ub = ((c1(k)*mub(i,j)+c2(k))+(c1(k)*mu_old(i,j)))*field_old(i,k,j) &
                 - dt*( msftx(i,j)*msfty(i,j)*(               &
                        rdx*(fqxl(i+1,k,j)-fqxl(i,k,j)) +     &
@@ -11184,10 +11315,14 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    jmax = j_end
    IF(degrade_ys) jmin = MAX(jts,jds+1)
    IF(degrade_ye) jmax = MIN(jte,jde-2)
-!$acc parallel loop collapse(3) private(ub) async(wrf_gpu_q) if(wrf_gpu_on)
+!$acc parallel loop collapse(3) private(ub) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
   DO j = j_start, j_end
   DO k = kts, ktf
   DO i = i_start, i_end
+     IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) THEN   ! dead: every face flux is exactly zero
+       IF ( fresh_ ) tendency(i,k,j) = 0.
+       CYCLE
+     ENDIF
      IF ( fresh_ ) THEN
        ub = 0.
      ELSE

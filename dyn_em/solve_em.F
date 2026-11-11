@@ -129,6 +129,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q
    USE module_bc, ONLY : wrf_gpu_xw_skip
+   USE module_advect_em, ONLY : adv_mask_init, adv_mask_build, adv_msk_on, adv_msk_n, adv_msk_slots, adv_upd_n
 #ifdef WRF_GPU_RESIDENT
    USE module_radiation_driver, ONLY : wrf_gpu_ra_ran, wrf_gpu_ra_pullre, wrf_gpu_ra_lw, wrf_gpu_ra_sw, wrf_gpu_lean_step
 #ifdef WRF_GPU_RESIDENT
@@ -225,8 +226,8 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL                        :: early_rkt
    INTEGER, SAVE                  :: earlydyn = -1
    INTEGER, SAVE                  :: c2half = -1   ! WRF_GPU_C2HALF
-   INTEGER                        :: c2one_
    INTEGER, SAVE                  :: deflean = -1  ! WRF_GPU_DEFLEAN (1 on = default, 0 off, 2 verify with NaN fill)
+   INTEGER                        :: c2one_
    ! WRF_GPU_C2AVOID (1 on, 2 verify): every small step also computes the south halo row jts-1 locally (advance_mu_t
    ! in an extra call after HALO_EM_C; the t/mu/muts/ph/w boundary updates, advance_w and calc_p_rho start at jts-1),
    ! from a one-way stage-start exchange of
@@ -670,7 +671,6 @@ SUBROUTINE solve_em ( grid , config_flags  &
    endif
    IF (config_flags%nwp_diagnostics == 1) diag_flag = .true.
 
-   grid%itimestep = grid%itimestep + 1
 #ifdef WRF_GPU_RESIDENT
    ! WRF_GPU_DEFLEAN: with diff_opt=1 + km_opt=4 (2-D Smagorinsky on model surfaces) and no NBA only defor11, defor22
    ! and defor12 are read; div, defor33, defor13, defor23 (cal_deform_and_div) and BN2 (calculate_N2) are restart-only
@@ -686,6 +686,7 @@ SUBROUTINE solve_em ( grid , config_flags  &
         config_flags%sfs_opt == 0 .AND. .NOT. restart_flag ) wrf_gpu_deflean = deflean
 #endif
 
+   grid%itimestep = grid%itimestep + 1
    grid%dtbc = grid%dtbc + grid%dt
 
    IF( coupler_on ) CALL cpl_store_input( grid, config_flags )
@@ -3169,6 +3170,17 @@ BENCH_END(small_step_finish_tim)
 #endif
        moist_scalar_advance: IF (num_3d_m >= PARAM_FIRST_SCALAR )  THEN
 
+#ifdef WRF_GPU
+         ! WRF_GPU_ADVMASK=1: live-block masks of the hydrometeors for this stage's advection, from the arrays as they
+         ! are now (the stage field; on the positive-definite stage also the pd-updated old field). Each species'
+         ! pass below changes only its own field, after its advection. Slots 1..12 moist, 13..24 scalar.
+         IF ( adv_msk_on < 0 ) CALL adv_mask_init
+         IF ( adv_msk_on > 0 .AND. wrf_gpu_on .AND. grid%adv_moist_cond ) THEN
+            CALL adv_mask_build( moist, moist_old, rk_step == rk_order, PARAM_FIRST_SCALAR,                    &
+                                 MIN(num_3d_m,adv_msk_slots/2), P_QV, 0, num_moist,                            &
+                                 ims, ime, kms, kme, jms, jme, k_start, MIN(k_end,kde-1) )
+         ENDIF
+#endif
          moist_variable_loop: DO im = PARAM_FIRST_SCALAR, num_3d_m
 
 ! adv_moist_cond is set in module_physics_init based on mp_physics choice
@@ -3192,6 +3204,10 @@ BENCH_END(small_step_finish_tim)
 #endif
 
 BENCH_START(rk_scalar_tend_tim)
+#ifdef WRF_GPU
+               adv_msk_n = 0
+               IF ( adv_msk_on > 0 .AND. wrf_gpu_on .AND. im /= P_QV .AND. im <= adv_msk_slots/2 ) adv_msk_n = im
+#endif
                CALL rk_scalar_tend (  im, im, config_flags, tenddec,         & 
                            rk_step, dt_rk,                                   &
                            grid%ru_m, grid%rv_m, grid%ww_m, wwE, wwI,        &
@@ -3218,6 +3234,9 @@ BENCH_START(rk_scalar_tend_tim)
                            grid%i_start(ij), grid%i_end(ij), &
                            grid%j_start(ij), grid%j_end(ij), &
                            k_start    , k_end               )
+#ifdef WRF_GPU
+               adv_msk_n = 0
+#endif
 
                IF( rk_step == 1 .AND. config_flags%use_q_diabatic == 1 )THEN
                IF( im.eq.p_qv .or. im.eq.p_qc )THEN
@@ -3294,6 +3313,10 @@ BENCH_END(rlx_bdy_scalar_tim)
 #endif
 
 BENCH_START(update_scal_tim)
+#ifdef WRF_GPU
+               adv_upd_n = 0
+               IF ( adv_msk_on > 1 .AND. wrf_gpu_on .AND. im /= P_QV .AND. im <= adv_msk_slots/2 ) adv_upd_n = im
+#endif
                CALL rk_update_scalar( scs=im, sce=im,                                  &
                                scalar_1=moist_old(ims,kms,jms,im),                     &
                                scalar_2=moist(ims,kms,jms,im),                         &
@@ -3857,6 +3880,14 @@ BENCH_END(tracer_adv_tim)
 !  next the other scalar species
      other_scalar_advance: IF (num_3d_s >= PARAM_FIRST_SCALAR)  THEN
 
+#ifdef WRF_GPU
+       IF ( adv_msk_on < 0 ) CALL adv_mask_init
+       IF ( adv_msk_on > 0 .AND. wrf_gpu_on ) THEN
+          CALL adv_mask_build( scalar, scalar_old, rk_step == rk_order, PARAM_FIRST_SCALAR,                    &
+                               MIN(num_3d_s,adv_msk_slots/2), 0, adv_msk_slots/2, num_scalar,                  &
+                               ims, ime, kms, kme, jms, jme, k_start, MIN(k_end,kde-1) )
+       ENDIF
+#endif
        scalar_variable_loop: do is = PARAM_FIRST_SCALAR, num_3d_s
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij, tenddec )
@@ -3864,6 +3895,10 @@ BENCH_END(tracer_adv_tim)
 
            CALL wrf_debug ( 200 , ' call rk_scalar_tend' )
            tenddec = .false.
+#ifdef WRF_GPU
+           adv_msk_n = 0
+           IF ( adv_msk_on > 0 .AND. wrf_gpu_on .AND. is <= adv_msk_slots/2 ) adv_msk_n = adv_msk_slots/2 + is
+#endif
            CALL rk_scalar_tend ( is, is, config_flags, tenddec,                   & 
                                  rk_step, dt_rk,                                  &
                                  grid%ru_m, grid%rv_m, grid%ww_m, wwE, wwI,       &
@@ -3890,6 +3925,9 @@ BENCH_END(tracer_adv_tim)
                                  grid%i_start(ij), grid%i_end(ij), &
                                  grid%j_start(ij), grid%j_end(ij), &
                                  k_start    , k_end               )
+#ifdef WRF_GPU
+           adv_msk_n = 0
+#endif
 
            IF( rk_step == 1 ) THEN
              IF ( config_flags%nested .OR. &
@@ -3939,6 +3977,10 @@ BENCH_END(tracer_adv_tim)
 
            CALL wrf_debug ( 200 , ' call rk_update_scalar' )
            tenddec = .false.
+#ifdef WRF_GPU
+           adv_upd_n = 0
+           IF ( adv_msk_on > 1 .AND. wrf_gpu_on .AND. is <= adv_msk_slots/2 ) adv_upd_n = adv_msk_slots/2 + is
+#endif
            CALL rk_update_scalar( scs=is, sce=is,                                         &
                                   scalar_1=scalar_old(ims,kms,jms,is),                    &
                                   scalar_2=scalar(ims,kms,jms,is),                        &
