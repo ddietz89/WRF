@@ -578,7 +578,7 @@ contains
    ENDIF
    IF ( tie_merge == 1 ) THEN
 !$acc parallel loop gang vector copyin(sig1) present(cu_li, cu_lj) &
-!$acc private(slimsk,ktype,prsi,prsl,q1,q2,q3,t1,u1,v1,m_ztp1,m_zqp1,m_pum1,m_pvm1,m_pverv,m_pgeo,m_pqte,m_zqq) &
+!$acc private(slimsk,ktype,prsi,prsl,q1,q2,q3,t1,u1,v1,m_zqp1,m_pverv,m_pgeo,m_pqte,m_zqq) &
 !$acc private(m_ptte,m_pcte,m_pvom,m_pvol,m_zqsat,m_ztu,m_zqu,m_zlu,m_zlude,m_zmfu,m_zmfd) &
 !$acc private(m_pqhfl,m_paprc,m_paprs,m_prsfc,m_pssfc,m_paprsm,m_zrain,m_icbot,m_ictop,m_locum)
    do n_ = 1, ncol_
@@ -600,17 +600,16 @@ contains
         m_pcte(1,zz)=0.0
         m_pvom(1,zz)=0.0
         m_pvol(1,zz)=0.0
-        m_ztp1(1,zz)=t3d(i,k,j)
+        ! GPU (2026-11-10): cumastr_new_g and its callees only read pten/puen/pven, so the driver's t1/u1/v1 (same
+        ! values, modified only in the output stage after the call) are passed instead of separate copies
         m_zqp1(1,zz)=qv3d(i,k,j)/(1.0+qv3d(i,k,j))
-        m_pum1(1,zz)=u3d(i,k,j)
-        m_pvm1(1,zz)=v3d(i,k,j)
         t1(1,zz)=t3d(i,k,j)
         u1(1,zz)=u3d(i,k,j)
         v1(1,zz)=v3d(i,k,j)
         m_pverv(1,zz)=-0.5*g*rho3d(i,k,j)*(w(i,k,j)+w(i,k+1,j))
         m_pgeo(1,zz)=g*m_zlk
         prsl(1,zz) = pcps(i,k,j)
-        m_tt=m_ztp1(1,zz)
+        m_tt=t1(1,zz)
         m_zqsat(1,zz)=tlucua(m_tt)/prsl(1,zz)
         m_zqsat(1,zz)=min(0.5,m_zqsat(1,zz))
         m_zqsat(1,zz)=m_zqsat(1,zz)/(1.-vtmpc1*m_zqsat(1,zz))
@@ -640,8 +639,8 @@ contains
       m_paprsm(1)=0.0
       m_pqhfl(1)=qfx(i,j)
       call cumastr_new_g &
-         (1,        kx,       kx+1,     kx-1,    m_ztp1,   &
-          m_zqp1,   m_pum1,   m_pvm1,   m_pverv, m_zqsat,  &
+         (1,        kx,       kx+1,     kx-1,    t1,       &
+          m_zqp1,   u1,       v1,       m_pverv, m_zqsat,  &
           m_pqhfl,  delt,     prsl,     prsi,    m_pgeo,   &
           m_ptte,   m_pqte,   m_pvom,   m_pvol,  m_prsfc,  &
           m_pssfc,  m_paprc,  m_paprsm, m_paprs, m_locum,  &
@@ -673,7 +672,7 @@ contains
       enddo
       endif
       do k=1,kx
-        t1(1,k)=m_ztp1(1,k)+m_ptte(1,k)*delt
+        t1(1,k)=t1(1,k)+m_ptte(1,k)*delt
         m_zqp1(1,k)=m_zqp1(1,k)+(m_pqte(1,k)-m_zqq(1,k))*delt
         q1(1,k)=m_zqp1(1,k)/(1.0-m_zqp1(1,k))
       enddo

@@ -1034,6 +1034,9 @@
 !
       REAL :: A,ADEN,B,BDEN,AUBR,BUBR,BLMX,EL0,ELOQ2X,GHL,GML           &
      &       ,QOL2ST,QOL2UN,QDZL,RDZ,SQ,SREL,SZQ,TEM,THM,VKRMZ
+#ifdef WRF_GPU
+      REAL :: Q1K,Q1N
+#endif
 !
 #ifdef WRF_GPU
       REAL,DIMENSION(1:KMAXP) :: Q1
@@ -1066,9 +1069,11 @@
  110  PBLH=Z(LPBL+1)-Z(LMH+1)
 !
 !-----------------------------------------------------------------------
+#ifndef WRF_GPU
       DO K=KTS,LMH
         Q1(K)=0.
       ENDDO
+#endif
 !
       DO K=1,LMH-1
         DTH(K)=THE(K)-THE(K+1)
@@ -1143,15 +1148,36 @@
       MIXHT=BLMX              !PLee (3/07)
 !
 !----------------------------------------------------------------------
+#ifndef WRF_GPU
       DO K=LPBL,LMH
         Q1(K)=SQRT(Q2(K))
       ENDDO
+#endif
 !----------------------------------------------------------------------
       SZQ=0.
       SQ =0.
 !
+#ifdef WRF_GPU
+      ! GPU (2026-11-10): Q1(K) (0 below LPBL, SQRT(Q2) from LPBL on) formed per level in the sum, the level above
+      ! carried in a register; same values and operations as the Q1 array passes kept for the host build
+      IF ( KTS >= LPBL ) THEN
+        Q1K=SQRT(Q2(KTS))
+      ELSE
+        Q1K=0.
+      ENDIF
+#endif
       DO K=KTS,LMH-1
+#ifdef WRF_GPU
+        IF ( K+1 >= LPBL ) THEN
+          Q1N=SQRT(Q2(K+1))
+        ELSE
+          Q1N=0.
+        ENDIF
+        QDZL=(Q1K+Q1N)*(Z(K+1)-Z(K+2))
+        Q1K=Q1N
+#else
         QDZL=(Q1(K)+Q1(K+1))*(Z(K+1)-Z(K+2))
+#endif
         SZQ=(Z(K+1)+Z(K+2)-Z(LMH+1)-Z(LMH+1))*QDZL+SZQ
         SQ=QDZL+SQ
       ENDDO
