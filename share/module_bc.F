@@ -232,6 +232,7 @@ CONTAINS
 !  is used, as this is only required at the end of the domain.
 
       IMPLICIT NONE
+      LOGICAL :: bc2_xfused, bc2_ustag
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde
       INTEGER,      INTENT(IN   )    :: ims,ime, jms,jme
@@ -398,10 +399,36 @@ CONTAINS
 
 !  set open b.c in X copy into boundary zone here.  WCS, 19 March 2000
 
+        bc2_xfused = .FALSE.
+#ifdef WRF_GPU
+        ! GPU: west and east copies of the specified/nested case in one launch (pure copies to disjoint columns,
+        ! same row range and values as the two kernels below, which stay for the host and the other cases)
+        IF ( wrf_gpu_on .AND. ( config_flags%specified .OR. config_flags%nested ) .AND. open_bc_copy .AND.      &
+             its == ids .AND. ite == ide .AND. .NOT. config_flags%periodic_x .AND.                              &
+             .NOT. config_flags%symmetric_xs .AND. .NOT. config_flags%symmetric_xe ) THEN
+          bc2_xfused = .TRUE.
+          bc2_ustag = ( variable == 'u' .or. variable == 'x' )
+!$acc parallel loop async(wrf_gpu_q)
+          DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
+            dat(ids-1,j) = dat(ids,j)
+            dat(ids-2,j) = dat(ids,j)
+            dat(ids-3,j) = dat(ids,j)
+            IF ( .NOT. bc2_ustag ) THEN
+              dat(ide  ,j) = dat(ide-1,j)
+              dat(ide+1,j) = dat(ide-1,j)
+              dat(ide+2,j) = dat(ide-1,j)
+            ELSE
+              dat(ide+1,j) = dat(ide,j)
+              dat(ide+2,j) = dat(ide,j)
+              dat(ide+3,j) = dat(ide,j)
+            ENDIF
+          ENDDO
+        ENDIF
+#endif
         open_xs: IF( ( config_flags%open_xs   .or. &
                        config_flags%specified .or. &
                        config_flags%nested            ) .and.  &
-                         ( its == ids ) .and. open_bc_copy  )  THEN
+                         ( its == ids ) .and. open_bc_copy .and. .not. bc2_xfused )  THEN
 
 !$acc parallel loop async(wrf_gpu_q) if(wrf_gpu_on)
             DO j = MAX(jds,jts-1), MIN(jte+1,jde+jstag)
@@ -418,7 +445,7 @@ CONTAINS
         open_xe: IF( ( config_flags%open_xe   .or. &
                        config_flags%specified .or. &
                        config_flags%nested            ) .and.  &
-                          ( ite == ide ) .and. open_bc_copy  )  THEN
+                          ( ite == ide ) .and. open_bc_copy .and. .not. bc2_xfused )  THEN
 
           IF ( variable /= 'u' .and. variable /= 'x') THEN
 
@@ -1595,6 +1622,7 @@ CONTAINS
 !  (JD July 2000)
 
       IMPLICIT NONE
+      INTEGER :: sbt_nxs, sbt_nxe, sbt_ixe, m_
       CHARACTER(LEN=8) :: bcyv_
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
@@ -1696,6 +1724,32 @@ CONTAINS
       ENDIF
 
     IF(.NOT.periodic_x)THEN
+#ifdef WRF_GPU
+      ! GPU: X-start and X-end in one launch when both apply and their i ranges are disjoint (pure copies)
+      sbt_nxs = MIN(itf,ibs+spec_zone-1) - its + 1
+      sbt_ixe = MAX(its,ibe-spec_zone+1) ; sbt_nxe = itf - sbt_ixe + 1
+      IF ( wrf_gpu_on .AND. its - ibs .lt. spec_zone .AND. ibe - itf .lt. spec_zone .AND. sbt_nxs > 0 .AND.       &
+           sbt_nxe > 0 .AND. MIN(itf,ibs+spec_zone-1) < sbt_ixe ) THEN
+!$acc parallel loop gang collapse(2) private(i,b_dist) async(wrf_gpu_q)
+        DO m_ = 1, sbt_nxs + sbt_nxe
+          DO k = kts, ktf
+            IF ( m_ <= sbt_nxs ) THEN
+              i = its + m_ - 1 ; b_dist = i - ibs
+!$acc loop vector
+              DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
+                field_tend(i,k,j) = field_bdy_tend_xs(j, k, b_dist+1)
+              ENDDO
+            ELSE
+              i = sbt_ixe + m_ - sbt_nxs - 1 ; b_dist = ibe - i
+!$acc loop vector
+              DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
+                field_tend(i,k,j) = field_bdy_tend_xe(j, k, b_dist+1)
+              ENDDO
+            ENDIF
+          ENDDO
+        ENDDO
+      ELSE
+#endif
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
 !$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -1723,6 +1777,9 @@ CONTAINS
           ENDDO
         ENDDO
       ENDIF
+#ifdef WRF_GPU
+      ENDIF
+#endif
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
@@ -2159,6 +2216,7 @@ CONTAINS
 !  (JD August 2000)
 
       IMPLICIT NONE
+      INTEGER :: sbu_nxs, sbu_nxe, sbu_ixe, m_
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
       INTEGER,      INTENT(IN   )    :: ims,ime, jms,jme, kms,kme
@@ -2233,6 +2291,29 @@ CONTAINS
       ENDIF
 
     IF(.NOT.periodic_x)THEN
+#ifdef WRF_GPU
+      ! GPU: X-start and X-end in one launch when both apply and their i ranges are disjoint (same expressions,
+      ! each point updated once as before)
+      sbu_nxs = MIN(itf,ibs+spec_zone-1) - its + 1
+      sbu_ixe = MAX(its,ibe-spec_zone+1) ; sbu_nxe = itf - sbu_ixe + 1
+      IF ( wrf_gpu_on .AND. its - ibs .lt. spec_zone .AND. ibe - itf .lt. spec_zone .AND. sbu_nxs > 0 .AND.       &
+           sbu_nxe > 0 .AND. MIN(itf,ibs+spec_zone-1) < sbu_ixe ) THEN
+!$acc parallel loop gang collapse(2) private(i,b_dist) async(wrf_gpu_q)
+        DO m_ = 1, sbu_nxs + sbu_nxe
+          DO k = kts, ktf
+            IF ( m_ <= sbu_nxs ) THEN
+              i = its + m_ - 1 ; b_dist = i - ibs
+            ELSE
+              i = sbu_ixe + m_ - sbu_nxs - 1 ; b_dist = ibe - i
+            ENDIF
+!$acc loop vector
+            DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
+              field(i,k,j) = field(i,k,j) + dt*field_tend(i,k,j)
+            ENDDO
+          ENDDO
+        ENDDO
+      ELSE
+#endif
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
 !$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -2260,6 +2341,9 @@ CONTAINS
           ENDDO
         ENDDO
       ENDIF
+#ifdef WRF_GPU
+      ENDIF
+#endif
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
@@ -2574,6 +2658,7 @@ CONTAINS
 !  (JD August 2000)
 
       IMPLICIT NONE
+      INTEGER :: fdb_nxs, fdb_nxe, fdb_ixe, m_
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
       INTEGER,      INTENT(IN   )    :: ims,ime, jms,jme, kms,kme
@@ -2647,6 +2732,44 @@ CONTAINS
       ENDIF
 
     IF(.NOT.periodic_x)THEN
+#ifdef WRF_GPU
+      ! GPU: X-start and X-end in one launch when both apply and their i ranges are disjoint (each side reads only
+      ! u and the inner column ibs+spec_zone / ibe-spec_zone, which neither side writes)
+      fdb_nxs = MIN(itf,ibs+spec_zone-1) - its + 1
+      fdb_ixe = MAX(its,ibe-spec_zone+1) ; fdb_nxe = itf - fdb_ixe + 1
+      IF ( wrf_gpu_on .AND. its - ibs .lt. spec_zone .AND. ibe - itf .lt. spec_zone .AND. fdb_nxs > 0 .AND.       &
+           fdb_nxe > 0 .AND. MIN(itf,ibs+spec_zone-1) < fdb_ixe .AND. ibs+spec_zone < fdb_ixe .AND.                &
+           ibe-spec_zone > MIN(itf,ibs+spec_zone-1) ) THEN
+!$acc parallel loop gang collapse(2) private(i,b_dist) async(wrf_gpu_q)
+        DO m_ = 1, fdb_nxs + fdb_nxe
+          DO k = kts, ktf
+            IF ( m_ <= fdb_nxs ) THEN
+              i = its + m_ - 1 ; b_dist = i - ibs
+            ELSE
+              i = fdb_ixe + m_ - fdb_nxs - 1 ; b_dist = ibe - i
+            ENDIF
+!$acc loop vector private(j_inner)
+            DO j = max(jts,b_dist+jbs+1), min(jtf,jbe-b_dist-1)
+              j_inner = max(j,jbs+spec_zone)
+              j_inner = min(j_inner,jbe-spec_zone)
+              IF ( m_ <= fdb_nxs ) THEN
+                IF(u(i,k,j) .lt. 0.)THEN
+                  field(i,k,j) = field(ibs+spec_zone,k,j_inner)
+                ELSE
+                  field(i,k,j) = 0.
+                ENDIF
+              ELSE
+                IF(u(i+1,k,j) .gt. 0.)THEN
+                  field(i,k,j) = field(ibe-spec_zone,k,j_inner)
+                ELSE
+                  field(i,k,j) = 0.
+                ENDIF
+              ENDIF
+            ENDDO
+          ENDDO
+        ENDDO
+      ELSE
+#endif
       IF (its - ibs .lt. spec_zone) THEN
 ! X-start boundary
 !$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -2686,6 +2809,9 @@ CONTAINS
           ENDDO
         ENDDO
       ENDIF
+#ifdef WRF_GPU
+      ENDIF
+#endif
     ENDIF
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
