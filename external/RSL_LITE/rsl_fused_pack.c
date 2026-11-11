@@ -54,3 +54,24 @@ void rsl_fused_flush_ ( int * q ) {
   }
   ntab = 0 ;
 }
+
+/* WRF_GPU_P2PASYNC=3 counter flags (rsl_p2p.c): write / spin-wait on an int in (possibly peer, IPC-mapped) device
+   memory from a 1-thread kernel on queue 1 */
+void rsl_fl_put ( unsigned long long a, int v )
+{
+  int * p = (int *)a ;
+  #pragma acc serial deviceptr(p) async(1)
+  { p[0] = v ; }
+}
+void rsl_fl_wait ( unsigned long long a, int v )
+{
+  volatile int * p = (volatile int *)a ;
+  #pragma acc serial deviceptr(p) async(1)
+  { int x = p[0] ; while ( x < v ) x = p[0] ; }
+}
+void rsl_fl_zero ( unsigned long long a, int n )
+{
+  int * p = (int *)a ;
+  #pragma acc parallel loop deviceptr(p)
+  for ( int i = 0 ; i < n ; i++ ) p[i] = 0 ;
+}

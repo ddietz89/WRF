@@ -74,6 +74,9 @@
 #if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER(1), POINTER :: bp(:)
         INTEGER :: l
+        INTEGER, SAVE :: nowait_ = -1
+        INTEGER :: nwst_
+        CHARACTER(LEN=8) :: nwv_
         LOGICAL, EXTERNAL :: rsl_gpu_batch_on
         rsl_gpu_q = acc_async_sync
         IF ( .NOT. rsl_gpu_batch_on() ) RETURN
@@ -82,7 +85,18 @@
         rsl_gpu_q = 1
         IF ( ispack == 1 ) THEN
           IF ( rsl_gpu_need_wait ) THEN
+            ! WRF_GPU_P2PNOWAIT=1 (with P2PASYNC): no queue drain at the first pack of an exchange (packs, copies and
+            ! unpacks are all ordered on queue 1; the host-staged MPI paths wait in their own flush)
+            IF ( nowait_ < 0 ) THEN
+              CALL get_environment_variable( 'WRF_GPU_P2PNOWAIT', nwv_, l, nwst_ )
+              nowait_ = 0
+              IF ( nwst_ == 0 .AND. l > 0 ) THEN
+                IF ( nwv_(1:1) == '1' ) nowait_ = 1
+              ENDIF
+            ENDIF
+            IF ( nowait_ == 0 ) THEN
 !$acc wait(1)
+            ENDIF
             rsl_gpu_need_wait = .FALSE.
           ENDIF
           ! extend a recent segment that ends at addr (packs alternate between the two neighbours' buffers
@@ -225,11 +239,19 @@
 #if defined(_OPENACC) || defined(WRF_GPU)
         INTEGER(1), POINTER :: bp(:)
         LOGICAL, EXTERNAL :: rsl_gpu_batch_on
+        INTEGER, SAVE :: async_on = -1
+        INTEGER, EXTERNAL :: rsl_p2p_async_on
         rsl_gpu_need_wait = .TRUE.
         IF ( nbytes <= 0 ) RETURN
         IF ( .NOT. rsl_gpu_batch_on() ) RETURN
         CALL c_f_pointer( TRANSFER(addr, c_null_ptr), bp, (/ nbytes /) )
         IF ( .NOT. acc_is_present( bp ) ) RETURN
+        ! WRF_GPU_P2PASYNC: the receive mirror may still be read by unpacks of an earlier P2P exchange queued on
+        ! queue 1 (this synchronous update does not wait for them)
+        IF ( async_on < 0 ) async_on = rsl_p2p_async_on()
+        IF ( async_on /= 0 ) THEN
+!$acc wait(1)
+        ENDIF
 !$acc update device(bp)
 #endif
       END SUBROUTINE rsl_gpu_recv_push
