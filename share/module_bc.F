@@ -16,6 +16,11 @@ MODULE module_bc
    ! exit '!$acc wait' (all work is launched by one host thread on queue wrf_gpu_q, so it stays ordered; solve_em
    ! waits once at the end of each RK stage)
    LOGICAL :: wrf_gpu_xw_skip = .FALSE.
+   ! WRF_GPU_ADVMASK live-block flags (filled in module_advect_em, adv_mask_build); here so horizontal_diffusion can
+   ! read them too. adv_hd_n = mask slot for the next scalar horizontal_diffusion call (0 = no mask).
+   INTEGER(1), ALLOCATABLE, SAVE :: advm(:,:,:,:)
+   INTEGER, SAVE :: adv_hd_n = 0
+   INTEGER, SAVE :: bcyold_ = -1   ! WRF_GPU_BCYOLD=1 (bisect): north-boundary relax/spec kernels gang over j only
 
 !   TYPE bcs
 !
@@ -1334,6 +1339,7 @@ CONTAINS
 !  (JD July 2000)
 
       IMPLICIT NONE
+      CHARACTER(LEN=8) :: bcyv_
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
       INTEGER,      INTENT(IN   )    :: ims,ime, jms,jme, kms,kme
@@ -1422,13 +1428,19 @@ CONTAINS
 
 
 ! Y-end boundary
+! GPU: gangs over (j,k) like the Y-start kernel (was gang over j only: a few gangs, each a whole k-i plane);
+! same expressions and points
+        IF ( bcyold_ < 0 ) THEN
+          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_BCYOLD', bcyv_ )
+          bcyold_ = 0
+          IF ( bcyv_(1:1) == '1' ) bcyold_ = 1
+        ENDIF
+        IF ( bcyold_ .EQ. 1 ) THEN
 !$acc parallel loop gang private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-relax_zone+1), min(jtf,jbe-spec_zone)
           b_dist = jbe - j
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
-
-
 !$acc loop vector collapse(2) private(fls0,fls1,fls2,fls3,fls4,im1,ip1)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
@@ -1456,6 +1468,40 @@ CONTAINS
             ENDDO
           ENDDO
         ENDDO
+        ELSE
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
+        DO j = max(jts,jbe-relax_zone+1), min(jtf,jbe-spec_zone)
+          DO k = kts, ktf
+          b_dist = jbe - j
+          b_limit = b_dist
+          IF(periodic_x)b_limit = 0
+!$acc loop vector private(fls0,fls1,fls2,fls3,fls4,im1,ip1)
+            DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
+              im1 = max(i-1,ibs)
+              ip1 = min(i+1,ibe)
+              fls0 = field_bdy_ye(i, k, b_dist+1) &
+                   + dtbc * field_bdy_tend_ye(i, k, b_dist+1) &
+                   - field(i,k,j)
+              fls1 = field_bdy_ye(im1, k, b_dist+1) &
+                   + dtbc * field_bdy_tend_ye(im1, k, b_dist+1) &
+                   - field(im1,k,j)
+              fls2 = field_bdy_ye(ip1, k, b_dist+1) &
+                   + dtbc * field_bdy_tend_ye(ip1, k, b_dist+1) &
+                   - field(ip1,k,j)
+              fls3 = field_bdy_ye(i, k, b_dist) &
+                   + dtbc * field_bdy_tend_ye(i, k, b_dist) &
+                   - field(i,k,j+1)
+              fls4 = field_bdy_ye(i, k, b_dist+2) &
+                   + dtbc * field_bdy_tend_ye(i, k, b_dist+2) &
+                   - field(i,k,j-1)
+              field_tend(i,k,j) = field_tend(i,k,j) &
+                                + fcx(b_dist+1)*fls0 &
+                                - gcx(b_dist+1)*(fls1+fls2+fls3+fls4-4.*fls0)
+
+            ENDDO
+          ENDDO
+        ENDDO
+        ENDIF
       ENDIF
 
     IF(.NOT.periodic_x)THEN
@@ -1549,6 +1595,7 @@ CONTAINS
 !  (JD July 2000)
 
       IMPLICIT NONE
+      CHARACTER(LEN=8) :: bcyv_
 
       INTEGER,      INTENT(IN   )    :: ids,ide, jds,jde, kds,kde
       INTEGER,      INTENT(IN   )    :: ims,ime, jms,jme, kms,kme
@@ -1612,13 +1659,19 @@ CONTAINS
 
 
 ! Y-end boundary
+! GPU: gangs over (j,k) like the Y-start kernel (was gang over j only: a few gangs, each a whole k-i plane);
+! same expressions and points
+        IF ( bcyold_ < 0 ) THEN
+          CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_BCYOLD', bcyv_ )
+          bcyold_ = 0
+          IF ( bcyv_(1:1) == '1' ) bcyold_ = 1
+        ENDIF
+        IF ( bcyold_ .EQ. 1 ) THEN
 !$acc parallel loop gang private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
         DO j = max(jts,jbe-spec_zone+1), jtf
           b_dist = jbe - j
           b_limit = b_dist
           IF(periodic_x)b_limit = 0
-
-
 !$acc loop vector collapse(2)
           DO k = kts, ktf
             DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
@@ -1626,6 +1679,20 @@ CONTAINS
             ENDDO
           ENDDO
         ENDDO
+        ELSE
+!$acc parallel loop gang collapse(2) private(b_dist,b_limit) async(wrf_gpu_q) if(wrf_gpu_on)
+        DO j = max(jts,jbe-spec_zone+1), jtf
+          DO k = kts, ktf
+          b_dist = jbe - j
+          b_limit = b_dist
+          IF(periodic_x)b_limit = 0
+!$acc loop vector
+            DO i = max(its,b_limit+ibs), min(itf,ibe-b_limit)
+              field_tend(i,k,j) = field_bdy_tend_ye(i, k, b_dist+1)
+            ENDDO
+          ENDDO
+        ENDDO
+        ENDIF
       ENDIF
 
     IF(.NOT.periodic_x)THEN

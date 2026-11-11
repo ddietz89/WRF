@@ -35,6 +35,11 @@ static int (*cu_ev_create)(void **, unsigned int) ;
 static int (*cu_ev_record)(void *, void *) ;
 static int (*cu_ev_sync)(void *) ;
 static void * (*acc_stream)(int) ;
+/* WRF_GPU_P2PASYNC=1 */
+static int (*cu_ipc_ev_get)(ipch_t *, void *) ;
+static int (*cu_ipc_ev_open)(void **, ipch_t) ;
+static int (*cu_wait_ev)(void *, void *, unsigned int) ;
+static int (*cu_d2d_async)(unsigned long long, unsigned long long, size_t, void *) ;
 
 int rsl_p2p_enabled ( void )
 {
@@ -57,6 +62,10 @@ int rsl_p2p_enabled ( void )
         cu_ev_create = (int(*)(void**,unsigned int))dlsym(h,"cuEventCreate") ;
         cu_ev_record = (int(*)(void*,void*))dlsym(h,"cuEventRecord") ;
         cu_ev_sync = (int(*)(void*))dlsym(h,"cuEventSynchronize") ;
+        cu_ipc_ev_get = (int(*)(ipch_t*,void*))dlsym(h,"cuIpcGetEventHandle") ;
+        cu_ipc_ev_open = (int(*)(void**,ipch_t))dlsym(h,"cuIpcOpenEventHandle") ;
+        cu_wait_ev = (int(*)(void*,void*,unsigned int))dlsym(h,"cuStreamWaitEvent") ;
+        cu_d2d_async = (int(*)(unsigned long long,unsigned long long,size_t,void*))dlsym(h,"cuMemcpyDtoDAsync_v2") ;
       }
       acc_stream = (void*(*)(int))dlsym(RTLD_DEFAULT,"acc_get_cuda_stream") ;
       acc_map = (void(*)(void*,void*,size_t))dlsym(RTLD_DEFAULT,"acc_map_data") ;
@@ -94,7 +103,41 @@ int rsl_p2p_recv_map ( int P, char * host, int n, int on )
 }
 
 #ifndef STUBMPI
-typedef struct { int alldev ; int nbytes ; int rexp ; int cap ; ipch_t h ; unsigned long long host ; } tok_t ;
+typedef struct { int alldev ; int nbytes ; int rexp ; int cap ; ipch_t h ; unsigned long long host ; int async ; ipch_t evr ; ipch_t evd ; } tok_t ;
+/* WRF_GPU_P2PASYNC=1: no host wait in a P2P exchange. Per neighbour P this rank owns two interprocess events:
+   evr[P] ("my receive buffer for P is free": recorded on the queue-1 stream when the exchange starts, i.e. after
+   the unpacks of the previous exchange) and evd[P] ("my data is in P's receive buffer": recorded after the copy).
+   The copy into P's buffer is an async DtoD on the queue-1 stream behind a wait on P's evr; the unpacks (queue 1)
+   follow a stream wait on P's evd. The two MPI tokens only order the event records against the stream waits
+   (each record happens before the token that announces it, each wait after the token is received), so the GPU
+   queue is never drained for a P2P exchange. */
+static int p2pasync_on = -1 ;
+static void * evr[RSL_MAXPROC], * evd[RSL_MAXPROC] ; static ipch_t evr_h[RSL_MAXPROC], evd_h[RSL_MAXPROC] ;
+static void * pevr[RSL_MAXPROC], * pevd[RSL_MAXPROC] ; static ipch_t pevr_h[RSL_MAXPROC], pevd_h[RSL_MAXPROC] ;
+int rsl_p2p_async_enabled ( void )
+{
+  if ( p2pasync_on < 0 ) {
+    char *e = getenv("WRF_GPU_P2PASYNC") ;
+    p2pasync_on = ( e && e[0] == '1' && rsl_p2p_enabled() && cu_ipc_ev_get && cu_ipc_ev_open && cu_wait_ev &&
+                    cu_d2d_async && cu_ev_create && cu_ev_record && acc_stream ) ;
+    if ( e && e[0] == '1' ) fprintf(stderr,"RSL P2P: async exchange %s\n", p2pasync_on ? "on" : "requested but unavailable") ;
+  }
+  return p2pasync_on ;
+}
+/* buffer_for_proc before freeing/remapping a buffer: async P2P copies on the stream may still use the mirrors */
+void rsl_p2p_buf_sync ( void ) { if ( p2pasync_on > 0 ) cu_sync() ; }
+/* Fortran: drain without waiting for the queue when the async P2P path is on */
+int rsl_p2p_async_on_ ( void ) { return rsl_p2p_async_enabled() ; }
+static int p2p_ev_make ( int P )
+{
+  if ( evr[P] ) return 1 ;
+  int r1 = cu_ev_create( &evr[P], 2 | 4 /* DISABLE_TIMING | INTERPROCESS */ ) ;
+  int r2 = cu_ev_create( &evd[P], 2 | 4 ) ;
+  if ( r1 || r2 || cu_ipc_ev_get( &evr_h[P], evr[P] ) || cu_ipc_ev_get( &evd_h[P], evd[P] ) ) {
+    fprintf(stderr,"RSL P2P: interprocess events unavailable (rc %d %d)\n", r1, r2) ; MPI_Abort(MPI_COMM_WORLD, 95) ;
+  }
+  return 1 ;
+}
 #include <unistd.h>
 /* host id (FNV-1a of the hostname): CUDA IPC only works between processes on the same node, so a neighbour pair
    on different nodes uses the batched (host-staged MPI) path */
@@ -118,7 +161,7 @@ static unsigned long long rsl_host_id ( void )
 static char rremote[RSL_MAXPROC] ; static int xskip_on = -1 ;
 void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long long devb, int done[2] )
 {
-  tok_t mine[2], theirs[2] ; MPI_Request q[4] ; int nq = 0, i, totsend = 0, any = 0 ;
+  tok_t mine[2], theirs[2] ; MPI_Request q[4] ; int nq = 0, i, totsend = 0, any = 0, async_pend = 0 ;
   done[0] = done[1] = 0 ;
   if ( xskip_on < 0 ) { char *e = getenv("WRF_GPU_XSKIP") ; xskip_on = !( e && e[0] == '0' ) ; }
   for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 ) totsend += sendb[i] ;
@@ -130,6 +173,11 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
     mine[i].alldev = alldev && rdev[nbr[i]] != 0 ; mine[i].nbytes = sendb[i] ; mine[i].rexp = recvb[i] ;
     mine[i].cap = rsize[nbr[i]] ; mine[i].h = rh[nbr[i]] ;
     mine[i].host = rsl_host_id() ;
+    if ( rsl_p2p_async_enabled() && mine[i].alldev ) {
+      p2p_ev_make( nbr[i] ) ;
+      cu_ev_record( evr[nbr[i]], acc_stream( 1 ) ) ;   /* my receive buffer for nbr is free behind this point */
+      mine[i].async = 1 ; mine[i].evr = evr_h[nbr[i]] ; mine[i].evd = evd_h[nbr[i]] ;
+    }
     MPI_Irecv( &theirs[i], sizeof(tok_t), MPI_BYTE, nbr[i], 7101, comm, &q[nq++] ) ;
     MPI_Isend( &mine[i],   sizeof(tok_t), MPI_BYTE, nbr[i], 7101, comm, &q[nq++] ) ;
   }
@@ -160,11 +208,35 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
     }
     char * sbuf = buffer_for_proc( P, 0, RSL_SENDBUF ) ;
     void * sd = acc_dptr( sbuf ) ;
+    if ( mine[i].async && theirs[i].async ) {
+      void * st = acc_stream( 1 ) ;
+      if ( !pevr[P] || memcmp( &pevr_h[P], &theirs[i].evr, sizeof(ipch_t) ) ) {
+        if ( cu_ipc_ev_open( &pevr[P], theirs[i].evr ) || cu_ipc_ev_open( &pevd[P], theirs[i].evd ) ) {
+          fprintf(stderr,"RSL P2P: cuIpcOpenEventHandle failed\n") ; MPI_Abort(MPI_COMM_WORLD, 94) ; }
+        pevr_h[P] = theirs[i].evr ; pevd_h[P] = theirs[i].evd ;
+      }
+      cu_wait_ev( st, pevr[P], 0 ) ;   /* P's receive buffer is free (its previous unpacks are done) */
+      int r = cu_d2d_async( pdev[P], (unsigned long long)sd, (size_t)mine[i].nbytes, st ) ;
+      if ( r != 0 ) { fprintf(stderr,"RSL P2P: cuMemcpyDtoDAsync rc=%d\n",r) ; MPI_Abort(MPI_COMM_WORLD, 97) ; }
+      continue ;
+    }
     int r = cu_d2d( pdev[P], (unsigned long long)sd, (size_t)mine[i].nbytes ) ;
     if ( r != 0 ) { fprintf(stderr,"RSL P2P: cuMemcpyDtoD rc=%d\n",r) ; MPI_Abort(MPI_COMM_WORLD, 97) ; }
   }
   if ( !any ) return ;
-  cu_sync() ;   /* device-to-device copies are asynchronous to the host */
+  { int nas = 0, nsy = 0 ;
+    for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] ) { if ( mine[i].async && theirs[i].async ) nas++ ; else nsy++ ; }
+    /* async pairs: the copy (or nothing) is on the stream; mark it for the neighbour before announcing it */
+    for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] && mine[i].async && theirs[i].async ) {
+      if ( !pevr[nbr[i]] || memcmp( &pevr_h[nbr[i]], &theirs[i].evr, sizeof(ipch_t) ) ) {   /* nbytes was 0 above */
+        if ( cu_ipc_ev_open( &pevr[nbr[i]], theirs[i].evr ) || cu_ipc_ev_open( &pevd[nbr[i]], theirs[i].evd ) ) {
+          fprintf(stderr,"RSL P2P: cuIpcOpenEventHandle failed\n") ; MPI_Abort(MPI_COMM_WORLD, 94) ; }
+        pevr_h[nbr[i]] = theirs[i].evr ; pevd_h[nbr[i]] = theirs[i].evd ;
+      }
+      cu_ev_record( evd[nbr[i]], acc_stream( 1 ) ) ;
+    }
+    if ( nsy > 0 ) cu_sync() ;   /* device-to-device copies are asynchronous to the host */
+    if ( nas > 0 ) async_pend = 1 ; }
   nq = 0 ;
   { static int ds[2], dr[2] ;
     for ( i = 0 ; i < 2 ; i++ ) {
@@ -173,6 +245,12 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
       MPI_Isend( &ds[i], 1, MPI_INT, nbr[i], 7102, comm, &q[nq++] ) ;
     }
     MPI_Waitall( nq, q, MPI_STATUSES_IGNORE ) ; }
+  /* async pairs: the unpacks (queue 1) wait on the neighbour's copy into my receive buffer */
+  if ( async_pend ) {
+    for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] && mine[i].async && theirs[i].async && theirs[i].nbytes > 0 )
+      cu_wait_ev( acc_stream( 1 ), pevd[nbr[i]], 0 ) ;
+    async_pend = 0 ;
+  }
 }
 
 /* WRF_GPU_XPIPE=1: pipelined MPI data path for the neighbours that do not use P2P (cross-node pairs). The packed

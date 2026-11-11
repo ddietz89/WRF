@@ -102,6 +102,7 @@ static void rsl_pin ( char * p, int n, int on ) {
 }
 int rsl_p2p_recv_map ( int P, char * host, int n, int on ) ;
 void rsl_xpipe_wait ( void ) ;
+void rsl_p2p_buf_sync ( void ) ;
 #ifndef STUBMPI
 #  include "mpi.h"
 #endif
@@ -166,7 +167,7 @@ buffer_for_proc( P, size, code )
   {
 /* fprintf(stderr,"buffer_for_proc freeing buffer %d\n",P) ; */
 #ifndef STUBMPI
-    rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */
+    rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */ rsl_p2p_buf_sync() ;   /* and an async P2P copy a send/receive mirror */
 #endif
     { int c_ ; for ( c_ = 0 ; c_ < 2 ; c_++ ) if ( buftab[c_][P].buf != NULL ) {
         long long a_ = (long long)buftab[c_][P].buf ; int n_ = buftab[c_][P].size, o_ = 0 ;
@@ -190,7 +191,7 @@ fprintf(stderr,"buffer_for_proc %s %d : was %d, increasing to %d\n",
 #endif
       if ( buftab[code][P].buf != NULL ) {
 #ifndef STUBMPI
-        rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */
+        rsl_xpipe_wait() ;   /* a pipelined H2D may still read the receive buffer */ rsl_p2p_buf_sync() ;   /* and an async P2P copy a send/receive mirror */
 #endif
         if ( !( code == RSL_RECVBUF && rsl_p2p_recv_map( P, buftab[code][P].buf, buftab[code][P].size, 0 ) ) )
         { long long a_ = (long long)buftab[code][P].buf ; int n_ = buftab[code][P].size, o_ = 0 ; RSL_GPU_BUF_MAP( &a_, &n_, &o_ ) ; }

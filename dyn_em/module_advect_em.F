@@ -142,9 +142,10 @@ MODULE module_advect_em
   ! slot of the species right before rk_scalar_tend, advect_scalar[_pd] consume it.
   INTEGER, PARAMETER :: adv_msk_slots = 24
   INTEGER, SAVE :: adv_msk_on = -1
+  INTEGER, SAVE :: adv_msk_off = 0   ! WRF_GPU_AMSKOFF bits (bisect): 1 no fused rk_update_scalar_pd, 2 no diffusion mask
   INTEGER, SAVE :: adv_msk_n = 0
   INTEGER, SAVE :: adv_upd_n = 0   ! same slot for rk_update_scalar (set by the caller right before it)
-  INTEGER(1), ALLOCATABLE, SAVE :: advm(:,:,:,:), advz(:,:,:,:)
+  INTEGER(1), ALLOCATABLE, SAVE :: advz(:,:,:,:)   ! advm lives in module_bc
 #endif
 
 CONTAINS
@@ -213,6 +214,11 @@ SUBROUTINE adv_mask_init
    ! default 2 (advection + scalar update; 2-node 0.2983-0.2988 vs 0.3134 s/step, full ncdiff 0, 2026-11-11);
    ! WRF_GPU_ADVMASK=1 advection only, =0 off
    adv_msk_on = 2
+   CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_AMSKOFF', v, STATUS=st )
+   IF ( st == 0 .AND. LEN_TRIM(v) > 0 ) THEN
+      READ ( v, *, IOSTAT=ios ) adv_msk_off
+      IF ( ios /= 0 ) adv_msk_off = 0
+   ENDIF
    CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_ADVMASK', v, STATUS=st )
    IF ( st == 0 .AND. LEN_TRIM(v) > 0 ) THEN
       READ ( v, *, IOSTAT=ios ) adv_msk_on
@@ -4768,11 +4774,16 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ! divergence, same order as the single kernel: y, then x, then z
+   ! the tile points outside (its:itf, kts:ktf, jts:jtf) are zeroed here when fresh_ (was adv_zero_outside)
 !$acc parallel loop gang collapse(2) present(fqx3s,fqy3s,fqz3s,advm) async(wrf_gpu_q) if(wrf_gpu_on)
-   DO j = jts, jtf
-   DO k = kts, ktf
+   DO j = jts, jte
+   DO k = kts, kte
 !$acc loop vector private(mrdx,mrdy,fl,fr,ub)
-   DO i = its, itf
+   DO i = its, ite
+     IF ( i > itf .OR. k > ktf .OR. j > jtf ) THEN
+       IF ( fresh_ ) tendency(i,k,j) = 0.
+       CYCLE
+     ENDIF
      IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) THEN   ! dead: every face flux is exactly zero
        IF ( fresh_ ) tendency(i,k,j) = 0.
        CYCLE
@@ -4797,7 +4808,6 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ENDDO
    ENDDO
    ENDDO
-      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, its, itf, kts, ktf, jts, jtf )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF
@@ -11315,10 +11325,15 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    jmax = j_end
    IF(degrade_ys) jmin = MAX(jts,jds+1)
    IF(degrade_ye) jmax = MIN(jte,jde-2)
+  ! tile points outside (i_start:i_end, kts:ktf, j_start:j_end) are zeroed here when fresh_ (was adv_zero_outside)
 !$acc parallel loop collapse(3) private(ub) present(advm) async(wrf_gpu_q) if(wrf_gpu_on)
-  DO j = j_start, j_end
-  DO k = kts, ktf
-  DO i = i_start, i_end
+  DO j = jts, jte
+  DO k = kts, kte
+  DO i = its, ite
+     IF ( i < i_start .OR. i > i_end .OR. k > ktf .OR. j < j_start .OR. j > j_end ) THEN
+       IF ( fresh_ ) tendency(i,k,j) = 0.
+       CYCLE
+     ENDIF
      IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) THEN   ! dead: every face flux is exactly zero
        IF ( fresh_ ) tendency(i,k,j) = 0.
        CYCLE
@@ -11345,8 +11360,6 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
   ENDDO
   ENDDO
   ENDDO
-      IF ( fresh_ ) CALL adv_zero_outside( tendency, ims, ime, kms, kme, jms, jme, its, ite, kts, kte, jts, jte, &
-                                           i_start, i_end, kts, ktf, j_start, j_end )
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
       ENDIF

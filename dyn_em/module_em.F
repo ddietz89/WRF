@@ -8,7 +8,8 @@ MODULE module_em
 
    USE module_model_constants
    
-   USE module_advect_em, only: adv_tend_fresh, advm, adv_upd_n, adv_mask_alloc, advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
+   USE module_advect_em, only: adv_tend_fresh, advm, adv_upd_n, adv_mask_alloc, adv_mask_init, adv_msk_on, adv_msk_n, adv_msk_off, &
+        adv_hd_n, advect_u, advect_v, advect_w, advect_scalar, advect_scalar_pd, advect_scalar_mono, &
         advect_weno_u, advect_weno_v, advect_weno_w, advect_scalar_weno,  advect_scalar_wenopd
    
    USE module_big_step_utilities_em, only: grid_config_rec_type, calculate_full, couple_momentum, calc_mu_uv, calc_mu_uv_1, &
@@ -1322,6 +1323,7 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 #ifdef WRF_GPU
    INTEGER(8) :: wws_now(5)
    INTEGER(8), SAVE :: wws_e = 0
+   INTEGER :: mnhd_
 #endif
    REAL    :: dt         ! This is the large time step computed below
 
@@ -1383,6 +1385,10 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
    
    CALL nl_get_time_step ( 1, time_step )
 
+   mnhd_ = 0
+#ifdef WRF_GPU
+   IF ( scs == sce .AND. adv_msk_on >= 2 .AND. IAND(adv_msk_off,2) == 0 ) mnhd_ = adv_msk_n   ! the advection call below consumes adv_msk_n
+#endif
    scalar_loop : DO im = scs, sce
 
 #ifdef WRF_GPU
@@ -1537,6 +1543,9 @@ SUBROUTINE rk_scalar_tend ( scs, sce, config_flags,          &
 
        diff_opt1 : IF (config_flags%diff_opt .eq. 1) THEN
 
+#ifdef WRF_GPU
+         adv_hd_n = mnhd_
+#endif
          IF (.not. mix2_off)                                                   &
            CALL horizontal_diffusion ( 'm', scalar(ims,kms,jms,im),            &
                                             scalar_tends(ims,kms,jms,im), mut, &
@@ -2226,6 +2235,40 @@ SUBROUTINE rk_update_scalar_pd( scs, sce,                      &
       k_end   = min( kte, kde-1 )
     ENDIF
 
+#ifdef WRF_GPU
+      ! WRF_GPU_ADVMASK >= 2: the three passes in one kernel (tendency kept in a register, same expressions), and
+      ! cells with zero scalar and zero sc_tend are left alone (the update would give exactly 0 there)
+      IF ( adv_msk_on < 0 ) CALL adv_mask_init
+      IF ( adv_msk_on >= 2 .AND. IAND(adv_msk_off,1) == 0 .AND. wrf_gpu_on ) THEN
+      DO  im = scs, sce
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+      DO  j = jts, min(jte,jde-1)
+      DO  k = kts, min(kte,kde-1)
+!$acc loop vector private(muo,mun,sc_middle)
+      DO  i = its, min(ite,ide-1)
+        sc_middle = 0.
+        IF ( i >= i_start_spc .AND. i <= i_end_spc .AND. j >= j_start_spc .AND. j <= j_end_spc .AND. &
+             k >= k_start_spc .AND. k <= k_end_spc ) THEN
+          sc_middle = sc_middle + sc_tend(i,k,j,im)
+          IF ( sc_tend(i,k,j,im) /= 0. ) sc_tend(i,k,j,im) = 0.
+        ENDIF
+        IF ( sc_middle == 0. ) THEN
+          IF ( scalar(i,k,j,im) == 0. ) CYCLE
+        ENDIF
+        muo = MU_OLD(i,j) + MU_BASE(i,j)
+        mun = MU_NEW(i,j) + MU_BASE(i,j)
+        scalar(i,k,j,im) = ((c1(k)*muo+c2(k))*scalar(i,k,j,im)   &
+                             + dt*sc_middle)/(c1(k)*mun+c2(k))
+      ENDDO
+      ENDDO
+      ENDDO
+      ENDDO
+      IF ( .NOT. wrf_gpu_xw_skip ) THEN
+!$acc wait(1)
+      ENDIF
+      RETURN
+      ENDIF
+#endif
       DO  im = scs, sce
 
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)

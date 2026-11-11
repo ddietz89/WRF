@@ -109,11 +109,17 @@
         IMPLICIT NONE
         INTEGER*8 nbytes
         INTEGER n
+        INTEGER, SAVE :: async_on = -1
+        INTEGER, EXTERNAL :: rsl_p2p_async_on
         nbytes = 0
 #if defined(_OPENACC) || defined(WRF_GPU)
         IF ( rsl_gpu_nseg == 0 ) RETURN
         CALL rsl_fused_flush( 1 )
+        ! WRF_GPU_P2PASYNC=1: the P2P copy is queued behind the packs on the queue-1 stream; no host wait
+        IF ( async_on < 0 ) async_on = rsl_p2p_async_on()
+        IF ( async_on == 0 ) THEN
 !$acc wait(1)
+        ENDIF
         DO n = 1, rsl_gpu_nseg
           nbytes = nbytes + rsl_gpu_seg_n(n)
         ENDDO

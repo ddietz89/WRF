@@ -217,8 +217,14 @@ SUBROUTINE solve_em ( grid , config_flags  &
 ! end WRF-CMAQ twoway coupled model block
 
    ! Changes in tendency at this timestep
+#ifdef WRF_GPU_RESIDENT
+   ! GPU: kept across calls (device copies created and zeroed once; with tenddec off nothing writes them)
+   real ,DIMENSION(:,:,:), ALLOCATABLE, SAVE :: h_tendency, z_tendency
+   INTEGER, SAVE :: hzsync_ = -1, hzkeep_ = -1
+#else
    real ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) :: h_tendency, &
                                                                                    z_tendency
+#endif
                                                                                    
    ! Whether advection should produce decoupled horizontal and vertical advective tendency outputs
    LOGICAL                        :: tenddec
@@ -601,14 +607,55 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
-   ! automatic (per-call) work arrays used inside compute regions: device copies for this call only
+   ! persistent work arrays used inside compute regions (were automatic: per-step create, 2 blocking zero kernels,
+   ! delete). Reallocated only if the patch memory bounds change (another domain).
+   ! WRF_GPU_HZKEEP=0 (bisect 2026-11-11): allocate, create, zero (blocking) and free every step as before
+   IF ( hzkeep_ < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HZKEEP', hmv_ )
+      hzkeep_ = 1
+      IF ( TRIM(hmv_) == '0' ) hzkeep_ = 0
+   ENDIF
+   IF ( hzkeep_ == 0 ) THEN
+      ALLOCATE( h_tendency(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33), &
+                z_tendency(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
 !$acc enter data create(h_tendency, z_tendency)
 !$acc kernels present(h_tendency)
-      h_tendency = 0   ! device copy starts zeroed (pool memory is not)
+      h_tendency = 0
 !$acc end kernels
 !$acc kernels present(z_tendency)
-      z_tendency = 0   ! device copy starts zeroed (pool memory is not)
+      z_tendency = 0
 !$acc end kernels
+   ELSE
+   IF ( ALLOCATED(h_tendency) ) THEN
+      IF ( ANY( LBOUND(h_tendency) /= (/grid%sm31,grid%sm32,grid%sm33/) ) .OR.                                  &
+           ANY( UBOUND(h_tendency) /= (/grid%em31,grid%em32,grid%em33/) ) ) THEN
+!$acc wait
+!$acc exit data delete(h_tendency, z_tendency)
+         DEALLOCATE( h_tendency, z_tendency )
+      ENDIF
+   ENDIF
+   IF ( .NOT. ALLOCATED(h_tendency) ) THEN
+      ALLOCATE( h_tendency(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33), &
+                z_tendency(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) )
+      h_tendency = 0 ; z_tendency = 0
+!$acc enter data copyin(h_tendency, z_tendency)
+   ENDIF
+   ENDIF
+   ! WRF_GPU_HZSYNC=1 (bisect 2026-11-11): the two blocking zero kernels of the old per-step setup (a host/device
+   ! sync point at the start of every step)
+   IF ( hzsync_ < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_HZSYNC', hmv_ )
+      hzsync_ = 0
+      IF ( TRIM(hmv_) == '1' ) hzsync_ = 1
+   ENDIF
+   IF ( hzsync_ == 1 ) THEN
+!$acc kernels present(h_tendency)
+      h_tendency = 0
+!$acc end kernels
+!$acc kernels present(z_tendency)
+      z_tendency = 0
+!$acc end kernels
+   ENDIF
 #endif
 
 !  Max values of CFL for adaptive time step scheme
@@ -6500,7 +6547,10 @@ BENCH_END(bc_2d_tim)
         ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
 #endif
 #ifdef WRF_GPU_RESIDENT
+   IF ( hzkeep_ == 0 ) THEN
 !$acc exit data delete(h_tendency, z_tendency)
+      DEALLOCATE( h_tendency, z_tendency )
+   ENDIF
 #endif
 #ifdef WRF_GPU_RESIDENT
    IF ( IAND( wrf_gpu_fullsync(), 7 ) == 7 ) THEN

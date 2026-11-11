@@ -13,7 +13,7 @@
 
 MODULE module_big_step_utilities_em
    USE module_wrf_error, ONLY : wrf_gpu_on, wrf_gpu_q   ! GPU port: host/device switch for compute regions
-   USE module_bc, ONLY : wrf_gpu_xw_skip
+   USE module_bc, ONLY : wrf_gpu_xw_skip, advm, adv_hd_n
 
    USE module_model_constants
    USE module_state_description, only: p_qg, p_qs, p_qi, gdscheme, tiedtkescheme, ntiedtkescheme, kfetascheme, mskfscheme, &
@@ -3526,6 +3526,7 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
                                   its, ite, jts, jte, kts, kte        )
 
    IMPLICIT NONE
+   INTEGER :: mn_
    
    ! Input data
 
@@ -3733,6 +3734,37 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       IF ( config_flags%periodic_x ) i_start = its
       IF ( config_flags%periodic_x ) i_end = MIN(ite,ide-1)
 
+#ifdef WRF_GPU
+      ! WRF_GPU_ADVMASK: skip dead blocks of the advection mask (the 5-point stencil reads only cells the mask
+      ! proves zero, so the added term is exactly zero)
+      mn_ = adv_hd_n ; adv_hd_n = 0
+      IF ( mn_ > 0 .AND. wrf_gpu_on .AND. ALLOCATED(advm) ) THEN
+!$acc parallel loop gang collapse(2) present(advm) async(wrf_gpu_q)
+      DO j = j_start, j_end
+      DO k=kts,ktf
+!$acc loop vector
+      DO i = i_start, i_end
+         IF ( advm(ISHFT(i-ims,-4),k,j,mn_) == 0_1 ) CYCLE   ! field 0 within 3 cells: every difference is 0
+
+         mkrdxm=(msfux(i,j)/msfuy(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i-1,k,j))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i-1,j)+c2(k)))*rdx
+         mkrdxp=(msfux(i+1,j)/msfuy(i+1,j))*0.5*(xkmhd(i+1,k,j)+xkmhd(i,k,j))*0.5*((c1(k)*MUT(i+1,j)+c2(k))+(c1(k)*MUT(i,j)+c2(k)))*rdx
+         mrdx=msftx(i,j)*msfty(i,j)*rdx
+!         mkrdym=(msfvy(i,j)/msfvx(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i,k,j-1))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i,j-1)+c2(k)))*rdy
+         mkrdym=(msfvy(i,j)*msfvx_inv(i,j))*0.5*(xkmhd(i,k,j)+xkmhd(i,k,j-1))*0.5*((c1(k)*MUT(i,j)+c2(k))+(c1(k)*MUT(i,j-1)+c2(k)))*rdy
+!         mkrdyp=(msfvy(i,j+1)/msfvx(i,j+1))*0.5*(xkmhd(i,k,j+1)+xkmhd(i,k,j))*0.5*((c1(k)*MUT(i,j+1)+c2(k))+(c1(k)*MUT(i,j)+c2(k)))*rdy
+         mkrdyp=(msfvy(i,j+1)*msfvx_inv(i,j+1))*0.5*(xkmhd(i,k,j+1)+xkmhd(i,k,j))*0.5*((c1(k)*MUT(i,j+1)+c2(k))+(c1(k)*MUT(i,j)+c2(k)))*rdy
+         mrdy=msftx(i,j)*msfty(i,j)*rdy
+
+            tendency(i,k,j)=tendency(i,k,j)+( &
+                            mrdx*(mkrdxp*(field(i+1,k,j)-field(i  ,k,j))  &
+                                 -mkrdxm*(field(i  ,k,j)-field(i-1,k,j))) &
+                           +mrdy*(mkrdyp*(field(i,k,j+1)-field(i,k,j  ))  &
+                                 -mkrdym*(field(i,k,j  )-field(i,k,j-1))))
+      ENDDO
+      ENDDO
+      ENDDO
+      ELSE
+#endif
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
       DO j = j_start, j_end
       DO k=kts,ktf
@@ -3756,6 +3788,9 @@ SUBROUTINE horizontal_diffusion ( name, field, tendency, MUT, c1, c2,  &
       ENDDO
       ENDDO
       ENDDO
+#ifdef WRF_GPU
+      ENDIF
+#endif
            
    ENDIF
 
