@@ -303,6 +303,14 @@ BYTE_BCAST_FROM_ROOT ( char * buf, int * size, int *root , int * Fcomm )
 static int yp_curs, ym_curs, xp_curs, xm_curs ;
 static int yp_curs_recv, ym_curs_recv, xp_curs_recv, xm_curs_recv ;
 
+/* WRF_GPU_C2HALF (2026-11-10): while set (solve_em, around HALO_EM_C2 before the last small step), y-axis exchanges
+   are one-directional: no send to the south neighbour and no receive from the north one (each task sends its top
+   rows north and receives its south halo rows). Applied to INIT_EXCH, PACK and EXCH_Y alike. */
+static int rsl_oneway_y = 0 ;
+void rsl_set_oneway_y_ ( int * f ) { rsl_oneway_y = *f ; }
+void rsl_set_oneway_y__ ( int * f ) { rsl_oneway_y = *f ; }
+void rsl_set_oneway_y ( int * f ) { rsl_oneway_y = *f ; }
+
 int
 RSL_LITE_INIT_EXCH ( 
                 int * Fcomm0,
@@ -339,13 +347,13 @@ RSL_LITE_INIT_EXCH (
   shw = *shw0 ;          /* logical half-width of stencil */
   xy = *xy0 ;              /* 0 = y , 1 = x */
   sendbegm = *sendbegm0 ;  /* send index of sten copy (edge = 1), lower/left */
-  sendwm   = *sendwm0   ;  /* send width of sten copy counting towards edge, lower/left */
+  sendwm   = ( rsl_oneway_y && xy == 0 ) ? 0 : *sendwm0   ;  /* send width of sten copy counting towards edge, lower/left */
   sendbegp = *sendbegp0 ;  /* send index of sten copy (edge = 1), upper/right */
   sendwp   = *sendwp0   ;  /* send width of sten copy counting towards edge, upper/right */
   recvbegm = *recvbegm0 ;  /* recv index of sten copy (edge = 1), lower/left */
   recvwm   = *recvwm0   ;  /* recv width of sten copy counting towards edge, lower/left */
   recvbegp = *recvbegp0 ;  /* recv index of sten copy (edge = 1), upper/right */
-  recvwp   = *recvwp0   ;  /* recv width of sten copy counting towards edge, upper/right */
+  recvwp   = ( rsl_oneway_y && xy == 0 ) ? 0 : *recvwp0   ;  /* recv width of sten copy counting towards edge, upper/right */
   n3dR = *n3dR0 ; n2dR = *n2dR0 ; typesizeR = *typesizeR0 ;
   n3dI = *n3dI0 ; n2dI = *n2dI0 ; typesizeI = *typesizeI0 ;
   n3dD = *n3dD0 ; n2dD = *n2dD0 ; typesizeD = *typesizeD0 ;
@@ -454,6 +462,7 @@ RSL_LITE_PACK ( int * Fcomm0, char * buf , int * shw0 ,
   ips = *ips0-1 ; ipe = *ipe0-1 ; jps = *jps0-1 ; jpe = *jpe0-1 ; kps = *kps0-1 ; kpe = *kpe0-1 ;
   xy = *xy0 ;
   pu = *pu0 ;
+  if ( rsl_oneway_y && xy == 0 ) { sendwm = 0 ; recvwp = 0 ; }   /* WRF_GPU_C2HALF */
 
 /* need to adapt for other memory orders */
 
@@ -1044,6 +1053,8 @@ int
 RSL_LITE_EXCH_Y ( int * Fcomm0, int *me0, int * np0 , int * np_x0 , int * np_y0 ,
                   int * sendw_m, int * sendw_p, int * recvw_m , int * recvw_p )
 {
+  int zero_oneway_ = 0 ;
+  if ( rsl_oneway_y ) { sendw_m = &zero_oneway_ ; recvw_p = &zero_oneway_ ; }   /* WRF_GPU_C2HALF */
   int me, np, np_x, np_y ;
   int yp, ym, xp, xm, ierr ;
 #ifndef STUBMPI

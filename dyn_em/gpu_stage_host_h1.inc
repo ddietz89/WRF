@@ -30,7 +30,7 @@
                 , LBOUND(grid%ph_2,2) &
                 , LBOUND(grid%ph_2,3) &
                 ), SIZE(grid%ph_2) )
-   IF ( associated(grid%rho) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%rho) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,5)) ) CALL gpu_stage_pull( &
         grid%rho( LBOUND(grid%rho,1) &
                 , LBOUND(grid%rho,2) &
                 , LBOUND(grid%rho,3) &
@@ -40,33 +40,33 @@
                 , LBOUND(grid%rqvften,2) &
                 , LBOUND(grid%rqvften,3) &
                 ), SIZE(grid%rqvften) )
-   IF ( associated(grid%t_2) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%t_2) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,6)) ) CALL gpu_stage_pull( &
         grid%t_2( LBOUND(grid%t_2,1) &
                 , LBOUND(grid%t_2,2) &
                 , LBOUND(grid%t_2,3) &
                 ), SIZE(grid%t_2) )
-   IF ( associated(grid%u_2) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%u_2) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,7)) ) CALL gpu_stage_pull( &
         grid%u_2( LBOUND(grid%u_2,1) &
                 , LBOUND(grid%u_2,2) &
                 , LBOUND(grid%u_2,3) &
                 ), SIZE(grid%u_2) )
-   IF ( associated(grid%v_2) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%v_2) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,8)) ) CALL gpu_stage_pull( &
         grid%v_2( LBOUND(grid%v_2,1) &
                 , LBOUND(grid%v_2,2) &
                 , LBOUND(grid%v_2,3) &
                 ), SIZE(grid%v_2) )
-   IF ( associated(grid%w_2) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%w_2) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,9)) ) CALL gpu_stage_pull( &
         grid%w_2( LBOUND(grid%w_2,1) &
                 , LBOUND(grid%w_2,2) &
                 , LBOUND(grid%w_2,3) &
                 ), SIZE(grid%w_2) )
-   IF ( associated(grid%moist) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%moist) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,1) .and. BTEST(h3got,11)) ) CALL gpu_stage_pull( &
         grid%moist( LBOUND(grid%moist,1) &
                 , LBOUND(grid%moist,2) &
                 , LBOUND(grid%moist,3) &
                 , LBOUND(grid%moist,4) &
                 ), SIZE(grid%moist) )
-   IF ( associated(grid%scalar) .and. .not.gpu_h1_reuse ) CALL gpu_stage_pull( &
+   IF ( associated(grid%scalar) .and. .not.(gpu_h1_reuse .and. BTEST(h3got,10) .and. BTEST(h3got,11)) ) CALL gpu_stage_pull( &
         grid%scalar( LBOUND(grid%scalar,1) &
                 , LBOUND(grid%scalar,2) &
                 , LBOUND(grid%scalar,3) &

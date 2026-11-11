@@ -16,6 +16,9 @@ MODULE module_diag_afwa
     ! set by the diagnostics driver when afwa_buoy_gpu has filled the buoyancy fields for this call
     LOGICAL :: afwa_buoy_on_gpu = .FALSE.
     LOGICAL :: afwa_turb_on_gpu = .FALSE.
+    ! queue of afwa_buoy_gpu / afwa_turb_gpu (WRF_GPU_AFWAASYNC, default on: 7, after the compute queue's work; the host
+    ! AFWA tiles do not read their outputs and the diagnostics driver waits on it after them; 0: -1 = synchronous)
+    INTEGER :: afwa_gpu_q = -2
 #endif
 
 CONTAINS
@@ -59,6 +62,47 @@ CONTAINS
                              , th_phy , pi_phy , p_phy           &
                              , u_phy , v_phy                     &
                              , dz8w , p8w , t8w , rho            &
+                             , ids, ide, jds, jde, kds, kde      &
+                             , ims, ime, jms, jme, kms, kme      &
+                             , ips, ipe, jps, jpe, kps, kpe      &
+                             , its, ite, jts, jte                &
+                             , k_start, k_end               )
+    ! The hydrometeor fields are passed to the worker as views of moist/scalar (explicit-shape dummies; moist and
+    ! scalar are contiguous explicit-shape arrays) instead of being copied into per-tile automatic arrays on every
+    ! call (6 x 3-D copies of the tile+2 ring; unused P_ indices are 1, a valid slot, and the worker reads
+    ! ncloud/ngraup only under F_QNC/F_QNG as before).
+    USE module_domain, ONLY : domain
+    USE module_configure, ONLY : grid_config_rec_type
+    USE module_state_description
+    IMPLICIT NONE
+    TYPE ( domain ), INTENT(INOUT) :: grid
+    TYPE ( grid_config_rec_type ), INTENT(IN) :: config_flags
+    INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde,        &
+                           ims, ime, jms, jme, kms, kme,        &
+                           ips, ipe, jps, jpe, kps, kpe
+    INTEGER             :: k_start , k_end, its, ite, jts, jte
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme , num_moist),  INTENT(IN) :: moist
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme , num_scalar), INTENT(IN) :: scalar
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme , num_chem),   INTENT(IN) :: chem
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: th_phy, pi_phy, p_phy, u_phy, v_phy, &
+                                                                dz8w, p8w, t8w, rho
+    CALL afwa_diag_core ( grid , config_flags, moist, scalar, chem, th_phy , pi_phy , p_phy, u_phy , v_phy, &
+                          dz8w , p8w , t8w , rho,                                                         &
+                          moist(ims,kms,jms,P_QV), moist(ims,kms,jms,P_QR), moist(ims,kms,jms,P_QS),      &
+                          moist(ims,kms,jms,P_QG), moist(ims,kms,jms,P_QC), moist(ims,kms,jms,P_QI),      &
+                          scalar(ims,kms,jms,P_QNC), scalar(ims,kms,jms,P_QNG),                           &
+                          ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme,                     &
+                          ips, ipe, jps, jpe, kps, kpe, its, ite, jts, jte, k_start, k_end )
+  END SUBROUTINE afwa_diagnostics_driver
+
+  SUBROUTINE afwa_diag_core (   grid , config_flags     &
+                             , moist                             &
+                             , scalar                            &
+                             , chem                              &
+                             , th_phy , pi_phy , p_phy           &
+                             , u_phy , v_phy                     &
+                             , dz8w , p8w , t8w , rho            &
+                             , qvapr, qrain, qsnow, qgrpl, qcloud, qice, ncloud, ngraup &
                              , ids, ide, jds, jde, kds, kde      &
                              , ims, ime, jms, jme, kms, kme      &
                              , ips, ipe, jps, jpe, kps, kpe      &
@@ -114,6 +158,7 @@ CONTAINS
     INTEGER :: icing_opt
     REAL :: bdump
     INTEGER :: i_start, i_end, j_start, j_end
+    ! views of moist/scalar (see afwa_diagnostics_driver); not modified here
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) ::      qrain  &
                                               ,          qsnow  &
                                               ,          qgrpl  &
@@ -121,8 +166,8 @@ CONTAINS
                                               ,         qcloud  &
                                               ,           qice  &
                                               ,         ncloud  &
-                                              ,         ngraup  &
-                                              ,             rh  &
+                                              ,         ngraup
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) ::          rh  &
                                               ,         rh_cld  &
                                               ,           ptot  &
                                               ,            z_e  &
@@ -224,84 +269,8 @@ CONTAINS
       ENDIF
     ENDIF
 
-    ! 3-D arrays for moisture variables
-    ! ---------------------------------
+    ! (hydrometeor fields: views of moist/scalar, no per-call copies)
 
-    IF ( F_QV ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qvapr(i,k,j) = moist(i,k,j,P_QV)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( F_QR ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qrain(i,k,j) = moist(i,k,j,P_QR)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( F_QS ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qsnow(i,k,j) = moist(i,k,j,P_QS)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( F_QG ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qgrpl(i,k,j) = moist(i,k,j,P_QG)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( F_QC ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qcloud(i,k,j) = moist(i,k,j,P_QC)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( F_QI ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            qice(i,k,j) = moist(i,k,j,P_QI)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    IF ( is_output_timestep ) THEN   ! only output-step diagnostics use this
-    IF ( F_QNC ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            ncloud(i,k,j) = scalar(i,k,j,P_QNC)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    ENDIF
-    IF ( F_QNG ) THEN
-      DO j=jbs, jbe
-        DO k=kms, kme
-          DO i=ibs, ibe
-            ngraup(i,k,j) = scalar(i,k,j,P_QNG)
-          ENDDO
-        ENDDO
-      ENDDO
-    END IF
-    
     ! Total pressure
     ! -------------- 
     DO j=jbs, jbe
@@ -1046,7 +1015,7 @@ CONTAINS
 #ifdef WRF_SEG_TIMERS
     CALL afw_tick(0)
 #endif
-  END SUBROUTINE afwa_diagnostics_driver
+  END SUBROUTINE afwa_diag_core
 
 
 
@@ -2723,13 +2692,14 @@ CONTAINS
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN) :: t_phy, p, pb, qv, z
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN) :: ht
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(INOUT) :: cape, cin, zlfc, plfc, lidx, cape_mu, cin_mu
-    REAL :: tk_(KBUOY_G), rh_(KBUOY_G), pp_(KBUOY_G), hz_(KBUOY_G)
+    REAL :: tk_(KBUOY_G), rh_(KBUOY_G), pp_(KBUOY_G), hz_(KBUOY_G), ws_(KBUOY_G), w_(KBUOY_G), et_(KBUOY_G)
     REAL :: zlfc_msl, d1, d2, d3, c_, ci_, pl_, li_, cm_, cim_
     INTEGER :: i, j, k, kk, ostat
     IF ( nz > KBUOY_G ) CALL wrf_error_fatal('afwa_buoy_gpu: nz > KBUOY_G')
+    CALL afwa_gpu_q_start
 !$acc parallel loop gang vector collapse(2) present(t_phy, p, pb, qv, z, ht) &
 !$acc copyout(cape(is:ie,js:je), cin(is:ie,js:je), zlfc(is:ie,js:je), plfc(is:ie,js:je), lidx(is:ie,js:je)) &
-!$acc copyout(cape_mu(is:ie,js:je), cin_mu(is:ie,js:je)) private(tk_, rh_, pp_, hz_)
+!$acc copyout(cape_mu(is:ie,js:je), cin_mu(is:ie,js:je)) private(tk_, rh_, pp_, hz_, ws_, w_, et_) async(afwa_gpu_q)
     DO j = js, je
     DO i = is, ie
       DO kk = 1, nz
@@ -2739,7 +2709,8 @@ CONTAINS
         rh_(kk) = calc_rh( pp_(kk), t_phy(i,k,j), qv(i,k,j) )
         hz_(kk) = z(i,k,j)
       ENDDO
-      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, c_, ci_, zlfc_msl, pl_, li_, 3 )
+      CALL Buoyancy_g_pre( nz, tk_, rh_, pp_, 1, ws_, w_, et_ )   ! shared by both parcels
+      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, c_, ci_, zlfc_msl, pl_, li_, 3, ws_, w_, et_ )
       cape(i,j) = c_ ; cin(i,j) = ci_ ; plfc(i,j) = pl_
       IF ( zlfc_msl .ge. ht(i,j) ) THEN
         zlfc(i,j) = zlfc_msl - ht(i,j)
@@ -2748,7 +2719,7 @@ CONTAINS
       ENDIF
       IF ( li_ .ne. 999. ) li_ = li_ + 273.15
       lidx(i,j) = li_
-      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, cm_, cim_, d1, d2, d3, 1 )
+      ostat = Buoyancy_g( nz, tk_, rh_, pp_, hz_, 1, cm_, cim_, d1, d2, d3, 1, ws_, w_, et_ )
       cape_mu(i,j) = cm_ ; cin_mu(i,j) = cim_
     ENDDO
     ENDDO
@@ -2759,6 +2730,28 @@ CONTAINS
   ! AFWA turbulence indices on the GPU (output steps): turbulence_diagnostics' per-column work (Knapp-Ellrod CAT on 7
   ! layers, low-level turbulence index over 0-1500 m AGL) on the device-resident state, for the whole patch; zagl and
   ! total pressure built per column as the host driver does. Diagnostic-only outputs.
+  SUBROUTINE afwa_gpu_q_start
+    ! the diag queue first waits for the compute queue (its inputs are produced there)
+    USE module_wrf_error, ONLY : wrf_gpu_q
+    IMPLICIT NONE
+    CHARACTER(LEN=8) :: ev
+    IF ( afwa_gpu_q == -2 ) THEN
+       CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_AFWAASYNC', ev )
+       afwa_gpu_q = 7
+       IF ( TRIM(ev) == '0' ) afwa_gpu_q = -1
+    ENDIF
+    IF ( afwa_gpu_q >= 0 .AND. wrf_gpu_q >= 0 ) THEN
+!$acc wait(wrf_gpu_q) async(afwa_gpu_q)
+    ENDIF
+  END SUBROUTINE afwa_gpu_q_start
+
+  SUBROUTINE afwa_gpu_q_wait
+    IMPLICIT NONE
+    IF ( afwa_gpu_q >= 0 ) THEN
+!$acc wait(afwa_gpu_q)
+    ENDIF
+  END SUBROUTINE afwa_gpu_q_wait
+
   SUBROUTINE afwa_turb_gpu ( u_phy, v_phy, t_phy, p, pb, z, ht, defor11, defor12, defor22,                  &
                              turb, llturb, llturblgt, llturbmdt, llturbsvr, nlyrs, lyrbot, lyrtop,          &
                              ims, ime, jms, jme, kms, kme, is, ie, js, je )
@@ -2774,9 +2767,11 @@ CONTAINS
     INTEGER :: i, j, k, n, kk, nk, top, nlayer
     nk = kme - kms + 1
     IF ( nk > KBUOY_G ) CALL wrf_error_fatal('afwa_turb_gpu: nz > KBUOY_G')
+    CALL afwa_gpu_q_start
 !$acc parallel loop gang vector collapse(2) present(u_phy, v_phy, t_phy, p, pb, z, ht, defor11, defor12, defor22) &
 !$acc copyin(lyrbot, lyrtop) copyout(turb(is:ie,1:nlyrs,js:je), llturb(is:ie,js:je), llturblgt(is:ie,js:je)) &
-!$acc copyout(llturbmdt(is:ie,js:je), llturbsvr(is:ie,js:je)) private(zc, uc, vc, tc, pc, d1c, d2c, d3c, tz, tt, tp, tu, tv)
+!$acc copyout(llturbmdt(is:ie,js:je), llturbsvr(is:ie,js:je)) private(zc, uc, vc, tc, pc, d1c, d2c, d3c, tz, tt, tp, tu, tv) &
+!$acc async(afwa_gpu_q)
     DO j = js, je
     DO i = is, ie
       DO kk = 1, nk

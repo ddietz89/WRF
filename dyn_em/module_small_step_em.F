@@ -1504,6 +1504,12 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   INTEGER, OPTIONAL, INTENT(IN) :: early
   INTEGER :: mtmode, qq, jm0, jm1
   REAL :: tt_, wk_, wk1_, to_, tn_, wwp_, wwc_
+  INTEGER, PARAMETER :: JBT = 4
+  INTEGER, SAVE :: tvs_ = -1
+  CHARACTER(LEN=8) :: tvv_
+  INTEGER :: vs2st_
+  INTEGER :: jbt_, nbt_, j0t_, j1t_
+  REAL :: tq_m, tq_0, tq_p, vq_0, vq_p
   LOGICAL :: tavpre_
   LOGICAL, SAVE :: mt_pending = .FALSE.
 ! stuff coming in
@@ -1733,6 +1739,63 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
   CALL ss_wpipe_init
   tavpre_ = ( ss_wpipe == 2 )
   ss_tavpre = tavpre_
+  IF ( tvs_ < 0 ) THEN
+     CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_VSTREAM2', tvv_ )
+     ! WRF_GPU_VSTREAM2 bits (default 0 = off; 2026-11-11 all three on: +3.5 ms/step): 1 theta, 2 calc_cq, 4 u curvature
+     tvs_ = 0
+     IF ( LEN_TRIM(tvv_) > 0 ) THEN
+        READ( tvv_, *, IOSTAT=vs2st_ ) tvs_
+        IF ( vs2st_ /= 0 ) tvs_ = 0
+     ENDIF
+     tvs_ = IBITS( tvs_, 0, 1 )
+  ENDIF
+  IF ( tvs_ == 1 ) THEN
+  ! WRF_GPU_VSTREAM2=1 (2026-11-10): the theta update in blocks of JBT rows per thread, with v(j+1), t_1(j) and
+  ! t_1(j+1) carried to the next row (v(j), t_1(j-1), t_1(j)); same expressions and order as the kernel below
+  nbt_ = ( jm1 - jm0 + JBT ) / JBT
+!$acc parallel loop gang vector collapse(3) async(qq) &
+!$acc private(j,j0t_,j1t_,tt_,wk_,wk1_,to_,tn_,tq_m,tq_0,tq_p,vq_0,vq_p)
+   DO jbt_ = 0, nbt_-1
+   DO k=1,k_end
+   DO i=i_start, i_end
+     j0t_ = jm0 + jbt_*JBT ; j1t_ = MIN( j0t_+JBT-1, jm1 )
+     j = j0t_
+     tq_m = t_1(i,k,j-1) ; tq_0 = t_1(i,k,j) ; vq_0 = v(i,k,j)
+     DO j = j0t_, j1t_
+     tq_p = t_1(i,k,j+1) ; vq_p = v(i,k,j+1)
+     to_ = t(i,k,j)
+     tt_ = to_ + msfty(i,j)*dts*ft(i,k,j)
+     IF ( k >= 2 ) THEN
+       wk_ = ww(i,k,j)*(fnm(k)*t_1(i,k  ,j)+fnp(k)*t_1(i,k-1,j))
+     ELSE
+       wk_ = 0.
+     ENDIF
+     IF ( k+1 <= k_end ) THEN
+       wk1_ = ww(i,k+1,j)*(fnm(k+1)*t_1(i,k+1,j)+fnp(k+1)*t_1(i,k,j))
+     ELSE
+       wk1_ = 0.
+     ENDIF
+       tn_ = tt_ - dts*msfty(i,j)*(              &
+                          msftx(i,j)*(                     &
+               .5*rdy*                                     &
+              ( vq_p*(tq_p+tq_0)     &
+               -vq_0*(tq_0+tq_m) )   &
+             + .5*rdx*                                     &
+              ( u(i+1,k,j)*(t_1(i+1,k,j)+t_1(i  ,k,j))     &
+               -u(i  ,k,j)*(t_1(i  ,k,j)+t_1(i-1,k,j)) ) ) &
+             + rdnw(k)*( wk1_-wk_ ) )
+       t(i,k,j) = tn_
+       IF ( tavpre_ ) THEN
+          t_ave(i,k,j) = .5*((1.+epssm)*tn_+(1.-epssm)*to_)
+       ELSE
+          t_ave(i,k,j) = to_
+       ENDIF
+     tq_m = tq_0 ; tq_0 = tq_p ; vq_0 = vq_p
+     ENDDO
+   ENDDO
+   ENDDO
+   ENDDO
+  ELSE
   ! GPU: the t_ave/ft update and the flux-divergence update in one (j,k,i) kernel; the two vertical fluxes of
   ! each level are formed inline (the wdtnc column array's expression, 0 at levels 1 and kde)
 !$acc parallel loop gang collapse(2) async(qq)
@@ -1770,6 +1833,7 @@ SUBROUTINE advance_mu_t( ww, ww_1, u, u_1, v, v_1,            &
    ENDDO
    ENDDO
    ENDDO
+  ENDIF   ! tvs_
   ELSE
 #endif
 !$acc parallel loop gang collapse(2) async(qq) if(wrf_gpu_on)

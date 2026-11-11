@@ -994,6 +994,14 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
       REAL :: qt_   ! GPU: per-point species sum
       REAL :: qu_, qv_, qw_
       INTEGER :: itfu, jtfu, itfv, jtfv, itfw, jtfw, jcq1
+      ! WRF_GPU_VSTREAM (calc_cq in blocks of JBQ rows, per-species moist(j) carried)
+      INTEGER, PARAMETER :: JBQ = 4, MAXSPQ = 16
+      INTEGER, SAVE :: cqvs_ = -1
+      CHARACTER(LEN=8) :: cqv_ev
+      INTEGER :: vs2st_
+      INTEGER :: jbq_, nbq_, j0q_, j1q_
+      REAL :: mq_
+      REAL :: qprev_(MAXSPQ)
    
    INTEGER :: i, j, k, itf, jtf, ktf, ispe
 #ifdef WRF_GPU
@@ -1039,6 +1047,45 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
         ! WRF_GPU_CSKIP: cqv also at the north halo row jte+1 (from the moist halo; the north neighbour's first row)
         jcq1 = jte
         IF ( jte+1 <= jde-1 ) jcq1 = jte+1
+        IF ( cqvs_ < 0 ) THEN
+           CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_VSTREAM2', cqv_ev )
+           ! WRF_GPU_VSTREAM2 bits (default 0 = off; 2026-11-11 all three on: +3.5 ms/step): 1 theta, 2 calc_cq, 4 u curvature
+           cqvs_ = 0
+           IF ( LEN_TRIM(cqv_ev) > 0 ) THEN
+              READ( cqv_ev, *, IOSTAT=vs2st_ ) cqvs_
+              IF ( vs2st_ /= 0 ) cqvs_ = 0
+           ENDIF
+           cqvs_ = IBITS( cqvs_, 1, 1 )
+        ENDIF
+        IF ( cqvs_ == 1 .AND. n_moist - PARAM_FIRST_SCALAR + 1 <= MAXSPQ ) THEN
+        ! WRF_GPU_VSTREAM2=1 (2026-11-10): blocks of JBQ rows per thread, each species' moist(j) kept for the next
+        ! row's j-1 term; same per-species adds in the same order as the kernel below
+        nbq_ = ( jcq1 - jts + JBQ ) / JBQ
+!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) private(j,j0q_,j1q_,qu_,qv_,qw_,mq_,qprev_)
+        DO jbq_ = 0, nbq_-1
+          DO k=kts,ktf
+            DO i=its,ite
+              j0q_ = jts + jbq_*JBQ ; j1q_ = MIN( j0q_+JBQ-1, jcq1 )
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                qprev_(ispe-PARAM_FIRST_SCALAR+1) = moist(i,k,j0q_-1,ispe)
+              ENDDO
+              DO j = j0q_, j1q_
+              qu_ = 0. ; qv_ = 0. ; qw_ = 0.
+              DO ispe=PARAM_FIRST_SCALAR,n_moist
+                mq_ = moist(i,k,j,ispe)
+                qu_ = qu_ + mq_ + moist(i-1,k,j,ispe)
+                qv_ = qv_ + mq_ + qprev_(ispe-PARAM_FIRST_SCALAR+1)
+                IF ( k > kts ) qw_ = qw_ + mq_ + moist(i,k-1,j,ispe)
+                qprev_(ispe-PARAM_FIRST_SCALAR+1) = mq_
+              ENDDO
+              IF ( j <= jtfu ) cqu(i,k,j) = 1./(1.+0.5*qu_)
+              IF ( i <= itfv .AND. ( j <= jtfv .OR. j == jte+1 ) ) cqv(i,k,j) = 1./(1.+0.5*qv_)
+              IF ( k > kts .AND. i <= itfw .AND. j <= jtfw ) cqw(i,k,j) = 0.5*qw_
+              ENDDO
+            ENDDO
+          ENDDO
+        ENDDO
+        ELSE
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q)
         DO j=jts,jcq1
           DO k=kts,ktf
@@ -1056,6 +1103,7 @@ SUBROUTINE calc_cq ( moist, cqu, cqv, cqw, n_moist, &
             ENDDO
           ENDDO
         ENDDO
+        ENDIF   ! cqvs_
       ELSE
 #endif
       IF(  n_moist >= PARAM_FIRST_SCALAR ) THEN
@@ -5197,6 +5245,13 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
    REAL , DIMENSION( ims:ime , jms:jme ) , INTENT(IN   ) :: cf, ce, csina, ccosa
    LOGICAL , INTENT(IN   ) :: withcor
    LOGICAL :: wcor
+   ! WRF_GPU_VSTREAM (u curvature streamed over blocks of JBU rows)
+   INTEGER, PARAMETER :: JBU = 4
+   INTEGER, SAVE :: cuvs_ = -1
+   CHARACTER(LEN=8) :: cuv_
+   INTEGER :: vs2st_
+   INTEGER :: jbu_, nbu_, j0u_, j1u_
+   REAL :: rvq0, rvq1, rvp0, rvp1
    REAL :: t_
    REAL , DIMENSION( kms:kme ) ,                 INTENT(IN   ) :: fzm,     &
                                                                 fzp
@@ -5401,6 +5456,44 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       ENDDO
 
    ELSE  ! normal code
+   IF ( cuvs_ < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_VSTREAM2', cuv_ )
+      ! WRF_GPU_VSTREAM2 bits (default 0 = off; 2026-11-11 all three on: +3.5 ms/step): 1 theta, 2 calc_cq, 4 u curvature
+      cuvs_ = 0
+      IF ( LEN_TRIM(cuv_) > 0 ) THEN
+         READ( cuv_, *, IOSTAT=vs2st_ ) cuvs_
+         IF ( vs2st_ /= 0 ) cuvs_ = 0
+      ENDIF
+      cuvs_ = IBITS( cuvs_, 2, 1 )
+   ENDIF
+   IF ( cuvs_ == 1 .AND. wrf_gpu_on ) THEN
+   ! WRF_GPU_VSTREAM2=1 (2026-11-10): u curvature in blocks of JBU rows per thread; rv(i-1,j+1), rv(i,j+1) carried to
+   ! the next row as rv(i-1,j), rv(i,j). Same expressions and order as the kernel below.
+      nbu_ = ( MIN(jde-1,jte) - jts + JBU ) / JBU
+!$acc parallel loop gang vector collapse(3) async(wrf_gpu_q) private(j,j0u_,j1u_,t_,rvq0,rvq1,rvp0,rvp1)
+      DO jbu_ = 0, nbu_-1
+      DO k=kts,ktf
+      DO i=i_start,i_end
+         j0u_ = jts + jbu_*JBU ; j1u_ = MIN( j0u_+JBU-1, MIN(jde-1,jte) )
+         j = j0u_
+         rvq0 = rv(i-1,k,j) ; rvq1 = rv(i,k,j)
+         DO j = j0u_, j1u_
+         rvp0 = rv(i-1,k,j+1) ; rvp1 = rv(i,k,j+1)
+         t_ = ru_tend(i,k,j)
+         IF ( wcor ) t_=t_ + (msfux(i,j)/msfuy(i,j))*0.5*(cf(i,j)+cf(i-1,j)) &
+       *0.25*(rvp0+rvp1+rvq0+rvq1) &
+           - 0.5*(ce(i,j)+ce(i-1,j))*0.5*(ccosa(i,j)+ccosa(i-1,j)) &
+       *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
+         ru_tend(i,k,j)=t_ + 0.5*(vxgm(i,k,j)+vxgm(i-1,k,j)) &
+                 *0.25*(rvp0+rvp1+rvq0+rvq1) &
+                  - u(i,k,j)*reradius &
+                 *0.25*(rw(i-1,k+1,j)+rw(i-1,k,j)+rw(i,k+1,j)+rw(i,k,j))
+         rvq0 = rvp0 ; rvq1 = rvp1
+         ENDDO
+      ENDDO
+      ENDDO
+      ENDDO
+   ELSE
 
 
 !$acc parallel loop gang collapse(2) async(wrf_gpu_q) if(wrf_gpu_on)
@@ -5422,6 +5515,7 @@ SUBROUTINE curvature ( ru, rv, rw, u, v, w, ru_tend, rv_tend, rw_tend, &
       ENDDO
       ENDDO
       ENDDO
+   ENDIF   ! cuvs_
 
    END IF
 

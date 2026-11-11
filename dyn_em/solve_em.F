@@ -224,6 +224,16 @@ SUBROUTINE solve_em ( grid , config_flags  &
 #ifdef WRF_GPU_RESIDENT
    LOGICAL                        :: early_rkt
    INTEGER, SAVE                  :: earlydyn = -1
+   INTEGER, SAVE                  :: c2half = -1   ! WRF_GPU_C2HALF
+   INTEGER                        :: c2one_
+   ! WRF_GPU_C2AVOID (1 on, 2 verify): every small step also computes the south halo row jts-1 locally (advance_mu_t
+   ! in an extra call after HALO_EM_C; the t/mu/muts/ph/w boundary updates, advance_w and calc_p_rho start at jts-1),
+   ! from a one-way stage-start exchange of
+   ! their inputs: c2av_stage_exch), so HALO_EM_C2 is needed only after the last small step. 2: also exchange C2
+   ! every step and count differences between the local row and the received one (debug).
+   INTEGER, SAVE :: c2avoid = -1
+   LOGICAL :: c2av_on, c2ext
+   INTEGER :: c2jx_
    INTEGER, SAVE                  :: leanasync = -1
    INTEGER, SAVE                  :: halomrg = -1   ! WRF_GPU_HALOMRG (merged halo exchanges)
    LOGICAL                        :: d2m_on, dm_on, cskip_on
@@ -279,6 +289,11 @@ SUBROUTINE solve_em ( grid , config_flags  &
    ! (u/v/w/t_2, rho, moist, scalar); alt/p/ph_2 (rk_step_prep, boundary setters) and mu*/rqvften still pulled
    LOGICAL :: gpu_skip_diff = .FALSE., gpu_h1_reuse = .FALSE.
    LOGICAL, SAVE :: gpu_h3_done = .FALSE., gpu_bdy_pushed = .FALSE.
+   ! WRF_GPU_H3MASK: which arrays the H3 pull (output / first steps) brings to the host (bits in gpu_stage_host_h3.inc;
+   ! default 4095 = all, as before); h3got = what the last H3 pulled (the next H1 re-pulls what it did not)
+   INTEGER, SAVE :: h3mask = -1, h3got = 0
+   CHARACTER(LEN=16) :: h3mv
+   INTEGER :: h3st
    ! bit 256: after host part1, the GPU re-runs init_zero_tendency + phy_prep itself (both GPU-ported) instead of
    ! receiving the zeroed tendencies and the phy_prep fields (needs no host physics writing them: no PBL
    ! scalar/tracer mixing, no grid nudging)
@@ -1861,6 +1876,28 @@ BENCH_END(small_step_prep_tim)
 !--------------------------------------------------------------
 #      include "HALO_EM_B.inc"
 #      include "PERIOD_BDY_EM_B.inc"
+#ifdef WRF_GPU
+   IF ( c2avoid < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_C2AVOID', hmv_ )
+      c2avoid = 0
+      IF ( TRIM(hmv_) == '1' ) c2avoid = 1
+      IF ( TRIM(hmv_) == '2' ) c2avoid = 2
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_CSKIP', hmv_ )
+      IF ( TRIM(hmv_) == '1' ) c2avoid = 0   ! CSKIP reads the north rows of C2's fields
+      IF ( c2avoid > 0 ) WRITE(0,'(A,I2)') 'WRF_GPU_C2AVOID ', c2avoid
+   ENDIF
+   ! global decision (same on all tasks); the bottom task has no south halo row to compute
+   c2av_on = c2avoid > 0 .AND. wrf_gpu_on .AND. ntasks_x == 1 .AND. grid%num_tiles == 1 .AND.                   &
+             config_flags%specified .AND. config_flags%non_hydrostatic .AND. .NOT. ( config_flags%nested .OR.     &
+             config_flags%periodic_x .OR. config_flags%periodic_y .OR. config_flags%polar )
+   c2ext = c2av_on .AND. grid%j_start(1) >= jds+2
+   c2jx_ = grid%j_start(1) - 1
+   IF ( c2av_on .AND. grid%j_start(1) == jds+1 ) CALL wrf_error_fatal( 'WRF_GPU_C2AVOID: patch starts at jds+1' )
+   IF ( c2av_on ) CALL c2av_stage_exch( grid, t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, cqw, a, alpha, &
+                                        gamma, pm1, mu_tend, local_communicator, mytask, ntasks, ntasks_x,       &
+                                        ntasks_y, ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme,   &
+                                        ips, ipe, jps, jpe, kps, kpe )
+#endif
 #endif
 
 BENCH_START(set_phys_bc2_tim)
@@ -2169,6 +2206,28 @@ BENCH_START(advance_mu_t_tim)
                           grid%i_start(ij), grid%i_end(ij),  &
                           grid%j_start(ij), grid%j_end(ij),  &
                           k_start    , k_end                )
+#ifdef WRF_GPU
+         IF ( c2ext ) THEN   ! WRF_GPU_C2AVOID: row jts-1 (after HALO_EM_C: reads v there)
+         CALL advance_mu_t( grid%ww, ww1, grid%u_2, grid%u_save, grid%v_2, grid%v_save, &
+                          grid%mu_2, grid%mut, muave, grid%muts, grid%muu, grid%muv,    &
+                          grid%mudf,                                                    &
+                          grid%c1h, grid%c2h, grid%c1f, grid%c2f,                       &
+                          grid%c3h, grid%c4h, grid%c3f, grid%c4f,                       &
+                          grid%ru_m, grid%rv_m, grid%ww_m,                              &
+                          grid%t_2, grid%t_save, t_2save, t_tend,                       &
+                          mu_tend,                                                      &
+                          grid%rdx, grid%rdy, dts_rk, grid%epssm,                       &
+                          grid%dnw, grid%fnm, grid%fnp, grid%rdnw,                      &
+                          grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv,            &
+                          grid%msfvy, grid%msftx,grid%msfty,                            &
+                          iteration, config_flags,                                      &
+                          ids, ide, jds, jde, kds, kde,      &
+                          ims, ime, jms, jme, kms, kme,      &
+                          grid%i_start(ij), grid%i_end(ij),  &
+                          c2jx_, c2jx_,  &
+                          k_start    , k_end                )
+         ENDIF
+#endif
 BENCH_END(advance_mu_t_tim)
        ENDDO
        !$OMP END PARALLEL DO
@@ -2231,7 +2290,7 @@ BENCH_START(spec_bdy_t_tim)
                                ims,ime, jms,jme, kms,kme,       &
                                ips,ipe, jps,jpe, kps,kpe,       &
                                grid%i_start(ij), grid%i_end(ij),&
-                               grid%j_start(ij), grid%j_end(ij),&
+                               MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),&
                                k_start    , k_end              )
 
            CALL spec_bdyupdate(grid%mu_2, mu_tend, dts_rk,       &
@@ -2241,7 +2300,7 @@ BENCH_START(spec_bdy_t_tim)
                                ims,ime, jms,jme, 1  ,1  ,       &
                                ips,ipe, jps,jpe, 1  ,1  ,       &
                                grid%i_start(ij), grid%i_end(ij),&
-                               grid%j_start(ij), grid%j_end(ij),&
+                               MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),&
                                1    , 1             )
 
            CALL spec_bdyupdate(grid%muts, mu_tend, dts_rk,      &
@@ -2251,7 +2310,7 @@ BENCH_START(spec_bdy_t_tim)
                               ims,ime, jms,jme, 1  ,1  ,  & ! memory dims
                               ips,ipe, jps,jpe, 1  ,1  ,  & ! patch  dims
                               grid%i_start(ij), grid%i_end(ij),         &
-                              grid%j_start(ij), grid%j_end(ij),         &
+                              MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),         &
                               1    , 1             )
          ENDIF
 BENCH_END(spec_bdy_t_tim)
@@ -2279,7 +2338,7 @@ BENCH_START(advance_w_tim)
                            ids,ide, jds,jde, kds,kde,                  &
                            ims,ime, jms,jme, kms,kme,                  &
                            grid%i_start(ij), grid%i_end(ij),           &
-                           grid%j_start(ij), grid%j_end(ij),           &
+                           MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),           &
                            k_start    , k_end                          )
          ENDIF
 BENCH_END(advance_w_tim)
@@ -2362,7 +2421,7 @@ BENCH_START(spec_bdynhyd_tim)
                                      ims,ime, jms,jme, kms,kme,       &
                                      ips,ipe, jps,jpe, kps,kpe,       &
                                      grid%i_start(ij), grid%i_end(ij),&
-                                     grid%j_start(ij), grid%j_end(ij),&
+                                     MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),&
                                      k_start    , k_end               )
              IF( config_flags%specified ) THEN
                CALL zero_grad_bdy ( grid%w_2,                         &
@@ -2372,7 +2431,7 @@ BENCH_START(spec_bdynhyd_tim)
                                     ims,ime, jms,jme, kms,kme,        &
                                     ips,ipe, jps,jpe, kps,kpe,        &
                                     grid%i_start(ij), grid%i_end(ij), &
-                                    grid%j_start(ij), grid%j_end(ij), &
+                                    MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij), &
                                     k_start    , k_end                )
              ELSE
                CALL spec_bdyupdate ( grid%w_2, rw_tend, dts_rk,       &
@@ -2382,7 +2441,7 @@ BENCH_START(spec_bdynhyd_tim)
                                      ims,ime, jms,jme, kms,kme,       &
                                      ips,ipe, jps,jpe, kps,kpe,       &
                                      grid%i_start(ij), grid%i_end(ij),&
-                                     grid%j_start(ij), grid%j_end(ij),&
+                                     MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij),&
                                      k_start    , k_end               )
              ENDIF
            ENDIF
@@ -2401,7 +2460,7 @@ BENCH_START(cald_p_rho_tim)
                           ids, ide, jds, jde, kds, kde,     &
                           ims, ime, jms, jme, kms, kme,     &
                           grid%i_start(ij), grid%i_end(ij), &
-                          grid%j_start(ij), grid%j_end(ij), &
+                          MERGE(c2jx_,grid%j_start(ij),c2ext), grid%j_end(ij), &
                           k_start    , k_end               )
 BENCH_END(cald_p_rho_tim)
 
@@ -2451,7 +2510,27 @@ BENCH_END(cald_p_rho_tim)
                            k_start    , k_end                                     , early=1 )
    ENDIF
 #endif
+   ! WRF_GPU_C2HALF=1: before the last small step only the south halo rows of HALO_EM_C2's fields are read
+   ! (advance_uv's v at jts); the exchange is made one-directional in rsl_comm_iter (send north, receive from the
+   ! south). Not with CSKIP (its v at jte+1 reads the north rows) and not on the last small step (full refresh).
+   IF ( c2half < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_C2HALF', hmv_ )
+      c2half = 0
+      IF ( TRIM(hmv_) == '1' ) c2half = 1
+   ENDIF
+   c2one_ = 0
+   IF ( c2half == 1 .AND. .NOT. cskip_on .AND. iteration < number_of_small_timesteps .AND. ntasks_x == 1 ) c2one_ = 1
+   IF ( c2one_ == 1 ) CALL rsl_set_oneway_y( c2one_ )
+   IF ( c2av_on .AND. c2ext .AND. c2avoid == 2 ) CALL c2av_verify( grid, c2jx_, 0, rk_step, iteration, &
+                                                     ims, ime, jms, jme, kms, kme )
+   IF ( .NOT. ( c2av_on .AND. c2avoid == 1 .AND. iteration < number_of_small_timesteps ) ) THEN
 #      include "HALO_EM_C2.inc"
+   ENDIF
+   IF ( c2av_on .AND. c2ext .AND. c2avoid == 2 ) CALL c2av_verify( grid, c2jx_, 1, rk_step, iteration, &
+                                                     ims, ime, jms, jme, kms, kme )
+   IF ( c2one_ == 1 ) THEN
+      c2one_ = 0 ; CALL rsl_set_oneway_y( c2one_ )
+   ENDIF
 #      include "PERIOD_BDY_EM_B3.inc"
 #ifdef WRF_GPU
    CALL SYSTEM_CLOCK( sst_c(7) )
@@ -6019,15 +6098,25 @@ BENCH_END(bc_2d_tim)
       CALL afwa_time_flags( grid, ld_after, ld_out, ld_first )
       lean_h3 = .NOT. ( ld_out .OR. ld_first )
    ENDIF
+   IF ( h3mask < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_H3MASK', h3mv, STATUS=h3st )
+      h3mask = 4095
+      IF ( h3st == 0 ) READ( h3mv, *, IOSTAT=h3st ) h3mask
+      IF ( h3st /= 0 .OR. h3mask < 0 ) h3mask = 4095
+      IF ( h3mask /= 4095 ) WRITE(0,'(A,I6)') 'WRF_GPU_H3MASK ', h3mask
+   ENDIF
    IF ( .NOT. lean_h3 ) THEN
    IF ( IAND( wrf_gpu_xfer(), 2048 ) /= 0 ) THEN
 #  include "gpu_stage_host_h3.inc"
+   h3got = h3mask
    ELSE
 #  include "gpu_upd_host_h3.inc"
+   h3got = IOR( h3mask, 2048 )
    ENDIF
    gpu_h3_done = .TRUE.
    ELSE
    gpu_h3_done = .FALSE.
+   h3got = 0
    ENDIF
    ! updraft helicity (cal_helicity in part2) is GPU-computed: the host diagnostics read/reset it and H1 pushes it back
 !$acc update self(grid%uh) if(associated(grid%uh))
@@ -7633,4 +7722,194 @@ SUBROUTINE lean_pack( buf, t_phy, th_phy, p_phy, pi_phy, u_phy, v_phy, p8w, t8w,
    ENDDO
    ENDDO
 END SUBROUTINE lean_pack
+#endif
+
+#if defined( WRF_GPU ) && defined( DM_PARALLEL )
+! WRF_GPU_C2AVOID: stage-start exchange (after HALO_EM_B) of the south halo row of everything the extra-row small-step
+! calls read and HALO_EM_B does not carry; one-way (send the top row north, receive the south row). t_save is needed
+! two rows down (advance_mu_t reads t_1(j-1)): its row jpe-1 travels in the scratch tsh(jpe) and lands at jps-2.
+SUBROUTINE c2av_stage_exch( grid, t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, cqw, a, alpha, gamma, pm1, &
+                            mu_tend, local_communicator, mytask, ntasks, ntasks_x, ntasks_y,                    &
+                            ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   USE module_domain, ONLY : domain
+   USE module_driver_constants
+   USE module_wrf_error, ONLY : wrf_gpu_q
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   INTEGER, INTENT(IN) :: local_communicator, mytask, ntasks, ntasks_x, ntasks_y
+   INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, &
+                                                               cqw, a, alpha, gamma, pm1
+   REAL, DIMENSION(ims:ime,jms:jme), INTENT(INOUT) :: mu_tend
+   CALL c2av_stage_exch_k( grid, grid%t_2, grid%w_2, grid%ww, grid%t_save, grid%mut, grid%muts, grid%muu, grid%muv,  &
+                           t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, cqw, a, alpha, gamma, pm1, mu_tend, &
+                           local_communicator, mytask, ntasks, ntasks_x, ntasks_y,                                  &
+                           ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+END SUBROUTINE c2av_stage_exch
+
+SUBROUTINE c2av_stage_exch_k( grid, t_2, w_2, ww, t_save, mut, muts, muu, muv,                                    &
+                              t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, cqw, a, alpha, gamma, pm1, mu_tend, &
+                              local_communicator, mytask, ntasks, ntasks_x, ntasks_y,                                &
+                              ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+   USE module_domain, ONLY : domain
+   USE module_driver_constants
+   USE module_wrf_error, ONLY : wrf_gpu_q
+   IMPLICIT NONE
+   TYPE(domain), INTENT(IN) :: grid
+   INTEGER, INTENT(IN) :: local_communicator, mytask, ntasks, ntasks_x, ntasks_y
+   INTEGER, INTENT(IN) :: ids, ide, jds, jde, kds, kde, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_2, w_2, ww, t_save
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_tend, rw_tend, ph_tend, ww1, w_save, ph_save, c2a, &
+                                                               cqw, a, alpha, gamma, pm1
+   REAL, DIMENSION(ims:ime,jms:jme), INTENT(INOUT) :: mut, muts, muu, muv, mu_tend
+   REAL, ALLOCATABLE, SAVE :: tsh(:,:,:)
+   INTEGER :: rsl_sendw_p, rsl_sendbeg_p, rsl_recvw_p, rsl_recvbeg_p
+   INTEGER :: rsl_sendw_m, rsl_sendbeg_m, rsl_recvw_m, rsl_recvbeg_m
+   LOGICAL, EXTERNAL :: rsl_comm_iter
+   INTEGER :: i, k, pu, one
+   IF ( ALLOCATED(tsh) ) THEN
+      IF ( LBOUND(tsh,1) /= ims .OR. UBOUND(tsh,1) /= ime .OR. LBOUND(tsh,3) /= jms .OR. UBOUND(tsh,3) /= jme ) THEN
+!$acc wait
+!$acc exit data delete(tsh)
+         DEALLOCATE(tsh)
+      ENDIF
+   ENDIF
+   IF ( .NOT. ALLOCATED(tsh) ) THEN
+      ALLOCATE( tsh(ims:ime,kms:kme,jms:jme) )
+!$acc enter data create(tsh)
+   ENDIF
+!$acc parallel loop gang vector collapse(2) present(tsh, t_save) async(wrf_gpu_q)
+   DO k = kms, kme
+   DO i = ims, ime
+      tsh(i,k,jpe) = t_save(i,k,jpe-1)
+   ENDDO
+   ENDDO
+   CALL push_communicators_for_domain( grid%id )
+   one = 1 ; CALL rsl_set_oneway_y( one )
+   CALL rsl_comm_iter_init(1,jps,jpe)
+   DO WHILE ( rsl_comm_iter( grid%id , grid%is_intermediate, 1 , &
+                             0 , jds,jde,jps,jpe, grid%njds, grid%njde , &
+              rsl_sendbeg_m, rsl_sendw_m, rsl_sendbeg_p, rsl_sendw_p,   &
+              rsl_recvbeg_m, rsl_recvw_m, rsl_recvbeg_p, rsl_recvw_p    ))
+      CALL RSL_LITE_INIT_EXCH ( local_communicator, 1, 0, &
+           rsl_sendbeg_m, rsl_sendw_m, rsl_sendbeg_p, rsl_sendw_p,   &
+           rsl_recvbeg_m, rsl_recvw_m, rsl_recvbeg_p, rsl_recvw_p,   &
+           16, 5, RWORDSIZE, &
+           0, 0, IWORDSIZE, &
+           0, 0, DWORDSIZE, &
+           0, 0, LWORDSIZE, &
+           mytask, ntasks, ntasks_x, ntasks_y,   &
+           ips, ipe, jps, jpe, kps, MAX(1,1,kpe) )
+      DO pu = 0, 1
+         IF ( pu == 1 ) CALL RSL_LITE_EXCH_Y ( local_communicator , mytask, ntasks, ntasks_x, ntasks_y, &
+                                               rsl_sendw_m,  rsl_sendw_p, rsl_recvw_m,  rsl_recvw_p    )
+         CALL pk3( t_2, 0 ) ; CALL pk3( w_2, 0 ) ; CALL pk3( ww, 0 ) ; CALL pk3( tsh, 0 )
+         CALL pk3( t_tend, 0 ) ; CALL pk3( rw_tend, 0 ) ; CALL pk3( ph_tend, 0 ) ; CALL pk3( ww1, 0 )
+         CALL pk3( w_save, 0 ) ; CALL pk3( ph_save, 0 ) ; CALL pk3( c2a, 0 ) ; CALL pk3( cqw, 0 )
+         CALL pk3( a, 0 ) ; CALL pk3( alpha, 0 ) ; CALL pk3( gamma, 0 ) ; CALL pk3( pm1, 0 )
+         CALL pk2( mut, 0 ) ; CALL pk2( muts, 0 ) ; CALL pk2( muu, 0 ) ; CALL pk2( muv, 1 ) ; CALL pk2( mu_tend, 0 )
+      ENDDO
+      CALL rsl_fused_unpack_flush()
+   ENDDO
+   one = 0 ; CALL rsl_set_oneway_y( one )
+   CALL pop_communicators_for_domain
+   IF ( jps > jds .AND. jps-2 >= jms ) THEN
+!$acc parallel loop gang vector collapse(2) present(tsh, t_save) async(wrf_gpu_q)
+      DO k = kms, kme
+      DO i = ims, ime
+         t_save(i,k,jps-2) = tsh(i,k,jps-1)
+      ENDDO
+      ENDDO
+   ENDIF
+CONTAINS
+   SUBROUTINE pk3( x, stag )
+      REAL :: x(*)
+      INTEGER, INTENT(IN) :: stag
+      CALL RSL_LITE_PACK ( local_communicator, x, 1,                       &
+           rsl_sendbeg_m, rsl_sendw_m, rsl_sendbeg_p, rsl_sendw_p,          &
+           rsl_recvbeg_m, rsl_recvw_m, rsl_recvbeg_p, rsl_recvw_p,          &
+           RWORDSIZE, 0, pu, DATA_ORDER_XZY, stag,                          &
+           mytask, ntasks, ntasks_x, ntasks_y,                              &
+           ids, ide, jds, jde, kds, kde,                                    &
+           ims, ime, jms, jme, kms, kme,                                    &
+           ips, ipe, jps, jpe, kps, kpe )
+   END SUBROUTINE pk3
+   SUBROUTINE pk2( x, stag )
+      REAL :: x(*)
+      INTEGER, INTENT(IN) :: stag
+      CALL RSL_LITE_PACK ( local_communicator, x, 1,                       &
+           rsl_sendbeg_m, rsl_sendw_m, rsl_sendbeg_p, rsl_sendw_p,          &
+           rsl_recvbeg_m, rsl_recvw_m, rsl_recvbeg_p, rsl_recvw_p,          &
+           RWORDSIZE, 0, pu, DATA_ORDER_XY, stag,                           &
+           mytask, ntasks, ntasks_x, ntasks_y,                              &
+           ids, ide, jds, jde, 1, 1,                                        &
+           ims, ime, jms, jme, 1, 1,                                        &
+           ips, ipe, jps, jpe, 1, 1 )
+   END SUBROUTINE pk2
+END SUBROUTINE c2av_stage_exch_k
+
+! WRF_GPU_C2AVOID=2: phase 0 keeps row jx of HALO_EM_C2's fields as computed locally, phase 1 (after the exchange)
+! counts the points where the received row differs
+SUBROUTINE c2av_verify( grid, jx, phase, rk_step, iteration, ims, ime, jms, jme, kms, kme )
+   USE module_domain, ONLY : domain
+   IMPLICIT NONE
+   TYPE(domain), INTENT(INOUT) :: grid
+   INTEGER, INTENT(IN) :: jx, phase, rk_step, iteration, ims, ime, jms, jme, kms, kme
+   CALL c2av_verify_k( grid%ph_2, grid%al, grid%p, grid%mu_2, grid%muts, grid%mudf, jx, phase, rk_step, iteration, &
+                       ims, ime, jms, jme, kms, kme )
+END SUBROUTINE c2av_verify
+
+SUBROUTINE c2av_verify_k( ph_2, al, p, mu_2, muts, mudf, jx, phase, rk_step, iteration, ims, ime, jms, jme, kms, kme )
+   IMPLICIT NONE
+   INTEGER, INTENT(IN) :: jx, phase, rk_step, iteration, ims, ime, jms, jme, kms, kme
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(IN) :: ph_2, al, p
+   REAL, DIMENSION(ims:ime,jms:jme), INTENT(IN) :: mu_2, muts, mudf
+   REAL, ALLOCATABLE, SAVE :: s3(:,:,:), s2(:,:)
+   INTEGER, SAVE :: ncall = 0, ntot = 0
+   INTEGER :: i, k, n1, n2, n3, n4, n5, n6
+   CHARACTER(LEN=200) :: msg
+   IF ( .NOT. ALLOCATED(s3) ) THEN
+      ALLOCATE( s3(ims:ime,kms:kme,3), s2(ims:ime,3) )
+!$acc enter data create(s3, s2)
+   ENDIF
+   IF ( phase == 0 ) THEN
+!$acc parallel loop gang vector collapse(2) present(s3, ph_2, al, p) async(1)
+      DO k = kms, kme
+      DO i = ims, ime
+         s3(i,k,1) = ph_2(i,k,jx) ; s3(i,k,2) = al(i,k,jx) ; s3(i,k,3) = p(i,k,jx)
+      ENDDO
+      ENDDO
+!$acc parallel loop gang vector present(s2, mu_2, muts, mudf) async(1)
+      DO i = ims, ime
+         s2(i,1) = mu_2(i,jx) ; s2(i,2) = muts(i,jx) ; s2(i,3) = mudf(i,jx)
+      ENDDO
+      RETURN
+   ENDIF
+!$acc wait
+   n1 = 0 ; n2 = 0 ; n3 = 0 ; n4 = 0 ; n5 = 0 ; n6 = 0
+!$acc parallel loop gang vector collapse(2) present(s3, ph_2, al, p) reduction(+:n1,n2,n3)
+   DO k = kms, kme-1
+   DO i = ims, ime
+      IF ( s3(i,k,1) /= ph_2(i,k,jx) ) n1 = n1 + 1
+      IF ( s3(i,k,2) /= al(i,k,jx) ) n2 = n2 + 1
+      IF ( s3(i,k,3) /= p(i,k,jx) ) n3 = n3 + 1
+   ENDDO
+   ENDDO
+!$acc parallel loop gang vector present(s2, mu_2, muts, mudf) reduction(+:n4,n5,n6)
+   DO i = ims, ime
+      IF ( s2(i,1) /= mu_2(i,jx) ) n4 = n4 + 1
+      IF ( s2(i,2) /= muts(i,jx) ) n5 = n5 + 1
+      IF ( s2(i,3) /= mudf(i,jx) ) n6 = n6 + 1
+   ENDDO
+   ncall = ncall + 1
+   ntot = ntot + n1 + n2 + n3 + n4 + n5 + n6
+   IF ( n1+n2+n3+n4+n5+n6 > 0 .AND. ntot < 2000000 ) THEN
+      WRITE(msg,'(A,2I3,A,6I8)') 'C2AVOID verify rk/it', rk_step, iteration, ' diff ph al p mu muts mudf', n1, n2, n3, n4, n5, n6
+      CALL wrf_message( msg )
+   ENDIF
+   IF ( MOD(ncall,50) == 0 ) THEN
+      WRITE(msg,'(A,I8,A,I12)') 'C2AVOID verify calls', ncall, ' total diffs', ntot
+      CALL wrf_message( msg )
+   ENDIF
+END SUBROUTINE c2av_verify_k
 #endif

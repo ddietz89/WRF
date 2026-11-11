@@ -89,7 +89,7 @@ CONTAINS
       USE module_diag_afwa, ONLY : afwa_diagnostics_driver
 #ifdef WRF_GPU_RESIDENT
       USE module_diag_afwa, ONLY : afwa_time_flags, diag_nwp_afwa_gpu, diag_nwp_afwa_gpu_sync, afwa_buoy_gpu, afwa_buoy_on_gpu, &
-                                   afwa_turb_gpu, afwa_turb_on_gpu
+                                   afwa_turb_gpu, afwa_turb_on_gpu, afwa_gpu_q_wait
       USE module_state_description, ONLY : F_QNG, THOMPSON
 #endif
       USE module_diag_rasm, ONLY : mean_output_calc, diurnalcycle_output_calc
@@ -1172,6 +1172,8 @@ CONTAINS
             END DO
             !$OMP END PARALLEL DO
 #ifdef WRF_GPU_RESIDENT
+         ! the GPU buoyancy/turbulence kernels ran on the diag queue while the host tiles ran
+         IF ( afwa_buoy_on_gpu .OR. afwa_turb_on_gpu ) CALL afwa_gpu_q_wait
          afwa_buoy_on_gpu = .FALSE.
          afwa_turb_on_gpu = .FALSE.
 #endif

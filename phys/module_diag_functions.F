@@ -867,8 +867,27 @@ CONTAINS
 
 #ifdef WRF_GPU
   !~ GPU copy of Buoyancy (routine seq; fixed-size local arrays, nz <= KBUOY_G) for afwa_buoy_gpu
+  !~ Profile part of Buoyancy_g (independent of the parcel type): same statements as the original loop
+    SUBROUTINE Buoyancy_g_pre ( nz, tk, rh, p, sfc, ws, w, etheta )
+!$acc routine seq
+      IMPLICIT NONE
+      INTEGER, INTENT ( IN )  :: nz, sfc
+      REAL,    INTENT ( IN )  :: tk ( nz ), rh ( nz ), p ( nz )
+      REAL,    INTENT ( OUT ) :: ws ( KBUOY_G ), w ( KBUOY_G ), etheta ( KBUOY_G )
+      INTEGER :: k
+      DO k = sfc, nz
+        ws  ( k )   = SaturationMixingRatio ( tK(k), p(k) )
+        w   ( k )   = ( rh(k)/100.0 ) * ws ( k )
+        !Removed by Zhixiao. Water vapor mixing ratio (w) is not conserved during parcel lifting processes. We should not use w to define MU layer.
+        !thetav(k)   = Theta ( VirtualTemperature ( tK (k), w (k) ), p(k)/100.0 )
+        !Added by Zhixiao. Critical modification: We use the model level with maximum equivalent potential temperature (etheta) below 500mb to define the MU layer
+        !Because equivalent potential temperature is conserved in dry and moist adiabatic processes.
+        etheta(k)   = Thetae( tK(k), p(k)/100.0, rh(k), w(k) )
+      END DO
+    END SUBROUTINE Buoyancy_g_pre
+
     FUNCTION Buoyancy_g ( nz, tk, rh, p, hgt, sfc, cape, cin, zlfc, plfc, lidx,  &
-                        parcel ) result (ostat)
+                        parcel, ws, w, etheta ) result (ostat)
 !$acc routine seq
   
       IMPLICIT NONE
@@ -893,9 +912,10 @@ CONTAINS
   
       !~ Derived profile variables
       !  -------------------------
-      REAL                    :: ws   ( KBUOY_G ) !~ Saturation mixing ratio
-      REAL                    :: w    ( KBUOY_G ) !~ Mixing ratio
-      REAL                    :: etheta( KBUOY_G )!~ Equivalent potential temperature. Modified by Zhixiao.
+      ! ws/w/etheta (sfc:nz) from Buoyancy_g_pre: the same for both parcels of a column, computed once by the caller
+      REAL,    INTENT ( IN )  :: ws   ( KBUOY_G ) !~ Saturation mixing ratio
+      REAL,    INTENT ( IN )  :: w    ( KBUOY_G ) !~ Mixing ratio
+      REAL,    INTENT ( IN )  :: etheta( KBUOY_G )!~ Equivalent potential temperature. Modified by Zhixiao.
       REAL                    :: dTvK ( KBUOY_G ) !~ Parcel / ambient Tv difference
       REAL                    :: buoy ( KBUOY_G ) !~ Buoyancy
       REAL                    :: tlclK       !~ LCL temperature ( K )
@@ -981,15 +1001,7 @@ CONTAINS
   
       !~ Compute mixing ratio values for the layer
       !  -----------------------------------------
-      DO k = sfc, nz
-        ws  ( k )   = SaturationMixingRatio ( tK(k), p(k) )
-        w   ( k )   = ( rh(k)/100.0 ) * ws ( k )
-        !Removed by Zhixiao. Water vapor mixing ratio (w) is not conserved during parcel lifting processes. We should not use w to define MU layer.
-        !thetav(k)   = Theta ( VirtualTemperature ( tK (k), w (k) ), p(k)/100.0 )
-        !Added by Zhixiao. Critical modification: We use the model level with maximum equivalent potential temperature (etheta) below 500mb to define the MU layer
-        !Because equivalent potential temperature is conserved in dry and moist adiabatic processes.
-        etheta(k)   = Thetae( tK(k), p(k)/100.0, rh(k), w(k) )
-      END DO
+      ! (ws, w, etheta for k = sfc..nz: Buoyancy_g_pre)
   
       srclev      = sfc
       srctK       = tK    ( sfc )
