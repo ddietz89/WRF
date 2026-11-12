@@ -118,6 +118,10 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
   INTEGER :: i, j, k
   INTEGER :: i_start, i_end, j_start, j_end, k_start, k_end
   INTEGER :: i_endu, j_endv
+  INTEGER, SAVE :: sspfold_ = -1
+  CHARACTER(LEN=8) :: sspv_
+  LOGICAL :: ssp_ok, rk1_
+  REAL :: ss1_, ss2_, sp1_, sp2_
 
 
 !<DESCRIPTION>
@@ -143,6 +147,127 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
     !  if this is the first RK step, reset *_1 to *_2
     !  (we are replacing the t-dt fields with the time t fields)
 
+#ifdef WRF_GPU
+    ! WRF_GPU_SSPFOLD (default 1, 2026-11-12): the rk_step-1 copies (mu_1, u_1, v_1, t_1, w_1, ph_1) are done inside
+    ! the kernels that read them next, the 2-D mu kernels are one launch, and the ww_save(1)/(kde) zeroing (always
+    ! overwritten by the ww_save = ww copy at the end when k_start = 1) is dropped. Same expressions; 0 = old path.
+    IF ( sspfold_ < 0 ) THEN
+      CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_SSPFOLD', sspv_ )
+      sspfold_ = 1
+      IF ( TRIM(sspv_) == '0' ) sspfold_ = 0
+    ENDIF
+    ssp_ok = sspfold_ == 1 .AND. wrf_gpu_on .AND. k_start == 1 .AND. kte >= kde
+    IF ( ssp_ok ) THEN
+    rk1_ = rk_step == 1
+!$acc parallel loop gang async(wrf_gpu_q)
+    DO j=j_start, MAX(j_end,j_endv)
+!$acc loop vector
+    DO i=i_start, MAX(i_end,i_endu)
+      IF ( rk1_ ) THEN
+        IF ( j <= j_end .AND. i <= i_end ) THEN
+          MU_1(i,j)=MU_2(i,j)
+          MUDF(i,j) = 0.
+          MUTS(i,j)=MUB(i,j)+MU_2(i,j)
+          MU_SAVE(i,j)=MU_2(i,j)
+          MU_2(i,j)=0.
+        ENDIF
+        IF ( j <= j_end .AND. i <= i_endu ) MUUS(i,j) = MUU(i,j)
+        IF ( j <= j_endv .AND. i <= i_end ) MUVS(i,j) = MUV(i,j)
+      ELSE
+        IF ( j <= j_end .AND. i <= i_end ) THEN
+          MUTS(i,j)=MUB(i,j)+MU_1(i,j)
+          MU_SAVE(i,j)=MU_2(i,j)
+          MU_2(i,j)=MU_1(i,j)-MU_2(i,j)
+        ENDIF
+        IF ( j <= j_end .AND. i <= i_endu ) MUUS(i,j)=0.5*(MUB(i,j)+MU_1(i,j)+MUB(i-1,j)+MU_1(i-1,j))
+        IF ( j <= j_endv .AND. i <= i_end ) MUVS(i,j)=0.5*(MUB(i,j)+MU_1(i,j)+MUB(i,j-1)+MU_1(i,j-1))
+      ENDIF
+    ENDDO
+    ENDDO
+
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+    DO j=j_start, j_end
+    DO k=k_start, k_end
+!$acc loop vector 
+    DO i=i_start, i_end
+      c2a(i,k,j) = cpovcv*(pb(i,k,j)+p(i,k,j))/alt(i,k,j)
+    ENDDO
+    ENDDO
+    ENDDO
+
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+    DO j=j_start, j_end
+    DO k=k_start, k_end
+!$acc loop vector private(ss2_,ss1_)
+    DO i=i_start, i_endu
+      ss2_ = u_2(i,k,j)
+      IF ( rk1_ ) THEN
+        u_1(i,k,j) = ss2_ ; ss1_ = ss2_
+      ELSE
+        ss1_ = u_1(i,k,j)
+      ENDIF
+      u_save(i,k,j) = ss2_
+      u_2(i,k,j) = ((c1h(k)*muus(i,j)+c2h(k))*ss1_-(c1h(k)*muu(i,j)+c2h(k))*ss2_)/msfuy(i,j)
+    ENDDO
+    ENDDO
+    ENDDO
+
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+    DO j=j_start, j_endv
+    DO k=k_start, k_end
+!$acc loop vector private(ss2_,ss1_)
+    DO i=i_start, i_end
+      ss2_ = v_2(i,k,j)
+      IF ( rk1_ ) THEN
+        v_1(i,k,j) = ss2_ ; ss1_ = ss2_
+      ELSE
+        ss1_ = v_1(i,k,j)
+      ENDIF
+      v_save(i,k,j) = ss2_
+      v_2(i,k,j) = ((c1h(k)*muvs(i,j)+c2h(k))*ss1_-(c1h(k)*muv(i,j)+c2h(k))*ss2_)*msfvx_inv(i,j)
+    ENDDO
+    ENDDO
+    ENDDO
+
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+    DO j=j_start, j_end
+    DO k=k_start, k_end
+!$acc loop vector private(ss2_,ss1_)
+    DO i=i_start, i_end
+      ss2_ = t_2(i,k,j)
+      IF ( rk1_ ) THEN
+        t_1(i,k,j) = ss2_ ; ss1_ = ss2_
+      ELSE
+        ss1_ = t_1(i,k,j)
+      ENDIF
+      t_save(i,k,j) = ss2_
+      t_2(i,k,j) = (c1h(k)*muts(i,j)+c2h(k))*ss1_-(c1h(k)*mut(i,j)+c2h(k))*ss2_
+    ENDDO
+    ENDDO
+    ENDDO
+
+!$acc parallel loop gang collapse(2) async(wrf_gpu_q)
+    DO j=j_start, j_end
+    DO k=k_start, kde
+!$acc loop vector private(ss2_,ss1_,sp2_,sp1_)
+    DO i=i_start, i_end
+      ss2_ = w_2(i,k,j) ; sp2_ = ph_2(i,k,j)
+      IF ( rk1_ ) THEN
+        w_1(i,k,j) = ss2_ ; ss1_ = ss2_
+        ph_1(i,k,j) = sp2_ ; sp1_ = sp2_
+      ELSE
+        ss1_ = w_1(i,k,j) ; sp1_ = ph_1(i,k,j)
+      ENDIF
+      w_save(i,k,j) = ss2_
+      w_2(i,k,j)  = ((c1f(k)*muts(i,j)+c2f(k))* ss1_-(c1f(k)*mut(i,j)+c2f(k))* ss2_)/msfty(i,j)
+      ph_save(i,k,j) = sp2_
+      ph_2(i,k,j) = sp1_-sp2_
+      ww_save(i,k,j) = ww(i,k,j)
+    ENDDO
+    ENDDO
+    ENDDO
+    ELSE
+#endif
     IF ((rk_step == 1) ) THEN
 
 !$acc parallel loop gang async(wrf_gpu_q) if(wrf_gpu_on)
@@ -342,6 +467,9 @@ SUBROUTINE small_step_prep( u_1, u_2, v_1, v_2, w_1, w_2, &
       ENDDO
       ENDDO
       ENDDO
+#ifdef WRF_GPU
+    ENDIF
+#endif
 
       IF ( .NOT. wrf_gpu_xw_skip ) THEN
 !$acc wait(1)
