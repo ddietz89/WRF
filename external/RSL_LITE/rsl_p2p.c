@@ -40,6 +40,7 @@ static int (*cu_ipc_ev_get)(ipch_t *, void *) ;
 static int (*cu_ipc_ev_open)(void **, ipch_t) ;
 static int (*cu_wait_ev)(void *, void *, unsigned int) ;
 static int (*cu_d2d_async)(unsigned long long, unsigned long long, size_t, void *) ;
+static int (*cu_d2h)(void *, unsigned long long, size_t) ;
 
 int rsl_p2p_enabled ( void )
 {
@@ -66,6 +67,7 @@ int rsl_p2p_enabled ( void )
         cu_ipc_ev_open = (int(*)(void**,ipch_t))dlsym(h,"cuIpcOpenEventHandle") ;
         cu_wait_ev = (int(*)(void*,void*,unsigned int))dlsym(h,"cuStreamWaitEvent") ;
         cu_d2d_async = (int(*)(unsigned long long,unsigned long long,size_t,void*))dlsym(h,"cuMemcpyDtoDAsync_v2") ;
+        cu_d2h = (int(*)(void*,unsigned long long,size_t))dlsym(h,"cuMemcpyDtoH_v2") ;
       }
       acc_stream = (void*(*)(int))dlsym(RTLD_DEFAULT,"acc_get_cuda_stream") ;
       acc_map = (void(*)(void*,void*,size_t))dlsym(RTLD_DEFAULT,"acc_map_data") ;
@@ -118,20 +120,21 @@ static int p2pasync_on = -1, p2pasync_sync = 0, p2pasync_flags = 0 ;
    fl[RSL_MAXPROC+P] = "my data for exchange k is in P's buffer", written by 1-thread kernels on the queue-1 stream;
    the neighbour's queue-1 stream spins (1-thread kernel, volatile load of the IPC-mapped peer array) until the
    value reaches k. Counts only grow, so no host ordering is needed after the first token. */
+static long rsl_p2p_nx = 0 ; static int p2p_endsync = 0 ;
 static unsigned long long fl_dev = 0 ; static ipch_t fl_h ; static int fl_k[RSL_MAXPROC] ;
 static unsigned long long pfl[RSL_MAXPROC] ; static ipch_t pfl_h[RSL_MAXPROC] ; static int pfl_open[RSL_MAXPROC] ;
 /* 1-thread flag kernels on queue 1: rsl_fused_pack.c (OpenACC) */
 void rsl_fl_put ( unsigned long long a, int v ) ;
-void rsl_fl_wait ( unsigned long long a, int v ) ;
+void rsl_fl_wait ( unsigned long long a, int v, unsigned long long sinka ) ;
 void rsl_fl_zero ( unsigned long long a, int n ) ;
 #define fl_put rsl_fl_put
-#define fl_wait rsl_fl_wait
+#define fl_wait(a_,v_) rsl_fl_wait( (a_), (v_), fl_dev + sizeof(int) * (unsigned long long)(2 * RSL_MAXPROC) )
 static void fl_make ( void )
 {
   if ( fl_dev ) return ;
-  size_t n = 2 * RSL_MAXPROC * sizeof(int) ;
+  size_t n = ( 2 * RSL_MAXPROC + 1 ) * sizeof(int) ;   /* + sink word for rsl_fl_wait */
   if ( cu_alloc( &fl_dev, n ) || cu_ipc_get( &fl_h, fl_dev ) ) { fprintf(stderr,"RSL P2P: flag alloc failed\n") ; MPI_Abort(MPI_COMM_WORLD, 93) ; }
-  rsl_fl_zero( fl_dev, 2 * RSL_MAXPROC ) ;
+  rsl_fl_zero( fl_dev, 2 * RSL_MAXPROC + 1 ) ;
 }
 static void * evr[RSL_MAXPROC], * evd[RSL_MAXPROC] ; static ipch_t evr_h[RSL_MAXPROC], evd_h[RSL_MAXPROC] ;
 static void * pevr[RSL_MAXPROC], * pevd[RSL_MAXPROC] ; static ipch_t pevr_h[RSL_MAXPROC], pevd_h[RSL_MAXPROC] ;
@@ -244,7 +247,16 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
         }
         fl_wait( pfl[P] + sizeof(int) * (unsigned long long)me, k ) ;   /* P's receive buffer from me is free */
         void * sd = acc_dptr( buffer_for_proc( P, 0, RSL_SENDBUF ) ) ;
-        int r = cu_d2d_async( pdev[P], (unsigned long long)sd, (size_t)mine[i].nbytes, acc_stream( 1 ) ) ;
+        static int fsc = -1 ; if ( fsc < 0 ) { char *e = getenv("WRF_GPU_P2PFLSYNCCOPY") ; fsc = ( e && e[0] == '1' ) ; }
+        int r ;
+        if ( fsc ) { cu_sync() ;
+          { static int fck = -1 ; if ( fck < 0 ) { char *e = getenv("WRF_GPU_P2PFLCHECK") ; fck = ( e && e[0] == '1' ) ; }
+            if ( fck ) { int v1 = -9, v2 = -9 ; static int nck = 0 ;
+              cu_d2h( &v1, pfl[P] + sizeof(int) * (unsigned long long)me, sizeof(int) ) ;
+              cu_d2h( &v2, fl_dev + sizeof(int) * (unsigned long long)P, sizeof(int) ) ;
+              if ( ( v1 < k || v2 != k ) && nck++ < 40 ) fprintf(stderr,"RSL FLCHECK rank %d P %d k %d peer_free %d my_free %d pfl %llx fl %llx\n", me, P, k, v1, v2, pfl[P], fl_dev ) ; } }
+          r = cu_d2d( pdev[P], (unsigned long long)sd, (size_t)mine[i].nbytes ) ; cu_sync() ; }
+        else r = cu_d2d_async( pdev[P], (unsigned long long)sd, (size_t)mine[i].nbytes, acc_stream( 1 ) ) ;
         if ( r != 0 ) { fprintf(stderr,"RSL P2P: cuMemcpyDtoDAsync rc=%d\n",r) ; MPI_Abort(MPI_COMM_WORLD, 97) ; }
       }
       fl_put( fl_dev + sizeof(int) * (unsigned long long)(RSL_MAXPROC + P), k ) ;   /* my data for k is in P's buffer */
@@ -275,6 +287,17 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
     if ( r != 0 ) { fprintf(stderr,"RSL P2P: cuMemcpyDtoD rc=%d\n",r) ; MPI_Abort(MPI_COMM_WORLD, 97) ; }
   }
   if ( !any ) return ;
+  /* bisect aids (2026-11-12): WRF_GPU_P2PSIZELOG=1 prints each distinct exchange size (send bytes to both
+     neighbours) once; WRF_GPU_P2PSYNCRANGE=lo:hi adds a context sync at the end of the async exchanges whose total
+     send size is in [lo,hi] */
+  { static int szinit = 0, szlog = 0, nsz = 0 ; static long lo_ = -1, hi_ = -1 ; static int szs[256] ;
+    if ( !szinit ) { char *e = getenv("WRF_GPU_P2PSIZELOG") ; szlog = ( e && e[0] == '1' ) ;
+      e = getenv("WRF_GPU_P2PSYNCRANGE") ; if ( e ) sscanf( e, "%ld:%ld", &lo_, &hi_ ) ; szinit = 1 ; }
+    if ( szlog ) { int k2, seen = 0 ; for ( k2 = 0 ; k2 < nsz ; k2++ ) if ( szs[k2] == totsend ) seen = 1 ;
+      if ( !seen && nsz < 256 ) { szs[nsz++] = totsend ; int me_ ; MPI_Comm_rank( comm, &me_ ) ;
+        fprintf(stderr,"RSL P2P size %d (%d,%d) first at exchange #%ld rank %d\n", totsend, sendb[0], sendb[1], rsl_p2p_nx, me_) ; } }
+    rsl_p2p_nx++ ;
+    if ( lo_ >= 0 && totsend >= lo_ && totsend <= hi_ ) p2p_endsync = 1 ; else p2p_endsync = 0 ; }
   { int nfl = 0, nother = 0, me ;
     for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] ) { if ( mine[i].async == 2 && theirs[i].async == 2 ) nfl++ ; else nother++ ; }
     if ( nfl > 0 ) {
@@ -282,7 +305,12 @@ void rsl_p2p_exch ( MPI_Comm comm, int nbr[2], int sendb[2], int recvb[2], long 
       for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] && mine[i].async == 2 && theirs[i].async == 2 && theirs[i].nbytes > 0 )
         fl_wait( pfl[nbr[i]] + sizeof(int) * (unsigned long long)(RSL_MAXPROC + me), fl_k[nbr[i]] ) ;   /* P's data is in my buffer */
     }
-    if ( nother == 0 ) return ; }
+    { static int ft2 = -1 ; if ( ft2 < 0 ) { char *e = getenv("WRF_GPU_P2PFLTOK2") ; ft2 = ( e && e[0] == '1' ) ; }
+      if ( ft2 && nfl > 0 ) { MPI_Request q2[4] ; int n2 = 0 ; static int a2[2], b2[2] ;
+        for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] && mine[i].async == 2 && theirs[i].async == 2 ) {
+          MPI_Irecv( &b2[i], 1, MPI_INT, nbr[i], 7103, comm, &q2[n2++] ) ; MPI_Isend( &a2[i], 1, MPI_INT, nbr[i], 7103, comm, &q2[n2++] ) ; }
+        MPI_Waitall( n2, q2, MPI_STATUSES_IGNORE ) ; } }
+    if ( nother == 0 ) { if ( p2p_endsync ) cu_sync() ; return ; } }
   { int nas = 0, nsy = 0 ;
     for ( i = 0 ; i < 2 ; i++ ) if ( nbr[i] >= 0 && done[i] ) { if ( mine[i].async == 1 && theirs[i].async == 1 ) nas++ ; else nsy++ ; }
     /* async pairs: the copy (or nothing) is on the stream; mark it for the neighbour before announcing it */

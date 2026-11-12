@@ -63,11 +63,18 @@ void rsl_fl_put ( unsigned long long a, int v )
   #pragma acc serial deviceptr(p) async(1)
   { p[0] = v ; }
 }
-void rsl_fl_wait ( unsigned long long a, int v )
+void rsl_fl_wait ( unsigned long long a, int v, unsigned long long sinka )
 {
-  volatile int * p = (volatile int *)a ;
-  #pragma acc serial deviceptr(p) async(1)
-  { int x = p[0] ; while ( x < v ) x = p[0] ; }
+  /* the observed value is stored to a sink word: with an unused loop result nvc removed the whole spin loop
+     (one ld.volatile, no loop) */
+  int * p = (int *)a ; int * sk = (int *)sinka ;
+  #pragma acc serial deviceptr(p, sk) async(1)
+  { int x ;
+    do {
+      #pragma acc atomic read
+      x = p[0] ;
+    } while ( x < v ) ;
+    sk[0] = x ; }
 }
 void rsl_fl_zero ( unsigned long long a, int n )
 {
