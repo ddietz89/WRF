@@ -554,12 +554,22 @@ MODULE module_wrf_quilt
       LOGICAL           :: stored_write_record, retval
       INTEGER iii, jjj, vid, CC, DD, dom_id
       LOGICAL           :: call_server_ready
+      ! WRF_QUILT_TIMING=1: per batch, seconds in receive / scan / gather to root / assemble / write / flush
+      DOUBLE PRECISION :: qt_(6), qs_
+      INTEGER :: qnf_
+      INTEGER, SAVE :: qtim_ = -1
+      CHARACTER(LEN=8) :: qv_
 
 logical okay_to_w
 character*120 sysline
 
       dom_id = 1 ! always a valid assumption for domain id for this netcdf setting
       CALL model_to_grid_config_rec ( dom_id , model_config_rec , config_flags )
+      IF ( qtim_ < 0 ) THEN
+        CALL GET_ENVIRONMENT_VARIABLE( 'WRF_QUILT_TIMING', qv_, STATUS=istat )
+        qtim_ = 0 ; IF ( istat == 0 .AND. qv_(1:1) == '1' ) qtim_ = 1
+      ENDIF
+      qt_ = 0.d0 ; qnf_ = 0
 
 ! If we've been built with PNETCDF_QUILT defined then we use parallel I/O
 ! within the group of I/O servers rather than gathering the data onto the
@@ -719,10 +729,12 @@ okay_to_w = .false.
           ALLOCATE( obuf( (obufsize+1)/itypesize ) )
 
 ! let's roll; get the data from the compute procs and put in obuf
+          qs_ = MPI_Wtime()
           CALL collect_on_comm_debug(__FILE__,__LINE__, mpi_comm_io_groups(1),        &
                                 onebyte,                      &
                                 dummy, 0,                     &
                                 obuf, obufsize )
+          qt_(1) = qt_(1) + MPI_Wtime() - qs_
 !          CALL end_timing( "quilt on server: collecting data from compute procs" )
         ELSE
           ! Necessarily, the compute processes send the ioclose signal,
@@ -753,6 +765,7 @@ okay_to_w = .false.
         ENDIF
 
 !write(0,*)'calling init_store_piece_of_field'
+        qs_ = MPI_Wtime()
 ! Now all messages received from the compute clients are stored in 
 ! obuf.  Scan through obuf and extract headers and field data and store in 
 ! internal buffers.  The scan is done twice, first to determine sizes of 
@@ -925,6 +938,7 @@ okay_to_w = .false.
 
 ! Now, for each field, retrieve headers and patches (data) from the internal 
 ! buffers and collect them all on the I/O quilt server "root" task.
+        qt_(2) = qt_(2) + MPI_Wtime() - qs_
         CALL init_retrieve_pieces_of_field
 ! Retrieve header and all patches for the first field from the internal 
 ! buffers.  
@@ -941,6 +955,7 @@ okay_to_w = .false.
 
 ! I/O server "root" allocates space to collect headers and fields from all
 ! other servers in this I/O server group.
+          qs_ = MPI_Wtime()
           IF ( mytask_local .EQ. ntasks_local_group-1 ) THEN
             ALLOCATE( bigbuf( (bigbufsize+1)/itypesize ) )
          else
@@ -955,6 +970,7 @@ okay_to_w = .false.
                                 onebyte,                                      &
                                 obuf, sz,                                     &
                                 bigbuf, bigbufsize )
+          qt_(3) = qt_(3) + MPI_Wtime() - qs_ ; qs_ = MPI_Wtime() ; qnf_ = qnf_ + 1
 ! The I/O server "root" now handles collected requests from all compute 
 ! tasks served by this I/O server group (i.e. all compute tasks).  
           IF ( mytask_local .EQ. ntasks_local_group-1 ) THEN
@@ -1431,6 +1447,7 @@ okay_to_w = .false.
 ! Now, the I/O server "root" has finshed handling all commands from the latest
 ! call to retrieve_pieces_of_field().
 
+            qt_(4) = qt_(4) + MPI_Wtime() - qs_
             IF (stored_write_record) THEN
 ! If any fields have been stored in a globally-sized internal output buffer
 ! (via a call to store_patch_in_outbuf()) then call write_outbuf() to write
@@ -1439,7 +1456,9 @@ okay_to_w = .false.
 ! store_patch_in_outbuf() when handling write_field (INT_FIELD)
 ! commands which only arrive AFTER an "iosync" command.
 !              CALL start_timing
+              qs_ = MPI_Wtime()
               CALL write_outbuf ( handle(DataHandle), use_package(io_form(DataHandle))) 
+              qt_(5) = qt_(5) + MPI_Wtime() - qs_
 !              CALL end_timing( "quilt: call to write_outbuf" ) 
             ENDIF
 
@@ -1514,6 +1533,7 @@ okay_to_w = .false.
       DEALLOCATE( obuf )
 
       ! flush output files if needed
+      qs_ = MPI_Wtime()
       IF (stored_write_record) THEN
 !         CALL start_timing()
         SELECT CASE ( use_package(io_form) )
@@ -1550,6 +1570,12 @@ okay_to_w = .false.
         END SELECT
 !CALL end_timing( "quilt: flush" )
       ENDIF
+      qt_(6) = qt_(6) + MPI_Wtime() - qs_
+      IF ( qtim_ == 1 .AND. SUM(qt_) > 0.5d0 ) THEN
+        WRITE(0,'(A,I4,A,6F9.2,A,I6,A,F10.1)') 'QUILT_T task', mytask_local, ' recv scan gath store write sync', qt_, &
+                                               ' nfld', qnf_, ' MB', DBLE(obufsize)/1.d6
+      ENDIF
+      qt_ = 0.d0 ; qnf_ = 0
 
       END DO ! }
 
