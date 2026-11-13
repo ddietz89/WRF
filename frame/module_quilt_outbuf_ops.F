@@ -446,7 +446,7 @@ CONTAINS
           CALL ext_ncd_write_field ( DataHandle ,                                     &
                                  TRIM(outbuf_table(ii)%DateStr),                      &
                                  TRIM(outbuf_table(ii)%VarName),                      &
-                                 outbuf_table(ii)%rptr(ds1:de1,ds2:de2,ds3:de3),      &
+                                 outbuf_table(ii)%rptr,                               &
                                  outbuf_table(ii)%FieldType,                          &  !*
                                  Comm, IOComm, DomainDesc ,                           &
                                  TRIM(outbuf_table(ii)%MemoryOrder),                  &
@@ -464,7 +464,7 @@ CONTAINS
           CALL ext_ncd_write_field ( DataHandle ,                                     &
                                  TRIM(outbuf_table(ii)%DateStr),                      &
                                  TRIM(outbuf_table(ii)%VarName),                      &
-                                 outbuf_table(ii)%iptr(ds1:de1,ds2:de2,ds3:de3),      &
+                                 outbuf_table(ii)%iptr,                               &
                                  outbuf_table(ii)%FieldType,                          &  !*
                                  Comm, IOComm, DomainDesc ,                           &
                                  TRIM(outbuf_table(ii)%MemoryOrder),                  &

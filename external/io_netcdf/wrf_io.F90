@@ -753,6 +753,14 @@ subroutine Transpose(IO,MemoryOrder,di, Field,l1,l2,m1,m2,n1,n2 &
   integer                          :: i,j,k,ix,jx,kx
 
   call LowerCase(MemoryOrder,MemOrd)
+! Fast path (2026-11-13): single-word elements, no reversed dimension (all upper case), write direction, and the
+! orders WRF history uses: XZY (3-D, k/j swap) and XYZ/XY (copy). Element-wise copy with contiguous reads and
+! writes along i instead of the generic Field(1:di,abs(ix-i),..) section per element; same bits.
+  if ( IO == 'write' .and. di == 1 .and. ( MemOrd == 'xzy' .or. MemOrd == 'xyz' .or. MemOrd == 'xy' ) .and. &
+       all( (/ (IACHAR(MemoryOrder(i:i)) <= MaxUpperCase, i = 1, len_trim(MemoryOrder)) /) ) ) then
+    call TransposeFastW( MemOrd == 'xzy', Field, l1,l2,m1,m2,n1,n2, XField, i1,i2,j1,j2,k1,k2 )
+    return
+  endif
   select case (MemOrd)
 ! Cannot use following define due to gfortran cpp traditional mode concatenation limitations
 !#define XDEX(A,B,C) A-A ## 1+1+(A ## 2-A ## 1+1)*((B-B ## 1)+(C-C ## 1)*(B ## 2-B ## 1+1))
@@ -789,6 +797,42 @@ subroutine Transpose(IO,MemoryOrder,di, Field,l1,l2,m1,m2,n1,n2 &
   end select
   return
 end subroutine Transpose
+
+! Transpose fast path for writes (see Transpose): Field(l,m,n) in memory order, XField in file order (x, y, z).
+! xzy: memory (x, z, y) -> file (x, y, z); otherwise memory order equals file order (copy).
+subroutine TransposeFastW( xzy, Field,l1,l2,m1,m2,n1,n2, XField, i1,i2,j1,j2,k1,k2 )
+  logical           ,intent(in)    :: xzy
+  integer           ,intent(in)    :: l1,l2,m1,m2,n1,n2
+  integer           ,intent(in)    :: i1,i2,j1,j2,k1,k2
+  integer           ,intent(in)    :: Field(l1:l2,m1:m2,n1:n2)
+  integer           ,intent(inout) :: XField(*)
+  integer                          :: i,j,k,nx,o
+  nx = i2-i1+1
+  if ( xzy ) then
+!$OMP PARALLEL DO SCHEDULE(STATIC) PRIVATE(i,j,o)
+    do k=k1,k2
+      do j=j1,j2
+        o = nx*((k-k1)+(j-j1)*(k2-k1+1)) - i1 + 1
+        do i=i1,i2
+          XField(o+i) = Field(i,j,k)
+        enddo
+      enddo
+    enddo
+!$OMP END PARALLEL DO
+  else
+!$OMP PARALLEL DO SCHEDULE(STATIC) PRIVATE(i,j,o)
+    do k=k1,k2
+      do j=j1,j2
+        o = nx*((j-j1)+(k-k1)*(j2-j1+1)) - i1 + 1
+        do i=i1,i2
+          XField(o+i) = Field(i,j,k)
+        enddo
+      enddo
+    enddo
+!$OMP END PARALLEL DO
+  endif
+  return
+end subroutine TransposeFastW
 
 subroutine reorder (MemoryOrder,MemO)
   character*(*)     ,intent(in)    :: MemoryOrder
@@ -2471,6 +2515,9 @@ subroutine ext_ncd_write_field(DataHandle,DateStr,Var,Field,FieldTypeIn,  &
   integer,dimension(NVarDims)                  :: chunks
   logical                                      :: need_chunking
   integer                                      :: compression_level
+  integer, save                                :: deflate_env_ = -1, shuffle_env_ = 1
+  integer                                      :: dst_
+  character(len=16)                            :: denv_
   integer                                      :: block_size
 #endif
 
@@ -2501,7 +2548,19 @@ subroutine ext_ncd_write_field(DataHandle,DateStr,Var,Field,FieldTypeIn,  &
 #ifdef USE_NETCDF4_FEATURES
 if ( .not. DH%use_netcdf_classic ) then
   call set_chunking(MemoryOrder,need_chunking)
-  compression_level = 2
+  ! WRF_IO_DEFLATE=0..9 (default 2) / WRF_IO_SHUFFLE=0|1 (default 1): netCDF-4 deflate level and shuffle filter,
+  ! read once (2026-11-13; lossless either way). Level 0 writes chunked netCDF-4 without deflate.
+  if ( deflate_env_ < 0 ) then
+    call get_environment_variable( 'WRF_IO_DEFLATE', denv_, status=dst_ )
+    deflate_env_ = 2
+    if ( dst_ == 0 ) read( denv_, *, iostat=dst_ ) deflate_env_
+    if ( dst_ /= 0 .or. deflate_env_ < 0 .or. deflate_env_ > 9 ) deflate_env_ = 2
+    call get_environment_variable( 'WRF_IO_SHUFFLE', denv_, status=dst_ )
+    shuffle_env_ = 1
+    if ( dst_ == 0 ) read( denv_, *, iostat=dst_ ) shuffle_env_
+    if ( dst_ /= 0 .or. shuffle_env_ < 0 .or. shuffle_env_ > 1 ) shuffle_env_ = 1
+  endif
+  compression_level = deflate_env_
 else
   need_chunking = .false.
 endif
@@ -2679,7 +2738,11 @@ endif
        return
      endif
 
-      stat = NF_DEF_VAR_DEFLATE(NCID, VarID, 1, 1, compression_level)
+      if ( compression_level > 0 ) then
+      stat = NF_DEF_VAR_DEFLATE(NCID, VarID, shuffle_env_, 1, compression_level)
+      else
+      stat = NF_NOERR
+      endif
       call netcdf_err(stat,Status)
       if(Status /= WRF_NO_ERR) then
          write(msg,*) 'ext_ncd_write_field: NetCDF def compression  error for ',TRIM(VarName),' in ',__FILE__,', line', __LINE__
