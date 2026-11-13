@@ -29,7 +29,12 @@
       REAL:: pptrain, pptsnow, pptgraul, pptice
       INTEGER:: i, j, k, n_, thjj
 
-!$acc parallel loop gang vector present(mp_li, mp_lj) &
+      ! host i, j inside the memory patch: the compiler checks presence of sections such as refl_10cm(i,kts:kte,j)
+      ! with the host values (garbage before, 2026-11-13: x-split ranks failed or hung)
+      i = ims ; j = jms
+!$acc parallel loop gang vector default(present) present(mp_li, mp_lj) &
+!$acc present(qv, qc, qr, qi, qs, qg, ni, nr, th, pii, p, dz, RAINNC, RAINNCV, SR, refl_10cm, re_cloud, re_ice, re_snow) &
+!$acc present(SNOWNC, SNOWNCV, GRAUPELNC, GRAUPELNCV) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
 !$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ,thjj)
       do n_ = thb0, thb1

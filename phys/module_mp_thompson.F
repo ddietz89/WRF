@@ -1675,6 +1675,9 @@
       CHARACTER(LEN=8) :: cv_
       REAL :: tf_, qf_, sf_
       INTEGER, SAVE :: mp_ncall = 0
+      INTEGER, SAVE :: mp_dbg = -1
+      REAL :: dmn_(8), dmx_(8)
+      INTEGER :: f_
 #endif
 
 !+---+
@@ -1760,6 +1763,37 @@
          IF ( st_ /= 0 ) mp_compact = 1
       ENDIF
       nx_ = i_end - i_start + 1 ; ny_ = j_end - j_start + 1 ; ncol_ = nx_*ny_
+      ! WRF_GPU_MPDBG=1: print the driver's bounds on the first calls (decomposition debugging)
+      IF ( mp_dbg == -1 ) THEN
+         CALL GET_ENVIRONMENT_VARIABLE( 'WRF_GPU_MPDBG', cv_, STATUS=st_ )
+         mp_dbg = 0
+         IF ( st_ == 0 ) READ( cv_, *, IOSTAT=st_ ) mp_dbg
+         IF ( st_ /= 0 ) mp_dbg = 0
+      ENDIF
+      IF ( mp_dbg > 0 ) THEN
+         mp_dbg = mp_dbg - 1 ; IF ( mp_dbg == 0 ) mp_dbg = -2
+         WRITE(0,'(A,4I6,A,4I6,A,I9)') 'MPDBG its/ite/jts/jte', its, ite, jts, jte, ' ims/ime/jms/jme', ims, ime, jms, jme, ' ncol', ncol_
+         ! min/max of the inputs over the patch, on the device: th pii p dz w qv qc qr
+         DO f_ = 1, 8
+            dmn_(f_) = 1.E30 ; dmx_(f_) = -1.E30
+         ENDDO
+!$acc parallel loop gang vector collapse(3) reduction(min:dmn_) reduction(max:dmx_) present(th,pii,p,dz,w,qv,qc,qr)
+         do j = j_start, j_end
+         do k = kts, kte
+         do i = i_start, i_end
+            dmn_(1) = MIN(dmn_(1), th(i,k,j)) ; dmx_(1) = MAX(dmx_(1), th(i,k,j))
+            dmn_(2) = MIN(dmn_(2), pii(i,k,j)) ; dmx_(2) = MAX(dmx_(2), pii(i,k,j))
+            dmn_(3) = MIN(dmn_(3), p(i,k,j)) ; dmx_(3) = MAX(dmx_(3), p(i,k,j))
+            dmn_(4) = MIN(dmn_(4), dz(i,k,j)) ; dmx_(4) = MAX(dmx_(4), dz(i,k,j))
+            dmn_(5) = MIN(dmn_(5), w(i,k,j)) ; dmx_(5) = MAX(dmx_(5), w(i,k,j))
+            dmn_(6) = MIN(dmn_(6), qv(i,k,j)) ; dmx_(6) = MAX(dmx_(6), qv(i,k,j))
+            dmn_(7) = MIN(dmn_(7), qc(i,k,j)) ; dmx_(7) = MAX(dmx_(7), qc(i,k,j))
+            dmn_(8) = MIN(dmn_(8), qr(i,k,j)) ; dmx_(8) = MAX(dmx_(8), qr(i,k,j))
+         enddo
+         enddo
+         enddo
+         WRITE(0,'(A,16ES11.3)') 'MPDBG min/max th pii p dz w qv qc qr', (dmn_(f_), dmx_(f_), f_ = 1, 8)
+      ENDIF
       IF ( ALLOCATED(mp_li) ) THEN
          IF ( SIZE(mp_li) /= ncol_ .OR. SIZE(mp_nact) /= ny_ .OR. SIZE(mp_flag,1) /= nx_ ) THEN
 !$acc exit data delete(mp_li, mp_lj, mp_flag, mp_nact, mp_offa, mp_offi)
@@ -1874,7 +1908,9 @@
       thjb = j_start ; thje = j_end
       DO thb0 = 1, ncol_, thbsz
       thb1 = MIN( thb0 + thbsz - 1, ncol_ )
-!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) &
+      ! host i, j inside the patch: the compiler checks presence of sections such as dz(i,kts:kte,j) with the host values
+      i = i_start ; j = j_start
+!$acc parallel loop gang vector collapse(2) default(present) present(mp_li, mp_lj) present(th, pii, p, w, dz, qv, qc, qr, qi, qs, qg, ni, nr) &
 !$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
 !$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
 !$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
@@ -1931,7 +1967,7 @@
             thb_kmc(n_-thb0+1,1) = MAX( thb_kmc(n_-thb0+1,1), thb_km(n_-thb0+1,k-kts+1,1) )
          enddo
       enddo
-!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) &
+!$acc parallel loop gang vector collapse(2) default(present) present(mp_li, mp_lj) present(th, pii, p, w, dz, qv, qc, qr, qi, qs, qg, ni, nr) &
 !$acc private(sv_dzq,sv_idx_bg,sv_ilamg,sv_l_qc,sv_l_qg,sv_l_qi,sv_l_qr,sv_l_qs,sv_lvap,sv_mvd_g) &
 !$acc private(sv_mvd_r,sv_nbca1d,sv_nbcaten,sv_nc,sv_nc1d,sv_ncten,sv_ng,sv_ng1d,sv_ngten,sv_ni) &
 !$acc private(sv_ni1d,sv_nifa1d,sv_nifaten,sv_niten,sv_nr,sv_nr1d,sv_nrten,sv_nwfa1d,sv_nwfaten,sv_ocp) &
@@ -3355,7 +3391,7 @@
       enddo
       enddo
       IF ( thsplit_on == 1 ) THEN
-!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) private(i, j, w1d, dz1d)
+!$acc parallel loop gang vector collapse(2) default(present) present(mp_li, mp_lj, dz) private(i, j, w1d, dz1d)
       do sp_ = 1, 5
       do n_ = thb0, thb1
          i = mp_li(n_) ; j = mp_lj(n_)
@@ -3369,7 +3405,7 @@
          ENDIF
       enddo
       enddo
-!$acc parallel loop gang vector collapse(2) present(mp_li, mp_lj) private(i, j, dz1d)
+!$acc parallel loop gang vector collapse(2) default(present) present(mp_li, mp_lj, dz) private(i, j, dz1d)
       do sp_ = 1, 5
       do n_ = thb0, thb1
          i = mp_li(n_) ; j = mp_lj(n_)
@@ -3389,7 +3425,8 @@
                            ims, ime, jms, jme, kms, kme, kts, kte )
       ENDDO   ! THLEV list bands
       ELSE
-!$acc parallel loop gang vector present(mp_li, mp_lj) &
+      i = i_start ; j = j_start   ! see the THLEV band loop
+!$acc parallel loop gang vector default(present) present(mp_li, mp_lj) &
 !$acc private(qv1d,qc1d,qi1d,qr1d,qs1d,qg1d,qb1d,ni1d,nr1d,nc1d,ng1d,nwfa1d,nifa1d,nbca1d) &
 !$acc private(t1d,p1d,w1d,dz1d,rho,re_qc1d,re_qi1d,re_qs1d,dBZ)
       do n_ = 1, ncol_
